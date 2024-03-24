@@ -10,15 +10,15 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child:Padding(
-        padding: EdgeInsets.all(9),
+        padding: const EdgeInsets.all(9),
         child: ListView(
           children: [
             const Padding(
-              padding:  EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(10),
               child: ListTile(
                 leading: Icon(Icons.person),
                 title: Text('مرحبا , مستخدم'),
-                subtitle: Text(' phone Number'),
+                subtitle: Text(' 09976564545'),
               ),
             ),
             const Divider(),
