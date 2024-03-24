@@ -20,20 +20,22 @@ class OrganizeMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return     MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
           drawer: const MyDrawer(),
           appBar: AppBar(
-                title: const Text('Billing',
+                title: const Text('OrganizeMe',
                   style:  TextStyle(
-                      fontWeight: FontWeight.bold ,
-                      fontSize: 20),),
-            bottom: TabBar(tabs: [Tab(text: 'مهامي', ),
+                      fontWeight: FontWeight.normal ,
+                  )
+                  ,),
+            bottom: const TabBar(tabs: [Tab(text: 'مهامي', ),
             Tab(child: Text(' فواتيري القادمة '),)],),
           ),
-          body: TabBarView(children: [
+          body:const TabBarView(children: [
             TaskView(),
             Text('up coming bills')
           ],),
