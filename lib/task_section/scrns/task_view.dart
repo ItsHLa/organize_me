@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widget/customAppBar.dart';
-import '../widget/taskListView.dart';
+import '../widget/task_list_view.dart';
 import 'add_task.dart';
-
 
 class TaskView extends StatelessWidget {
   const TaskView({super.key});
@@ -12,21 +10,21 @@ class TaskView extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-         // const CustomAppBar(),
+          // const CustomAppBar(),
           const Expanded(child: TaskListView()),
-          ElevatedButton.icon(onPressed: () {
-            showModalBottomSheet(context: context, builder: (context) { return const AddTaskScrn();});
-          },
-              icon: const Icon(Icons.add_task), label: const Text('Add Task')),
+          ElevatedButton.icon(
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return const AddTaskScrn();
+                    });
+              },
+              icon: const Icon(Icons.add_task),
+              label: const Text('Add Task')),
           const SizedBox(height: 20),
-
         ],
       ),
     );
   }
 }
-
-
-
-
-

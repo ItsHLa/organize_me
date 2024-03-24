@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../widget/bills_listview.dart';
@@ -9,10 +8,12 @@ class BillsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
-        SizedBox(height: 30,),
-        const BillsTableRow(
+        SizedBox(
+          height: 30,
+        ),
+        BillsTableRow(
             barcode: ' الباركود',
             counter: ' العداد',
             operationNum: ' العملية',
