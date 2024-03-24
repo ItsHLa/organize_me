@@ -13,6 +13,7 @@ class OrganizeMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
         home: DefaultTabController(
           length: 2,
@@ -20,8 +21,10 @@ class OrganizeMe extends StatelessWidget {
             drawer: const MyDrawer(),
             appBar: AppBar(
               title: const Text(
-                'Billing',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                'OrganizeMe',
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                ),
               ),
               bottom: const TabBar(
                 tabs: [

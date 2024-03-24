@@ -9,29 +9,32 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child:ListView(
-        children: [
-          const Padding(
-            padding:  EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: Icon(Icons.person),
-              title: Text('مرحبا , مستخدم'),
-              subtitle: Text(' phone Number'),
+      child:Padding(
+        padding: const EdgeInsets.all(9),
+        child: ListView(
+          children: [
+            const Padding(
+              padding:  EdgeInsets.all(10),
+              child: ListTile(
+                leading: Icon(Icons.person),
+                title: Text('مرحبا , مستخدم'),
+                subtitle: Text(' 09976564545'),
+              ),
             ),
-          ),
-          const Divider(),
-          DrawerItem(
-              icon: Icons.payment,
-              title: 'فواتيري',
-              logic: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BillsList(),));
-              }),
-          DrawerItem(icon: Icons.payments_outlined, title: 'دفع فاتورة', logic: (){
-
-          }),
-          DrawerItem(icon: Icons.gps_fixed, title: 'خدمة الخرائط', logic: (){}),
-          DrawerItem(icon: Icons.settings, title: 'الإعدادات', logic: (){}),
-        ],
+            const Divider(),
+            DrawerItem(
+                icon: Icons.payment,
+                title: 'فواتيري',
+                logic: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BillsList(),));
+                }),
+            DrawerItem(icon: Icons.payments_outlined, title: 'دفع فاتورة', logic: (){
+        
+            }),
+            DrawerItem(icon: Icons.gps_fixed, title: 'خدمة الخرائط', logic: (){}),
+            DrawerItem(icon: Icons.settings, title: 'الإعدادات', logic: (){}),
+          ],
+        ),
       ) ,
     );
   }

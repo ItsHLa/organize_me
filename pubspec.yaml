@@ -20,6 +20,7 @@ dependencies:
   google_maps_flutter: ^2.6.0
   flutter_native_splash: ^2.4.0
   flutter_local_notifications: ^17.0.0
+  calendar_view: ^1.1.0
 
 dev_dependencies:
   flutter_test:
