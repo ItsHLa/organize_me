@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+
+class DrawerItem extends StatelessWidget {
+  const DrawerItem({super.key, required this.icon, required this.title, required this.logic});
+  final IconData icon;
+  final String title;
+  final void Function() logic;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: logic ,
+    );
+  }
+}
