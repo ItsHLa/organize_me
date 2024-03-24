@@ -10,15 +10,16 @@ class TaskView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      floatingActionButton: FloatingActionButton(
+        onPressed:(){
+          showModalBottomSheet(context: context, builder: (context) { return const AddTaskScrn();});
+        } ,
+        child: const Icon(Icons.add_task) ,
+      ),
+      body:const Column(
         children: [
-         // const CustomAppBar(),
-          const Expanded(child: TaskListView()),
-          ElevatedButton.icon(onPressed: () {
-            showModalBottomSheet(context: context, builder: (context) { return const AddTaskScrn();});
-          },
-              icon: const Icon(Icons.add_task), label: const Text('Add Task')),
-          const SizedBox(height: 20),
+           Expanded(child: TaskListView()),
+           SizedBox(height: 20),
 
         ],
       ),
