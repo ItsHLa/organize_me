@@ -13,34 +13,35 @@ class OrganizeMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        home: DefaultTabController(
-          length: 2,
-          child: Scaffold(
-            drawer: const MyDrawer(),
-            appBar: AppBar(
-              title: const Text(
-                'OrganizeMe',
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              bottom: const TabBar(
-                tabs: [
-                  Tab(
-                    text: 'مهامي',
-                  ),
-                  Tab(
-                    child: Text(' فواتيري القادمة '),
-                  )
-                ],
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          drawer: const MyDrawer(),
+          appBar: AppBar(
+            title: const Text(
+              'OrganizeMe',
+              style: TextStyle(
+                fontWeight: FontWeight.normal,
               ),
             ),
-            body: const TabBarView(
-              children: [TaskView(), Text('up coming bills')],
+            bottom: const TabBar(
+              tabs: [
+                Tab(
+                  text: 'مهامي',
+                ),
+                Tab(
+                  child: Text(' فواتيري القادمة '),
+                )
+              ],
             ),
           ),
-        ));
+          body: const TabBarView(
+            children: [TaskView(), Text('up coming bills')],
+          ),
+        ),
+      ),
+    );
   }
 }
