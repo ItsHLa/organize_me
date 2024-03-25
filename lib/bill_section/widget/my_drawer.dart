@@ -29,7 +29,7 @@ class MyDrawer extends StatelessWidget {
                 logic: (){
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BillsList(),));
                 }),
-            DrawerItem(icon: Icons.payments_outlined, title: 'دفع فاتورة', logic: (){
+            DrawerItem(icon: Icons.payments_outlined, title: 'دفع فواتيري', logic: (){
               showDialog(context: context, builder: (context) => const PaymentPage());
             }),
             DrawerItem(icon: Icons.gps_fixed, title: 'خدمة الخرائط', logic: (){

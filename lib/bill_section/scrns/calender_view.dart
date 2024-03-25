@@ -13,8 +13,8 @@ class CalenderView extends StatefulWidget {
 
 class _CalenderViewState extends State<CalenderView> {
   final List pages = [
-    const InputEvent(),
     const MonthCalender(),
+    const InputEvent(),
   ];
   int i = 0;
   @override
@@ -31,12 +31,12 @@ class _CalenderViewState extends State<CalenderView> {
               },
               items: const [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.add),
-                  label: 'حدث جديد',
+                  icon:  Icon(Icons.calendar_month_outlined) ,
+                  label: ' شهر ',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.calendar_month_outlined),
-                  label: 'شهر ',
+                  icon: Icon(Icons.add) ,
+                  label: ' حدث جديد',
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/bill_section/scrns/calender_view.dart';
 import 'package:organize_me/task_section/scrns/task_view.dart';
 
 import 'bill_section/widget/my_drawer.dart';
@@ -28,17 +29,15 @@ class OrganizeMe extends StatelessWidget {
             ),
             bottom: const TabBar(
               tabs: [
-                Tab(
-                  text: 'مهامي',
-                ),
-                Tab(
-                  child: Text(' فواتيري القادمة '),
-                )
+                Tab(text: 'مهامي',),
+                Tab(child: Text(' فواتيري القادمة '),)
               ],
             ),
           ),
           body: const TabBarView(
-            children: [TaskView(), Text('up coming bills')],
+            children: [
+              TaskView(),
+              CalenderView()],
           ),
         ),
       ),
