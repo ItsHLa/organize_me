@@ -1,4 +1,5 @@
 import 'package:calendar_view/calendar_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -111,7 +112,18 @@ class MonthCalender extends StatelessWidget {
         showDialog(
           context: context,
           builder: (context) {
-            return const SimpleDialog(children: [Text('events')]);
+            return const SimpleDialog(
+
+              contentPadding: EdgeInsets.all(8),
+              alignment: Alignment.center,
+                children: [
+                  Center(
+                    child: Column(
+                      children :[ Text('events ')]
+                    ),
+                  )
+                  
+                ]);
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           },
         );
