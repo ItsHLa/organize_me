@@ -18,7 +18,7 @@ class TaskView extends StatelessWidget {
         },
         child: const Icon(Icons.add_task),
       ),
-      body: const Column(
+      body: Column(
         children: [
           // const CustomAppBar(),
           const Expanded(child: TaskListView()),

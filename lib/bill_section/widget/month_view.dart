@@ -3,24 +3,33 @@ import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 
-String dayInWeek (int day){
-  switch(day){
-    case 0 : return 'Mon';break;
-    case 1 : return 'Tue';break;
-    case 2 : return 'Wed';break;
-    case 3 : return 'Thu';break;
-    case 4 : return 'Fri';break;
-    case 5 : return 'Sat';break;
-    case 6 : return 'Sun';break;
-    default :return '' ;
+String dayInWeek(int day) {
+  switch (day) {
+    case 0:
+      return 'Mon';
+    case 1:
+      return 'Tue';
+    case 2:
+      return 'Wed';
+    case 3:
+      return 'Thu';
+    case 4:
+      return 'Fri';
+    case 5:
+      return 'Sat';
+    case 6:
+      return 'Sun';
+    default:
+      return '';
   }
 }
 
-Color checkIfToday (bool isToday){
-  if(isToday){
+Color checkIfToday(bool isToday) {
+  if (isToday) {
     return indigo;
-  }else {
-    return Colors.transparent;}
+  } else {
+    return Colors.transparent;
+  }
 }
 
 class MonthCalender extends StatelessWidget {
@@ -32,35 +41,37 @@ class MonthCalender extends StatelessWidget {
       cellAspectRatio: 0.8,
       borderColor: Colors.white10,
       //headerBuilder: (date) => Container(child:Text(date.month.toString())),
-      weekDayBuilder:(day) => Container(
+      weekDayBuilder: (day) => Container(
         margin: const EdgeInsets.all(7),
         alignment: Alignment.center,
-        child: Text(dayInWeek(day)),),
+        child: Text(dayInWeek(day)),
+      ),
 
       cellBuilder: (date, event, isToday, isInMonth) {
-        return   Container(child: Column(
-        children: [ Container(
-          padding: EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: checkIfToday(isToday),
-            borderRadius: BorderRadius.circular(16)
-          ),
-            child: Text(date.day.toString())),],
-      ),
+        return Column(
+          children: [
+            Container(
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                    color: checkIfToday(isToday),
+                    borderRadius: BorderRadius.circular(16)),
+                child: Text(date.day.toString())),
+          ],
         );
-        },
-      onCellTap: (events, date) {
-        showDialog(context: context, builder: (context) {
-          return SimpleDialog(children: [Text('events')]);
-          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        },);
       },
-      headerStyle: const HeaderStyle(decoration: BoxDecoration(
+      onCellTap: (events, date) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return const SimpleDialog(children: [Text('events')]);
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          },
+        );
+      },
+      headerStyle: const HeaderStyle(
+          decoration: BoxDecoration(
         color: indigo,
-      ))
-      ,
+      )),
     );
   }
 }
-
-
