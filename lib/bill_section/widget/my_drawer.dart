@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../scrns/bills_list.dart';
+import 'payment_widget.dart';
 import 'drawer_item.dart';
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -29,9 +30,11 @@ class MyDrawer extends StatelessWidget {
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BillsList(),));
                 }),
             DrawerItem(icon: Icons.payments_outlined, title: 'دفع فاتورة', logic: (){
-        
+              showDialog(context: context, builder: (context) => const PaymentPage());
             }),
-            DrawerItem(icon: Icons.gps_fixed, title: 'خدمة الخرائط', logic: (){}),
+            DrawerItem(icon: Icons.gps_fixed, title: 'خدمة الخرائط', logic: (){
+
+            }),
             DrawerItem(icon: Icons.settings, title: 'الإعدادات', logic: (){}),
           ],
         ),
