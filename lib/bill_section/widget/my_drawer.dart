@@ -2,12 +2,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
 import '../scrns/bills_list.dart';
 import 'payment_widget.dart';
 import 'drawer_item.dart';
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
 
+  @override
+  State<MyDrawer> createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  bool nightModeOn = false ;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -31,13 +38,26 @@ class MyDrawer extends StatelessWidget {
                 logic: (){
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BillsList(),));
                 }),
-            DrawerItem(icon: Icons.payments_outlined, title: 'دفع فواتيري', logic: (){
+            DrawerItem(icon: Icons.payments_outlined ,color: calls, title: 'دفع فواتيري', logic: (){
               showDialog(context: context, builder: (context) => const PaymentPage());
             }),
-            DrawerItem(icon: Icons.gps_fixed_outlined ,title: 'خدمة الخرائط', logic: (){
+            DrawerItem(icon: Icons.gps_fixed_outlined , color: gasStation ,title: 'خدمة الخرائط', logic: (){
 
             }),
-            DrawerItem(icon: Icons.settings, title: 'الإعدادات', logic: (){}),
+            SwitchListTile(value: nightModeOn, onChanged: (value) {
+              setState(() {
+                nightModeOn = value;
+              });
+            },
+
+              title:const  Row(
+                children:
+                [
+                  Icon(Icons.nightlight_outlined , color: elec,),
+                  Padding(padding: EdgeInsets.all(8),
+                    child: Text('وضع ليلي'),
+                  ),],)
+            )
           ],
         ),
       ) ,

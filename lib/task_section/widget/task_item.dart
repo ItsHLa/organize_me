@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'icon_button.dart';
@@ -8,69 +9,69 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.pinkAccent,
-              borderRadius: BorderRadius.circular(16)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
+    return Card(
+      color: Colors.indigo,
+      child: Padding(
+        padding: const EdgeInsets.all( 8.0),
+        child: Column(
+          children: [
+            Row(
               children: [
-                Expanded(
-                  child: ExpansionTile(
-                    shape: const BeveledRectangleBorder(),
-                    title: const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Text(
-                        'Task ',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    subtitle: const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Row(
-                        children: [
-                          Spacer(),
-                          Text('2024/03/16'),
-                        ],
-                      ),
-                    ),
-                    children: [
-                      Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.all(15),
-                          child: const Text(
-                              'contetacwjenvwbvuwbvurbvuibviubviuevbubvuvbudkmcivniwnvwnvwuvnuwvnwuvnuwvnuwdnvwvniwfunv'))
-                    ],
-                  ),
-                ),
-                IconButtonCustom(
-                    icon: Icons.edit,
-                    logic: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) => const Input(
-                                title: 'Task Name',
-                                content: 'Description',
-                                action: 'Edit task',
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(5),
+                  child:  Text('Note Name' , style: TextStyle(fontSize: 15),),)
+               ,
+
+                Spacer(),
+                Row(
+                  children: [
+                    IconButtonCustom(
+                        icon: Icons.edit,
+                        logic: () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) => const Input(
+                                title: 'عنوان الملاحظة',
+                                content: 'الوصف',
+                                action: 'تعديل الملاحظة ',
                                 icon: Icons.edit,
                               ));
-                    }),
-                IconButtonCustom(
-                    logic: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => const AlterDialogCustom());
-                    },
-                    icon: Icons.delete_outline)
+                        }),
+                    IconButtonCustom(
+                        logic: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => const AlterDialogCustom());
+                        },
+                        icon: Icons.delete_outline)
+                  ],
+                )
               ],
             ),
-          ),
+            const Divider(),
+            Container(
+              padding: EdgeInsets.all(10),
+              alignment: Alignment.center,
+              child: const Text('ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsivn'),),
+            const Row(
+             children: [
+               Spacer(),
+               Padding(
+                 padding: EdgeInsets.only(bottom: 8 , right: 8),
+                 child: Text('25/3/2024' , style: TextStyle(fontSize: 12),),
+               )
+             ],
+            )
+          ],
         ),
-      ],
+      ),
     );
+
+
+
+
+
   }
 }
 
@@ -84,17 +85,17 @@ class _AlterDialogCustomState extends State<AlterDialogCustom> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: const Text('Are you sure you want to delete this task?'),
+      content: const Text('هل انت متأكد من حذف هذه المهمة ؟', textAlign: TextAlign.center,),
       actionsAlignment: MainAxisAlignment.center,
       contentPadding: const EdgeInsets.all(30),
       contentTextStyle: const TextStyle(fontSize: 15),
       actions: [
-        ElevatedButton(onPressed: () {}, child: const Text('Yes')),
+        ElevatedButton(onPressed: () {}, child: const Text('نعم')),
         ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text('No')),
+            child: const Text('لا')),
       ],
     );
   }

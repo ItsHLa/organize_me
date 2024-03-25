@@ -30,6 +30,7 @@ class _InputState extends State<Input> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,6 +46,7 @@ class _InputState extends State<Input> {
               save: (value) {
                 taskName = value;
               },
+              maxLength: 20,
             ),
             const SizedBox(height: 10),
             InputText(

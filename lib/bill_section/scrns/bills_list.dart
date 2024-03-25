@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widget/bill_item.dart';
 import '../widget/custom_app_bar.dart';
+import 'bills_table.dart';
 
 class BillsList extends StatelessWidget {
   const BillsList({super.key});
@@ -21,37 +22,39 @@ class BillsList extends StatelessWidget {
           ),
         ),
         const TotalPaymentMonth(),
-        const Column(
+         Column(
           children: [
             BillItem(
               iconBill: Icons.water_drop,
               billTitle: "فواتير المياه",
               paymentBills: "3000",
               iconColor: Colors.blueAccent,
-              logic: null,
+              logic: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BillsTable(),));
+              },
             ),
-            BillItem(
+            const BillItem(
               iconBill: Icons.call,
               billTitle: "فواتير الاتصالات",
               paymentBills: "3000",
               iconColor: Colors.greenAccent,
               logic: null,
             ),
-            BillItem(
+            const BillItem(
               iconBill: Icons.electric_bolt,
               billTitle: "فواتير الكهرباء",
               paymentBills: "3000",
               iconColor: Colors.limeAccent,
               logic: null,
             ),
-            BillItem(
+            const BillItem(
               iconBill: Icons.local_gas_station,
               billTitle: "فواتير البنزين",
               paymentBills: "3000",
               iconColor: Colors.redAccent,
               logic: null,
             ),
-            BillItem(
+            const BillItem(
               iconBill: Icons.gas_meter,
               billTitle: "فواتير الغاز ",
               paymentBills: "3000",
