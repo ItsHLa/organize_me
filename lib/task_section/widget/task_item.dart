@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'icon_button.dart';
-import 'input.dart';
+import 'package:organize_me/task_section/scrns/full_note_scrn.dart';
 
 class TaskItem extends StatelessWidget {
   const TaskItem({super.key});
@@ -11,67 +9,41 @@ class TaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.indigo,
-      child: Padding(
-        padding: const EdgeInsets.all( 8.0),
-        child: Column(
-          children: [
-            Row(
+      child: Column(
+        children: [
+          ListTile(
+            // deleting on long press !!!!!!!!!!!!
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NotePage())),
+            title:const  Column(
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(5),
-                  child:  Text('Note Name' , style: TextStyle(fontSize: 15),),)
-               ,
-
-                Spacer(),
-                Row(
-                  children: [
-                    IconButtonCustom(
-                        icon: Icons.edit,
-                        logic: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) => const Input(
-                                title: 'عنوان الملاحظة',
-                                content: 'الوصف',
-                                action: 'تعديل الملاحظة ',
-                                icon: Icons.edit,
-                              ));
-                        }),
-                    IconButtonCustom(
-                        logic: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) => const AlterDialogCustom());
-                        },
-                        icon: Icons.delete_outline)
-                  ],
-                )
+               Row(
+                 children: [
+                   Padding(
+                     padding:  EdgeInsets.all(5.0),
+                     child:  Text('Note Name' , style: TextStyle(fontSize: 15),),),
+                   Spacer()
+                 ],
+               ),
+                Divider()
               ],
             ),
-            const Divider(),
-            Container(
-              padding: EdgeInsets.all(10),
-              alignment: Alignment.center,
-              child: const Text('ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsivn'),),
-            const Row(
-             children: [
-               Spacer(),
-               Padding(
-                 padding: EdgeInsets.only(bottom: 8 , right: 8),
-                 child: Text('25/3/2024' , style: TextStyle(fontSize: 12),),
-               )
-             ],
-            )
-          ],
-        ),
+            subtitle: const Padding(
+              padding:  EdgeInsets.all(8),
+              child:  Text('ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsifnbldfnbjdfjdnfbkfnbkfbdkfrnvsuefgufbusfubsrubsuduisdfuivfiudfvn'),
+            ),
+          ),
+          const Row(
+            children: [
+              Spacer(),
+              Padding(
+                padding: EdgeInsets.only(bottom: 10 , right: 10),
+                child: Text('25/3/2024' , style: TextStyle(fontSize: 12),),
+              )
+            ],
+          )
+        ],
       ),
     );
-
-
-
-
-
   }
 }
 
