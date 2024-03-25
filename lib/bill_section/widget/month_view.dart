@@ -32,6 +32,37 @@ Color checkIfToday(bool isToday) {
   }
 }
 
+String whichMonth (int month){
+  switch (month) {
+    case 1:
+      return 'Jan';
+    case 2:
+      return 'Feb';
+    case 3:
+      return 'Mar';
+    case 4:
+      return 'Apr';
+    case 5:
+      return 'May';
+    case 6:
+      return 'Jun';
+    case 7:
+      return 'Jul';
+    case 8:
+      return 'Aug';
+    case 9 :
+      return 'Sep';
+    case 10:
+      return 'Oct' ;
+    case 11:
+      return 'Nov';
+    case 12:
+      return 'Dec';  
+    default:
+      return '';
+  }
+}
+
 class MonthCalender extends StatelessWidget {
   const MonthCalender({super.key});
 
@@ -40,7 +71,12 @@ class MonthCalender extends StatelessWidget {
     return MonthView(
       cellAspectRatio: 0.8,
       borderColor: Colors.white10,
-      //headerBuilder: (date) => Container(child:Text(date.month.toString())),
+      headerBuilder: (date) => Container(
+        decoration: const BoxDecoration(
+          color: indigo
+        ),
+          alignment: Alignment.center,
+          child:Text('${whichMonth(date.month)} - ${date.year.toString()}')),
       weekDayBuilder: (day) => Container(
         margin: const EdgeInsets.all(7),
         alignment: Alignment.center,

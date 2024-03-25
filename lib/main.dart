@@ -30,7 +30,7 @@ class OrganizeMe extends StatelessWidget {
             bottom: const TabBar(
               tabs: [
                 Tab(text: 'مهامي',),
-                Tab(child: Text(' فواتيري القادمة '),)
+                Tab(child: Text('تقويمي '),)
               ],
             ),
           ),
