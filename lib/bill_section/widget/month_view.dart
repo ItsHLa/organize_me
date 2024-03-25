@@ -24,6 +24,16 @@ String dayInWeek(int day) {
   }
 }
 
+Color? dayNotInMon ( bool isInMonth ){
+  if(!isInMonth){
+    return Colors.grey  ;
+  }else{
+    return null ;
+  }
+
+
+}
+
 Color checkIfToday(bool isToday) {
   if (isToday) {
     return indigo;
@@ -91,7 +101,9 @@ class MonthCalender extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: checkIfToday(isToday),
                     borderRadius: BorderRadius.circular(16)),
-                child: Text(date.day.toString())),
+                child: Text(date.day.toString() , style: TextStyle(
+                  color: dayNotInMon(isInMonth)
+                ),)),
           ],
         );
       },
