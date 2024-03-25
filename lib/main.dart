@@ -29,15 +29,17 @@ class OrganizeMe extends StatelessWidget {
             ),
             bottom: const TabBar(
               tabs: [
-                Tab(text: 'مهامي',),
-                Tab(child: Text('تقويمي '),)
+                Tab(child: Text('مهامي '),),
+                Tab(text: 'مفكرتي',),
+
               ],
             ),
           ),
           body: const TabBarView(
             children: [
+              CalenderView(),
               TaskView(),
-              CalenderView()],
+              ],
           ),
         ),
       ),
