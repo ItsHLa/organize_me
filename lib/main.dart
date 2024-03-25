@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:organize_me/bill_section/widget/calender_view.dart';
+import 'package:organize_me/bill_section/scrns/calender_view.dart';
 import 'package:organize_me/task_section/scrns/task_view.dart';
 
 import 'bill_section/scrns/bills_list.dart';
@@ -22,7 +22,7 @@ class OrganizeMe extends StatelessWidget {
   Widget build(BuildContext context) {
     return     MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
+      theme: ThemeData.dark(),
       home: DefaultTabController(
         length: 2,
         child: Scaffold(

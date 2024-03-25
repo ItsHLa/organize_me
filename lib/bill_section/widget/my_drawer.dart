@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../scrns/bills_list.dart';
-import '../scrns/payment_scrn.dart';
+import 'payment_widget.dart';
 import 'drawer_item.dart';
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
