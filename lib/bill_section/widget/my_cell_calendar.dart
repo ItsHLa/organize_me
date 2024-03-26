@@ -15,7 +15,7 @@ class MyCell extends StatelessWidget {
         Container(
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-                color: checkIfToday(isToday),
+                border: Border.all(color: checkIfToday(isToday ),width: 2),
                 borderRadius: BorderRadius.circular(16)),
             child: Text(date.day.toString() , style: TextStyle(
                 color: dayNotInMon(isInMonth)
