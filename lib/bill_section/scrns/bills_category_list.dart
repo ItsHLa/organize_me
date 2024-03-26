@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widget/bill_item.dart';
+import '../widget/bili_category_Item.dart';
+import 'bills_listview.dart';
 import '../widget/custom_app_bar.dart';
-import 'bills_table.dart';
 
 class BillsList extends StatelessWidget {
   const BillsList({super.key});
@@ -9,18 +9,9 @@ class BillsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      appBar: AppBar(title: Text('فواتيري'),),
+        body: ListView(
       children: [
-        SizedBox(
-          height: 60,
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
         const TotalPaymentMonth(),
          Column(
           children: [
@@ -30,7 +21,7 @@ class BillsList extends StatelessWidget {
               paymentBills: "3000",
               iconColor: Colors.blueAccent,
               logic: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BillsTable(),));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BillsListView(),));
               },
             ),
             const BillItem(

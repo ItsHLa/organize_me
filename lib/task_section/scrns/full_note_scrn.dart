@@ -14,7 +14,7 @@ class NotePage extends StatelessWidget {
       body: Container(
         margin: const EdgeInsets.all(9.0),
         child: Card(
-          color: Colors.indigo,
+          color: Colors.grey,
           child: Padding(
             padding: const EdgeInsets.all( 8.0),
             child: Column(

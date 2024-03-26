@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
-import '../scrns/bills_list.dart';
+import '../scrns/bills_category_list.dart';
 import 'payment_widget.dart';
 import 'drawer_item.dart';
 class MyDrawer extends StatefulWidget {

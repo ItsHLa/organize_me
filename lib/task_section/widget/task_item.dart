@@ -8,7 +8,7 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.indigo,
+      color: Colors.grey,
       child: Column(
         children: [
           ListTile(
