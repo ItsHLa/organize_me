@@ -16,18 +16,20 @@ class NotePage extends StatelessWidget {
         child: Card(
           color: Colors.grey,
           child: Padding(
-            padding: const EdgeInsets.all( 8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 Row(
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.all(5),
-                      child:  Text('Note Name' , style: TextStyle(fontSize: 15),),)
-                    ,
-
-                    Spacer(),
+                      padding: const EdgeInsets.all(5),
+                      child: const Text(
+                        'Note Name',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    const Spacer(),
                     Row(
                       children: [
                         IconButtonCustom(
@@ -36,17 +38,18 @@ class NotePage extends StatelessWidget {
                               showModalBottomSheet(
                                   context: context,
                                   builder: (context) => const Input(
-                                    title: 'عنوان الملاحظة',
-                                    content: 'الوصف',
-                                    action: 'تعديل الملاحظة ',
-                                    icon: Icons.edit,
-                                  ));
+                                        title: 'عنوان الملاحظة',
+                                        content: 'الوصف',
+                                        action: 'تعديل الملاحظة ',
+                                        icon: Icons.edit,
+                                      ));
                             }),
                         IconButtonCustom(
                             logic: () {
                               showDialog(
                                   context: context,
-                                  builder: (context) => const AlterDialogCustom());
+                                  builder: (context) =>
+                                      const AlterDialogCustom());
                             },
                             icon: Icons.delete_outline)
                       ],
@@ -55,15 +58,20 @@ class NotePage extends StatelessWidget {
                 ),
                 const Divider(),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   alignment: Alignment.center,
-                  child: const Text('ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsivn'),),
+                  child: const Text(
+                      'ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsivn'),
+                ),
                 const Row(
                   children: [
                     Spacer(),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 8 , right: 8),
-                      child: Text('25/3/2024' , style: TextStyle(fontSize: 12),),
+                      padding: EdgeInsets.only(bottom: 8, right: 8),
+                      child: Text(
+                        '25/3/2024',
+                        style: TextStyle(fontSize: 12),
+                      ),
                     )
                   ],
                 )
@@ -72,7 +80,6 @@ class NotePage extends StatelessWidget {
           ),
         ),
       ),
-    )
-      ;
+    );
   }
 }

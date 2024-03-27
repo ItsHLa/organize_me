@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:organize_me/task_section/scrns/full_note_scrn.dart';
 
@@ -13,31 +12,40 @@ class TaskItem extends StatelessWidget {
         children: [
           ListTile(
             // deleting on long press !!!!!!!!!!!!
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NotePage())),
-            title:const  Column(
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const NotePage())),
+            title: const Column(
               children: [
-               Row(
-                 children: [
-                   Padding(
-                     padding:  EdgeInsets.all(5.0),
-                     child:  Text('Note Name' , style: TextStyle(fontSize: 15),),),
-                   Spacer()
-                 ],
-               ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text(
+                        'Note Name',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    Spacer()
+                  ],
+                ),
                 Divider()
               ],
             ),
             subtitle: const Padding(
-              padding:  EdgeInsets.all(8),
-              child:  Text('ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsifnbldfnbjdfjdnfbkfnbkfbdkfrnvsuefgufbusfubsrubsuduisdfuivfiudfvn'),
+              padding: EdgeInsets.all(8),
+              child: Text(
+                  'ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsifnbldfnbjdfjdnfbkfnbkfbdkfrnvsuefgufbusfubsrubsuduisdfuivfiudfvn'),
             ),
           ),
           const Row(
             children: [
               Spacer(),
               Padding(
-                padding: EdgeInsets.only(bottom: 10 , right: 10),
-                child: Text('25/3/2024' , style: TextStyle(fontSize: 12),),
+                padding: EdgeInsets.only(bottom: 10, right: 10),
+                child: Text(
+                  '25/3/2024',
+                  style: TextStyle(fontSize: 12),
+                ),
               )
             ],
           )
@@ -57,7 +65,10 @@ class _AlterDialogCustomState extends State<AlterDialogCustom> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: const Text('هل انت متأكد من حذف هذه المهمة ؟', textAlign: TextAlign.center,),
+      content: const Text(
+        'هل انت متأكد من حذف هذه المهمة ؟',
+        textAlign: TextAlign.center,
+      ),
       actionsAlignment: MainAxisAlignment.center,
       contentPadding: const EdgeInsets.all(30),
       contentTextStyle: const TextStyle(fontSize: 15),

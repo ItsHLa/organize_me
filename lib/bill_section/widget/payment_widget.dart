@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
@@ -13,11 +10,19 @@ class PaymentPage extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text('هل تريد دفع فواتيرك الآن ؟' , textAlign: TextAlign.center,),
-        )
-        ,
-        PaymentButton(name: 'دفع من تطبيق أقرب إليك' ,logic: null,),
-        PaymentButton(name: 'دفع عن طريق سيرياتيل كاش' ,logic: null,),
+          child: Text(
+            'هل تريد دفع فواتيرك الآن ؟',
+            textAlign: TextAlign.center,
+          ),
+        ),
+        PaymentButton(
+          name: 'دفع من تطبيق أقرب إليك',
+          logic: null,
+        ),
+        PaymentButton(
+          name: 'دفع عن طريق سيرياتيل كاش',
+          logic: null,
+        ),
       ],
     );
   }
