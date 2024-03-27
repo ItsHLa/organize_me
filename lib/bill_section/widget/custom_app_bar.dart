@@ -16,15 +16,28 @@ class TotalPaymentMonth extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 8.0, right: 8, bottom: 5),
-                  child: Text('دفعك الكلي لهذا الشهر ',
-                      style: TextStyle(fontSize: 15)),
+                  padding: EdgeInsets.only(
+                    left: 8.0,
+                    right: 8,
+                    bottom: 5,
+                  ),
+                  child: Text(
+                    'دفعك الكلي لهذا الشهر ',
+                    style: TextStyle(fontSize: 15),
+                  ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 8.0, right: 8, bottom: 5),
+                  padding: EdgeInsets.only(
+                    left: 8.0,
+                    right: 8,
+                    bottom: 5,
+                  ),
                   child: Text(
                     '1500',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 )
               ],

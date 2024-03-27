@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class DrawerItem extends StatelessWidget {
-  const DrawerItem(
-      {super.key,
-      required this.icon,
-      required this.title,
-      required this.logic,
-      this.color});
+  const DrawerItem({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.logic,
+    this.color,
+  });
   final IconData icon;
   final String title;
   final Color? color;

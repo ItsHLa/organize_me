@@ -33,25 +33,27 @@ class NotePage extends StatelessWidget {
                     Row(
                       children: [
                         IconButtonCustom(
-                            icon: Icons.edit,
-                            logic: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) => const Input(
-                                        title: 'عنوان الملاحظة',
-                                        content: 'الوصف',
-                                        action: 'تعديل الملاحظة ',
-                                        icon: Icons.edit,
-                                      ));
-                            }),
+                          icon: Icons.edit,
+                          logic: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) => const Input(
+                                      title: 'عنوان الملاحظة',
+                                      content: 'الوصف',
+                                      action: 'تعديل الملاحظة ',
+                                      icon: Icons.edit,
+                                    ));
+                          },
+                        ),
                         IconButtonCustom(
-                            logic: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      const AlterDialogCustom());
-                            },
-                            icon: Icons.delete_outline)
+                          logic: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const AlterDialogCustom(),
+                            );
+                          },
+                          icon: Icons.delete_outline,
+                        )
                       ],
                     )
                   ],
@@ -61,13 +63,17 @@ class NotePage extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: const Text(
-                      'ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsivn'),
+                    'ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsivn',
+                  ),
                 ),
                 const Row(
                   children: [
                     Spacer(),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 8, right: 8),
+                      padding: EdgeInsets.only(
+                        bottom: 8,
+                        right: 8,
+                      ),
                       child: Text(
                         '25/3/2024',
                         style: TextStyle(fontSize: 12),

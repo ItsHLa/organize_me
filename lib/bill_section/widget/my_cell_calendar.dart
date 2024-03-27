@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 class MyCell extends StatelessWidget {
-  const MyCell(
-      {super.key,
-      required this.date,
-      required this.isToday,
-      required this.isInMonth});
+  const MyCell({
+    super.key,
+    required this.date,
+    required this.isToday,
+    required this.isInMonth,
+  });
+
   final DateTime date;
   final bool isToday;
   final bool isInMonth;
@@ -18,7 +20,7 @@ class MyCell extends StatelessWidget {
       children: [
         Container(
             alignment: Alignment.center,
-            margin:const EdgeInsets.all(4),
+            margin: const EdgeInsets.all(4),
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
                 border: Border.all(color: checkIfToday(isToday), width: 2),

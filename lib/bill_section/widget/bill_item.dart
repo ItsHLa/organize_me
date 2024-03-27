@@ -33,7 +33,11 @@ class RowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [Text(title), const Spacer(), Text(value)],
+      children: [
+        Text(title),
+        const Spacer(),
+        Text(value),
+      ],
     );
   }
 }

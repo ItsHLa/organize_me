@@ -17,29 +17,40 @@ class MonthCalender extends StatelessWidget {
         date: date,
       ),
       weekDayBuilder: (day) => MyWeek(day: day),
-      cellBuilder: (date, event, isToday, isInMonth) {
-        return MyCell(date: date, isToday: isToday, isInMonth: isInMonth);
+      cellBuilder: (
+        date,
+        event,
+        isToday,
+        isInMonth,
+      ) {
+        return MyCell(
+          date: date,
+          isToday: isToday,
+          isInMonth: isInMonth,
+        );
       },
       onCellTap: (events, date) {
         showDialog(
           context: context,
           builder: (context) {
             return const SimpleDialog(
-                contentPadding: EdgeInsets.all(8),
-                alignment: Alignment.center,
-                children: [
-                  Center(
-                    child: Column(children: [Text('events ')]),
-                  )
-                ]);
+              contentPadding: EdgeInsets.all(8),
+              alignment: Alignment.center,
+              children: [
+                Center(
+                  child: Column(children: [Text('events ')]),
+                )
+              ],
+            );
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           },
         );
       },
       headerStyle: const HeaderStyle(
-          decoration: BoxDecoration(
-        color: indigo,
-      )),
+        decoration: BoxDecoration(
+          color: indigo,
+        ),
+      ),
     );
   }
 }
