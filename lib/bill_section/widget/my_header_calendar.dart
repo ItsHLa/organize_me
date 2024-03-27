@@ -8,8 +8,11 @@ class MyHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-        decoration: const BoxDecoration(
-            color: indigo
+      margin: const EdgeInsets.all(8) ,
+      padding: const EdgeInsets.all(8),
+        decoration:  BoxDecoration(
+            color: indigo,
+          borderRadius: BorderRadius.circular(5)
         ),
         alignment: Alignment.center,
         child:Text('${whichMonth(date.month)} - ${date.year.toString()}'));
