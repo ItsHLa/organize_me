@@ -26,8 +26,57 @@ class DatabaseHelper {
   static _onCreate(Database db, int version) async {
     await db.execute(
       '''
-          PRAGMA foreign_keys = ON;
+          CREATE TABLE IF NOT EXISTS notes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            content TEXT NOT NULL,
+            date TEXT DEFAULT datetime(),
+            last_modified TEXT DEFAULT NULL
+          );
       ''',
+    );
+  }
+
+  static addNote(String title, String content) async {
+    Database? mydb = await db;
+    await mydb!.rawInsert(
+      """
+        INSERT OR IGNORE INTO notes(title, content) VALUES (?, ?);
+      """,
+      [
+        title,
+        content,
+      ],
+    );
+  }
+
+  static editNote(int noteId,
+      {String newContent = '', String newTitle = ''}) async {
+    assert(newContent.isNotEmpty || newTitle.isNotEmpty);
+    Database? mydb = await db;
+    String lastModified = DateTime.now().toString();
+    String editContent = newContent.isNotEmpty ? "content = $newContent," : "";
+    String editTitle = newTitle.isNotEmpty ? "title = $newTitle," : "";
+    await mydb!.rawInsert(
+      """
+        UPDATE notes SET $editContent $editTitle last_modified = ? WHERE id = ?;
+      """,
+      [
+        lastModified,
+        noteId,
+      ],
+    );
+  }
+
+  static deleteNote(int noteId) async {
+    Database? mydb = await db;
+    await mydb!.rawInsert(
+      """
+        DELETE FROM notes WHERE id = ?;
+      """,
+      [
+        noteId,
+      ],
     );
   }
 }
