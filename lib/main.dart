@@ -29,7 +29,6 @@ class _OrganizeMeState extends State<OrganizeMe> {
         drawer: const MyDrawer(),
         appBar: AppBar(
           title: const Text('OrganizeMe'),
-
         ),
 
         bottomNavigationBar: BottomNavigationBar(
