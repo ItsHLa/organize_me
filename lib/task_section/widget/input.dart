@@ -30,6 +30,7 @@ class _InputState extends State<Input> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,20 +40,21 @@ class _InputState extends State<Input> {
         key: formKey,
         child: ListView(
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
             InputText(
               hint: widget.title,
               save: (value) {
                 taskName = value;
               },
+              maxLength: 30,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 4),
             InputText(
               hint: widget.content,
               lines: 5,
               save: (value) => description = value,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             ElevatedButton.icon(
                 onPressed: () {
                   if (validate(formKey)) {

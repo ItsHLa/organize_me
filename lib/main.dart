@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/bill_section/scrns/calender_view.dart';
 import 'package:organize_me/task_section/scrns/task_view.dart';
 
 import 'bill_section/widget/my_drawer.dart';
@@ -14,7 +15,7 @@ class OrganizeMe extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -28,17 +29,17 @@ class OrganizeMe extends StatelessWidget {
             ),
             bottom: const TabBar(
               tabs: [
-                Tab(
-                  text: 'مهامي',
-                ),
-                Tab(
-                  child: Text(' فواتيري القادمة '),
-                )
+                Tab(child: Text('مهامي '),),
+                Tab(text: 'مفكرتي',),
+
               ],
             ),
           ),
           body: const TabBarView(
-            children: [TaskView(), Text('up coming bills')],
+            children: [
+              CalenderView(),
+              TaskView(),
+              ],
           ),
         ),
       ),

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:organize_me/constants.dart';
+import 'package:flutter/painting.dart';
+
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
@@ -9,25 +11,26 @@ class PaymentPage extends StatelessWidget {
     return const SimpleDialog(
       contentPadding: EdgeInsets.all(20),
       children: [
-        PaymentButton(name: 'دفع فاتورة المياة', color: water),
-        PaymentButton(name: 'دفع فاتورة الغاز', color: gas),
-        PaymentButton(name: 'دفع فاتورة الاتصالات', color: calls),
-        PaymentButton(name: 'دفع فاتورة البنزين', color: gasStation)
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text('هل تريد دفع فواتيرك الآن ؟' , textAlign: TextAlign.center,),
+        )
+        ,
+        PaymentButton(name: 'دفع من تطبيق أقرب إليك' ,logic: null,),
+        PaymentButton(name: 'دفع عن طريق سيرياتيل كاش' ,logic: null,),
       ],
     );
   }
 }
 
 class PaymentButton extends StatelessWidget {
-  const PaymentButton({super.key, required this.name, required this.color});
-
+  const PaymentButton({super.key, required this.name, this.logic});
+  final void Function()? logic;
   final String name;
-  final Color color;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(backgroundColor: color),
-      onPressed: null,
+      onPressed: logic,
       child: Text(name),
     );
   }

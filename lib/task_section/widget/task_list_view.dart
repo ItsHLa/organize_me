@@ -11,7 +11,7 @@ class TaskListView extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: ListView.builder(
         padding: EdgeInsets.zero,
-        itemCount: 1,
+        itemCount: 100,
         itemBuilder: (context, index) {
           return const TaskItem();
         },

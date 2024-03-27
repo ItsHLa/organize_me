@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widget/bill_item.dart';
+import '../widget/bili_category_Item.dart';
+import 'bills_listview.dart';
 import '../widget/custom_app_bar.dart';
 
 class BillsList extends StatelessWidget {
@@ -8,50 +9,43 @@ class BillsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      appBar: AppBar(title: Text('فواتيري'),),
+        body: ListView(
       children: [
-        SizedBox(
-          height: 60,
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
         const TotalPaymentMonth(),
-        const Column(
+         Column(
           children: [
             BillItem(
               iconBill: Icons.water_drop,
               billTitle: "فواتير المياه",
               paymentBills: "3000",
               iconColor: Colors.blueAccent,
-              logic: null,
+              logic: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BillsListView(),));
+              },
             ),
-            BillItem(
+            const BillItem(
               iconBill: Icons.call,
               billTitle: "فواتير الاتصالات",
               paymentBills: "3000",
               iconColor: Colors.greenAccent,
               logic: null,
             ),
-            BillItem(
+            const BillItem(
               iconBill: Icons.electric_bolt,
               billTitle: "فواتير الكهرباء",
               paymentBills: "3000",
               iconColor: Colors.limeAccent,
               logic: null,
             ),
-            BillItem(
+            const BillItem(
               iconBill: Icons.local_gas_station,
               billTitle: "فواتير البنزين",
               paymentBills: "3000",
               iconColor: Colors.redAccent,
               logic: null,
             ),
-            BillItem(
+            const BillItem(
               iconBill: Icons.gas_meter,
               billTitle: "فواتير الغاز ",
               paymentBills: "3000",
