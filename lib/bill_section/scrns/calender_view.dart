@@ -12,34 +12,16 @@ class CalenderView extends StatefulWidget {
 }
 
 class _CalenderViewState extends State<CalenderView> {
-  final List pages = [
-    const MonthCalender(),
-    const InputEvent(),
-  ];
-  int i = 0;
   @override
   Widget build(BuildContext context) {
     return CalendarControllerProvider(
         controller: EventController(),
-        child: Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: i,
-              onTap: (value) {
-                setState(() {
-                  i = value;
-                });
-              },
-              items: const [
-                BottomNavigationBarItem(
-                  icon:  Icon(Icons.calendar_month_outlined) ,
-                  label: ' شهر ',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.add) ,
-                  label: ' حدث جديد',
-                ),
-              ],
-            ),
-            body: pages[i]));
+        child: const Scaffold(
+          floatingActionButton: FloatingActionButton(
+            shape: StadiumBorder(),
+            child: const  Icon(Icons.add),
+            onPressed: null,
+          ),
+            body: MonthCalender(),));
   }
 }

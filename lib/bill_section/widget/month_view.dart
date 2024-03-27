@@ -16,7 +16,7 @@ class MonthCalender extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MonthView(
-      cellAspectRatio: 0.8,
+      cellAspectRatio: 1,
       borderColor: Colors.white10,
       headerBuilder: (date) => MyHeader(date: date,),
       weekDayBuilder: (day) => MyWeek(day : day),

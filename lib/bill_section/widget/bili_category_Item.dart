@@ -5,12 +5,10 @@ class BillItem extends StatelessWidget {
       {super.key,
       required this.iconBill,
       required this.billTitle,
-      required this.paymentBills,
       required this.iconColor,
       this.logic});
   final IconData iconBill;
   final String billTitle;
-  final String paymentBills;
   final Color iconColor;
   final void Function()? logic;
 
@@ -18,25 +16,13 @@ class BillItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Card(
-        child: ListTile(
-          trailing: const Icon(Icons.info_outline),
-          onTap: logic,
-          leading: Icon(
-            iconBill,
-            color: iconColor,
-          ),
-          title: Padding(
-            padding: const EdgeInsets.only(top: 4.0, left: 4, right: 4),
-            child: Text(billTitle),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              children: [const Text("   دفعك الكلي  "), Text(paymentBills)],
-            ),
-          ),
+      child: ElevatedButton.icon(
+        onPressed: logic,
+        icon: Icon(
+          iconBill,
+          color: iconColor,
         ),
+        label: Text(billTitle),
       ),
     );
   }

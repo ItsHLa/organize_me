@@ -8,19 +8,24 @@ class BillsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('فواتيري'),
-        ),
-        body: ListView(
-          children: [
-            const TotalPaymentMonth(),
+    return SimpleDialog(
+      contentPadding: EdgeInsets.all(9),
+        children: [
+             Container(
+                child: const Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('فواتيري' ,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                )),
             Column(
               children: [
                 BillItem(
                   iconBill: Icons.water_drop,
                   billTitle: "فواتير المياه",
-                  paymentBills: "3000",
                   iconColor: Colors.blueAccent,
                   logic: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -29,36 +34,19 @@ class BillsList extends StatelessWidget {
                   },
                 ),
                 const BillItem(
-                  iconBill: Icons.call,
-                  billTitle: "فواتير الاتصالات",
-                  paymentBills: "3000",
-                  iconColor: Colors.greenAccent,
-                  logic: null,
-                ),
-                const BillItem(
                   iconBill: Icons.electric_bolt,
                   billTitle: "فواتير الكهرباء",
-                  paymentBills: "3000",
                   iconColor: Colors.limeAccent,
                   logic: null,
                 ),
                 const BillItem(
-                  iconBill: Icons.local_gas_station,
-                  billTitle: "فواتير البنزين",
-                  paymentBills: "3000",
-                  iconColor: Colors.redAccent,
+                  iconBill: Icons.call,
+                  billTitle: "فواتير الاتصالات",
+                  iconColor: Colors.greenAccent,
                   logic: null,
                 ),
-                const BillItem(
-                  iconBill: Icons.gas_meter,
-                  billTitle: "فواتير الغاز ",
-                  paymentBills: "3000",
-                  iconColor: Colors.blueGrey,
-                  logic: null,
-                )
-              ],
-            ),
-          ],
-        ));
+
+          ])]
+        );
   }
 }
