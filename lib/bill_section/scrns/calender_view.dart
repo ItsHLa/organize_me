@@ -18,6 +18,8 @@ class _CalenderViewState extends State<CalenderView> {
         controller: EventController(),
         child: const Scaffold(
           floatingActionButton: FloatingActionButton(
+
+            backgroundColor: Colors.transparent,
             shape: StadiumBorder(),
             child: const  Icon(Icons.add),
             onPressed: null,
