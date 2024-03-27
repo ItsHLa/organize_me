@@ -7,18 +7,11 @@ class MyHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return Container(
-        decoration: const BoxDecoration(color: indigo),
-=======
-    return  Container(
-      margin: const EdgeInsets.all(8) ,
-      padding: const EdgeInsets.all(8),
-        decoration:  BoxDecoration(
-            color: indigo,
-          borderRadius: BorderRadius.circular(5)
-        ),
->>>>>>> cfc806a0c9d29ee13ec47874c34dccdceb7e6f2c
+        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            color: indigo, borderRadius: BorderRadius.circular(5)),
         alignment: Alignment.center,
         child: Text('${whichMonth(date.month)} - ${date.year.toString()}'));
   }
