@@ -8,16 +8,14 @@ class BillsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      contentPadding: EdgeInsets.all(9),
+      contentPadding: const EdgeInsets.all(9),
         children: [
              Container(
-                child: const Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('فواتيري' ,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
+    padding: const EdgeInsets.all(8.0),
+                child: const Text('فواتيري' ,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
                   ),
                 )),
             Column(
