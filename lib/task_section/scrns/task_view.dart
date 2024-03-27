@@ -16,12 +16,13 @@ class TaskView extends StatelessWidget {
                 return const AddTaskScrn();
               });
         },
-        child: const Icon(Icons.add_task),
+        shape: const StadiumBorder(),
+        child: const  Icon(Icons.add_task),
       ),
       body: const Column(
         children: [
            Expanded(child: TaskListView()),
-           SizedBox(height: 20),
+
         ],
       ),
     );

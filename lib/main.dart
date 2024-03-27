@@ -17,7 +17,7 @@ class OrganizeMe extends StatefulWidget {
 
 class _OrganizeMeState extends State<OrganizeMe> {
 
-  List pages = const [CalenderView() , TaskView(), MyDrawer()];
+  List pages = const [CalenderView() , TaskView()];
   int pageIndex = 0;
 
   @override
@@ -26,6 +26,11 @@ class _OrganizeMeState extends State<OrganizeMe> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       home: Scaffold(
+        drawer: const MyDrawer(),
+        appBar: AppBar(
+          title: const Text('OrganizeMe'),
+
+        ),
         bottomNavigationBar: BottomNavigationBar(
           onTap: (value) { setState(() {
             pageIndex = value ;
@@ -34,7 +39,6 @@ class _OrganizeMeState extends State<OrganizeMe> {
           items:const  [
             BottomNavigationBarItem(icon: Icon(Icons.calendar_month) , label: 'تقويم'),
             BottomNavigationBarItem(icon: Icon(Icons.edit_note) , label: 'مفكرة'),
-            BottomNavigationBarItem(icon: Icon(Icons.info_outline) , label: 'مدفوعات'),
           ],
         ),
         body:pages[pageIndex]
