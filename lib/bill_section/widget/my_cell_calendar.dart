@@ -10,16 +10,20 @@ class MyCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        alignment: Alignment.center,
-        margin:const EdgeInsets.all(4),
-        padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-            border: Border.all(color: checkIfToday(isToday ),width: 2),
-            borderRadius: BorderRadius.circular(16)),
-        child: Text(date.day.toString() , style: TextStyle(
-            color: dayNotInMon(isInMonth)
-        ),));
+    return Column(
+      children: [
+        Container(
+            alignment: Alignment.center,
+            margin:const EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+                border: Border.all(color: checkIfToday(isToday ),width: 2),
+                borderRadius: BorderRadius.circular(16)),
+            child: Text(date.day.toString() , style: TextStyle(
+                color: dayNotInMon(isInMonth)
+            ),)),
+      ],
+    );
   }
 
   Color? dayNotInMon ( bool isInMonth ){

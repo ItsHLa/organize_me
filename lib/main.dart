@@ -31,11 +31,13 @@ class _OrganizeMeState extends State<OrganizeMe> {
           title: const Text('OrganizeMe'),
 
         ),
+
         bottomNavigationBar: BottomNavigationBar(
           onTap: (value) { setState(() {
             pageIndex = value ;
           });},
           currentIndex: pageIndex ,
+
           items:const  [
             BottomNavigationBarItem(icon: Icon(Icons.calendar_month) , label: 'تقويم'),
             BottomNavigationBarItem(icon: Icon(Icons.edit_note) , label: 'مفكرة'),

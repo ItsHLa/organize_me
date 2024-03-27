@@ -8,7 +8,8 @@ class TaskView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      floatingActionButton: FloatingActionButton.small(
         onPressed: () {
           showModalBottomSheet(
               context: context,
