@@ -1,4 +1,5 @@
 import 'package:calendar_view/calendar_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:organize_me/bill_section/widget/input_event.dart';
 
@@ -12,15 +13,11 @@ class CalenderView extends StatefulWidget {
 }
 
 class _CalenderViewState extends State<CalenderView> {
-  final List pages = [
-    const MonthCalender(),
-    const InputEvent(),
-  ];
-  int i = 0;
   @override
   Widget build(BuildContext context) {
     return CalendarControllerProvider(
         controller: EventController(),
+<<<<<<< HEAD
         child: Scaffold(
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: i,
@@ -41,5 +38,16 @@ class _CalenderViewState extends State<CalenderView> {
               ],
             ),
             body: pages[i]));
+=======
+        child:  Scaffold(
+          floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+          floatingActionButton:const  FloatingActionButton.small(
+          onPressed: null, shape: const StadiumBorder(),
+           child:   Icon(Icons.add),
+                      ),
+            body: Container(
+              padding: const EdgeInsets.only(top : 5 , bottom:  8 , left: 5, right: 5),
+                child: const MonthCalender()),));
+>>>>>>> cfc806a0c9d29ee13ec47874c34dccdceb7e6f2c
   }
 }

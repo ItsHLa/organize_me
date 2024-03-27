@@ -8,14 +8,24 @@ void main() {
   runApp(const OrganizeMe());
 }
 
-class OrganizeMe extends StatelessWidget {
+class OrganizeMe extends StatefulWidget {
   const OrganizeMe({super.key});
+
+  @override
+  State<OrganizeMe> createState() => _OrganizeMeState();
+}
+
+class _OrganizeMeState extends State<OrganizeMe> {
+
+  List pages = const [CalenderView() , TaskView()];
+  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
+<<<<<<< HEAD
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -44,8 +54,28 @@ class OrganizeMe extends StatelessWidget {
               TaskView(),
             ],
           ),
+=======
+      home: Scaffold(
+        drawer: const MyDrawer(),
+        appBar: AppBar(
+          title: const Text('OrganizeMe'),
+
+>>>>>>> cfc806a0c9d29ee13ec47874c34dccdceb7e6f2c
         ),
-      ),
+
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (value) { setState(() {
+            pageIndex = value ;
+          });},
+          currentIndex: pageIndex ,
+
+          items:const  [
+            BottomNavigationBarItem(icon: Icon(Icons.calendar_month) , label: 'تقويم'),
+            BottomNavigationBarItem(icon: Icon(Icons.edit_note) , label: 'مفكرة'),
+          ],
+        ),
+        body:pages[pageIndex]
+        ),
     );
   }
 }

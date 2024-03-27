@@ -17,6 +17,8 @@ class MyCell extends StatelessWidget {
     return Column(
       children: [
         Container(
+            alignment: Alignment.center,
+            margin:const EdgeInsets.all(4),
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
                 border: Border.all(color: checkIfToday(isToday), width: 2),

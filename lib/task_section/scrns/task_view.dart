@@ -8,7 +8,8 @@ class TaskView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      floatingActionButton: FloatingActionButton.small(
         onPressed: () {
           showModalBottomSheet(
               context: context,
@@ -16,6 +17,7 @@ class TaskView extends StatelessWidget {
                 return const AddTaskScrn();
               });
         },
+        shape: const StadiumBorder(),
         child: const Icon(Icons.add_task),
       ),
       body: const Column(

@@ -13,6 +13,7 @@ class DrawerItem extends StatelessWidget {
   final void Function() logic;
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return ListTile(
       leading: Icon(
         icon,
@@ -20,6 +21,14 @@ class DrawerItem extends StatelessWidget {
       ),
       title: Text(title),
       onTap: logic,
+=======
+    return Card(
+      child: ListTile(
+        leading: Icon(icon , color: color,),
+        title: Text(title),
+        onTap: logic ,
+      ),
+>>>>>>> cfc806a0c9d29ee13ec47874c34dccdceb7e6f2c
     );
   }
 }
