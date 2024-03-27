@@ -79,4 +79,17 @@ class DatabaseHelper {
       ],
     );
   }
+
+  static Future<List<Map>> getNote(int noteId) async {
+    Database? mydb = await db;
+    List<Map> note = await mydb!.rawQuery(
+      """
+        SELECT * FROM notes WHERE id = ?
+      """,
+      [
+        noteId,
+      ],
+    );
+    return note;
+  }
 }

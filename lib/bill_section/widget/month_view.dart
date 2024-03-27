@@ -5,11 +5,6 @@ import 'my_cell_calendar.dart';
 import 'my_header_calendar.dart';
 import 'my_week_calendar.dart';
 
-
-
-
-
-
 class MonthCalender extends StatelessWidget {
   const MonthCalender({super.key});
 
@@ -18,9 +13,10 @@ class MonthCalender extends StatelessWidget {
     return MonthView(
       cellAspectRatio: 0.8,
       borderColor: Colors.white10,
-      headerBuilder: (date) => MyHeader(date: date,),
-      weekDayBuilder: (day) => MyWeek(day : day),
-
+      headerBuilder: (date) => MyHeader(
+        date: date,
+      ),
+      weekDayBuilder: (day) => MyWeek(day: day),
       cellBuilder: (date, event, isToday, isInMonth) {
         return MyCell(date: date, isToday: isToday, isInMonth: isInMonth);
       },
@@ -29,15 +25,12 @@ class MonthCalender extends StatelessWidget {
           context: context,
           builder: (context) {
             return const SimpleDialog(
-              contentPadding: EdgeInsets.all(8),
-              alignment: Alignment.center,
+                contentPadding: EdgeInsets.all(8),
+                alignment: Alignment.center,
                 children: [
                   Center(
-                    child: Column(
-                      children :[ Text('events ')]
-                    ),
+                    child: Column(children: [Text('events ')]),
                   )
-                  
                 ]);
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           },
@@ -50,7 +43,3 @@ class MonthCalender extends StatelessWidget {
     );
   }
 }
-
-
-
-

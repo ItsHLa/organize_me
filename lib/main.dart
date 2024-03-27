@@ -29,9 +29,12 @@ class OrganizeMe extends StatelessWidget {
             ),
             bottom: const TabBar(
               tabs: [
-                Tab(child: Text('مهامي '),),
-                Tab(text: 'مفكرتي',),
-
+                Tab(
+                  child: Text('مهامي '),
+                ),
+                Tab(
+                  text: 'مفكرتي',
+                ),
               ],
             ),
           ),
@@ -39,7 +42,7 @@ class OrganizeMe extends StatelessWidget {
             children: [
               CalenderView(),
               TaskView(),
-              ],
+            ],
           ),
         ),
       ),

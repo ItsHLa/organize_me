@@ -31,11 +31,11 @@ class _CalenderViewState extends State<CalenderView> {
               },
               items: const [
                 BottomNavigationBarItem(
-                  icon:  Icon(Icons.calendar_month_outlined) ,
+                  icon: Icon(Icons.calendar_month_outlined),
                   label: ' شهر ',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.add) ,
+                  icon: Icon(Icons.add),
                   label: ' حدث جديد',
                 ),
               ],

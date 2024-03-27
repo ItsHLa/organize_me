@@ -30,7 +30,6 @@ class _InputState extends State<Input> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Padding(

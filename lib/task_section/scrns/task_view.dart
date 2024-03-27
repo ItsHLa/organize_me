@@ -20,8 +20,8 @@ class TaskView extends StatelessWidget {
       ),
       body: const Column(
         children: [
-           Expanded(child: TaskListView()),
-           SizedBox(height: 20),
+          Expanded(child: TaskListView()),
+          SizedBox(height: 20),
         ],
       ),
     );
