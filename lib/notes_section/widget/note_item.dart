@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/task_section/scrns/full_note_scrn.dart';
+import 'package:organize_me/notes_section/scrns/full_note_scrn.dart';
 
 class TaskItem extends StatelessWidget {
   const TaskItem({super.key});

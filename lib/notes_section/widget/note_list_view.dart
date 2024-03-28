@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'task_item.dart';
+import 'note_item.dart';
 
 class TaskListView extends StatelessWidget {
   const TaskListView({super.key});

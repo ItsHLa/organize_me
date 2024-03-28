@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/bill_section/scrns/calender_view.dart';
-import 'package:organize_me/task_section/scrns/task_view.dart';
+import 'package:organize_me/notes_section/scrns/note_view.dart';
 
 import 'bill_section/widget/my_drawer.dart';
 
@@ -17,7 +17,7 @@ class OrganizeMe extends StatefulWidget {
 
 class _OrganizeMeState extends State<OrganizeMe> {
 
-  List pages = const [CalenderView() , TaskView()];
+  List pages = const [CalenderView() , NoteView()];
   int pageIndex = 0;
 
   @override

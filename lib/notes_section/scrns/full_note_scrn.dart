@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widget/icon_button.dart';
 import '../widget/input.dart';
-import '../widget/task_item.dart';
+import '../widget/note_item.dart';
 
 class NotePage extends StatelessWidget {
   const NotePage({super.key});

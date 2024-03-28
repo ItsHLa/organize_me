@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../widget/task_list_view.dart';
-import 'add_task.dart';
+import '../widget/note_list_view.dart';
+import 'note_task.dart';
 
-class TaskView extends StatelessWidget {
-  const TaskView({super.key});
+class NoteView extends StatelessWidget {
+  const NoteView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,6 @@ class TaskView extends StatelessWidget {
       body: const Column(
         children: [
           Expanded(child: TaskListView()),
-          SizedBox(height: 20),
         ],
       ),
     );
