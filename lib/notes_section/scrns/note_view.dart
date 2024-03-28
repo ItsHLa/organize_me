@@ -34,18 +34,8 @@ class _NoteViewState extends State<NoteView> {
         children: [
           Row(
             children: [
-              myWidget,
               IconButton(onPressed: (){
-                setState(() {
-                  if( myIcon == const Icon(Icons.search_outlined)){
-                    myIcon =  const Icon(Icons.cancel_outlined);
-                    myWidget = const MySearchWidget();
 
-                  }else{
-                    myWidget = const Spacer();
-                    myIcon =  const Icon(Icons.search_outlined);
-                  }
-                });
                }
                , icon: myIcon)
             ],
