@@ -21,6 +21,7 @@ class _CalenderViewState extends State<CalenderView> {
         floatingActionButton:  FloatingActionButton.small(
           onPressed: (){
             showModalBottomSheet(
+              isScrollControlled: true,
                 context: context,
                 builder:(context) {
                   return const InputEvent();
