@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class BillItem extends StatelessWidget {
-  const BillItem(
-      {super.key,
-      required this.iconBill,
-      required this.billTitle,
-      required this.iconColor,
-      this.logic});
+  const BillItem({
+    super.key,
+    required this.iconBill,
+    required this.billTitle,
+    required this.iconColor,
+    this.logic,
+  });
+
   final IconData iconBill;
   final String billTitle;
   final Color iconColor;

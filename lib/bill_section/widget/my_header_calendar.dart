@@ -3,22 +3,20 @@ import 'package:flutter/material.dart';
 
 class MyHeader extends StatelessWidget {
   const MyHeader({super.key, required this.date});
-  final DateTime date ;
+  final DateTime date;
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      margin: const EdgeInsets.all(8) ,
-      padding: const EdgeInsets.all(8),
-        decoration:  BoxDecoration(
-            color: indigo,
-          borderRadius: BorderRadius.circular(5)
-        ),
+    return Container(
+        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            color: indigo, borderRadius: BorderRadius.circular(5)),
         alignment: Alignment.center,
-        child:Text('${whichMonth(date.month)} - ${date.year.toString()}'));
+        child: Text('${whichMonth(date.month)} - ${date.year.toString()}'));
   }
 
-  String whichMonth (int month){
+  String whichMonth(int month) {
     switch (month) {
       case 1:
         return 'Jan';
@@ -36,10 +34,10 @@ class MyHeader extends StatelessWidget {
         return 'Jul';
       case 8:
         return 'Aug';
-      case 9 :
+      case 9:
         return 'Sep';
       case 10:
-        return 'Oct' ;
+        return 'Oct';
       case 11:
         return 'Nov';
       case 12:
@@ -48,5 +46,4 @@ class MyHeader extends StatelessWidget {
         return '';
     }
   }
-
 }

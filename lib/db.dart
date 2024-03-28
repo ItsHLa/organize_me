@@ -79,4 +79,27 @@ class DatabaseHelper {
       ],
     );
   }
+
+  static Future<List<Map>> geOnetNote(int noteId) async {
+    Database? mydb = await db;
+    List<Map> note = await mydb!.rawQuery(
+      """
+        SELECT * FROM notes WHERE id = ?
+      """,
+      [
+        noteId,
+      ],
+    );
+    return note;
+  }
+
+  static Future<List<Map>> getAllNotes() async {
+    Database? mydb = await db;
+    List<Map> notes = await mydb!.rawQuery(
+      """
+        SELECT * FROM notes
+      """,
+    );
+    return notes;
+  }
 }

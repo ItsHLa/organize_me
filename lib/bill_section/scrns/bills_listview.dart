@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../widget/bill_item.dart';
@@ -14,8 +13,8 @@ class BillsListView extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         itemBuilder: (context, index) {
           return const MyBills();
-        }
-        ,),
-    )
-      ;
-}}
+        },
+      ),
+    );
+  }
+}

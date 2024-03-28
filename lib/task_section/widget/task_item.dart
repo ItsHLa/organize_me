@@ -73,12 +73,16 @@ class _AlterDialogCustomState extends State<AlterDialogCustom> {
       contentPadding: const EdgeInsets.all(30),
       contentTextStyle: const TextStyle(fontSize: 15),
       actions: [
-        ElevatedButton(onPressed: () {}, child: const Text('نعم')),
         ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('لا')),
+          onPressed: () {},
+          child: const Text('نعم'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('لا'),
+        ),
       ],
     );
   }
