@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/notes_section/widget/search_widget.dart';
 import '../widget/note_list_view.dart';
 import 'note_task.dart';
@@ -20,10 +21,13 @@ class _NoteViewState extends State<NoteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FloatingActionButton.small(
         onPressed: () {
           showModalBottomSheet(
+
+              isScrollControlled: true,
               context: context,
               builder: (context) {
                 return const AddTaskScrn();

@@ -8,7 +8,6 @@ class NoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: app,
       child: Column(
         children: [
           ListTile(

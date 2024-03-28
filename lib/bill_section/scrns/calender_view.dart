@@ -1,6 +1,7 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 
+import '../widget/input_event.dart';
 import '../widget/month_view.dart';
 
 class CalenderView extends StatefulWidget {
@@ -17,10 +18,16 @@ class _CalenderViewState extends State<CalenderView> {
       controller: EventController(),
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
-        floatingActionButton: const FloatingActionButton.small(
-          onPressed: null,
-          shape: StadiumBorder(),
-          child: Icon(Icons.add),
+        floatingActionButton:  FloatingActionButton.small(
+          onPressed: (){
+            showModalBottomSheet(
+                context: context,
+                builder:(context) {
+                  return const InputEvent();
+                }, );
+          },
+          shape: const StadiumBorder(),
+          child: const Icon(Icons.add),
         ),
         body: Container(
           padding: const EdgeInsets.only(

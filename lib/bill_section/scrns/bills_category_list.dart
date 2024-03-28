@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 import '../widget/bili_category_item.dart';
 import 'bills_listview.dart';
 
@@ -25,7 +26,7 @@ class BillsList extends StatelessWidget {
             BillItem(
               iconBill: Icons.water_drop,
               billTitle: "فواتير المياه",
-              iconColor: Colors.blueAccent,
+              iconColor:blue,
               logic: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -37,13 +38,13 @@ class BillsList extends StatelessWidget {
             const BillItem(
               iconBill: Icons.electric_bolt,
               billTitle: "فواتير الكهرباء",
-              iconColor: Colors.limeAccent,
+              iconColor: yellow,
               logic: null,
             ),
             const BillItem(
               iconBill: Icons.call,
               billTitle: "فواتير الاتصالات",
-              iconColor: Colors.greenAccent,
+              iconColor: green,
               logic: null,
             ),
           ],

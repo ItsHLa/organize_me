@@ -41,7 +41,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   }),
               DrawerItem(
                   icon: Icons.payments_outlined,
-                  color: calls,
+                  color: green,
                   title: 'دفع فواتيري',
                   logic: () {
                     showDialog(
@@ -65,7 +65,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       children: [
                         Icon(
                           Icons.wb_sunny_outlined,
-                          color: elec,
+                          color: yellow,
                         ),
                         Padding(
                           padding: EdgeInsets.all(8),

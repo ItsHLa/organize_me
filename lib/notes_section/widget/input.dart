@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'input_text.dart';
+import '../../input_text.dart';
 
 class Input extends StatefulWidget {
   const Input({
