@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'note_item.dart';
 
-class TaskListView extends StatelessWidget {
-  const TaskListView({super.key});
+class NoteListView extends StatelessWidget {
+  const NoteListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +12,7 @@ class TaskListView extends StatelessWidget {
         padding: EdgeInsets.zero,
         itemCount: 100,
         itemBuilder: (context, index) {
-          return const TaskItem();
+          return const NoteItem();
         },
       ),
     );

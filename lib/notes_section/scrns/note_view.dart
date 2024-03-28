@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:organize_me/notes_section/widget/search_widget.dart';
 import '../widget/note_list_view.dart';
 import 'note_task.dart';
@@ -32,15 +34,11 @@ class _NoteViewState extends State<NoteView> {
       ),
       body:  Column(
         children: [
-          Row(
-            children: [
-              IconButton(onPressed: (){
-
-               }
-               , icon: myIcon)
-            ],
-          ),
-          Expanded(child: TaskListView()),
+          Container(
+            margin: const EdgeInsets.all(8),
+              height: 50,
+              child: const MySearchWidget(),),
+          const Expanded(child: NoteListView()),
         ],
       ),
     );

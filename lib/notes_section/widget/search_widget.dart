@@ -1,3 +1,4 @@
+import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
 
 class MySearchWidget extends StatefulWidget {
@@ -13,12 +14,25 @@ class _MySearchWidgetState extends State<MySearchWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: TextField(
+    return EasySearchBar(
+      title: Text('Search') ,
+
+      onSearch: (value) {
+      setState(() {
+        search = value;
+      });
+    },);
+
+  }
+}
+/*
+*
+*
+*  Expanded(child: TextField(
       onSubmitted: (value) {
         setState(() {
           search = value;
         });
       },
     ));
-  }
-}
+* */
