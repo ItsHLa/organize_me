@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/notes_section/scrns/full_note_scrn.dart';
 
 class NoteItem extends StatelessWidget {
@@ -7,7 +8,7 @@ class NoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey,
+      color: app,
       child: Column(
         children: [
           ListTile(
