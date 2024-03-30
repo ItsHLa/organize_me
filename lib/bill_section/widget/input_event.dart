@@ -65,6 +65,7 @@ class _InputEventState extends State<InputEvent> {
           children: [
             const SizedBox(height: 15,),
             Form(
+              key: eventFormKey,
               autovalidateMode: validate,
               child: InputText(
                 hint: 'اسم المهمة',
