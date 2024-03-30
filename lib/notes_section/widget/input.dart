@@ -45,7 +45,7 @@ class _InputState extends State<Input> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               InputText(
                 hint: widget.title,
                 save: (value) {
@@ -71,7 +71,8 @@ class _InputState extends State<Input> {
                 },
                 icon: Icon(widget.icon),
                 label: Text(widget.action),
-              )
+              ),
+              const SizedBox(height: 15),
             ],
           ),
         ),

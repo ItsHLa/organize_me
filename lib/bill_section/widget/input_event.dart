@@ -63,7 +63,7 @@ class _InputEventState extends State<InputEvent> {
         child:  Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const SizedBox(height: 15,),
+            const SizedBox(height: 15),
             Form(
               key: eventFormKey,
               autovalidateMode: validate,

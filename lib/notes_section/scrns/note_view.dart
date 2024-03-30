@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/notes_section/widget/search_widget.dart';
 import '../widget/note_list_view.dart';
-import 'note_task.dart';
+import 'add_note.dart';
 
 class NoteView extends StatefulWidget {
   const NoteView({super.key});
@@ -30,7 +30,7 @@ class _NoteViewState extends State<NoteView> {
               isScrollControlled: true,
               context: context,
               builder: (context) {
-                return const AddTaskScrn();
+                return const AddNoteScrn();
               });
         },
         shape: const StadiumBorder(),
