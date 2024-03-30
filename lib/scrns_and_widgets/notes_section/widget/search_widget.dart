@@ -9,26 +9,35 @@ class MySearchWidget extends StatefulWidget {
 }
 
 class _MySearchWidgetState extends State<MySearchWidget> {
-  List<String> h = ['d', 'h' , 'ha' , 'hal' , 'hala'];
   late String search ;
 
   @override
   Widget build(BuildContext context) {
-    return EasySearchBar(
-
-      suggestions: h,
-      title: const Text('ابحث', style: TextStyle(
-        fontSize: 15,
-        color: Colors.black54,
-      ),) ,
-      showClearSearchIcon: true,
-      searchBackgroundColor: Colors.grey,
-      onSearch: (value) {
-      setState(() {
-        search = value;
-      });
-    },
-      searchTextDirection: TextDirection.rtl,
+    return TextField(
+      onSubmitted: (value) {
+        setState(() {
+          search = value;
+        });
+      },
+        decoration: InputDecoration(
+          suffix:const IconButton(
+            onPressed: null ,
+            icon:  Icon(Icons.search),
+          ),
+          hintText: 'Search',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(color: Colors.black12),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(color: Colors.black12),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(color: Colors.black12),
+          ),
+        )
     );
 
   }

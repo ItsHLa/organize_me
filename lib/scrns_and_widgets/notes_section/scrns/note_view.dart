@@ -13,9 +13,6 @@ class NoteView extends StatefulWidget {
 
 class _NoteViewState extends State<NoteView> {
 
-   Widget myWidget = const Spacer();
-   Icon myIcon = const Icon(Icons.search_outlined);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
