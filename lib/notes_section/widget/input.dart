@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '../../input_text.dart';
 
 class Input extends StatefulWidget {
@@ -36,40 +38,42 @@ class _InputState extends State<Input> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding:  EdgeInsets.only(left: 10 , right: 10 ,bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Form(
         autovalidateMode: validateMode,
         key: formKey,
-        child: ListView(
-          children: [
-            const SizedBox(height: 10),
-            InputText(
-              hint: widget.title,
-              save: (value) {
-                taskName = value;
-              },
-              maxLength: 30,
-            ),
-            const SizedBox(height: 4),
-            InputText(
-              hint: widget.content,
-              lines: 5,
-              save: (value) => description = value,
-            ),
-            const SizedBox(height: 5),
-            ElevatedButton.icon(
-              onPressed: () {
-                if (validate(formKey)) {
-                  formKey.currentState!.save();
-                } else {
-                  validateMode = AutovalidateMode.always;
-                }
-                // addTask
-              },
-              icon: Icon(widget.icon),
-              label: Text(widget.action),
-            )
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              InputText(
+                hint: widget.title,
+                save: (value) {
+                  taskName = value;
+                },
+                maxLength: 30,
+              ),
+              const SizedBox(height: 4),
+              InputText(
+                hint: widget.content,
+                lines: 5,
+                save: (value) => description = value,
+              ),
+              const SizedBox(height: 5),
+              ElevatedButton.icon(
+                onPressed: () {
+                  if (validate(formKey)) {
+                    formKey.currentState!.save();
+                  } else {
+                    validateMode = AutovalidateMode.always;
+                  }
+                  // addTask
+                },
+                icon: Icon(widget.icon),
+                label: Text(widget.action),
+              )
+            ],
+          ),
         ),
       ),
     );

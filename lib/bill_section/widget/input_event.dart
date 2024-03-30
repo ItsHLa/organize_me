@@ -1,5 +1,7 @@
 import 'package:calendar_view/calendar_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 import '../../input_text.dart';
@@ -12,6 +14,11 @@ class InputEvent extends StatefulWidget {
 }
 
 class _InputEventState extends State<InputEvent> {
+
+  AutovalidateMode validate = AutovalidateMode.disabled;
+  GlobalKey<FormState> eventFormKey = GlobalKey<FormState>();
+
+
 
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -47,18 +54,26 @@ class _InputEventState extends State<InputEvent> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child:  Container(
-        margin: EdgeInsets.all(8),
+    return Padding(
+      padding:  EdgeInsets.only(
+          left: 8.0 ,
+          right: 8 ,
+          bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: SingleChildScrollView(
         child:  Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InputText(
-              hint: 'اسم المهمة',
-              save: (value){
-                setState(() {
-                  taskName = value!;
-                });
-              },
+            const SizedBox(height: 15,),
+            Form(
+              autovalidateMode: validate,
+              child: InputText(
+                hint: 'اسم المهمة',
+                save: (value){
+                  setState(() {
+                    taskName = value!;
+                  });
+                },
+              ),
             ),
             Row(
               mainAxisAlignment:MainAxisAlignment.spaceEvenly ,
@@ -73,18 +88,25 @@ class _InputEventState extends State<InputEvent> {
 
             ElevatedButton.icon(
                 onPressed: (){
-                  final event = CalendarEventData(
-                    title: taskName, date: selectedDate ,
-                  );
-                  CalendarControllerProvider.of(context).controller.add(event);
+                  if(eventFormKey.currentState!.validate()){
+                    eventFormKey.currentState!.save();
+                    final event = CalendarEventData(
+                      title: taskName, date: selectedDate ,
+                    );
+                    CalendarControllerProvider.of(context).controller.add(event);
+                  }else{
+                    validate = AutovalidateMode.always;
+                  }
+
                 },
-                label: Text('اضافة المهمة')
-                , icon: Icon(Icons.add))
+                label:const  Text('اضافة المهمة')
+                , icon: const Icon(Icons.add)),
+            const SizedBox(height: 15),
 
           ],
         ),
-      ),
 
+      ),
     );
   }
 }
