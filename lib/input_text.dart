@@ -34,7 +34,8 @@ class _InputTextState extends State<InputText> {
   Widget build(BuildContext context) {
     return TextFormField(
       onSaved: widget.save,
-      validator: (value) {
+      validator:
+          (value) {
         if (value?.isEmpty ?? true) {
           return 'هذا الحقل لا يمكن ان يكون فارغ';
         } else {

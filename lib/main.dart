@@ -20,14 +20,14 @@ class _OrganizeMeState extends State<OrganizeMe> {
   List pages =  [
     CalendarControllerProvider(
       controller: EventController(),
-      child: CalenderView()) , NoteView()];
+      child: const  CalenderView()) , const NoteView()];
   int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
+      theme: ThemeData.dark(),
       home: Scaffold(
         drawer: const MyDrawer(),
         appBar: AppBar(

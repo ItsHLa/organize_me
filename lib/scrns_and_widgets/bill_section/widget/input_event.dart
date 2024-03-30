@@ -1,12 +1,9 @@
-import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
-import 'package:omni_datetime_picker/omni_datetime_picker.dart';
+import 'package:flutter/widgets.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/widget/date_picker.dart';
 import '../../../input_text.dart';
-import 'package:calendar_view/calendar_view.dart';
-
-import 'date_picker.dart';
+import 'package:date_time_picker_plus/date_time_picker_plus.dart';
 
 
 class InputEvent extends StatefulWidget {
@@ -46,9 +43,19 @@ class _InputEventState extends State<InputEvent> {
                 },
               ),
             ),
-            SizedBox(height: 10,),
-            MyDatePicker(),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
+             MyDatePicker(
+                 type: DateTimePickerType.date,
+                 initialValue:DateTime.now().toString() ,
+                 initialDate: DateTime.now(),
+                 onSave: null),
+            const SizedBox(height: 10,),
+             MyDatePicker(
+                type: DateTimePickerType.time,
+                initialTime: TimeOfDay.now(),
+               // initialValue: DateTime.now().hour.toString(),
+                onSave: null),
+            const SizedBox(height: 10,),
           ],
         )
 

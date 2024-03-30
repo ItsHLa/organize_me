@@ -14,11 +14,14 @@ class MyBills extends StatelessWidget {
             Divider(),
             RowWidget(title: 'العداد', value: "123"),
             Divider(),
-            RowWidget(title: 'رقم العملية', value: "123"),
-            Divider(),
             RowWidget(title: 'المبلغ', value: "123"),
-            Divider(),
-            RowWidget(title: 'التاريخ', value: "123"),
+            Row(
+              children: [
+                Text('رقم العملية'),
+                    Spacer(),
+                Text("التاريخ")
+              ],
+            )
           ],
         ),
       ),
@@ -35,7 +38,7 @@ class RowWidget extends StatelessWidget {
     return Row(
       children: [
         Text(title),
-        const Spacer(),
+        const SizedBox(width: 60,),
         Text(value),
       ],
     );

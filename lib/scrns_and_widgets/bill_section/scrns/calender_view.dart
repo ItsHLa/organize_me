@@ -1,7 +1,5 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
-import 'package:omni_datetime_picker/omni_datetime_picker.dart';
-
 import '../widget/input_event.dart';
 import '../widget/month_view.dart';
 

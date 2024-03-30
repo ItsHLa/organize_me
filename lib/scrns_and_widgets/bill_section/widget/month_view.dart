@@ -29,6 +29,7 @@ class MonthCalender extends StatelessWidget {
           isInMonth: isInMonth,
         );
       },
+      controller: EventController(),
       onCellTap: (events, date) {
         showDialog(
           context: context,

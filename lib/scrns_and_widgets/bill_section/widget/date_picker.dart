@@ -1,67 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:omni_datetime_picker/omni_datetime_picker.dart';
+import 'package:date_time_picker_plus/date_time_picker_plus.dart';
 
 class MyDatePicker extends StatefulWidget {
-  const MyDatePicker({super.key});
+  const MyDatePicker({super.key, required this.type , this.initialTime, required this.onSave, this.initialDate, this.initialValue});
+  final DateTimePickerType type ;
+  final TimeOfDay? initialTime;
+  final  DateTime? initialDate;
+  final String? initialValue;
+  final void Function(String?)? onSave ;
 
   @override
   State<MyDatePicker> createState() => _MyDatePickerState();
 }
 
 class _MyDatePickerState extends State<MyDatePicker> {
-
-  List<DateTime>? dates;
-
-  void showDatePicker( List<DateTime>? dates ) async {
-    dates = await showOmniDateTimeRangePicker(
-    context: context,
-    startInitialDate: DateTime.now(),
-    endInitialDate: DateTime.now(),
-    is24HourMode: false,
-    isShowSeconds: false,
-    barrierDismissible: false,
-    selectableDayPredicate: (dateTime) {
-      if (dateTime == DateTime.now() ){
-        return false;
-      } else {
-        return true;
-      }
-    },
-      minutesInterval: 1,
-      secondsInterval: 1,
-
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return  GestureDetector(
-      onTap:  () {
-        showDatePicker(dates);
-
-    },
-        child: Container(
-          margin: const EdgeInsets.all(8),
-          child :  Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text('Start : '),
-                  Text('${ dates?[0].day} / ${dates?[0].month  } / ${dates?[0].year }  '),
-                ],
-              ),
-              const Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text('End : '),
-                  Text('${ dates?[1].day} / ${dates?[1].month  } / ${dates?[1].year }  '),
-                ],
-              )
-            ],
-          )
-        ));
+    return DateTimePicker(
+      type: widget.type,
+      initialValue: widget.initialValue,
+      initialTime: widget.initialTime,
+      initialDate: widget.initialDate ,
+      firstDate: DateTime(2023),
+      lastDate: DateTime(4000),
+      timeLabelText: 'time',
+      validator: (val) {
+        if(val?.isEmpty ?? true){
+          return 'لا يمكن الحقل ان يكون فارغ';
+        }
+      },
+      onSaved: widget.onSave,
+    );
   }
 }
