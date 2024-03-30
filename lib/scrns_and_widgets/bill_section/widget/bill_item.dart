@@ -7,18 +7,22 @@ class MyBills extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Card(
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(15),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(height: 10,),
             RowWidget(title: 'الباركود', value: "123"),
             Divider(),
             RowWidget(title: 'العداد', value: "123"),
             Divider(),
             RowWidget(title: 'المبلغ', value: "123"),
+            SizedBox(height: 10,),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text('رقم العملية'),
-                    Spacer(),
+                Spacer(),
                 Text("التاريخ")
               ],
             )
@@ -38,7 +42,8 @@ class RowWidget extends StatelessWidget {
     return Row(
       children: [
         Text(title),
-        const SizedBox(width: 60,),
+        const Text('  :  '),
+        const SizedBox(width: 20,),
         Text(value),
       ],
     );
