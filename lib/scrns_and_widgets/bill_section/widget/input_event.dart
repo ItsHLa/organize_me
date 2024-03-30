@@ -1,9 +1,68 @@
 import 'package:calendar_view/calendar_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import '../../../input_text.dart';
+import 'package:calendar_view/calendar_view.dart';
+
+import 'date_picker.dart';
+
 
 class InputEvent extends StatefulWidget {
+  const InputEvent({super.key});
+
+  @override
+  State<InputEvent> createState() => _InputEventState();
+}
+
+
+class _InputEventState extends State<InputEvent> {
+
+  late String taskName;
+  List<DateTime>? dateTimeList;
+  DateTime currentDay =  DateTime.now();
+
+
+  @override
+  Widget build(BuildContext context)  {
+    return Padding(
+      padding:  EdgeInsets.only(
+          left: 8.0 ,
+          right: 8 ,
+          bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: SingleChildScrollView(
+        child:  Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const SizedBox(height: 15),
+            Form(
+              child: InputText(
+                hint: 'اسم المهمة',
+                save: (value){
+                  setState(() {
+                     taskName = value!;
+                  });
+                },
+              ),
+            ),
+            SizedBox(height: 10,),
+            MyDatePicker(),
+            SizedBox(height: 10,),
+          ],
+        )
+
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+/*class InputEvent extends StatefulWidget {
   const InputEvent({super.key});
 
   @override
@@ -51,60 +110,55 @@ class _InputEventState extends State<InputEvent> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:  EdgeInsets.only(
-          left: 8.0 ,
-          right: 8 ,
-          bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: SingleChildScrollView(
-        child:  Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const SizedBox(height: 15),
-            Form(
-              key: eventFormKey,
-              autovalidateMode: validate,
-              child: InputText(
-                hint: 'اسم المهمة',
-                save: (value){
-                  setState(() {
-                    taskName = value!;
-                  });
-                },
-              ),
-            ),
-            Row(
-              mainAxisAlignment:MainAxisAlignment.spaceEvenly ,
-              children: [
-              ElevatedButton(
-                  onPressed:_selectDate,
-                  child: const Text('تحديد اليوم ')),
-              ElevatedButton(
-                  onPressed:_selectTime,
-                  child: const Text(' تحديد الوقت ')),
-            ],),
+    return
+    Padding(
 
-            ElevatedButton.icon(
-                onPressed: (){
-                  if(eventFormKey.currentState!.validate()){
-                    eventFormKey.currentState!.save();
-                    final event = CalendarEventData(
-                      title: taskName, date: selectedDate ,
-                    );
-                    CalendarControllerProvider.of(context).controller.add(event);
-                  }else{
-                    validate = AutovalidateMode.always;
-                  }
+      child:
+      SingleChildScrollView(
+        child:
+          Form(
+          autovalidateMode: validate,
+          key: eventFormKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
 
-                },
-                label:const  Text('اضافة المهمة')
-                , icon: const Icon(Icons.add)),
-            const SizedBox(height: 15),
 
-          ],
+
+
+              ElevatedButton.icon(
+                  onPressed
+                      : (){
+                    if(InputText.validateFiled(eventFormKey)){
+                      eventFormKey.currentState!.save();
+                      final event = CalendarEventData(
+                        title: taskName, date: selectedDate ,
+                      );
+                      CalendarControllerProvider.of(context).controller.add(event);
+                    }else{
+                      validate = AutovalidateMode.always;
+                    }
+
+                  },
+                  label:const  Text('اضافة المهمة')
+                  , icon: const Icon(Icons.add)),
+              const SizedBox(height: 15),
+
+            ],
+          ),
         ),
 
       ),
     );
   }
 }
+Row(
+                mainAxisAlignment:MainAxisAlignment.spaceEvenly ,
+                children: [
+                ElevatedButton(
+                    onPressed:_selectDate,
+                    child: const Text('تحديد اليوم ')),
+                ElevatedButton(
+                    onPressed:_selectTime,
+                    child: const Text(' تحديد الوقت ')),
+              ],),*/

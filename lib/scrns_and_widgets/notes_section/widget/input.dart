@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../input_text.dart';
 
+
 class Input extends StatefulWidget {
   const Input({
     super.key,
@@ -25,21 +26,14 @@ class _InputState extends State<Input> {
   AutovalidateMode validateMode = AutovalidateMode.disabled;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  bool validate(GlobalKey<FormState> key) {
-    if (key.currentState!.validate()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding:  EdgeInsets.only(left: 10 , right: 10 ,bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Form(
-        autovalidateMode: validateMode,
         key: formKey,
+        autovalidateMode: validateMode,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -60,11 +54,11 @@ class _InputState extends State<Input> {
               const SizedBox(height: 5),
               ElevatedButton.icon(
                 onPressed: () {
-                  if (validate(formKey)) {
+                  if (InputText.validateFiled(formKey)) {
                     formKey.currentState!.save();
                   } else {
                     validateMode = AutovalidateMode.always;
-                  }
+                }
                   // addTask
                 },
                 icon: Icon(widget.icon),

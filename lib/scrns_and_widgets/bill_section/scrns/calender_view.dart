@@ -1,5 +1,6 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
 import '../widget/input_event.dart';
 import '../widget/month_view.dart';
@@ -19,7 +20,7 @@ class _CalenderViewState extends State<CalenderView> {
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton:  FloatingActionButton.small(
-          onPressed: (){
+          onPressed: ()  {
             showModalBottomSheet(
               isScrollControlled: true,
                 context: context,
@@ -29,7 +30,8 @@ class _CalenderViewState extends State<CalenderView> {
           },
           shape: const StadiumBorder(),
           child: const Icon(Icons.add),
-        ),
+        )
+      ,
         body: Container(
           padding: const EdgeInsets.only(
             top: 5,
