@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/bill_section/scrns/calender_view.dart';
-import 'package:organize_me/notes_section/scrns/note_view.dart';
-
-import 'bill_section/widget/my_drawer.dart';
+import 'package:organize_me/scrns/bill_section/scrns/calender_view.dart';
+import 'package:organize_me/scrns/bill_section/widget/my_drawer.dart';
+import 'package:organize_me/scrns/notes_section/scrns/note_view.dart';
 
 void main() {
   runApp(const OrganizeMe());

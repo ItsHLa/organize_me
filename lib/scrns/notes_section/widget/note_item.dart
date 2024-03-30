@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/constants.dart';
-import 'package:organize_me/notes_section/scrns/full_note_scrn.dart';
+
+import '../scrns/full_note_scrn.dart';
 
 class NoteItem extends StatelessWidget {
   const NoteItem({super.key});
