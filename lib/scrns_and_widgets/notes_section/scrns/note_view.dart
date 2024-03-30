@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../widget/note_list_view.dart';
 import '../widget/search_widget.dart';
 import 'add_note.dart';
