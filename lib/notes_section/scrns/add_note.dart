@@ -11,7 +11,7 @@ class AddNoteScrn extends StatelessWidget {
       title: 'اسم الملاحظة ',
       content: 'الوصف',
       action: 'اضافة الملاحظة',
-      icon: Icons.add_task,
+      icon: Icons.add_circle_outline,
     );
   }
 }
