@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/date_picker.dart';
-import '../../input_text.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/widgets/date_picker.dart';
 
+import '../../input_text.dart';
 
 class AddTaskScrn extends StatefulWidget {
   const AddTaskScrn({super.key});

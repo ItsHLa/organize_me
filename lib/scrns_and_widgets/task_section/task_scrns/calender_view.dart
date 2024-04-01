@@ -1,6 +1,7 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
-import '../widget/month_view.dart';
+
+import '../widgets/month_view.dart';
 import 'add_task_scrn.dart';
 
 class CalenderView extends StatefulWidget {
