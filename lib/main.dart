@@ -2,7 +2,6 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/scrns/calender_view.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_drawer.dart';
-import 'package:organize_me/scrns_and_widgets/login.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/scrns/note_view.dart';
 
 void main() {
