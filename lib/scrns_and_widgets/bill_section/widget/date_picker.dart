@@ -1,44 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+import 'package:date_field/date_field.dart';
 
-
-class MyDatePicker extends StatefulWidget {
+class MyDatePicker extends StatelessWidget {
   const MyDatePicker({
-    super.key,});
-  static void selectDate ( BuildContext context){
-    DatePicker.showDateTimePicker(context,
-        showTitleActions: true,
-        onChanged: (date) {
-          print('change ${date.day}');
-          print('change ${date.hour}');
-        },
-        onConfirm: (date) {
-          print('confirm $date');
-        },
-        currentTime: DateTime.now(),
-        locale: LocaleType.ar);
-  }
+    super.key, required this.labelText, this.onChanged,});
 
-
-
-  @override
-  State<MyDatePicker> createState() => _MyDatePickerState();
-}
-
-
-
-class _MyDatePickerState extends State<MyDatePicker> {
+  final String labelText;
+  final void Function(DateTime?)? onChanged ;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: const Row(
-       children: [
-         Text('24/10/2014'),
-         Text('7:00')
-       ],
-
-      )
+    return
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 9),
+        height: 70,
+        child: DateTimeFormField(
+           /* decoration: InputDecoration(
+              labelText: labelText,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(color: Colors.black12),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(color: Colors.black12),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(color: Colors.black12),
+              ),
+            ),*/
+          firstDate: DateTime.now().add(const Duration(days: 10)),
+          lastDate: DateTime.now().add(const Duration(days: 40)),
+          initialPickerDateTime: DateTime.now().add(const Duration(days: 20)),
+          onChanged: onChanged
+        ),
       );
   }
 }
