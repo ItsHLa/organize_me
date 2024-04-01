@@ -11,29 +11,32 @@ class MyDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DateTimePicker(
-      type: type ,
-      initialValue: initialValue,
-      firstDate: DateTime(2024),
-      lastDate: DateTime(3000),
-      dateHintText: title,
-      timeHintText: title,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-      hintText: widget.hint,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16),
-        borderSide: const BorderSide(color: Colors.black12),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 9),
+      height: 70,
+      child: DateTimePicker(
+        type: type ,
+        initialValue: initialValue,
+        firstDate: DateTime(2024),
+        lastDate: DateTime(3000),
+        dateHintText: title,
+        timeHintText: title,
+        onChanged: onChanged,
+        decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Colors.black12),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Colors.black12),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Colors.black12),
+        ),
       ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16),
-        borderSide: const BorderSide(color: Colors.black12),
       ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16),
-        borderSide: const BorderSide(color: Colors.black12),
-      ),
-    ),
     );
   }
 }
