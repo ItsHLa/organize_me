@@ -1,5 +1,5 @@
+import 'package:adoptive_calendar/adoptive_calendar.dart';
 import 'package:flutter/material.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/date_picker.dart';
 
 import '../../input_text.dart';
 
@@ -37,25 +37,35 @@ class _AddTaskScrnState extends State<AddTaskScrn> {
            const SizedBox(height: 15,),
            Form(
              key : formKey,
-             child: InputText(
-               hint: 'اسم المهمة',
-               save: (value){
-                 setState(() {
-                   taskName = value!;
-                 });
-               },
-             ),
-           ),
-           const SizedBox(height: 10,),
-           const MyDatePicker(labelText: 'موعد البدء',),
-           const SizedBox(height: 5,),
-           const MyDatePicker(labelText: 'موعد الانتهاء',),
-           const SizedBox(height: 5,),
-           ElevatedButton(onPressed: (){
-             //  formKey.currentState!.save();
-            }, child: const Text('إضافة المهمة')),
-           const SizedBox(height: 15,),
-         ],
+              child: InputText(
+                hint: 'اسم المهمة',
+                save: (value) {
+                  setState(() {
+                    taskName = value!;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            // const MyDatePicker(labelText: 'موعد البدء',),
+            //const SizedBox(height: 5,),
+            //const MyDatePicker(labelText: 'موعد الانتهاء',),
+            //const SizedBox(height: 5,),
+            AdoptiveCalendar(
+              initialDate: DateTime.now(),
+              action: true,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  //  formKey.currentState!.save();
+                },
+                child: const Text('إضافة المهمة')),
+            const SizedBox(
+              height: 15,
+            ),
+          ],
         ),
       ),
     );
