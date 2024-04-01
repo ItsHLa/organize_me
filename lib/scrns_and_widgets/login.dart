@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/input_text.dart';
+import 'package:organize_me/scrns_and_widgets/input_text.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -9,12 +9,24 @@ class Login extends StatelessWidget {
     return Scaffold(
       body: 
       Container(
+        alignment: Alignment.center,
         child:const Column(
+
           children: [
-            Text('مرحبا بك في OrganizeMe حيث امورك المهمة في مكان واحد'),
-            Text('كل مواعيدك و ملاحظاتك و فواتيرك في مكان واحد '),
-            InputText(hint: 'ادخل رقم الباركود'),
-            InputText(hint: 'ادحل رقم العداد'),
+            Row(
+              children: [Spacer(),
+              IconButton(onPressed: null, icon: Icon(
+                Icons.nightlight_outlined
+              ))],
+            ),
+            // photo
+            SizedBox(height: 15,),
+            Text('اهلا بك' , style: TextStyle(fontSize: 25 ,fontWeight: FontWeight.bold),),
+            SizedBox(height: 5,),
+            Text('كل امورك المهمة في مكان واحد ' , style: TextStyle(fontWeight: FontWeight.normal),)
+            ,SizedBox(height: 5,),
+            ElevatedButton(onPressed: null, child: Text('البدء'))
+
 
           ],
         ),

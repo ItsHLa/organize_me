@@ -1,7 +1,7 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
-import '../widget/input_event.dart';
 import '../widget/month_view.dart';
+import 'add_task_scrn.dart';
 
 class CalenderView extends StatefulWidget {
   const CalenderView({super.key});
@@ -19,12 +19,7 @@ class _CalenderViewState extends State<CalenderView> {
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton:  FloatingActionButton.small(
           onPressed: ()  {
-            showModalBottomSheet(
-              isScrollControlled: true,
-                context: context,
-                builder:(context) {
-                  return const InputEvent();
-                }, );
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddTaskScrn(),));
           },
           shape: const StadiumBorder(),
           child: const Icon(Icons.add),

@@ -31,13 +31,9 @@ class _NoteViewState extends State<NoteView> {
         shape: const StadiumBorder(),
         child: const Icon(Icons.add_task),
       ),
-      body:  Column(
+      body:  const Column(
         children: [
-          Container(
-            margin: const EdgeInsets.all(8),
-              height: 50,
-              child: const MySearchWidget(),),
-          const Expanded(child: NoteListView()),
+           Expanded(child: NoteListView()),
         ],
       ),
     );

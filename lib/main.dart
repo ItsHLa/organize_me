@@ -2,6 +2,7 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/scrns/calender_view.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_drawer.dart';
+import 'package:organize_me/scrns_and_widgets/login.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/scrns/note_view.dart';
 
 void main() {
@@ -27,7 +28,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: Scaffold(
         drawer: const MyDrawer(),
         appBar: AppBar(
@@ -45,7 +46,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
             BottomNavigationBarItem(icon: Icon(Icons.edit_note) , label: 'مفكرة'),
           ],
         ),
-        body:pages[pageIndex]
+        body: pages[pageIndex]
         ),
     );
   }
