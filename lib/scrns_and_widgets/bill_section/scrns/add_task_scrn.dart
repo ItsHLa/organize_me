@@ -44,7 +44,6 @@ class _AddTaskScrnState extends State<AddTaskScrn> {
                setState(() {
                  taskName = value!;
                });
-
              },
            ),
          ),
