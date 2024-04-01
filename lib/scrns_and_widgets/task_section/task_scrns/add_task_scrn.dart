@@ -1,7 +1,7 @@
-import 'package:adoptive_calendar/adoptive_calendar.dart';
 import 'package:flutter/material.dart';
 
 import '../../input_text.dart';
+import '../widgets/date_picker.dart';
 
 class AddTaskScrn extends StatefulWidget {
   const AddTaskScrn({super.key});
@@ -49,13 +49,17 @@ class _AddTaskScrnState extends State<AddTaskScrn> {
             const SizedBox(
               height: 10,
             ),
-            // const MyDatePicker(labelText: 'موعد البدء',),
-            //const SizedBox(height: 5,),
-            //const MyDatePicker(labelText: 'موعد الانتهاء',),
-            //const SizedBox(height: 5,),
-            AdoptiveCalendar(
-              initialDate: DateTime.now(),
-              action: true,
+            const MyDatePicker(
+              labelText: 'موعد البدء',
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const MyDatePicker(
+              labelText: 'موعد الانتهاء',
+            ),
+            const SizedBox(
+              height: 5,
             ),
             ElevatedButton(
                 onPressed: () {
