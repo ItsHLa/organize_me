@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
+import 'package:organize_me/scrns_and_widgets/bill_section/widget/date_picker.dart';
 import '../../input_text.dart';
 
 
@@ -48,8 +46,11 @@ class _AddTaskScrnState extends State<AddTaskScrn> {
            ),
          ),
          const SizedBox(height: 10,),
+         MyDatePicker(),
+
          ElevatedButton(onPressed: (){
            //  formKey.currentState!.save();
+           MyDatePicker.selectDate(context);
 
          }, child: const Text('إضافة المهمة')),
          const SizedBox(height: 15,),

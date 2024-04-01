@@ -19,7 +19,7 @@ class _CalenderViewState extends State<CalenderView> {
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton:  FloatingActionButton.small(
           onPressed: ()  {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddTaskScrn(),));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AddTaskScrn(),));
           },
           shape: const StadiumBorder(),
           child: const Icon(Icons.add),

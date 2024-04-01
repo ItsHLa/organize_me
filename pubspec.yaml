@@ -28,7 +28,7 @@ dependencies:
   standard_searchbar: ^2.0.0
   searchable_listview: ^2.11.1
   easy_search_bar: ^2.5.0
-  date_time_picker_plus: ^1.0.0
+  flutter_datetime_picker_plus: ^2.1.0
 
 dev_dependencies:
   flutter_test:

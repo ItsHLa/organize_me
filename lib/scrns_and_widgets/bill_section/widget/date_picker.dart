@@ -1,42 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:date_time_picker_plus/date_time_picker_plus.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 
-class MyDatePicker extends StatelessWidget {
-  const MyDatePicker({super.key, required this.title, required this.type, this.initialValue, this.onChanged,  });
-  final DateTimePickerType type;
-  final String? initialValue;
-  final String title ;
-  final void Function(String)? onChanged;
+class MyDatePicker extends StatefulWidget {
+  const MyDatePicker({
+    super.key,});
+  static void selectDate ( BuildContext context){
+    DatePicker.showDateTimePicker(context,
+        showTitleActions: true,
+        onChanged: (date) {
+          print('change ${date.day}');
+          print('change ${date.hour}');
+        },
+        onConfirm: (date) {
+          print('confirm $date');
+        },
+        currentTime: DateTime.now(),
+        locale: LocaleType.ar);
+  }
 
+
+
+  @override
+  State<MyDatePicker> createState() => _MyDatePickerState();
+}
+
+
+
+class _MyDatePickerState extends State<MyDatePicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 9),
-      height: 70,
-      child: DateTimePicker(
-        type: type ,
-        initialValue: initialValue,
-        firstDate: DateTime(2024),
-        lastDate: DateTime(3000),
-        dateHintText: title,
-        timeHintText: title,
-        onChanged: onChanged,
-        decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.black12),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.black12),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.black12),
-        ),
-      ),
-      ),
-    );
+      alignment: Alignment.center,
+      child: const Row(
+       children: [
+         Text('24/10/2014'),
+         Text('7:00')
+       ],
+
+      )
+      );
   }
 }
