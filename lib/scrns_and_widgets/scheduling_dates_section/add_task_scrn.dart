@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/widgets/date_picker.dart';
 
-import '../../input_text.dart';
-import '../widgets/date_picker.dart';
+import '../input_text.dart';
 
 class AddTaskScrn extends StatefulWidget {
   const AddTaskScrn({super.key});
@@ -11,7 +11,6 @@ class AddTaskScrn extends StatefulWidget {
 }
 
 class _AddTaskScrnState extends State<AddTaskScrn> {
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String? taskName;
   String? startDate;

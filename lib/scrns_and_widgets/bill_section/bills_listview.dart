@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widget/bill_item.dart';
+import 'widget/bill_item.dart';
 
 class BillsListView extends StatelessWidget {
   const BillsListView({super.key});

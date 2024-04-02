@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../widget/note_list_view.dart';
-import '../widget/search_widget.dart';
+
 import 'add_note.dart';
+import 'widget/note_list_view.dart';
 
 class NoteView extends StatefulWidget {
   const NoteView({super.key});
@@ -12,7 +11,6 @@ class NoteView extends StatefulWidget {
 }
 
 class _NoteViewState extends State<NoteView> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

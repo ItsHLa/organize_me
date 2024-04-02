@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../../../constants.dart';
-import '../scrns/bills_category_list.dart';
-import 'payment_widget.dart';
+import '../bills_category_list.dart';
 import 'drawer_item.dart';
+import 'payment_widget.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
