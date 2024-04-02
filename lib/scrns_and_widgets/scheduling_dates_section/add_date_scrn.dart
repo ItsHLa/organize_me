@@ -3,14 +3,14 @@ import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/widgets/d
 
 import '../input_text.dart';
 
-class AddTaskScrn extends StatefulWidget {
-  const AddTaskScrn({super.key});
+class AddDateScrn extends StatefulWidget {
+  const AddDateScrn({super.key});
 
   @override
-  State<AddTaskScrn> createState() => _AddTaskScrnState();
+  State<AddDateScrn> createState() => _AddDateScrnState();
 }
 
-class _AddTaskScrnState extends State<AddTaskScrn> {
+class _AddDateScrnState extends State<AddDateScrn> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String? taskName;
   String? startDate;
@@ -20,7 +20,7 @@ class _AddTaskScrnState extends State<AddTaskScrn> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(),
       body:  SingleChildScrollView(
         child: Column(

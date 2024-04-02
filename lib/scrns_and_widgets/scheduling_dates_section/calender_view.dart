@@ -17,24 +17,18 @@ class _CalenderViewState extends State<CalenderView> {
     return CalendarControllerProvider(
       controller: EventController(),
       child: Scaffold(
+        appBar: AppBar(),
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
-        floatingActionButton:  FloatingActionButton.small(
-          onPressed: ()  {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AddTaskScrn(),));
+        floatingActionButton: FloatingActionButton.small(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const AddDateScrn(),
+            ));
           },
           shape: const StadiumBorder(),
           child: const Icon(Icons.add),
-        )
-      ,
-        body: Container(
-          padding: const EdgeInsets.only(
-            top: 5,
-            bottom: 8,
-            left: 5,
-            right: 5,
-          ),
-          child: const MonthCalender(),
         ),
+        body: const MonthCalender(),
       ),
     );
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/calender_view.dart';
 
-import '../../../constants.dart';
-import '../bills_category_list.dart';
+import '../constants.dart';
+import 'bill_section/bills_category_list.dart';
 import 'drawer_item.dart';
-import 'payment_widget.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -39,13 +39,12 @@ class _MyDrawerState extends State<MyDrawer> {
                       builder: (context) => const BillsList());
                 }),
             DrawerItem(
-                icon: Icons.payments_outlined,
-                color: green,
-                title: 'دفع فواتيري',
+                icon: Icons.calendar_month,
+                title: 'مواعيدي ',
                 logic: () {
                   showDialog(
                       context: context,
-                      builder: (context) => const PaymentPage());
+                      builder: (context) => const CalenderView());
                 }),
             /* DrawerItem(
             icon: Icons.gps_fixed_outlined,
