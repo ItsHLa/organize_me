@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
-import 'package:path/path.dart';
 
 part 'add_task_state.dart';
 

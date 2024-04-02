@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 
 part 'delete_task_state.dart';
 
