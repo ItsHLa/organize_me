@@ -1,17 +1,16 @@
 part of 'add_task_cubit.dart';
 
 @immutable
-sealed class TaskState {}
+sealed class DateState {}
 
-final class TaskInitial extends TaskState {}
+final class DateInitial extends DateState {}
 
-final class AddTaskLoading extends TaskState {}
+final class AddDateLoading extends DateState {}
 
-final class AddTaskSucsses extends TaskState {}
+final class AddDateSucsses extends DateState {}
 
-final class AddTaskFaild extends TaskState {
+final class AddDateFaild extends DateState {
+  String? msg;
 
-  String? msg ;
-  AddTaskFaild( {required this.msg});
-
+  AddDateFaild({required this.msg});
 }

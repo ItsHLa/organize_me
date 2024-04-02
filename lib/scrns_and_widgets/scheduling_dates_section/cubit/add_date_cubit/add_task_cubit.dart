@@ -4,22 +4,23 @@ import 'package:flutter/cupertino.dart';
 
 part 'add_task_state.dart';
 
-class TaskCubit extends Cubit<TaskState> {
-  TaskCubit() : super(TaskInitial());
+class TaskCubit extends Cubit<DateState> {
+  TaskCubit() : super(DateInitial());
 
-  void addTask (DateTime start , DateTime end , String name , BuildContext context){
-    emit(AddTaskLoading());
-    try{
+  void addDate(
+      DateTime start, DateTime end, String name, BuildContext context) {
+    emit(AddDateLoading());
+    try {
       final event = CalendarEventData(
         date: start,
         endDate: end,
-        title: name ,
+        title: name,
       );
       CalendarControllerProvider.of(context).controller.add(event);
       // add the scheduled notification
-      emit(AddTaskSucsses());
-    }catch(e){
-      emit(AddTaskFaild(msg:'من فضلك أعد إدخال المهمة'));
+      emit(AddDateSucsses());
+    } catch (e) {
+      emit(AddDateFaild(msg: 'من فضلك أعد إدخال موعدك'));
     }
 
 
