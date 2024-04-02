@@ -18,8 +18,7 @@ class _CalenderViewState extends State<CalenderView> {
       controller: EventController(),
       child: Scaffold(
         appBar: AppBar(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
-        floatingActionButton: FloatingActionButton.small(
+        floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const AddDateScrn(),
