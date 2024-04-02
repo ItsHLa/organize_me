@@ -1,39 +1,43 @@
-import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 
 class MyDatePicker extends StatelessWidget {
   const MyDatePicker({
-    super.key, required this.labelText, this.onChanged,});
+    super.key,
+    required this.labelText,
+    required this.onTap,
+    required this.controller,
+  });
 
   final String labelText;
-  final void Function(DateTime?)? onChanged ;
+  final void Function()? onTap;
+  final TextEditingController controller;
+
   @override
   Widget build(BuildContext context) {
-    return
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 9),
-        height: 70,
-        child: DateTimeFormField(
-           /* decoration: InputDecoration(
-              labelText: labelText,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(color: Colors.black12),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(color: Colors.black12),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(color: Colors.black12),
-              ),
-            ),*/
-          firstDate: DateTime.now().add(const Duration(days: 10)),
-          lastDate: DateTime.now().add(const Duration(days: 40)),
-          initialPickerDateTime: DateTime.now().add(const Duration(days: 20)),
-          onChanged: onChanged
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 9),
+      height: 70,
+      child: TextField(
+        controller: controller,
+        readOnly: true,
+        onTap: onTap,
+        decoration: InputDecoration(
+          suffixIcon: const Icon(Icons.date_range_outlined),
+          labelText: labelText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(color: Colors.black12),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(color: Colors.black12),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(color: Colors.black12),
+          ),
         ),
-      );
+      ),
+    );
   }
 }

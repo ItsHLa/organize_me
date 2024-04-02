@@ -12,35 +12,44 @@ class AddDateScrn extends StatefulWidget {
 
 class _AddDateScrnState extends State<AddDateScrn> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  String? taskName;
-  String? startDate;
-  String? startTime;
-  String? endDate;
-  String? endTime;
+  TextEditingController startDate = TextEditingController();
+  TextEditingController endDate = TextEditingController();
+  String? DateName;
+
+  void myDatePicker(TextEditingController controller) async {
+    DateTime? date = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2024),
+      lastDate: DateTime(3000),
+    );
+    TimeOfDay? time = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    setState(() {
+      controller.text =
+          ' ${date!.day} / ${date!.month}/ ${date!.year} - ${time!.hour} : ${time!.minute}';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body:  SingleChildScrollView(
+    return Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+      child: SingleChildScrollView(
         child: Column(
-         children: [
-            const Row(
-             children: [
-               SizedBox(width: 15,),
-               Icon(Icons.add_task,size: 25,),
-               SizedBox(width: 15,),
-               Text('إضافة المهمة',style: TextStyle(fontSize: 20),),
-             ],
-           ),
-           const SizedBox(height: 15,),
-           Form(
-             key : formKey,
+          children: [
+            const SizedBox(
+              height: 15,
+            ),
+            Form(
+              key: formKey,
               child: InputText(
                 hint: 'اسم المهمة',
                 save: (value) {
                   setState(() {
-                    taskName = value!;
+                    DateName = value!;
                   });
                 },
               ),
@@ -48,20 +57,27 @@ class _AddDateScrnState extends State<AddDateScrn> {
             const SizedBox(
               height: 10,
             ),
-            const MyDatePicker(
-              labelText: 'موعد البدء',
-            ),
+            MyDatePicker(
+                controller: startDate,
+                labelText: 'موعد البدء',
+                onTap: () {
+                  myDatePicker(startDate);
+                }),
             const SizedBox(
               height: 5,
             ),
-            const MyDatePicker(
+            MyDatePicker(
+              onTap: () {
+                myDatePicker(endDate);
+              },
               labelText: 'موعد الانتهاء',
+              controller: endDate,
             ),
             const SizedBox(
               height: 5,
             ),
             ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   //  formKey.currentState!.save();
                 },
                 child: const Text('إضافة المهمة')),

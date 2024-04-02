@@ -1,4 +1,4 @@
-part of 'add_task_cubit.dart';
+part of 'add_date_cubit.dart';
 
 @immutable
 sealed class DateState {}

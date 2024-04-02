@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/cupertino.dart';
 
-part 'add_task_state.dart';
+part 'add_date_state.dart';
 
 class TaskCubit extends Cubit<DateState> {
   TaskCubit() : super(DateInitial());

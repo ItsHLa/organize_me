@@ -20,9 +20,10 @@ class _CalenderViewState extends State<CalenderView> {
         appBar: AppBar(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
+           showModalBottomSheet(
+              context: context,
               builder: (context) => const AddDateScrn(),
-            ));
+            );
           },
           shape: const StadiumBorder(),
           child: const Icon(Icons.add),
