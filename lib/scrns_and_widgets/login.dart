@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/scrns_and_widgets/input_text.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});

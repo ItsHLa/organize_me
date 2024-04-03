@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 
 import 'widget/icon_button.dart';
 import 'widget/input.dart';
 import 'widget/note_item.dart';
 
 class NotePage extends StatelessWidget {
-  const NotePage({super.key});
+  final Note note;
+  const NotePage({
+    super.key,
+    required this.note,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +29,9 @@ class NotePage extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(5),
-                      child: const Text(
-                        'Note Name',
-                        style: TextStyle(fontSize: 15),
+                      child: Text(
+                        note.title,
+                        style: const TextStyle(fontSize: 15),
                       ),
                     ),
                     const Spacer(),
@@ -36,20 +41,23 @@ class NotePage extends StatelessWidget {
                           icon: Icons.edit,
                           logic: () {
                             showModalBottomSheet(
-                                context: context,
-                                builder: (context) => const Input(
-                                      title: 'عنوان الملاحظة',
-                                      content: 'الوصف',
-                                      action: 'تعديل الملاحظة ',
-                                      icon: Icons.edit,
-                                    ));
+                              context: context,
+                              builder: (context) => const Input(
+                                title: 'عنوان الملاحظة',
+                                content: 'الوصف',
+                                action: 'تعديل الملاحظة ',
+                                icon: Icons.edit,
+                              ),
+                            );
                           },
                         ),
                         IconButtonCustom(
                           logic: () {
                             showDialog(
                               context: context,
-                              builder: (context) => const AlterDialogCustom(),
+                              builder: (context) => AlterDialogCustom(
+                                noteId: note.id,
+                              ),
                             );
                           },
                           icon: Icons.delete_outline,
@@ -62,21 +70,21 @@ class NotePage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   alignment: Alignment.center,
-                  child: const Text(
-                    'ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsivn',
+                  child: Text(
+                    note.content,
                   ),
                 ),
-                const Row(
+                Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         bottom: 8,
                         right: 8,
                       ),
                       child: Text(
-                        '25/3/2024',
-                        style: TextStyle(fontSize: 12),
+                        note.date,
+                        style: const TextStyle(fontSize: 12),
                       ),
                     )
                   ],

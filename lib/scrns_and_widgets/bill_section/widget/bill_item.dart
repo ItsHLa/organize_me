@@ -80,7 +80,7 @@ class RowWidget extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         const Text('  :  '),
         const SizedBox(

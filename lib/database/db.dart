@@ -30,7 +30,7 @@ class DatabaseHelper {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL,
             content TEXT NOT NULL,
-            date TEXT DEFAULT datetime(),
+            date TEXT,
             last_modified TEXT DEFAULT NULL
           );
       ''',
@@ -39,13 +39,15 @@ class DatabaseHelper {
 
   static addNote(String title, String content) async {
     Database? mydb = await db;
+    String now = DateTime.now().toString();
     await mydb!.rawInsert(
       """
-        INSERT OR IGNORE INTO notes(title, content) VALUES (?, ?);
+        INSERT OR IGNORE INTO notes(title, content, date) VALUES (?, ?, ?);
       """,
       [
         title,
         content,
+        now,
       ],
     );
   }
@@ -80,7 +82,7 @@ class DatabaseHelper {
     );
   }
 
-  static Future<List<Map>> geOnetNote(int noteId) async {
+  static Future<Map> geOnetNote(int noteId) async {
     Database? mydb = await db;
     List<Map> note = await mydb!.rawQuery(
       """
@@ -90,7 +92,7 @@ class DatabaseHelper {
         noteId,
       ],
     );
-    return note;
+    return note[0];
   }
 
   static Future<List<Map>> getAllNotes() async {

@@ -10,7 +10,7 @@ final class DeleteDateLoading extends DeleteDateState {}
 final class DeleteDateSucsses extends DeleteDateState {}
 
 final class DeleteDateFaild extends DeleteDateState {
-  String? msg;
+  final String? msg;
 
   DeleteDateFaild({required this.msg});
 }
