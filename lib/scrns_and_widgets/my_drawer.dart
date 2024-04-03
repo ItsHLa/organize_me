@@ -59,7 +59,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const Settings(),
                   ));
-                })
+                }),
           ],
         ),
       ),
