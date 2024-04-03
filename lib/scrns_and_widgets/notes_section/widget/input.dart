@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../input_text.dart';
 
-
 class Input extends StatefulWidget {
   const Input({
     super.key,
@@ -26,11 +25,13 @@ class _InputState extends State<Input> {
   AutovalidateMode validateMode = AutovalidateMode.disabled;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(left: 10 , right: 10 ,bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+          left: 10,
+          right: 10,
+          bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Form(
         key: formKey,
         autovalidateMode: validateMode,
@@ -58,7 +59,7 @@ class _InputState extends State<Input> {
                     formKey.currentState!.save();
                   } else {
                     validateMode = AutovalidateMode.always;
-                }
+                  }
                   // addTask
                 },
                 icon: Icon(widget.icon),

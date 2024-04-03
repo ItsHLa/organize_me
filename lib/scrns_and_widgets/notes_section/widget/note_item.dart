@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/database/db.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 
 import '../scrns/full_note_scrn.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key});
+  final Note note;
+  const NoteItem({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
@@ -13,38 +16,44 @@ class NoteItem extends StatelessWidget {
           ListTile(
             // deleting on long press !!!!!!!!!!!!
             onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const NotePage())),
-            title: const Column(
+              MaterialPageRoute(
+                builder: (context) => NotePage(
+                  note: note,
+                ),
+              ),
+            ),
+            title: Column(
               children: [
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Text(
-                        'Note Name',
-                        style: TextStyle(fontSize: 15),
+                        note.title,
+                        style: const TextStyle(fontSize: 15),
                       ),
                     ),
-                    Spacer()
+                    const Spacer()
                   ],
                 ),
-                Divider()
+                const Divider()
               ],
             ),
-            subtitle: const Padding(
-              padding: EdgeInsets.all(8),
+            subtitle: Padding(
+              padding: const EdgeInsets.all(8),
               child: Text(
-                  'ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsifnbldfnbjdfjdnfbkfnbkfbdkfrnvsuefgufbusfubsrubsuduisdfuivfiudfvn'),
+                note.content.substring(0, 10),
+              ),
             ),
           ),
-          const Row(
+          Row(
             children: [
-              Spacer(),
+              const Spacer(),
               Padding(
-                padding: EdgeInsets.only(bottom: 10, right: 10),
+                padding: const EdgeInsets.only(bottom: 10, right: 10),
                 child: Text(
-                  '25/3/2024',
-                  style: TextStyle(fontSize: 12),
+                  note.date,
+                  style: const TextStyle(fontSize: 12),
                 ),
               )
             ],
@@ -56,7 +65,8 @@ class NoteItem extends StatelessWidget {
 }
 
 class AlterDialogCustom extends StatefulWidget {
-  const AlterDialogCustom({super.key});
+  final int noteId;
+  const AlterDialogCustom({super.key, required this.noteId});
   @override
   State<AlterDialogCustom> createState() => _AlterDialogCustomState();
 }
@@ -74,7 +84,9 @@ class _AlterDialogCustomState extends State<AlterDialogCustom> {
       contentTextStyle: const TextStyle(fontSize: 15),
       actions: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () async {
+            await DatabaseHelper.deleteNote(widget.noteId);
+          },
           child: const Text('نعم'),
         ),
         ElevatedButton(
