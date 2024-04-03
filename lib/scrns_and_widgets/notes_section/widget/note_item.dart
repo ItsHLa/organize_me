@@ -34,7 +34,10 @@ class NoteItem extends StatelessWidget {
             subtitle: const Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                  'ssjisjvincjnvnfubvfubufbudfbdufbuidfiubufuvbuifbvuifbsvsifnbldfnbjdfjdnfbkfnbkfbdkfrnvsuefgufbusfubsrubsuduisdfuivfiudfvn'),
+                'Note content Note content Note content Note content Note content Note content Note content Note content',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+              ),
             ),
           ),
           const Row(

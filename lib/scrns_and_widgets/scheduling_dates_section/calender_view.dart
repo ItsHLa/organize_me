@@ -17,10 +17,12 @@ class _CalenderViewState extends State<CalenderView> {
     return CalendarControllerProvider(
       controller: EventController(),
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text('مواعيدي'),
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-           showModalBottomSheet(
+            showModalBottomSheet(
               context: context,
               builder: (context) => const AddDateScrn(),
             );

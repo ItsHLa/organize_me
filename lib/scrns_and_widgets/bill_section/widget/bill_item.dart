@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 
 class MyBills extends StatelessWidget {
   const MyBills({super.key});
@@ -6,44 +7,78 @@ class MyBills extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Card(
-      child: Padding(
-        padding: EdgeInsets.all(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(height: 10,),
-            RowWidget(title: 'الباركود', value: "123"),
-            Divider(),
-            RowWidget(title: 'العداد', value: "123"),
-            Divider(),
-            RowWidget(title: 'المبلغ', value: "123"),
-            SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text('رقم العملية'),
-                Spacer(),
-                Text("التاريخ")
-              ],
-            )
-          ],
-        ),
+        child: Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.monetization_on_outlined,
+                color: green,
+                size: 30,
+              ),
+              Spacer(),
+              Text(
+                'رقم العملية',
+                style: TextStyle(fontWeight: FontWeight.w800),
+              ),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              RowWidget(title: 'الباركود', value: "123"),
+              SizedBox(
+                height: 2,
+              ),
+              RowWidget(title: 'العداد', value: "123"),
+              SizedBox(
+                height: 2,
+              ),
+              RowWidget(title: 'المبلغ', value: "123"),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Spacer(),
+                  Text(
+                    "التاريخ",
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  )
+                ],
+              )
+            ],
+          ),
+        ],
       ),
-    );
+    ));
   }
 }
 
 class RowWidget extends StatelessWidget {
   const RowWidget({super.key, required this.title, required this.value});
+
   final String title;
   final String value;
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(title),
+        Text(
+          title,
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
         const Text('  :  '),
-        const SizedBox(width: 20,),
+        const SizedBox(
+          width: 20,
+        ),
         Text(value),
       ],
     );
