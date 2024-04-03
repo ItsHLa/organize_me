@@ -23,18 +23,19 @@ class _OrganizeMeState extends State<OrganizeMe> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
+      theme: ThemeData.dark(),
       home: Scaffold(
           drawer: const MyDrawer(),
           appBar: AppBar(
             title: const Text('OrganizeMe'),
-        ),
-
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: (value) { setState(() {
-            pageIndex = value ;
-          });},
-          currentIndex: pageIndex ,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            onTap: (value) {
+              setState(() {
+                pageIndex = value;
+              });
+            },
+            currentIndex: pageIndex ,
 
           items: const [
               BottomNavigationBarItem(

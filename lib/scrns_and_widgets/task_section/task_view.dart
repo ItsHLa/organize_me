@@ -1,3 +1,4 @@
+import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 
 class TaskView extends StatelessWidget {
@@ -6,7 +7,11 @@ class TaskView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('tasks'),
-    );
+        body: CalendarControllerProvider(
+      controller: EventController(),
+      child: Scaffold(
+        body: DayView(),
+      ),
+    ));
   }
 }

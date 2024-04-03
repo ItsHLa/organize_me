@@ -6,17 +6,24 @@ class MyBills extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Card(
+    return Card(
         child: Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
         children: [
           Row(
             children: [
-              Icon(
-                Icons.monetization_on_outlined,
-                color: green,
-                size: 30,
+              Container(
+                padding: EdgeInsets.all(4),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Colors.white54,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Icon(
+                  Icons.monetization_on_outlined,
+                  color: green,
+                  size: 30,
+                ),
               ),
               Spacer(),
               Text(
