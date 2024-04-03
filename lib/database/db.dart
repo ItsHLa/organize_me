@@ -82,7 +82,7 @@ class DatabaseHelper {
     );
   }
 
-  static Future<List<Map>> geOnetNote(int noteId) async {
+  static Future<Map> geOnetNote(int noteId) async {
     Database? mydb = await db;
     List<Map> note = await mydb!.rawQuery(
       """
@@ -92,7 +92,7 @@ class DatabaseHelper {
         noteId,
       ],
     );
-    return note;
+    return note[0];
   }
 
   static Future<List<Map>> getAllNotes() async {
