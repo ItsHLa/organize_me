@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
-import '../widget/bili_category_item.dart';
+
 import 'bills_listview.dart';
+import 'widget/bili_category_item.dart';
 
 class BillsList extends StatelessWidget {
   const BillsList({super.key});

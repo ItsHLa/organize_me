@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 
-import '../widget/icon_button.dart';
-import '../widget/input.dart';
-import '../widget/note_item.dart';
+import 'widget/icon_button.dart';
+import 'widget/input.dart';
+import 'widget/note_item.dart';
 
 class NotePage extends StatelessWidget {
   final Note note;

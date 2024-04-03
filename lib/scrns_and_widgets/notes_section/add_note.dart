@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widget/input.dart';
+import 'widget/input.dart';
 
 class AddNoteScrn extends StatelessWidget {
   const AddNoteScrn({super.key});

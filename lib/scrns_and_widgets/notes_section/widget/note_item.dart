@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 
-import '../scrns/full_note_scrn.dart';
+import '../full_note_scrn.dart';
 
 class NoteItem extends StatelessWidget {
   final Note note;
@@ -42,7 +42,13 @@ class NoteItem extends StatelessWidget {
             subtitle: Padding(
               padding: const EdgeInsets.all(8),
               child: Text(
+<<<<<<< HEAD
                 note.content.substring(0, 10),
+=======
+                'Note content Note content Note content Note content Note content Note content Note content Note content',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+>>>>>>> 328cb563f6df3866d8bc62b839b1d78f56ce7e7f
               ),
             ),
           ),
