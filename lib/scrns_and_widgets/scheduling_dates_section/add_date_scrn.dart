@@ -14,7 +14,7 @@ class _AddDateScrnState extends State<AddDateScrn> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController startDate = TextEditingController();
   TextEditingController endDate = TextEditingController();
-  String? DateName;
+  String? dateName;
 
   int setHour12(int hour) {
     switch (hour) {
@@ -54,14 +54,15 @@ class _AddDateScrnState extends State<AddDateScrn> {
       firstDate: DateTime(2024),
       lastDate: DateTime(3000),
     );
+
     TimeOfDay? time = await showTimePicker(
-      context: context,
+      context: context.mounted ? context : context,
       initialTime: TimeOfDay.now(),
     );
 
     setState(() {
       controller.text =
-          ' ${date!.day} / ${date!.month} / ${date!.year} - ${setHour12(time!.hour)} : ${time!.minute} ';
+          ' ${date!.day} / ${date.month} / ${date.year} - ${setHour12(time!.hour)} : ${time.minute} ';
       print(time.hour);
     });
   }
@@ -82,7 +83,7 @@ class _AddDateScrnState extends State<AddDateScrn> {
                 hint: 'اسم المهمة',
                 save: (value) {
                   setState(() {
-                    DateName = value!;
+                    dateName = value!;
                   });
                 },
               ),

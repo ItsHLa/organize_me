@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -22,8 +22,5 @@ class TaskCubit extends Cubit<DateState> {
     } catch (e) {
       emit(AddDateFaild(msg: 'من فضلك أعد إدخال موعدك'));
     }
-
-
   }
-
 }

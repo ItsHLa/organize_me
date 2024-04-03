@@ -31,7 +31,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             DrawerItem(
@@ -42,7 +42,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       context: context,
                       builder: (context) => const BillsList());
                 }),
-            Divider(),
+            const Divider(),
             DrawerItem(
                 icon: Icons.calendar_month,
                 title: 'مواعيدي ',
@@ -51,13 +51,13 @@ class _MyDrawerState extends State<MyDrawer> {
                     builder: (context) => const CalenderView(),
                   ));
                 }),
-            Divider(),
+            const Divider(),
             DrawerItem(
                 icon: Icons.settings,
                 title: 'الاعدادات',
                 logic: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Settings(),
+                    builder: (context) => const Settings(),
                   ));
                 })
           ],

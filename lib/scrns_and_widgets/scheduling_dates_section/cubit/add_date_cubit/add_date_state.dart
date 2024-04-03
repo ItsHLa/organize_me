@@ -10,7 +10,7 @@ final class AddDateLoading extends DateState {}
 final class AddDateSucsses extends DateState {}
 
 final class AddDateFaild extends DateState {
-  String? msg;
+  final String? msg;
 
   AddDateFaild({required this.msg});
 }

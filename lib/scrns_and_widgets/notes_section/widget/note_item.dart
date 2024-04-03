@@ -39,16 +39,12 @@ class NoteItem extends StatelessWidget {
                 const Divider()
               ],
             ),
-            subtitle: Padding(
-              padding: const EdgeInsets.all(8),
+            subtitle: const Padding(
+              padding: EdgeInsets.all(8),
               child: Text(
-<<<<<<< HEAD
-                note.content.substring(0, 10),
-=======
                 'Note content Note content Note content Note content Note content Note content Note content Note content',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
->>>>>>> 328cb563f6df3866d8bc62b839b1d78f56ce7e7f
               ),
             ),
           ),

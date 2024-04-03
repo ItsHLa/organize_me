@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD:lib/scrns_and_widgets/notes_section/scrns/note_view.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/bloc/notes_bloc.dart';
-import '../widget/note_list_view.dart';
-=======
-
->>>>>>> 328cb563f6df3866d8bc62b839b1d78f56ce7e7f:lib/scrns_and_widgets/notes_section/note_view.dart
 import 'add_note.dart';
 import 'widget/note_list_view.dart';
 
