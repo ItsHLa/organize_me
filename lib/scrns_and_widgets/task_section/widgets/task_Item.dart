@@ -6,6 +6,5 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();
-    ;
   }
 }

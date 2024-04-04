@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/my_drawer.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
+import 'package:organize_me/services/local_notification_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocalNotificationService.inite();
   runApp(const OrganizeMe());
 }
 
