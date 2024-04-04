@@ -8,31 +8,31 @@ class MyBills extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         child: Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         children: [
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(4),
+                padding: const EdgeInsets.all(4),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: Colors.white54,
                     borderRadius: BorderRadius.circular(20)),
-                child: Icon(
+                child: const Icon(
                   Icons.monetization_on_outlined,
                   color: green,
                   size: 30,
                 ),
               ),
-              Spacer(),
-              Text(
+              const Spacer(),
+              const Text(
                 'رقم العملية',
                 style: TextStyle(fontWeight: FontWeight.w800),
               ),
             ],
           ),
-          Column(
+          const Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
