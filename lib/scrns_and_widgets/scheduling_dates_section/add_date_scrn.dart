@@ -1,4 +1,7 @@
+import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/add_date_cubit/add_date_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/widgets/date_picker.dart';
 
 import '../input_text.dart';
@@ -14,7 +17,10 @@ class _AddDateScrnState extends State<AddDateScrn> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController startDate = TextEditingController();
   TextEditingController endDate = TextEditingController();
+  EventController monthController = EventController();
   String? dateName;
+  List? start;
+  List? end;
 
   int setHour12(int hour) {
     switch (hour) {
@@ -47,7 +53,7 @@ class _AddDateScrnState extends State<AddDateScrn> {
     }
   }
 
-  void myDatePicker(TextEditingController controller) async {
+  Future<List> myDatePicker(TextEditingController controller) async {
     DateTime? date = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -65,61 +71,82 @@ class _AddDateScrnState extends State<AddDateScrn> {
           ' ${date!.day} / ${date.month} / ${date.year} - ${setHour12(time!.hour)} : ${time.minute} ';
       print(time.hour);
     });
+
+    return [date, time];
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: 8, right: 8, bottom: MediaQuery.viewInsetsOf(context).bottom),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 15,
-            ),
-            Form(
-              key: formKey,
-              child: InputText(
-                hint: 'اسم المهمة',
-                save: (value) {
-                  setState(() {
-                    dateName = value!;
-                  });
-                },
+    return BlocListener<AddDateCubit, AddDateState>(
+      listener: (context, state) {
+        if (state is AddDateSucsses) {
+          Navigator.of(context).pop(context);
+        } else if (state is AddDateFaild) {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    content: Text(state.msg),
+                  ));
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: 8, right: 8, bottom: MediaQuery.viewInsetsOf(context).bottom),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 15,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            MyDatePicker(
-                controller: startDate,
-                labelText: 'موعد البدء',
-                onTap: () {
-                  myDatePicker(startDate);
-                }),
-            const SizedBox(
-              height: 5,
-            ),
-            MyDatePicker(
-              onTap: () {
-                myDatePicker(endDate);
-              },
-              labelText: 'موعد الانتهاء',
-              controller: endDate,
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            ElevatedButton(
-                onPressed: () async {
-                  //  formKey.currentState!.save();
+              Form(
+                key: formKey,
+                child: InputText(
+                  hint: 'اسم المهمة',
+                  save: (value) {
+                    setState(() {
+                      dateName = value!;
+                    });
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              MyDatePicker(
+                  controller: startDate,
+                  labelText: 'موعد البدء',
+                  onTap: () async {
+                    start = await myDatePicker(startDate);
+                  }),
+              const SizedBox(
+                height: 5,
+              ),
+              MyDatePicker(
+                onTap: () async {
+                  end = await myDatePicker(endDate);
                 },
-                child: const Text('إضافة المهمة')),
-            const SizedBox(
-              height: 15,
-            ),
-          ],
+                labelText: 'موعد الانتهاء',
+                controller: endDate,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              ElevatedButton(onPressed: () {
+                formKey.currentState!.save();
+                BlocProvider.of<AddDateCubit>(context)
+                    .addDate(start?[0], end?[0], dateName!, monthController);
+              }, child: BlocBuilder<AddDateCubit, AddDateState>(
+                builder: (context, state) {
+                  return state is AddDateLoading
+                      ? const CircularProgressIndicator()
+                      : const Text('إضافة المهمة');
+                },
+              )),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
         ),
       ),
     );

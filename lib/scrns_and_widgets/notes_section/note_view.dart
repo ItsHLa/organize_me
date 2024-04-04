@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/bloc/notes_bloc.dart';
+
 import 'add_note.dart';
 import 'widget/note_list_view.dart';
 
@@ -17,8 +18,6 @@ class _NoteViewState extends State<NoteView> {
     return BlocProvider(
       create: (context) => NotesBloc(),
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton: FloatingActionButton.small(
           onPressed: () {
             showModalBottomSheet(

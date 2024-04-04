@@ -9,11 +9,14 @@ class DailyTasks extends StatefulWidget {
 }
 
 class _DailyTasksState extends State<DailyTasks> {
+  final EventController Daycontroller = EventController();
+
   @override
   Widget build(BuildContext context) {
     return CalendarControllerProvider(
-        controller: EventController(),
+        controller: Daycontroller,
         child: DayView(
+            controller: Daycontroller,
             heightPerMinute: 1,
             timeLineWidth: 60,
             dayTitleBuilder: DayHeader.hidden));
