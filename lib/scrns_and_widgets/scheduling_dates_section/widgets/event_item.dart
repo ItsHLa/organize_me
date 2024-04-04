@@ -6,12 +6,15 @@ class EventItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(itemBuilder: (context, index) {
-      return const Card(
+      return Card(
           child: Row(
         children: [
-          Text('event'),
-          Spacer(),
-          IconButton(onPressed: null, icon: Icon(Icons.cancel_outlined))
+          Container(
+              padding: const EdgeInsets.all(9),
+              alignment: Alignment.center,
+              child: const Text('event')),
+          const Spacer(),
+          IconButton(onPressed: () {}, icon: Icon(Icons.cancel_outlined))
         ],
       ));
     });
