@@ -32,7 +32,6 @@ class _OrganizeMeState extends State<OrganizeMe> {
       home: Scaffold(
           drawer: const MyDrawer(),
           appBar: AppBar(
-            leading: const Icon(Icons.table_rows_outlined),
             title: const Text('OrganizeMe'),
           ),
           bottomNavigationBar: BottomNavigationBar(
