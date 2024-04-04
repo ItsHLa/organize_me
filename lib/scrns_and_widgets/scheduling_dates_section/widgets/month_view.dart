@@ -2,6 +2,7 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import 'event_item.dart';
 import 'my_cell_calendar.dart';
 import 'my_header_calendar.dart';
 import 'my_week_calendar.dart';
@@ -32,19 +33,15 @@ class MonthCalender extends StatelessWidget {
       },
       controller: EventController(),
       onCellTap: (events, date) {
-        showDialog(
+        showModalBottomSheet(
           context: context,
           builder: (context) {
-            return const SimpleDialog(
-              contentPadding: EdgeInsets.all(8),
-              alignment: Alignment.center,
-              children: [
-                Center(
-                  child: Column(children: [Text('events ')]),
-                )
-              ],
-            );
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return Container(
+                padding: const EdgeInsets.all(8),
+                alignment: Alignment.center,
+                child: const Column(
+                  children: [Text('events '), Expanded(child: EventItem())],
+                ));
           },
         );
       },
