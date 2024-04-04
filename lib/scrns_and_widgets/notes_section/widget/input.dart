@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../input_text.dart';
 
 class Input extends StatefulWidget {
@@ -20,8 +21,8 @@ class Input extends StatefulWidget {
 }
 
 class _InputState extends State<Input> {
-  late String? taskName;
-  late String? description;
+  String? noteName;
+  String? description;
   AutovalidateMode validateMode = AutovalidateMode.disabled;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -42,7 +43,7 @@ class _InputState extends State<Input> {
               InputText(
                 hint: widget.title,
                 save: (value) {
-                  taskName = value;
+                  noteName = value;
                 },
                 maxLength: 30,
               ),

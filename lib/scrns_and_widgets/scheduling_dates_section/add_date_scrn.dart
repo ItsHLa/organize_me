@@ -70,7 +70,8 @@ class _AddDateScrnState extends State<AddDateScrn> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+      padding: EdgeInsets.only(
+          left: 8, right: 8, bottom: MediaQuery.viewInsetsOf(context).bottom),
       child: SingleChildScrollView(
         child: Column(
           children: [

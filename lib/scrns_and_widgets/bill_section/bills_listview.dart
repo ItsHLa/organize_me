@@ -17,9 +17,9 @@ class BillsListView extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const PaymentPage(),
-                  ));
+                  showDialog(
+                      context: context,
+                      builder: (context) => const PaymentPage());
                 },
                 icon: const Icon(
                   Icons.payments,

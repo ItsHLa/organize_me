@@ -23,6 +23,7 @@ class _CalenderViewState extends State<CalenderView> {
           onPressed: () {
             showModalBottomSheet(
               context: context,
+              isScrollControlled: true,
               builder: (context) => const AddDateScrn(),
             );
           },
