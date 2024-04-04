@@ -76,7 +76,7 @@ class SettingsItem extends StatelessWidget {
               color: color,
             ),
             Padding(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: Text(title),
             ),
             //energy_savings_leaf_outlined

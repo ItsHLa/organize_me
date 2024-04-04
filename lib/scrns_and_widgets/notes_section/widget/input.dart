@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/bloc/notes_bloc.dart';
+import 'package:organize_me/database/db.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 import '../../input_text.dart';
 
 class Input extends StatefulWidget {
-  const Input({
-    super.key,
-    required this.title,
-    required this.content,
-    required this.action,
-    required this.icon,
-  });
+  const Input(
+      {super.key,
+      required this.title,
+      required this.content,
+      required this.action,
+      required this.icon,
+      this.noteId});
 
+  final int? noteId;
   final String title;
   final String content;
   final String action;
@@ -20,8 +25,8 @@ class Input extends StatefulWidget {
 }
 
 class _InputState extends State<Input> {
-  late String? taskName;
-  late String? description;
+  late String newTitle;
+  late String newContent;
   AutovalidateMode validateMode = AutovalidateMode.disabled;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -42,7 +47,7 @@ class _InputState extends State<Input> {
               InputText(
                 hint: widget.title,
                 save: (value) {
-                  taskName = value;
+                  newTitle = value ?? '';
                 },
                 maxLength: 30,
               ),
@@ -50,17 +55,42 @@ class _InputState extends State<Input> {
               InputText(
                 hint: widget.content,
                 lines: 5,
-                save: (value) => description = value,
+                save: (value) => newContent = value ?? '',
               ),
               const SizedBox(height: 5),
               ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   if (InputText.validateFiled(formKey)) {
                     formKey.currentState!.save();
                   } else {
                     validateMode = AutovalidateMode.always;
                   }
-                  // addTask
+                  if (widget.action == 'اضافة الملاحظة') {
+                    Map noteMap = await DatabaseHelper.addNote(
+                      newTitle,
+                      newContent,
+                    );
+                    if (context.mounted) {
+                      BlocProvider.of<NotesBloc>(context).add(
+                        AddNoteEvent(
+                          note: Note.fromMap(noteMap),
+                        ),
+                      );
+                    }
+                  } else if (widget.action == 'تعديل الملاحظة') {
+                    Map noteMap = await DatabaseHelper.editNote(
+                      widget.noteId!,
+                      newTitle: newTitle,
+                      newContent: newContent,
+                    );
+                    if (context.mounted) {
+                      BlocProvider.of<NotesBloc>(context).add(
+                        UpdateNoteEvent(
+                          note: Note.fromMap(noteMap),
+                        ),
+                      );
+                    }
+                  }
                 },
                 icon: Icon(widget.icon),
                 label: Text(widget.action),

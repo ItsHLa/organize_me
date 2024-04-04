@@ -30,7 +30,6 @@ dependencies:
   easy_search_bar: ^2.5.0
   workmanager: ^0.5.2
   easy_stepper: ^0.8.3
-  battery_plus: ^6.0.0
 
 dev_dependencies:
   flutter_test:

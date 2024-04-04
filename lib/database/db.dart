@@ -1,3 +1,4 @@
+import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -16,6 +17,7 @@ class DatabaseHelper {
   static intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'data.db');
+    // await databaseFactory.deleteDatabase(path);
     Database mydb = await openDatabase(path,
         onCreate: _onCreate, version: 1, onUpgrade: _onUpgrade);
     return mydb;
@@ -37,10 +39,10 @@ class DatabaseHelper {
     );
   }
 
-  static addNote(String title, String content) async {
+  static Future<Map> addNote(String title, String content) async {
     Database? mydb = await db;
     String now = DateTime.now().toString();
-    await mydb!.rawInsert(
+    int noteId = await mydb!.rawInsert(
       """
         INSERT OR IGNORE INTO notes(title, content, date) VALUES (?, ?, ?);
       """,
@@ -50,16 +52,17 @@ class DatabaseHelper {
         now,
       ],
     );
+    return (await geOnetNote(noteId));
   }
 
-  static editNote(int noteId,
+  static Future<Map> editNote(int noteId,
       {String newContent = '', String newTitle = ''}) async {
     assert(newContent.isNotEmpty || newTitle.isNotEmpty);
     Database? mydb = await db;
     String lastModified = DateTime.now().toString();
     String editContent = newContent.isNotEmpty ? "content = $newContent," : "";
     String editTitle = newTitle.isNotEmpty ? "title = $newTitle," : "";
-    await mydb!.rawInsert(
+    await mydb!.rawUpdate(
       """
         UPDATE notes SET $editContent $editTitle last_modified = ? WHERE id = ?;
       """,
@@ -68,6 +71,7 @@ class DatabaseHelper {
         noteId,
       ],
     );
+    return geOnetNote(noteId);
   }
 
   static deleteNote(int noteId) async {
@@ -92,16 +96,21 @@ class DatabaseHelper {
         noteId,
       ],
     );
+
     return note[0];
   }
 
-  static Future<List<Map>> getAllNotes() async {
+  static Future<List<Note>> getAllNotes() async {
     Database? mydb = await db;
-    List<Map> notes = await mydb!.rawQuery(
+    List<Map> notesMap = await mydb!.rawQuery(
       """
         SELECT * FROM notes
       """,
     );
+    List<Note> notes = [];
+    for (Map note in notesMap) {
+      notes.add(Note.fromMap(note));
+    }
     return notes;
   }
 }
