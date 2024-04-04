@@ -1,6 +1,7 @@
-import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/add_date_scrn.dart';
+import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/add_date_cubit/add_date_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/widgets/month_view.dart';
 
 class CalenderView extends StatefulWidget {
@@ -13,24 +14,21 @@ class CalenderView extends StatefulWidget {
 class _CalenderViewState extends State<CalenderView> {
   @override
   Widget build(BuildContext context) {
-    return CalendarControllerProvider(
-      controller: EventController(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('مواعيدي'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) => const AddDateScrn(),
-            );
-          },
-          shape: const StadiumBorder(),
-          child: const Icon(Icons.add),
-        ),
-        body: const MonthCalender(),
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => BlocProvider<AddDateCubit>(
+                create: (BuildContext context) => AddDateCubit(),
+                child: const AddDateScrn()),
+          );
+        },
+        shape: const StadiumBorder(),
+        child: const Icon(Icons.add),
       ),
+      body: const MonthCalender(),
     );
   }
 }

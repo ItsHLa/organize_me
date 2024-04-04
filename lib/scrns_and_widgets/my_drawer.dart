@@ -53,6 +53,11 @@ class _MyDrawerState extends State<MyDrawer> {
                 }),
             const Divider(),
             DrawerItem(
+                icon: Icons.medical_information_outlined,
+                title: 'طبابتي',
+                logic: () {}),
+            const Divider(),
+            DrawerItem(
                 icon: Icons.settings,
                 title: 'الاعدادات',
                 logic: () {
