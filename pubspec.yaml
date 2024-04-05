@@ -26,10 +26,9 @@ dependencies:
   flutter_email_sender: ^5.2.0
   url_launcher: ^6.1.0
   standard_searchbar: ^2.0.0
-  searchable_listview: ^2.11.1
-  easy_search_bar: ^2.5.0
   workmanager: ^0.5.2
-  easy_stepper: ^0.8.3
+  syncfusion_flutter_calendar: ^25.1.38
+  flutter_localization: ^0.2.0
 
 dev_dependencies:
   flutter_test:

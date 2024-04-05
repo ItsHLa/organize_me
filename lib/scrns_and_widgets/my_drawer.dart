@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/calender_view.dart';
 import 'package:organize_me/scrns_and_widgets/settings.dart';
 
 import 'bill_section/bills_category_list.dart';
@@ -43,14 +42,14 @@ class _MyDrawerState extends State<MyDrawer> {
                       builder: (context) => const BillsList());
                 }),
             const Divider(),
-            DrawerItem(
+           /* DrawerItem(
                 icon: Icons.calendar_month,
                 title: 'مواعيدي ',
                 logic: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const CalenderView(),
                   ));
-                }),
+                }),*/
             const Divider(),
             DrawerItem(
                 icon: Icons.medical_information_outlined,

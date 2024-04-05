@@ -1,26 +1,39 @@
-import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 part 'add_date_state.dart';
 
-class AddDateCubit extends Cubit<AddDateState> {
-  AddDateCubit() : super(DateInitial());
+class AddAppointmentCubit extends Cubit<AddAppointmentState> {
+  AddAppointmentCubit() : super(AppointmentInitial());
 
-  void addDate(DateTime start, DateTime end, String name,
-      EventController monthController) {
-    emit(AddDateLoading());
+  List<Appointment> appointments = <Appointment>[
+    Appointment(
+      startTime: DateTime.now(),
+      endTime: DateTime.now().add(Duration(hours: 2)),
+      subject: 'Meeting with Client',
+      color: deepPurple,
+    )
+  ];
+
+  void addAppointment(
+    DateTime startTime,
+    DateTime endTime,
+    String subject,
+  ) {
+    emit(AddAppointmentLoading());
     try {
-      final event = CalendarEventData(
-        date: start,
-        endDate: end,
-        title: name,
-      );
-      monthController.add(event);
+      appointments.add(Appointment(
+        startTime: startTime,
+        endTime: endTime,
+        subject: subject,
+        color: deepPurple,
+      ));
       // add the scheduled notification
-      emit(AddDateSucsses());
+      emit(AddAppointmentSucsses());
     } catch (e) {
-      emit(AddDateFaild(msg: 'من فضلك أعد إدخال موعدك'));
+      emit(AddAppointmentFailed(msg: 'من فضلك أعد إدخال موعدك'));
     }
   }
 }

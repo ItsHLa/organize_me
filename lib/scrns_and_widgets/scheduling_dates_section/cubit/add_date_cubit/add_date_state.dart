@@ -1,16 +1,16 @@
 part of 'add_date_cubit.dart';
 
 @immutable
-sealed class AddDateState {}
+sealed class AddAppointmentState {}
 
-final class DateInitial extends AddDateState {}
+final class AppointmentInitial extends AddAppointmentState {}
 
-final class AddDateLoading extends AddDateState {}
+final class AddAppointmentLoading extends AddAppointmentState {}
 
-final class AddDateSucsses extends AddDateState {}
+final class AddAppointmentSucsses extends AddAppointmentState {}
 
-final class AddDateFaild extends AddDateState {
+final class AddAppointmentFailed extends AddAppointmentState {
   final String msg;
 
-  AddDateFaild({required this.msg});
+  AddAppointmentFailed({required this.msg});
 }
