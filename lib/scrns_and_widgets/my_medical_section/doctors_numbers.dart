@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/widgets/docs_numbers_listview.dart';
 
 class MedsAndDocs extends StatelessWidget {
   const MedsAndDocs({super.key});
@@ -18,7 +19,7 @@ class MedsAndDocs extends StatelessWidget {
               shape: StadiumBorder(), onTap: null, child: Icon(Icons.add_call)),
         ],
       ),
-      body: Column(children: []),
+      body: Column(children: [Expanded(child: DocsNumbers())]),
     );
   }
 }
