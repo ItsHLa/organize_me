@@ -10,6 +10,35 @@ import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/appoitmen
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 import 'package:organize_me/services/local_notification_service.dart';
+import 'package:telephony/telephony.dart';
+
+backgrounMessageHandler(SmsMessage message) async {
+  Telephony.backgroundInstance.listenIncomingSms(
+    onNewMessage: (message) {
+      if (message.body!.contains('كهرباء')) {
+        // add to database
+        // set notification after 3 months
+      }
+      if (message.body!.contains('السورية للاتصالات ')) {
+        // add to database
+        // set notification after 3 months
+      }
+      if (message.body!.contains('فاتورة المياه')) {
+        // add to database
+        // set notification after 3 months
+      }
+      if (message.body!.contains('الغاز')) {
+        // send notification
+      }
+      if (message.body!.contains(' بنزين من محطة')) {
+        // send notification
+      }
+      if (message.body!.contains('خبز')) {
+        // send notification
+      }
+    },
+  );
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +48,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
