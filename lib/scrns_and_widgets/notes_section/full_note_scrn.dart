@@ -42,10 +42,11 @@ class NotePage extends StatelessWidget {
                           logic: () {
                             showModalBottomSheet(
                               context: context,
-                              builder: (context) => const Input(
+                              builder: (context) => Input(
+                                noteId: note.id,
                                 title: 'عنوان الملاحظة',
                                 content: 'الوصف',
-                                action: 'تعديل الملاحظة ',
+                                action: 'تعديل الملاحظة',
                                 icon: Icons.edit,
                               ),
                             );

@@ -89,12 +89,14 @@ class _AlterDialogCustomState extends State<AlterDialogCustom> {
       actions: [
         ElevatedButton(
           onPressed: () async {
-            await DatabaseHelper.deleteNote(widget.noteId);
             Note note =
                 Note.fromMap(await DatabaseHelper.geOnetNote(widget.noteId));
+            await DatabaseHelper.deleteNote(widget.noteId);
             if (context.mounted) {
-              BlocProvider.of<NotesBloc>(context)
-                  .add(DeleteNoteEvent(note: note));
+              BlocProvider.of<NotesBloc>(context).add(
+                DeleteNoteEvent(note: note),
+              );
+              Navigator.of(context).pop();
             }
           },
           child: const Text('نعم'),
