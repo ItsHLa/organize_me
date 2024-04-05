@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../constants.dart';
@@ -25,7 +25,7 @@ class AppoitmentCubit extends Cubit<AppoitmentState> {
         subject: subject,
         color: deepPurple,
       ));
-      log('${appointments}');
+      log('$appointments');
       // add the scheduled notification
       emit(AppoitmentAddedSuccsess());
       emit(AppoitmentUpdated(appointments: appointments));

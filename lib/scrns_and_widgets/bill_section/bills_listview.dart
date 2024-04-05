@@ -14,7 +14,7 @@ class BillsListView extends StatelessWidget {
           showDialog(
               context: context, builder: (context) => const PaymentPage());
         },
-        child: Icon(
+        child: const Icon(
           Icons.payments,
         ),
       ),

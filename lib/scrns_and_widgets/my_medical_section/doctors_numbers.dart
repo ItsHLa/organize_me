@@ -12,14 +12,14 @@ class MedsAndDocs extends StatelessWidget {
         icon: Icons.drag_handle,
         children: [
           SpeedDialChild(
-              shape: StadiumBorder(),
+              shape: const StadiumBorder(),
               onTap: null,
-              child: Icon(Icons.medication)),
+              child: const Icon(Icons.medication)),
           SpeedDialChild(
-              shape: StadiumBorder(), onTap: null, child: Icon(Icons.add_call)),
+              shape: const StadiumBorder(), onTap: null, child: const Icon(Icons.add_call)),
         ],
       ),
-      body: Column(children: [Expanded(child: DocsNumbers())]),
+      body: const Column(children: [Expanded(child: DocsNumbers())]),
     );
   }
 }
