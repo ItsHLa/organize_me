@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
@@ -6,7 +8,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 part 'add_date_state.dart';
 
 class AddAppointmentCubit extends Cubit<AddAppointmentState> {
-  AddAppointmentCubit() : super(AppointmentInitial());
+  AddAppointmentCubit() : super(AddAppointmentInitial());
 
   List<Appointment> appointments = <Appointment>[
     Appointment(
@@ -17,11 +19,9 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
     )
   ];
 
-  void addAppointment(
-    DateTime startTime,
-    DateTime endTime,
-    String subject,
-  ) {
+  void addAppointment(DateTime startTime,
+      DateTime endTime,
+      String subject,) {
     emit(AddAppointmentLoading());
     try {
       appointments.add(Appointment(
@@ -30,10 +30,11 @@ class AddAppointmentCubit extends Cubit<AddAppointmentState> {
         subject: subject,
         color: deepPurple,
       ));
+      log('${appointments}');
       // add the scheduled notification
       emit(AddAppointmentSucsses());
     } catch (e) {
-      emit(AddAppointmentFailed(msg: 'من فضلك أعد إدخال موعدك'));
+      emit(AddAppointmentFailed());
     }
   }
 }

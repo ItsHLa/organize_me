@@ -6,7 +6,7 @@ import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/bills_listview.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/appoitments_calendar.dart';
-import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/add_date_cubit/add_date_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/day_view.dart';
 import 'package:organize_me/services/local_notification_service.dart';
@@ -103,8 +103,8 @@ class _OrganizeMeState extends State<OrganizeMe> {
               ),
               body: TabBarView(children: [
                 DayCalendar(),
-                BlocProvider<AddAppointmentCubit>(
-                  create: (context) => AddAppointmentCubit(),
+                BlocProvider<AppoitmentCubit>(
+                  create: (context) => AppoitmentCubit(),
                   child: const MonthCalendar(),
                 ),
                 NoteView(),

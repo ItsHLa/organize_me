@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/widgets/date_picker.dart';
 
 import '../input_text.dart';
@@ -73,19 +75,31 @@ class _AddDateScrnState extends State<AddDateScrn> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: 8, right: 8, bottom: MediaQuery.viewInsetsOf(context).bottom),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 15,
-            ),
-            Form(
-              key: formKey,
-              child: InputText(
-                hint: 'اسم المهمة',
+    return BlocListener<AppoitmentCubit, AppoitmentState>(
+      listener: (context, state) {
+        if (state is AppoitmentAddedSuccsess) {
+          Navigator.of(context).pop();
+        } else if (state is AppoitmentAddedFailed) {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    content: Text(state.msg),
+                  ));
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: 8, right: 8, bottom: MediaQuery.viewInsetsOf(context).bottom),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 15,
+              ),
+              Form(
+                key: formKey,
+                child: InputText(
+                  hint: 'اسم المهمة',
                 save: (value) {
                   setState(() {
                     dateName = value!;
@@ -118,12 +132,15 @@ class _AddDateScrnState extends State<AddDateScrn> {
             ElevatedButton(
                 onPressed: () {
                   formKey.currentState!.save();
-                },
-                child: const Text('إضافة المهمة')),
-            const SizedBox(
-              height: 15,
-            ),
-          ],
+                    BlocProvider.of<AppoitmentCubit>(context)
+                        .addAppointment(start?[0], end?[0], dateName!);
+                  },
+                  child: const Text('إضافة المهمة')),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
         ),
       ),
     );
