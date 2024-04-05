@@ -7,64 +7,65 @@ class MyBills extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(4),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: Colors.white54,
-                    borderRadius: BorderRadius.circular(20)),
-                child: const Icon(
-                  Icons.monetization_on_outlined,
-                  color: green,
-                  size: 30,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Colors.white54,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: const Icon(
+                    Icons.monetization_on_outlined,
+                    color: green,
+                    size: 30,
+                  ),
                 ),
-              ),
-              const Spacer(),
-              const Text(
-                'رقم العملية',
-                style: TextStyle(fontWeight: FontWeight.w800),
-              ),
-            ],
-          ),
-          const Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              RowWidget(title: 'الباركود', value: "123"),
-              SizedBox(
-                height: 2,
-              ),
-              RowWidget(title: 'العداد', value: "123"),
-              SizedBox(
-                height: 2,
-              ),
-              RowWidget(title: 'المبلغ', value: "123"),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Spacer(),
-                  Text(
-                    "التاريخ",
-                    style: TextStyle(fontWeight: FontWeight.w700),
-                  )
-                ],
-              )
-            ],
-          ),
-        ],
+                const Spacer(),
+                const Text(
+                  'رقم العملية',
+                  style: TextStyle(fontWeight: FontWeight.w800),
+                ),
+              ],
+            ),
+            const Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                RowWidget(title: 'الباركود', value: "123"),
+                SizedBox(
+                  height: 2,
+                ),
+                RowWidget(title: 'العداد', value: "123"),
+                SizedBox(
+                  height: 2,
+                ),
+                RowWidget(title: 'المبلغ', value: "123"),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Spacer(),
+                    Text(
+                      "التاريخ",
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
 

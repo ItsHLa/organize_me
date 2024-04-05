@@ -16,15 +16,16 @@ class BillsListView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => const PaymentPage());
-                },
-                icon: const Icon(
-                  Icons.payments,
-                  color: green,
-                )),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => const PaymentPage());
+              },
+              icon: const Icon(
+                Icons.payments,
+                color: green,
+              ),
+            ),
           )
         ],
       ),

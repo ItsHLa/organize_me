@@ -22,37 +22,6 @@ class _AddDateScrnState extends State<AddDateScrn> {
   List? start;
   List? end;
 
-  int setHour12(int hour) {
-    switch (hour) {
-      case 13:
-        return 1;
-      case 14:
-        return 2;
-      case 15:
-        return 3;
-      case 16:
-        return 4;
-      case 17:
-        return 5;
-      case 18:
-        return 6;
-      case 19:
-        return 7;
-      case 20:
-        return 8;
-      case 21:
-        return 9;
-      case 22:
-        return 10;
-      case 23:
-        return 11;
-      case 24:
-        return 12;
-      default:
-        return hour;
-    }
-  }
-
   Future<List> myDatePicker(TextEditingController controller) async {
     DateTime? date = await showDatePicker(
       context: context,
@@ -66,11 +35,13 @@ class _AddDateScrnState extends State<AddDateScrn> {
       initialTime: TimeOfDay.now(),
     );
 
-    setState(() {
-      controller.text =
-          ' ${date!.day} / ${date.month} / ${date.year} - ${setHour12(time!.hour)} : ${time.minute} ';
-      print(time.hour);
-    });
+    setState(
+      () {
+        controller.text =
+            ' ${date!.day} / ${date.month} / ${date.year} - ${time!.hour % 12} : ${time.minute} ';
+        print(time.hour);
+      },
+    );
 
     return [date, time];
   }
@@ -83,10 +54,11 @@ class _AddDateScrnState extends State<AddDateScrn> {
           Navigator.of(context).pop(context);
         } else if (state is AddDateFaild) {
           showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    content: Text(state.msg),
-                  ));
+            context: context,
+            builder: (context) => AlertDialog(
+              content: Text(state.msg),
+            ),
+          );
         }
       },
       child: Padding(
@@ -103,9 +75,11 @@ class _AddDateScrnState extends State<AddDateScrn> {
                 child: InputText(
                   hint: 'اسم المهمة',
                   save: (value) {
-                    setState(() {
-                      dateName = value!;
-                    });
+                    setState(
+                      () {
+                        dateName = value!;
+                      },
+                    );
                   },
                 ),
               ),
@@ -113,11 +87,12 @@ class _AddDateScrnState extends State<AddDateScrn> {
                 height: 10,
               ),
               MyDatePicker(
-                  controller: startDate,
-                  labelText: 'موعد البدء',
-                  onTap: () async {
-                    start = await myDatePicker(startDate);
-                  }),
+                controller: startDate,
+                labelText: 'موعد البدء',
+                onTap: () async {
+                  start = await myDatePicker(startDate);
+                },
+              ),
               const SizedBox(
                 height: 5,
               ),
@@ -131,17 +106,20 @@ class _AddDateScrnState extends State<AddDateScrn> {
               const SizedBox(
                 height: 5,
               ),
-              ElevatedButton(onPressed: () {
-                formKey.currentState!.save();
-                BlocProvider.of<AddDateCubit>(context)
-                    .addDate(start?[0], end?[0], dateName!, monthController);
-              }, child: BlocBuilder<AddDateCubit, AddDateState>(
-                builder: (context, state) {
-                  return state is AddDateLoading
-                      ? const CircularProgressIndicator()
-                      : const Text('إضافة المهمة');
+              ElevatedButton(
+                onPressed: () {
+                  formKey.currentState!.save();
+                  BlocProvider.of<AddDateCubit>(context)
+                      .addDate(start?[0], end?[0], dateName!, monthController);
                 },
-              )),
+                child: BlocBuilder<AddDateCubit, AddDateState>(
+                  builder: (context, state) {
+                    return state is AddDateLoading
+                        ? const CircularProgressIndicator()
+                        : const Text('إضافة المهمة');
+                  },
+                ),
+              ),
               const SizedBox(
                 height: 15,
               ),

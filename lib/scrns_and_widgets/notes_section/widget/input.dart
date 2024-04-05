@@ -6,13 +6,14 @@ import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 import '../../input_text.dart';
 
 class Input extends StatefulWidget {
-  const Input(
-      {super.key,
-      required this.title,
-      required this.content,
-      required this.action,
-      required this.icon,
-      this.noteId});
+  const Input({
+    super.key,
+    required this.title,
+    required this.content,
+    required this.action,
+    required this.icon,
+    this.noteId,
+  });
 
   final int? noteId;
   final String title;
