@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/bloc/notes_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
-import 'package:organize_me/scrns_and_widgets/my_drawer.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/bills_listview.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
-import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/calender_view.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/day_view.dart';
+import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/appoitments_calendar.dart';
+import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 import 'package:organize_me/services/local_notification_service.dart';
 
 void main() async {
@@ -38,8 +41,6 @@ class OrganizeMe extends StatefulWidget {
 }
 
 class _OrganizeMeState extends State<OrganizeMe> {
-  List pages = [const DailyTasks(), const CalenderView(), const NoteView()];
-  int pageIndex = 0;
 
   void _getAllNotes() async {
     BlocProvider.of<NotesBloc>(context).notes =
@@ -56,36 +57,58 @@ class _OrganizeMeState extends State<OrganizeMe> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light,
-      ),
-      home: Scaffold(
-          drawer: const MyDrawer(),
-          appBar: AppBar(
-            leading: const Icon(Icons.table_rows_outlined),
-            title: const Text('OrganizeMe'),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (value) {
-              setState(() {
-                pageIndex = value;
-              });
-            },
-            currentIndex: pageIndex,
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.checklist_outlined), label: 'المهام'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.calendar_month,
-                  ),
-                  label: 'موابيدي'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.edit_note), label: 'مفكرة'),
-            ],
-          ),
-          body: pages[pageIndex]),
-    );
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.light,
+        ),
+        home: DefaultTabController(
+          length: 5,
+          child: Scaffold(
+              appBar: AppBar(
+                bottomOpacity: 0.7,
+                bottom: const TabBar(
+                  // tabAlignment: TabAlignment.center,
+
+                  tabs: [
+                    Tab(
+                      icon: Icon(Icons.task_alt_outlined),
+                    ),
+                    Tab(
+                      icon: Icon(Icons.calendar_month),
+                    ),
+                    Tab(
+                      icon: Icon(Icons.note_alt),
+                    ),
+                    Tab(
+                      icon: Icon(Icons.payments),
+                    ),
+                    Tab(
+                      icon: Icon(Icons.medical_information_outlined),
+                    ),
+                  ],
+                ),
+                title: const Text(
+                  'OrganizeMe',
+                  style: TextStyle(color: deepPurple),
+                ),
+                actions: const [
+                  IconButton(
+                      onPressed: null, icon: Icon(Icons.wb_sunny_outlined)),
+                  IconButton(
+                      onPressed: null,
+                      icon: Icon(Icons.energy_savings_leaf_outlined))
+                ],
+              ),
+              body: TabBarView(children: [
+                const DayCalendar(),
+                BlocProvider<AppoitmentCubit>(
+                  create: (context) => AppoitmentCubit(),
+                  child: const MonthCalendar(),
+                ),
+                const NoteView(),
+                const BillsListView(),
+                const MedsAndDocs()
+              ])),
+        ));
   }
 }

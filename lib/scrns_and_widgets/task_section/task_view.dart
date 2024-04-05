@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/day_view.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-class TaskView extends StatelessWidget {
-  const TaskView({super.key});
+class DayCalendar extends StatelessWidget {
+  const DayCalendar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: DailyTasks());
+    return Scaffold(
+      body: SfCalendar(
+        view: CalendarView.day,
+        showCurrentTimeIndicator: true,
+        showDatePickerButton: true,
+        showNavigationArrow: true,
+        allowAppointmentResize: true,
+        allowDragAndDrop: true,
+      ),
+    );
   }
 }

@@ -1,7 +1,6 @@
-import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/add_date_cubit/add_date_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/widgets/date_picker.dart';
 
 import '../input_text.dart';
@@ -17,7 +16,6 @@ class _AddDateScrnState extends State<AddDateScrn> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController startDate = TextEditingController();
   TextEditingController endDate = TextEditingController();
-  EventController monthController = EventController();
   String? dateName;
   List? start;
   List? end;
@@ -48,11 +46,11 @@ class _AddDateScrnState extends State<AddDateScrn> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddDateCubit, AddDateState>(
+    return BlocListener<AppoitmentCubit, AppoitmentState>(
       listener: (context, state) {
-        if (state is AddDateSucsses) {
-          Navigator.of(context).pop(context);
-        } else if (state is AddDateFaild) {
+        if (state is AppoitmentAddedSuccsess) {
+          Navigator.of(context).pop();
+        } else if (state is AppoitmentAddedFailed) {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -75,11 +73,9 @@ class _AddDateScrnState extends State<AddDateScrn> {
                 child: InputText(
                   hint: 'اسم المهمة',
                   save: (value) {
-                    setState(
-                      () {
-                        dateName = value!;
-                      },
-                    );
+                    setState(() {
+                      dateName = value!;
+                    });
                   },
                 ),
               ),
@@ -87,12 +83,11 @@ class _AddDateScrnState extends State<AddDateScrn> {
                 height: 10,
               ),
               MyDatePicker(
-                controller: startDate,
-                labelText: 'موعد البدء',
-                onTap: () async {
-                  start = await myDatePicker(startDate);
-                },
-              ),
+                  controller: startDate,
+                  labelText: 'موعد البدء',
+                  onTap: () async {
+                    start = await myDatePicker(startDate);
+                  }),
               const SizedBox(
                 height: 5,
               ),
@@ -107,19 +102,12 @@ class _AddDateScrnState extends State<AddDateScrn> {
                 height: 5,
               ),
               ElevatedButton(
-                onPressed: () {
-                  formKey.currentState!.save();
-                  BlocProvider.of<AddDateCubit>(context)
-                      .addDate(start?[0], end?[0], dateName!, monthController);
-                },
-                child: BlocBuilder<AddDateCubit, AddDateState>(
-                  builder: (context, state) {
-                    return state is AddDateLoading
-                        ? const CircularProgressIndicator()
-                        : const Text('إضافة المهمة');
+                  onPressed: () {
+                    formKey.currentState!.save();
+                    BlocProvider.of<AppoitmentCubit>(context)
+                        .addAppointment(start?[0], end?[0], dateName!);
                   },
-                ),
-              ),
+                  child: const Text('إضافة المهمة')),
               const SizedBox(
                 height: 15,
               ),
