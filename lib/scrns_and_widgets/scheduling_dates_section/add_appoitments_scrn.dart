@@ -72,9 +72,11 @@ class _AddDateScrnState extends State<AddDateScrn> {
                 child: InputText(
                   hint: 'اسم المهمة',
                   save: (value) {
-                    setState(() {
-                      dateName = value!;
-                    });
+                    setState(
+                      () {
+                        dateName = value!;
+                      },
+                    );
                   },
                 ),
               ),

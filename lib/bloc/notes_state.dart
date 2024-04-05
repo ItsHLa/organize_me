@@ -10,6 +10,18 @@ final class NotesInitial extends NotesState {
   const NotesInitial({required super.notes});
 }
 
-class NotesUpdated extends NotesState {
-  const NotesUpdated({required super.notes});
+class NoteUpdated extends NotesState {
+  final Note note;
+  const NoteUpdated({
+    required super.notes,
+    required this.note,
+  });
+}
+
+class NoteAdded extends NotesState {
+  const NoteAdded({required super.notes});
+}
+
+class NoteDeleted extends NotesState {
+  const NoteDeleted({required super.notes});
 }

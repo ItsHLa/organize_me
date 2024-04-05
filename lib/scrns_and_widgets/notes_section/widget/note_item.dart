@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/bloc/notes_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 
@@ -82,6 +83,7 @@ class _AlterDialogCustomState extends State<AlterDialogCustom> {
       content: const Text(
         'هل انت متأكد من حذف هذه المهمة ؟',
         textAlign: TextAlign.center,
+        style: TextStyle(color: deepPurple),
       ),
       actionsAlignment: MainAxisAlignment.center,
       contentPadding: const EdgeInsets.all(30),

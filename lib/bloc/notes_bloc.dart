@@ -14,7 +14,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   }
   void _addNote(AddNoteEvent event, Emitter<NotesState> emit) {
     notes.add(event.note);
-    emit(NotesUpdated(notes: notes));
+    emit(NoteAdded(notes: notes));
   }
 
   void _deleteNote(DeleteNoteEvent event, Emitter<NotesState> emit) {
@@ -24,7 +24,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         break;
       }
     }
-    emit(NotesUpdated(notes: notes));
+    emit(NoteDeleted(notes: notes));
   }
 
   void _updateNote(UpdateNoteEvent event, Emitter<NotesState> emit) {
@@ -35,6 +35,9 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         break;
       }
     }
-    emit(NotesUpdated(notes: notes));
+    emit(NoteUpdated(
+      notes: notes,
+      note: event.note,
+    ));
   }
 }

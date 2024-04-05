@@ -60,8 +60,9 @@ class DatabaseHelper {
     assert(newContent.isNotEmpty || newTitle.isNotEmpty);
     Database? mydb = await db;
     String lastModified = DateTime.now().toString();
-    String editContent = newContent.isNotEmpty ? "content = $newContent," : "";
-    String editTitle = newTitle.isNotEmpty ? "title = $newTitle," : "";
+    String editContent =
+        newContent.isNotEmpty ? "content = '$newContent'," : "";
+    String editTitle = newTitle.isNotEmpty ? "title = '$newTitle'," : "";
     await mydb!.rawUpdate(
       """
         UPDATE notes SET $editContent $editTitle last_modified = ? WHERE id = ?;
