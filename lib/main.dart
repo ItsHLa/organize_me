@@ -4,11 +4,11 @@ import 'package:organize_me/bloc/notes_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/bills_listview.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/appoitments_calendar.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/day_view.dart';
 import 'package:organize_me/services/local_notification_service.dart';
 
 void main() async {
@@ -41,8 +41,6 @@ class OrganizeMe extends StatefulWidget {
 }
 
 class _OrganizeMeState extends State<OrganizeMe> {
-  List pages = [const DailyTasks(), const NoteView()];
-  int pageIndex = 0;
 
   void _getAllNotes() async {
     BlocProvider.of<NotesBloc>(context).notes =
@@ -102,14 +100,14 @@ class _OrganizeMeState extends State<OrganizeMe> {
                 ],
               ),
               body: TabBarView(children: [
-                DayCalendar(),
+                const DayCalendar(),
                 BlocProvider<AppoitmentCubit>(
                   create: (context) => AppoitmentCubit(),
                   child: const MonthCalendar(),
                 ),
-                NoteView(),
-                BillsListView(),
-                Text('Doctors and stuff')
+                const NoteView(),
+                const BillsListView(),
+                const MedsAndDocs()
               ])),
         ));
   }

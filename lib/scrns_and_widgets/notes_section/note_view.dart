@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'add_note.dart';
 import 'widget/note_list_view.dart';
 
@@ -13,7 +14,6 @@ class _NoteViewState extends State<NoteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FloatingActionButton.small(
         onPressed: () {
