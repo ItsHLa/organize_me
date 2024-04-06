@@ -43,7 +43,6 @@ class _InputTaskState extends State<InputTask> {
                 ),
                 const InputText(
                   hint: 'وصف المهمة',
-                  lines: 3,
                   save: null,
                 ),
                 const SizedBox(
