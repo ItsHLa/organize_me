@@ -22,29 +22,7 @@ class MyTimeLine extends StatelessWidget {
               iconStyle: IconStyle(
                   color: Colors.white54, iconData: Icons.task_alt_outlined),
             ),
-            endChild: TaskItem()),
-        const TimelineDivider(
-          begin: 0.1,
-          end: 0.9,
-          color: deepPurple,
-        ),
-        TimelineTile(
-            lineXY: 0.9,
-            alignment: TimelineAlign.manual,
-            afterLineStyle: LineStyle(color: deepPurple),
-            beforeLineStyle: LineStyle(color: deepPurple),
-            indicatorStyle: IndicatorStyle(
-              width: 25,
-              color: deepPurple,
-              iconStyle: IconStyle(
-                  color: Colors.white54, iconData: Icons.task_alt_outlined),
-            ),
-            startChild: TaskItem()),
-        const TimelineDivider(
-          begin: 0.1,
-          end: 0.9,
-          color: deepPurple,
-        ),
+            endChild: const TaskItem()),
       ],
     );
   }
