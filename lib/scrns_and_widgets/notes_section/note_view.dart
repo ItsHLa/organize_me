@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/bloc/notes_bloc.dart';
 
 import 'add_note.dart';
+import 'bloc/notes_bloc.dart';
 import 'widget/note_list_view.dart';
 
 class NoteView extends StatefulWidget {

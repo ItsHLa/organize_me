@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/bloc/notes_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 
+import '../bloc/notes_bloc.dart';
 import '../full_note_scrn.dart';
 
 class NoteItem extends StatelessWidget {

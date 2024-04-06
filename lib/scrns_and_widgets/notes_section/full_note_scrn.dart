@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/bloc/notes_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 
+import 'bloc/notes_bloc.dart';
 import 'widget/icon_button.dart';
 import 'widget/input.dart';
 import 'widget/note_item.dart';
