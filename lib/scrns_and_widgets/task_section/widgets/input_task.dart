@@ -49,39 +49,29 @@ class _InputTaskState extends State<InputTask> {
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      width: 160,
-                      child: MyDatePicker(
-                          labelText: 'وقت البدء',
-                          onTap: () async {
-                            starTime = await showTimePicker(
-                                context: context, initialTime: TimeOfDay.now());
-                            setState(() {
-                              start.text = starTime.toString();
-                            });
-                          },
-                          controller: start),
-                    ),
-                    Container(
-                      width: 170,
-                      child: MyDatePicker(
-                          labelText: 'وقت الانتهاء',
-                          onTap: () async {
-                            endTime = await showTimePicker(
-                                context: context, initialTime: TimeOfDay.now());
-                            setState(() {
-                              end.text = endTime.toString();
-                            });
-                          },
-                          controller: end),
-                    ),
-                  ],
-                ),
+                MyDatePicker(
+                    labelText: 'وقت البدء',
+                    onTap: () async {
+                      starTime = await showTimePicker(
+                          context: context, initialTime: TimeOfDay.now());
+                      setState(() {
+                        start.text = starTime.toString();
+                      });
+                    },
+                    controller: start),
                 const SizedBox(
                   height: 5,
                 ),
+                MyDatePicker(
+                    labelText: 'وقت الانتهاء',
+                    onTap: () async {
+                      endTime = await showTimePicker(
+                          context: context, initialTime: TimeOfDay.now());
+                      setState(() {
+                        end.text = endTime.toString();
+                      });
+                    },
+                    controller: end),
                 const SizedBox(
                   height: 5,
                 ),
