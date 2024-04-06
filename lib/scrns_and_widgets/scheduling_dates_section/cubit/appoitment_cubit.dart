@@ -1,17 +1,18 @@
-import 'dart:developer';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../constants.dart';
+import '../db/appointment_data_source.dart';
 
 part 'appoitment_state.dart';
 
 class AppoitmentCubit extends Cubit<AppoitmentState> {
-  AppoitmentCubit() : super(AppoitmentInitial());
+  AppoitmentCubit()
+      : super(
+            AppoitmentInitial(appointmentDataSource: getCalendarDataSource()));
 
-  List<Appointment> appointments = <Appointment>[];
+  AppointmentDataSource dataSource = getCalendarDataSource();
 
   void addAppointment(
     DateTime startTime,
@@ -19,18 +20,29 @@ class AppoitmentCubit extends Cubit<AppoitmentState> {
     String subject,
   ) {
     try {
-      appointments.add(Appointment(
+      Appointment app = Appointment(
         startTime: startTime,
         endTime: endTime,
         subject: subject,
         color: deepPurple,
-      ));
-      log('$appointments');
+      );
+      dataSource.appointments?.add(app);
+      dataSource
+          .notifyListeners(CalendarDataSourceAction.add, <Appointment>[app]);
       // add the scheduled notification
-      emit(AppoitmentAddedSuccsess());
-      emit(AppoitmentUpdated(appointments: appointments));
+      emit(AppoitmentAddedSuccsess(appointmentDataSource: dataSource));
     } catch (e) {
-      emit(AppoitmentAddedFailed(msg: 'من فضلك أعد إدخال موعدك'));
+      emit(AppoitmentAddedFailed(
+          appointmentDataSource: dataSource, msg: 'من فضلك أعد إدخال موعدك'));
+    }
+  }
+
+  void deleteAppoitment() {
+    try {
+      emit(AppoitmentDeletedSuccsess(appointmentDataSource: dataSource));
+    } catch (e) {
+      emit(AppoitmentDeletedFailed(
+          appointmentDataSource: dataSource, msg: 'تعذر حذف رسالتك'));
     }
   }
 }

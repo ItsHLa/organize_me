@@ -1,27 +1,36 @@
 part of 'appoitment_cubit.dart';
 
 @immutable
-sealed class AppoitmentState {}
+sealed class AppoitmentState {
+  final AppointmentDataSource appointmentDataSource;
 
-final class AppoitmentInitial extends AppoitmentState {}
+  AppoitmentState({required this.appointmentDataSource});
+}
 
-// for ui
-final class AppoitmentUpdated extends AppoitmentState {
-  final List<Appointment> appointments;
-
-  AppoitmentUpdated({required this.appointments});
+final class AppoitmentInitial extends AppoitmentState {
+  AppoitmentInitial({required super.appointmentDataSource});
 }
 
 // for add appoitment
-final class AppoitmentAddedSuccsess extends AppoitmentState {}
+final class AppoitmentAddedSuccsess extends AppoitmentState {
+  AppoitmentAddedSuccsess({required super.appointmentDataSource});
+}
 
 final class AppoitmentAddedFailed extends AppoitmentState {
   final String msg;
 
-  AppoitmentAddedFailed({required this.msg});
+  AppoitmentAddedFailed(
+      {required this.msg, required super.appointmentDataSource});
 }
 
 // when deleting appoitment
-final class AppoitmentDeletedSuccsess extends AppoitmentState {}
+final class AppoitmentDeletedSuccsess extends AppoitmentState {
+  AppoitmentDeletedSuccsess({required super.appointmentDataSource});
+}
 
-final class AppoitmentDeletedFailed extends AppoitmentState {}
+final class AppoitmentDeletedFailed extends AppoitmentState {
+  final String msg;
+
+  AppoitmentDeletedFailed(
+      {required this.msg, required super.appointmentDataSource});
+}

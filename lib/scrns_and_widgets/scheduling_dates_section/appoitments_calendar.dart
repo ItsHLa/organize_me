@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/add_appoitments_scrn.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/widgets/appoitment_listview.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class MonthCalendar extends StatelessWidget {
@@ -24,13 +25,29 @@ class MonthCalendar extends StatelessWidget {
                   );
                 });
           }),
-      body: SfCalendar(
-        view: CalendarView.month,
-        showNavigationArrow: true,
-        // dataSource: AppointmentDataSource(),
-        monthViewSettings: const MonthViewSettings(
-          appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
-        ),
+      body: BlocBuilder<AppoitmentCubit, AppoitmentState>(
+        builder: (context, state) {
+          return SfCalendar(
+            view: CalendarView.month,
+            showNavigationArrow: true,
+            dataSource: state.appointmentDataSource,
+            monthViewSettings: const MonthViewSettings(
+              appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
+            ),
+            onTap: (calendarTapDetails) {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Container(
+                    child: Column(
+                      children: [Expanded(child: AppoitmentListView())],
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }
