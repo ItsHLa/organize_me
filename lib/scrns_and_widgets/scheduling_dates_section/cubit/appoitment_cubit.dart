@@ -3,16 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../constants.dart';
-import '../db/appointment_data_source.dart';
 
 part 'appoitment_state.dart';
 
 class AppoitmentCubit extends Cubit<AppoitmentState> {
-  AppoitmentCubit()
-      : super(
-            AppoitmentInitial(appointmentDataSource: getCalendarDataSource()));
-
-  AppointmentDataSource dataSource = getCalendarDataSource();
+  AppoitmentCubit() : super(AppoitmentInitial());
 
   void addAppointment(
     DateTime startTime,
@@ -26,23 +21,11 @@ class AppoitmentCubit extends Cubit<AppoitmentState> {
         subject: subject,
         color: deepPurple,
       );
-      dataSource.appointments?.add(app);
-      dataSource
-          .notifyListeners(CalendarDataSourceAction.add, <Appointment>[app]);
-      // add the scheduled notification
-      emit(AppoitmentAddedSuccsess(appointmentDataSource: dataSource));
-    } catch (e) {
-      emit(AppoitmentAddedFailed(
-          appointmentDataSource: dataSource, msg: 'من فضلك أعد إدخال موعدك'));
-    }
-  }
 
-  void deleteAppoitment() {
-    try {
-      emit(AppoitmentDeletedSuccsess(appointmentDataSource: dataSource));
+      // add the scheduled notification
+      emit(AppoitmentAddedSuccsess());
     } catch (e) {
-      emit(AppoitmentDeletedFailed(
-          appointmentDataSource: dataSource, msg: 'تعذر حذف رسالتك'));
+      emit(AppoitmentAddedFailed(msg: 'من فضلك أعد إدخال موعدك'));
     }
   }
 }

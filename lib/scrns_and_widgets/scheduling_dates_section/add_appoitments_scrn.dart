@@ -70,7 +70,7 @@ class _AddDateScrnState extends State<AddDateScrn> {
               Form(
                 key: formKey,
                 child: InputText(
-                  hint: 'اسم المهمة',
+                  hint: 'الموعد ',
                   save: (value) {
                     setState(
                       () {
@@ -108,7 +108,7 @@ class _AddDateScrnState extends State<AddDateScrn> {
                     BlocProvider.of<AppoitmentCubit>(context)
                         .addAppointment(start?[0], end?[0], dateName!);
                   },
-                  child: const Text('إضافة المهمة')),
+                  child: const Text('اضافة الموعد')),
               const SizedBox(
                 height: 15,
               ),

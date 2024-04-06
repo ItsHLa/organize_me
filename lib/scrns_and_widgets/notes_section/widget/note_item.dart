@@ -17,7 +17,6 @@ class NoteItem extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            // deleting on long press !!!!!!!!!!!!
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => NotePage(
@@ -36,7 +35,7 @@ class NoteItem extends StatelessWidget {
                         style: const TextStyle(fontSize: 15),
                       ),
                     ),
-                    const Spacer()
+                    const Spacer(),
                   ],
                 ),
                 const Divider()

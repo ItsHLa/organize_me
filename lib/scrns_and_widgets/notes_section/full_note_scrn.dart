@@ -35,7 +35,6 @@ class NotePage extends StatelessWidget {
           body: Container(
             margin: const EdgeInsets.all(9.0),
             child: Card(
-              color: Colors.grey,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -58,6 +57,7 @@ class NotePage extends StatelessWidget {
                               logic: () {
                                 showModalBottomSheet(
                                   context: context,
+                                  isScrollControlled: true,
                                   builder: (context) => Input(
                                     noteId: currNote.id,
                                     title: 'عنوان الملاحظة',

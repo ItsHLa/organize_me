@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/bloc/notes_bloc.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
+
 import '../../input_text.dart';
 
 class Input extends StatefulWidget {
@@ -55,7 +56,7 @@ class _InputState extends State<Input> {
               const SizedBox(height: 4),
               InputText(
                 hint: widget.content,
-                lines: 5,
+                lines: 4,
                 save: (value) => newContent = value ?? '',
               ),
               const SizedBox(height: 5),
@@ -96,7 +97,7 @@ class _InputState extends State<Input> {
                 icon: Icon(widget.icon),
                 label: Text(widget.action),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
             ],
           ),
         ),

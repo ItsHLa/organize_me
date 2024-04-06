@@ -34,7 +34,7 @@ class _NoteViewState extends State<NoteView> {
               );
             },
             shape: const StadiumBorder(),
-            child: const Icon(Icons.add_task),
+            child: const Icon(Icons.add),
           ),
           body: const Column(
             children: [

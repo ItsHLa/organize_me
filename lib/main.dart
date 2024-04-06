@@ -102,18 +102,23 @@ class _OrganizeMeState extends State<OrganizeMe> {
                   tabs: [
                     Tab(
                       icon: Icon(Icons.task_alt_outlined),
+                      text: 'مهامي',
                     ),
                     Tab(
                       icon: Icon(Icons.calendar_month),
+                      text: 'مواعيدي',
                     ),
                     Tab(
                       icon: Icon(Icons.note_alt),
+                      text: 'مفكرتي',
                     ),
                     Tab(
                       icon: Icon(Icons.payments),
+                      text: 'فواتيري',
                     ),
                     Tab(
                       icon: Icon(Icons.medical_information_outlined),
+                      text: 'ادويتي',
                     ),
                   ],
                 ),

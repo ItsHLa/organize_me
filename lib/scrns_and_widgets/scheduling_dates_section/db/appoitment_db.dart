@@ -1,6 +1,5 @@
 class MyAppoitment {
   final String description;
-
   final DateTime start;
   final DateTime end;
 

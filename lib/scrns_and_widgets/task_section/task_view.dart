@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/widgets/time_line.dart';
 
 class DayCalendar extends StatelessWidget {
   const DayCalendar({super.key});
@@ -7,14 +7,23 @@ class DayCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SfCalendar(
-        view: CalendarView.day,
-        showCurrentTimeIndicator: true,
-        showDatePickerButton: true,
-        showNavigationArrow: true,
-        allowAppointmentResize: true,
-        allowDragAndDrop: true,
-      ),
-    );
+        floatingActionButton: FloatingActionButton.small(
+          shape: const StadiumBorder(),
+          onPressed: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => Container(
+                color: Colors.deepPurple,
+              ),
+            );
+          },
+          child: const Icon(Icons.add_task),
+        ),
+        body: ListView.builder(
+          itemBuilder: (context, index) {
+            return const MyTimeLine();
+          },
+        ));
   }
 }
