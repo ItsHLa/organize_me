@@ -6,24 +6,24 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Card(
           child: ExpansionTile(
-            shape: StadiumBorder(),
-            title: Text('Task Name'),
+            shape: const StadiumBorder(),
+            title: const Text('Task Name'),
             children: [
               Container(
-                  padding: EdgeInsets.all(8),
-                  child:
-                      Text('Description Description Description Description')),
-              Row(
+                  padding: const EdgeInsets.all(8),
+                  child: const Text(
+                      'Description Description Description Description')),
+              const Row(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   IconButton(onPressed: null, icon: Icon(Icons.edit)),
                   IconButton(onPressed: null, icon: Icon(Icons.delete))
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               )
             ],

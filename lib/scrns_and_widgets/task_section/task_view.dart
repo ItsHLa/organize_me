@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/widgets/input_task.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/time_line.dart';
 
 class DayCalendar extends StatelessWidget {
@@ -13,10 +14,7 @@ class DayCalendar extends StatelessWidget {
             showModalBottomSheet(
               isScrollControlled: true,
               context: context,
-              builder: (context) => Container(
-                color: Colors.deepPurple,
-              ),
-            );
+                builder: (context) => InputTask());
           },
           child: const Icon(Icons.add_task),
         ),
