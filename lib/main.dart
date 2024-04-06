@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/bloc/notes_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/bills_listview.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/doctors_numbers.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/appoitments_calendar.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
