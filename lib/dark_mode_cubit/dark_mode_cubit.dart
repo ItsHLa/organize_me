@@ -7,8 +7,11 @@ part 'dark_mode_state.dart';
 class DarkModeCubit extends Cubit<DarkModeState> {
   DarkModeCubit() : super(DarkModeInitial(darkModeOff));
 
-  void darkModeIsOn(bool on) {
-    if (on) {
+  bool darkMode = false;
+
+  void darkModeIsOn() {
+    darkMode = !darkMode;
+    if (darkMode) {
       emit(DarkModeOn(darkModeOn));
     } else {
       emit(DarkModeOff(darkModeOff));

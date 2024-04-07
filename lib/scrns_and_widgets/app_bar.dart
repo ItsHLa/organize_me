@@ -14,7 +14,6 @@ class MAppBar extends StatefulWidget {
 class _MAppBarState extends State<MAppBar> {
   @override
   Widget build(BuildContext context) {
-    bool darkModeOff = false;
 
     return AppBar(
       title: const Text(
@@ -26,16 +25,7 @@ class _MAppBarState extends State<MAppBar> {
           builder: (context, state) {
             return IconButton(
                 onPressed: () {
-                  setState(() {
-                    darkModeOff = !darkModeOff;
-                  });
-                  if (darkModeOff) {
-                    BlocProvider.of<DarkModeCubit>(context)
-                        .darkModeIsOn(darkModeOff);
-                  } else {
-                    BlocProvider.of<DarkModeCubit>(context)
-                        .darkModeIsOn(darkModeOff);
-                  }
+                  BlocProvider.of<DarkModeCubit>(context).darkModeIsOn();
                 },
                 icon: state.icon);
           },
