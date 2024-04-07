@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/add_appoitments_scrn.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -12,19 +13,19 @@ class MonthCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton.small(
-            shape: const StadiumBorder(),
-            child: const Icon(Icons.calendar_today_outlined),
+        floatingActionButton: MyFab(
+            icon: Icons.calendar_today_outlined,
             onPressed: () {
               showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (newcontext) {
-                    return BlocProvider<AppoitmentCubit>.value(
-                      value: BlocProvider.of(context),
-                      child: const AddDateScrn(),
-                    );
-                  });
+                isScrollControlled: true,
+                context: context,
+                builder: (newcontext) {
+                  return BlocProvider<AppoitmentCubit>.value(
+                    value: BlocProvider.of(context),
+                    child: const AddDateScrn(),
+                  );
+                },
+              );
             }),
         body: SingleChildScrollView(
           child: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 
 import '../app_bar.dart';
 import 'add_note.dart';
@@ -24,19 +25,17 @@ class _NoteViewState extends State<NoteView> {
         return Scaffold(
           floatingActionButtonLocation:
               FloatingActionButtonLocation.endContained,
-          floatingActionButton: FloatingActionButton.small(
-            onPressed: () {
-              showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
-                builder: (context) {
-                  return const AddNoteScrn();
-                },
-              );
-            },
-            shape: const StadiumBorder(),
-            child: const Icon(Icons.add),
-          ),
+          floatingActionButton: MyFab(
+              icon: Icons.add,
+              onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) {
+                    return const AddNoteScrn();
+                  },
+                );
+              }),
           body: const Column(
             children: [
               MAppBar(),

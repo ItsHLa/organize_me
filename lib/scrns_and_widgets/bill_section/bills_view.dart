@@ -3,6 +3,7 @@ import 'package:organize_me/scrns_and_widgets/app_bar.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/bili_category_item.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/bills_listview.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/payment_widget.dart';
+import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 
 import '../../constants.dart';
 
@@ -12,14 +13,12 @@ class MyBills extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.small(
+      floatingActionButton: MyFab(
+        icon: Icons.payments,
         onPressed: () {
           showDialog(
               context: context, builder: (context) => const PaymentPage());
         },
-        child: const Icon(
-          Icons.payments,
-        ),
       ),
       body: Column(
         children: [

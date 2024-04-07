@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/input_task.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/time_line.dart';
 
@@ -10,15 +11,14 @@ class DayCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton.small(
-          shape: const StadiumBorder(),
+        floatingActionButton: MyFab(
+          icon: Icons.add_task,
           onPressed: () {
             showModalBottomSheet(
                 isScrollControlled: true,
                 context: context,
                 builder: (context) => const InputTask());
           },
-          child: const Icon(Icons.add_task),
         ),
         body: Column(
           children: [
