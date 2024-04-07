@@ -35,7 +35,7 @@ class MDrawe extends StatelessWidget {
               label: "مهام",
               screen: buildScrn('مهام')),
           RailItem(
-              icon: const Icon(Icons.medical_information_outlined),
+              icon: const Icon(Icons.calendar_month),
               label: "مواعيد",
               screen: buildScrn('مواعيد')),
           RailItem(
