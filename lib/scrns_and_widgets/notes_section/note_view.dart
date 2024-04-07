@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../app_bar.dart';
 import 'add_note.dart';
 import 'bloc/notes_bloc.dart';
 import 'widget/note_list_view.dart';
@@ -38,6 +39,7 @@ class _NoteViewState extends State<NoteView> {
           ),
           body: const Column(
             children: [
+              MAppBar(),
               Expanded(child: NoteListView()),
             ],
           ),
