@@ -34,14 +34,6 @@ class _InputTaskState extends State<InputTask> {
                   height: 10,
                 ),
                 const InputText(
-                  hint: 'اسم المهمة',
-                  maxLength: 15,
-                  save: null,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const InputText(
                   hint: 'وصف المهمة',
                   save: null,
                 ),
