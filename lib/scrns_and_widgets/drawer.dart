@@ -17,14 +17,16 @@ class MDrawe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedRail(
-        width: 50,
-        maxWidth: 100,
+        cursorSize: const Size(65, 65),
+        cursorActionType: CursorActionTrigger.clickAndDrag,
+        width: 49,
+        maxWidth: 130,
         background: deepPurple,
         expand: true,
         railTileConfig: const RailTileConfig(
           iconColor: Colors.white,
           activeColor: Colors.white54,
-          iconSize: 25,
+          iconSize: 24,
           expandedTextStyle: TextStyle(fontSize: 15),
           collapsedTextStyle: TextStyle(fontSize: 12, color: Colors.white),
           iconPadding: EdgeInsets.symmetric(vertical: 5),
