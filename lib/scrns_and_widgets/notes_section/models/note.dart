@@ -39,7 +39,7 @@ class Note {
   }
 
   static Future<Map> editNote(int noteId,
-      {String newContent = '', String newTitle = ''}) async {
+      {required String newContent, required String newTitle}) async {
     Database? mydb = await DatabaseHelper.db;
     String lastModified = DateTime.now().toString();
     String editContent =

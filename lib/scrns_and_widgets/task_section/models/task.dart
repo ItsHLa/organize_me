@@ -9,7 +9,6 @@ class Task {
   final String creationDate;
   final String startDate;
   final String endDate;
-  final String reminder;
   final String status;
 
   const Task({
@@ -20,7 +19,6 @@ class Task {
     required this.creationDate,
     required this.endDate,
     required this.startDate,
-    required this.reminder,
     required this.status,
   });
 
@@ -31,7 +29,6 @@ class Task {
       creationDate: taskMap['creation_date'],
       endDate: taskMap['end_date'],
       startDate: taskMap['start_map'],
-      reminder: taskMap['reminder'],
       status: taskMap['status'],
       tag: taskMap['tag'],
       title: taskMap['title'],
@@ -44,7 +41,6 @@ class Task {
     String? tag,
     String startDate,
     String endDate,
-    String? reminder,
   ) async {
     Database? mydb = await DatabaseHelper.db;
     String now = DateTime.now().toString();
@@ -55,10 +51,9 @@ class Task {
                                     createion_date,
                                     tag,
                                     start_date,
-                                    end_date,
-                                    reminder)
+                                    end_date)
 
-                                    VALUES (?, ?, ?, ?, ?, ?, ?);
+                                    VALUES (?, ?, ?, ?, ?, ?);
       """,
       [
         title,
@@ -67,7 +62,6 @@ class Task {
         tag,
         startDate,
         endDate,
-        reminder,
       ],
     );
     return (await geOnetTask(noteId));
@@ -80,7 +74,6 @@ class Task {
     String newStartDate = '',
     String newEndDate = '',
     String newTag = '',
-    String newReminder = '',
   }) async {
     Database? mydb = await DatabaseHelper.db;
     String lastModified = DateTime.now().toString();
@@ -92,8 +85,6 @@ class Task {
     String editEndDate =
         newEndDate.isNotEmpty ? "end_date = '$newEndDate'," : "";
     String editTag = newTag.isNotEmpty ? "tag = '$newTag'," : "";
-    String editReminder =
-        newReminder.isNotEmpty ? "reminder = '$newReminder'," : "";
     await mydb!.rawUpdate(
       """
         UPDATE tasks SET $editContent
@@ -101,7 +92,6 @@ class Task {
                          $editStartDate
                          $editEndDate
                          $editTag
-                         $editReminder
                          last_modified = ? WHERE id = ?;
       """,
       [

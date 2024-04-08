@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
 
 import '../app_bar.dart';
 import 'add_note.dart';
@@ -15,6 +16,16 @@ class NoteView extends StatefulWidget {
 }
 
 class _NoteViewState extends State<NoteView> {
+  void _getAllNotes() async {
+    BlocProvider.of<NotesBloc>(context).notes = await Note.getAllNotes();
+  }
+
+  @override
+  void initState() {
+    _getAllNotes();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NotesBloc, NotesState>(

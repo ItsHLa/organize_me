@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/input_text.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/widgets/input_phone_num.dart';
 
 import 'cubit/docs_num_cubit.dart';
@@ -16,8 +17,15 @@ class AddPhoneNum extends StatelessWidget {
         }
       },
       child: InputPhoneNumber(
-        onPressed: () {
-          // BlocProvider.of<DocsNumCubit>(context).addPhoneNumber(name, phoneNumber);
+        onPressed: (numKey, name, phone) {
+          if (name.isEmpty || phone.isEmpty) {
+            InputText.validateField(numKey);
+            return;
+          }
+          BlocProvider.of<DocsNumCubit>(context).addPhoneNumber(
+            name,
+            phone,
+          );
         },
       ),
     );

@@ -2,6 +2,7 @@ import 'package:animated_rail/animated_rail/animated_rail.dart';
 import 'package:animated_rail/animated_rail/rail_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/cubit/docs_num_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/appoitments_calendar.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
@@ -64,8 +65,9 @@ class MDrawe extends StatelessWidget {
     switch (title) {
       case 'مواعيد':
         return BlocProvider<AppoitmentCubit>(
-            create: (context) => AppoitmentCubit(),
-            child: const MonthCalendar());
+          create: (context) => AppoitmentCubit(),
+          child: const MonthCalendar(),
+        );
       case "مهام":
         return const DayCalendar();
       case "مفكرة":
@@ -73,9 +75,15 @@ class MDrawe extends StatelessWidget {
       case "فواتير":
         return const MyBills();
       case "اطباء":
-        return const MedsAndDocs();
+        return BlocProvider(
+          create: (context) => DocsNumCubit(),
+          child: const MedsAndDocs(),
+        );
       case "ادوية":
-        return const MedsAndDocs();
+        return BlocProvider(
+          create: (context) => DocsNumCubit(),
+          child: const MedsAndDocs(),
+        );
     }
   }
 }

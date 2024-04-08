@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class DocsNumber extends StatelessWidget {
-  const DocsNumber(
-      {super.key,
-      required this.docsName,
-      required this.phoneNumber,
-      this.onPressedEdit,
-      this.onPressedCall,
-      this.onPressedDelete});
+  const DocsNumber({
+    super.key,
+    required this.docsName,
+    required this.phoneNumber,
+    this.onPressedEdit,
+    this.onPressedCall,
+    this.onPressedDelete,
+  });
 
   final String docsName;
   final String phoneNumber;
@@ -19,29 +20,33 @@ class DocsNumber extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-          contentPadding: const EdgeInsets.all(8),
-          leading: Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(30)),
-              child: const Icon(Icons.person_2_outlined)),
-          title: Row(
-            children: [
-              Text(docsName),
-              const Spacer(),
-              IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: onPressedEdit,
-              ),
-              IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: onPressedDelete,
-              ),
-            ],
+        contentPadding: const EdgeInsets.all(8),
+        leading: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey,
+            borderRadius: BorderRadius.circular(30),
           ),
-          trailing: IconButton(
-            icon: const Icon(Icons.call),
-            onPressed: onPressedCall,
-          )),
+          child: const Icon(Icons.person_2_outlined),
+        ),
+        title: Row(
+          children: [
+            Text(docsName),
+            const Spacer(),
+            IconButton(
+              icon: const Icon(Icons.edit),
+              onPressed: onPressedEdit,
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: onPressedDelete,
+            ),
+          ],
+        ),
+        trailing: IconButton(
+          icon: const Icon(Icons.call),
+          onPressed: onPressedCall,
+        ),
+      ),
     );
   }
 }

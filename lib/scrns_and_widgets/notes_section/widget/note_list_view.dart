@@ -20,13 +20,15 @@ class _NoteListViewState extends State<NoteListView> {
       child: BlocBuilder<NotesBloc, NotesState>(
         builder: (context, state) {
           List<Note> notes = BlocProvider.of<NotesBloc>(context).notes;
-          return ListView.builder(
-            padding: EdgeInsets.zero,
-            itemCount: notes.length,
-            itemBuilder: (context, index) {
-              return NoteItem(note: notes[index]);
-            },
-          );
+          return notes.isEmpty
+              ? const Center(child: CircularProgressIndicator())
+              : ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: notes.length,
+                  itemBuilder: (context, index) {
+                    return NoteItem(note: notes[index]);
+                  },
+                );
         },
       ),
     );

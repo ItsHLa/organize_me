@@ -22,7 +22,9 @@ class DatabaseHelper {
     return mydb;
   }
 
-  static _onUpgrade(Database db, int oldversion, int newversion) {}
+  static _onUpgrade(Database db, int oldversion, int newversion) async {
+    // await DoctorsContacts.getAllContacts();
+  }
 
   static _onCreate(Database db, int version) async {
     await db.execute(
@@ -46,9 +48,17 @@ class DatabaseHelper {
             creation_date TEXT,
             start_date TEXT,
             end_date TEXT,
-            reminder TEXT,
             status TEXT DEFAULT 'pending',
             last_modified TEXT DEFAULT NULL
+          );
+      ''',
+    );
+    await db.execute(
+      '''
+          CREATE TABLE IF NOT EXISTS doctors_contacts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            phone TEXT NOT NULL,
+            name TEXT NOT NULL
           );
       ''',
     );
