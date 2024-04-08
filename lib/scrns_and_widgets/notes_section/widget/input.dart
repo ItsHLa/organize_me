@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/database/db.dart';
-import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
 
 import '../../input_text.dart';
 import '../bloc/notes_bloc.dart';
@@ -68,7 +67,7 @@ class _InputState extends State<Input> {
                     validateMode = AutovalidateMode.always;
                   }
                   if (widget.action == 'اضافة الملاحظة') {
-                    Map noteMap = await DatabaseHelper.addNote(
+                    Map noteMap = await Note.addNote(
                       newTitle,
                       newContent,
                     );
@@ -80,7 +79,7 @@ class _InputState extends State<Input> {
                       );
                     }
                   } else if (widget.action == 'تعديل الملاحظة') {
-                    Map noteMap = await DatabaseHelper.editNote(
+                    Map noteMap = await Note.editNote(
                       widget.noteId!,
                       newTitle: newTitle,
                       newContent: newContent,

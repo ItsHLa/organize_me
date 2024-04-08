@@ -14,9 +14,10 @@ class MedsAndDocs extends StatelessWidget {
         icon: Icons.drag_handle,
         children: [
           SpeedDialChild(
-              shape: const StadiumBorder(),
-              onTap: null,
-              child: const Icon(Icons.medication)),
+            shape: const StadiumBorder(),
+            onTap: null,
+            child: const Icon(Icons.medication),
+          ),
           SpeedDialChild(
               shape: const StadiumBorder(),
               onTap: null,

@@ -11,7 +11,7 @@ class InputTask extends StatefulWidget {
 }
 
 class _InputTaskState extends State<InputTask> {
-  GlobalKey<FormState> Taskkey = GlobalKey<FormState>();
+  GlobalKey<FormState> taskKey = GlobalKey<FormState>();
   TextEditingController start = TextEditingController();
   TextEditingController end = TextEditingController();
   TimeOfDay? starTime;
@@ -22,64 +22,85 @@ class _InputTaskState extends State<InputTask> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-          padding: EdgeInsets.only(
-              right: 9,
-              left: 9,
-              bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Form(
-            key: Taskkey,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                const InputText(
-                  hint: 'اسم المهمة',
-                  save: null,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const InputText(
-                  hint: 'وصف المهمة',
-                  save: null,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                MyDatePicker(
-                    labelText: 'وقت البدء',
-                    onTap: () async {
-                      starTime = await showTimePicker(
-                          context: context, initialTime: TimeOfDay.now());
-                      setState(() {
-                        start.text = starTime.toString();
-                      });
+        padding: EdgeInsets.only(
+            right: 9,
+            left: 9,
+            bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Form(
+          key: taskKey,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              const InputText(
+                hint: 'عنوان المهمة',
+                save: null,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const InputText(
+                hint: 'وصف المهمة',
+                save: null,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const InputText(
+                hint: 'نوع المهمة',
+                save: null,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              MyDatePicker(
+                labelText: 'وقت البدء',
+                onTap: () async {
+                  starTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  );
+                  setState(
+                    () {
+                      start.text = starTime.toString();
                     },
-                    controller: start),
-                const SizedBox(
-                  height: 5,
-                ),
-                MyDatePicker(
-                    labelText: 'وقت الانتهاء',
-                    onTap: () async {
-                      endTime = await showTimePicker(
-                          context: context, initialTime: TimeOfDay.now());
-                      setState(() {
-                        end.text = endTime.toString();
-                      });
+                  );
+                },
+                controller: start,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              MyDatePicker(
+                labelText: 'وقت الانتهاء',
+                onTap: () async {
+                  endTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  );
+                  setState(
+                    () {
+                      end.text = endTime.toString();
                     },
-                    controller: end),
-                const SizedBox(
-                  height: 5,
-                ),
-                ElevatedButton(onPressed: null, child: Text('اضافة المهمة')),
-                const SizedBox(
-                  height: 15,
-                ),
-              ],
-            ),
-          )),
+                  );
+                },
+                controller: end,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const ElevatedButton(
+                onPressed: null,
+                child: Text('اضافة المهمة'),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

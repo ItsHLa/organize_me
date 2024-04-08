@@ -60,7 +60,10 @@ class _AddDateScrnState extends State<AddDateScrn> {
       },
       child: Padding(
         padding: EdgeInsets.only(
-            left: 8, right: 8, bottom: MediaQuery.viewInsetsOf(context).bottom),
+          left: 8,
+          right: 8,
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
+        ),
         child: SingleChildScrollView(
           child: Column(
             children: [

@@ -30,7 +30,7 @@ class _MAppBarState extends State<MAppBar> {
                 icon: state.icon);
           },
         ),
-        IconButton(
+        const IconButton(
             onPressed: null, icon: Icon(Icons.energy_savings_leaf_outlined))
       ],
     );

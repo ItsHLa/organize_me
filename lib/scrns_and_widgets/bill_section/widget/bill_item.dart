@@ -17,8 +17,9 @@ class MyBills extends StatelessWidget {
                   padding: const EdgeInsets.all(4),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      color: Colors.white54,
-                      borderRadius: BorderRadius.circular(20)),
+                    color: Colors.white54,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   child: const Icon(
                     Icons.monetization_on_outlined,
                     color: green,
