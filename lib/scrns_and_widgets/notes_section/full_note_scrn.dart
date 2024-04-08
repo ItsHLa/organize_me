@@ -21,7 +21,11 @@ class NotePage extends StatelessWidget {
       builder: (context, state) {
         Note currNote = note;
         if (state is NoteUpdated) {
-          Navigator.of(context).pop();
+          SchedulerBinding.instance.addPostFrameCallback(
+            (timeStamp) {
+              Navigator.of(context).pop();
+            },
+          );
           currNote = state.note;
         } else if (state is NoteDeleted) {
           SchedulerBinding.instance.addPostFrameCallback(

@@ -17,40 +17,40 @@ class MDrawe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedRail(
-        width: 100,
-        maxWidth: 175,
-        background: deepPurple,
-        expand: true,
-        railTileConfig: const RailTileConfig(
-          iconColor: Colors.white,
-          activeColor: Colors.white54,
-          expandedTextStyle: TextStyle(fontSize: 15),
-          collapsedTextStyle: TextStyle(fontSize: 12, color: Colors.white),
-          iconPadding: EdgeInsets.symmetric(vertical: 5),
-          hideCollapsedText: true,
-        ),
-        items: [
-          RailItem(
-              icon: const Icon(Icons.task_alt_outlined),
-              label: "مهام",
-              screen: buildScrn('مهام')),
-          RailItem(
-              icon: const Icon(Icons.calendar_month),
-              label: "مواعيد",
-              screen: buildScrn('مواعيد')),
-          RailItem(
-              icon: const Icon(Icons.note_alt),
-              label: "مفكرة",
-              screen: buildScrn('مفكرة')),
-          RailItem(
-              icon: const Icon(Icons.payments),
-              label: 'فواتير',
-              screen: buildScrn('فواتير')),
-          RailItem(
-              icon: const Icon(Icons.medical_information_outlined),
-              label: "صحة",
-              screen: buildScrn('صحة')),
-        ]);
+      width: 70,
+      maxWidth: 140,
+      background: deepPurple,
+      railTileConfig: const RailTileConfig(
+        iconColor: Colors.white,
+        activeColor: Colors.white54,
+        expandedTextStyle: TextStyle(fontSize: 15),
+        collapsedTextStyle: TextStyle(fontSize: 12, color: Colors.white),
+        iconPadding: EdgeInsets.symmetric(vertical: 5),
+        hideCollapsedText: true,
+      ),
+      items: [
+        RailItem(
+            icon: const Icon(Icons.task_alt_outlined),
+            label: "مهام",
+            screen: buildScrn('مهام')),
+        RailItem(
+            icon: const Icon(Icons.calendar_month),
+            label: "مواعيد",
+            screen: buildScrn('مواعيد')),
+        RailItem(
+            icon: const Icon(Icons.note_alt),
+            label: "مفكرة",
+            screen: buildScrn('مفكرة')),
+        RailItem(
+            icon: const Icon(Icons.payments),
+            label: 'فواتير',
+            screen: buildScrn('فواتير')),
+        RailItem(
+            icon: const Icon(Icons.medical_information_outlined),
+            label: "صحة",
+            screen: buildScrn('صحة')),
+      ],
+    );
   }
 
   buildScrn(String title) {

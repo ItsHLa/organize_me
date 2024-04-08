@@ -85,12 +85,15 @@ class _OrganizeMeState extends State<OrganizeMe> {
       child: BlocBuilder<DarkModeCubit, DarkModeState>(
         builder: (context, state) {
           return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                brightness:
-                    state is DarkModeOn ? Brightness.dark : Brightness.light,
-              ),
-              home: const Scaffold(body: MDrawe()));
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              brightness:
+                  state is DarkModeOn ? Brightness.dark : Brightness.light,
+            ),
+            home: const Scaffold(
+              body: MDrawe(),
+            ),
+          );
         },
       ),
     );

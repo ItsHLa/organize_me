@@ -26,8 +26,8 @@ class Input extends StatefulWidget {
 }
 
 class _InputState extends State<Input> {
-  late String newTitle;
-  late String newContent;
+  String newTitle = '';
+  String newContent = '';
   AutovalidateMode validateMode = AutovalidateMode.disabled;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -56,17 +56,20 @@ class _InputState extends State<Input> {
               InputText(
                 hint: widget.content,
                 lines: 4,
-                save: (value) => newContent = value ?? '',
+                save: (value) {
+                  newContent = value ?? '';
+                },
               ),
               const SizedBox(height: 5),
               ElevatedButton.icon(
                 onPressed: () async {
-                  if (InputText.validateFiled(formKey)) {
-                    formKey.currentState!.save();
-                  } else {
-                    validateMode = AutovalidateMode.always;
-                  }
+                  validateMode = AutovalidateMode.always;
+                  formKey.currentState!.save();
                   if (widget.action == 'اضافة الملاحظة') {
+                    if (newTitle.isEmpty || newContent.isEmpty) {
+                      InputText.validateField(formKey);
+                      return;
+                    }
                     Map noteMap = await Note.addNote(
                       newTitle,
                       newContent,
@@ -79,6 +82,10 @@ class _InputState extends State<Input> {
                       );
                     }
                   } else if (widget.action == 'تعديل الملاحظة') {
+                    if (newTitle.isEmpty && newContent.isEmpty) {
+                      InputText.validateField(formKey);
+                      return;
+                    }
                     Map noteMap = await Note.editNote(
                       widget.noteId!,
                       newTitle: newTitle,

@@ -13,7 +13,7 @@ class InputText extends StatefulWidget {
   final void Function(String?)? save;
   final int? maxLength;
 
-  static bool validateFiled(GlobalKey<FormState> formKey) {
+  static bool validateField(GlobalKey<FormState> formKey) {
     if (formKey.currentState!.validate()) {
       return true;
     } else {
