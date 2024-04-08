@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/input_text.dart';
 
 class InputPhoneNumber extends StatefulWidget {
-  const InputPhoneNumber({super.key});
+  const InputPhoneNumber({super.key, this.onPressed});
+
+  final void Function()? onPressed;
 
   @override
   State<InputPhoneNumber> createState() => _AddNumberState();
@@ -19,21 +21,22 @@ class _AddNumberState extends State<InputPhoneNumber> {
       child: SingleChildScrollView(
         child: Form(
           key: numKey,
-          child: const Column(
+          child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
-              InputText(hint: 'الاسم'),
-              SizedBox(
+              const InputText(hint: 'الاسم'),
+              const SizedBox(
                 height: 5,
               ),
-              InputText(hint: 'الرقم'),
-              SizedBox(
+              const InputText(hint: 'الرقم'),
+              const SizedBox(
                 height: 5,
               ),
-              ElevatedButton(onPressed: null, child: Icon(Icons.add)),
-              SizedBox(
+              ElevatedButton(
+                  onPressed: widget.onPressed, child: const Icon(Icons.add)),
+              const SizedBox(
                 height: 15,
               ),
             ],
