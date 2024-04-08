@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-const Color water = Colors.blueAccent;
-const Color calls = Colors.greenAccent;
-const Color elec = Colors.limeAccent;
+const Icon darkModeOn = Icon(Icons.wb_sunny_outlined);
+const Icon darkModeOff = Icon(Icons.nightlight_outlined);
 
 const Color deepPurple = Colors.deepPurple;
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/bloc/notes_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 
+import '../bloc/notes_bloc.dart';
 import '../full_note_scrn.dart';
 
 class NoteItem extends StatelessWidget {
@@ -17,7 +17,6 @@ class NoteItem extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            // deleting on long press !!!!!!!!!!!!
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => NotePage(
@@ -36,7 +35,7 @@ class NoteItem extends StatelessWidget {
                         style: const TextStyle(fontSize: 15),
                       ),
                     ),
-                    const Spacer()
+                    const Spacer(),
                   ],
                 ),
                 const Divider()

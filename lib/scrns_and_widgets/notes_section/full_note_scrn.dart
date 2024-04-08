@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/bloc/notes_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
 
+import 'bloc/notes_bloc.dart';
 import 'widget/icon_button.dart';
 import 'widget/input.dart';
 import 'widget/note_item.dart';
@@ -35,7 +35,6 @@ class NotePage extends StatelessWidget {
           body: Container(
             margin: const EdgeInsets.all(9.0),
             child: Card(
-              color: Colors.grey,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -58,6 +57,7 @@ class NotePage extends StatelessWidget {
                               logic: () {
                                 showModalBottomSheet(
                                   context: context,
+                                  isScrollControlled: true,
                                   builder: (context) => Input(
                                     noteId: currNote.id,
                                     title: 'عنوان الملاحظة',

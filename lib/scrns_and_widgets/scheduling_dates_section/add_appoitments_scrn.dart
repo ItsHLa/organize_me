@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/date_time_picker.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
-import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/widgets/date_picker.dart';
 
 import '../input_text.dart';
 
@@ -73,7 +73,7 @@ class _AddDateScrnState extends State<AddDateScrn> {
               Form(
                 key: formKey,
                 child: InputText(
-                  hint: 'اسم المهمة',
+                  hint: 'الموعد ',
                   save: (value) {
                     setState(
                       () {
@@ -111,7 +111,7 @@ class _AddDateScrnState extends State<AddDateScrn> {
                     BlocProvider.of<AppoitmentCubit>(context)
                         .addAppointment(start?[0], end?[0], dateName!);
                   },
-                  child: const Text('إضافة المهمة')),
+                  child: const Text('اضافة الموعد')),
               const SizedBox(
                 height: 15,
               ),
