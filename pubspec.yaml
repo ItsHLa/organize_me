@@ -19,11 +19,8 @@ dependencies:
   flutter_native_splash: ^2.4.0
   flutter_local_notifications: ^17.0.0
   path: ^1.9.0
-  flutter_email_sender: ^5.2.0
   url_launcher: ^6.1.0
-  standard_searchbar: ^2.0.0
   workmanager: ^0.5.2
-  syncfusion_flutter_calendar: ^25.1.38
   flutter_localization: ^0.2.0
   flutter_speed_dial: ^7.0.0
   hive: ^2.2.3
