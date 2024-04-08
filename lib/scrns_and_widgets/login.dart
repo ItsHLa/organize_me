@@ -6,27 +6,46 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: 
-      Container(
+      body: Container(
         alignment: Alignment.center,
-        child:const Column(
-
+        child: const Column(
           children: [
             Row(
-              children: [Spacer(),
-              IconButton(onPressed: null, icon: Icon(
-                Icons.nightlight_outlined
-              ))],
+              children: [
+                Spacer(),
+                IconButton(
+                  onPressed: null,
+                  icon: Icon(Icons.nightlight_outlined),
+                )
+              ],
             ),
             // photo
-            SizedBox(height: 15,),
-            Text('اهلا بك' , style: TextStyle(fontSize: 25 ,fontWeight: FontWeight.bold),),
-            SizedBox(height: 5,),
-            Text('كل امورك المهمة في مكان واحد ' , style: TextStyle(fontWeight: FontWeight.normal),)
-            ,SizedBox(height: 5,),
-            ElevatedButton(onPressed: null, child: Text('البدء'))
-
-
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              'اهلا بك',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              'كل امورك المهمة في مكان واحد ',
+              style: TextStyle(
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            ElevatedButton(
+              onPressed: null,
+              child: Text('البدء'),
+            )
           ],
         ),
       ),

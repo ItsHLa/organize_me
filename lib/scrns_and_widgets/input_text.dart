@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 
 class InputText extends StatefulWidget {
-
-
-
-  const InputText(
-      {super.key,
-      required this.hint,
-      this.lines = 1,
-      this.save,
-      this.maxLength, });
+  const InputText({
+    super.key,
+    required this.hint,
+    this.lines = 1,
+    this.save,
+    this.maxLength,
+  });
   final String hint;
   final int lines;
   final void Function(String?)? save;
   final int? maxLength;
 
-  static bool validateFiled( GlobalKey<FormState> formKey){
+  static bool validateFiled(GlobalKey<FormState> formKey) {
     if (formKey.currentState!.validate()) {
       return true;
     } else {
       return false;
     }
-
   }
 
   @override
@@ -29,7 +26,6 @@ class InputText extends StatefulWidget {
 }
 
 class _InputTextState extends State<InputText> {
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(

@@ -34,15 +34,17 @@ class _MyDrawerState extends State<MyDrawer> {
               height: 5,
             ),
             DrawerItem(
-                icon: Icons.payment,
-                title: 'فواتيري',
-                logic: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => const BillsList());
-                }),
+              icon: Icons.payment,
+              title: 'فواتيري',
+              logic: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const BillsList(),
+                );
+              },
+            ),
             const Divider(),
-           /* DrawerItem(
+            /* DrawerItem(
                 icon: Icons.calendar_month,
                 title: 'مواعيدي ',
                 logic: () {
@@ -52,18 +54,22 @@ class _MyDrawerState extends State<MyDrawer> {
                 }),*/
             const Divider(),
             DrawerItem(
-                icon: Icons.medical_information_outlined,
-                title: 'طبابتي',
-                logic: () {}),
+              icon: Icons.medical_information_outlined,
+              title: 'طبابتي',
+              logic: () {},
+            ),
             const Divider(),
             DrawerItem(
-                icon: Icons.settings,
-                title: 'الاعدادات',
-                logic: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+              icon: Icons.settings,
+              title: 'الاعدادات',
+              logic: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
                     builder: (context) => const Settings(),
-                  ));
-                }),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

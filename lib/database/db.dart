@@ -37,6 +37,20 @@ class DatabaseHelper {
           );
       ''',
     );
+    await db.execute(
+      '''
+          CREATE TABLE IF NOT EXISTS tasks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            content TEXT NOT NULL,
+            creation_date TEXT,
+            completion_date TEXT,
+            reminder TEXT,
+            status TEXT DEFAULT 'pending',
+            last_modified TEXT DEFAULT NULL
+          );
+      ''',
+    );
   }
 
   static Future<Map> addNote(String title, String content) async {

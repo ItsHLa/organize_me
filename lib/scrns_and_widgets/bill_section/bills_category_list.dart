@@ -27,7 +27,7 @@ class BillsList extends StatelessWidget {
             BillItem(
               iconBill: Icons.water_drop,
               billTitle: "فواتير المياه",
-              iconColor:blue,
+              iconColor: blue,
               logic: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(

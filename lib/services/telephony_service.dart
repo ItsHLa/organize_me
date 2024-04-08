@@ -9,19 +9,22 @@ class TelephonyService {
 
   static Future<List<SmsMessage>> filterWaterInboxMessages() async {
     return await telephony.getInboxSms(
-        columns: [SmsColumn.ADDRESS, SmsColumn.BODY],
-        filter: SmsFilter.where(SmsColumn.BODY).like('مياه'));
+      columns: [SmsColumn.ADDRESS, SmsColumn.BODY],
+      filter: SmsFilter.where(SmsColumn.BODY).like('مياه'),
+    );
   }
 
   static Future<List<SmsMessage>> filterCallsInboxMessages() async {
     return await telephony.getInboxSms(
-        columns: [SmsColumn.ADDRESS, SmsColumn.BODY],
-        filter: SmsFilter.where(SmsColumn.BODY).like('اتصالات'));
+      columns: [SmsColumn.ADDRESS, SmsColumn.BODY],
+      filter: SmsFilter.where(SmsColumn.BODY).like('اتصالات'),
+    );
   }
 
   static Future<List<SmsMessage>> filterElectInboxMessages() async {
     return await telephony.getInboxSms(
-        columns: [SmsColumn.ADDRESS, SmsColumn.BODY],
-        filter: SmsFilter.where(SmsColumn.BODY).like('الكهرباء'));
+      columns: [SmsColumn.ADDRESS, SmsColumn.BODY],
+      filter: SmsFilter.where(SmsColumn.BODY).like('الكهرباء'),
+    );
   }
 }

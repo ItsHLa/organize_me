@@ -25,21 +25,26 @@ class _SettingsState extends State<Settings> {
             color: yellow,
             value: nightModeOn,
             onChange: (value) {
-              setState(() {
-                nightModeOn = value;
-              });
+              setState(
+                () {
+                  nightModeOn = value;
+                },
+              );
             },
           ),
           SettingsItem(
-              icon: Icons.energy_savings_leaf_outlined,
-              title: 'وضع توفير الطاقة',
-              color: green,
-              value: powerSavingMode,
-              onChange: (value) {
-                setState(() {
+            icon: Icons.energy_savings_leaf_outlined,
+            title: 'وضع توفير الطاقة',
+            color: green,
+            value: powerSavingMode,
+            onChange: (value) {
+              setState(
+                () {
                   powerSavingMode = value;
-                });
-              })
+                },
+              );
+            },
+          )
         ],
       ),
     );
@@ -47,13 +52,14 @@ class _SettingsState extends State<Settings> {
 }
 
 class SettingsItem extends StatelessWidget {
-  const SettingsItem(
-      {super.key,
-      this.onChange,
-      required this.value,
-      required this.title,
-      required this.icon,
-      required this.color});
+  const SettingsItem({
+    super.key,
+    this.onChange,
+    required this.value,
+    required this.title,
+    required this.icon,
+    required this.color,
+  });
 
   final void Function(bool)? onChange;
 
@@ -67,20 +73,21 @@ class SettingsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SwitchListTile(
-        value: value,
-        onChanged: onChange,
-        title: Row(
-          children: [
-            Icon(
-              icon,
-              color: color,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(title),
-            ),
-            //energy_savings_leaf_outlined
-          ],
-        ));
+      value: value,
+      onChanged: onChange,
+      title: Row(
+        children: [
+          Icon(
+            icon,
+            color: color,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(title),
+          ),
+          //energy_savings_leaf_outlined
+        ],
+      ),
+    );
   }
 }

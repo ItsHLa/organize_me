@@ -19,12 +19,14 @@ class AppoitmentCubit extends Cubit<AppoitmentState> {
     String subject,
   ) {
     try {
-      appointments.add(Appointment(
-        startTime: startTime,
-        endTime: endTime,
-        subject: subject,
-        color: deepPurple,
-      ));
+      appointments.add(
+        Appointment(
+          startTime: startTime,
+          endTime: endTime,
+          subject: subject,
+          color: deepPurple,
+        ),
+      );
       log('$appointments');
       // add the scheduled notification
       emit(AppoitmentAddedSuccsess());

@@ -71,7 +71,6 @@ class OrganizeMe extends StatefulWidget {
 }
 
 class _OrganizeMeState extends State<OrganizeMe> {
-
   void _getAllNotes() async {
     BlocProvider.of<NotesBloc>(context).notes =
         await DatabaseHelper.getAllNotes();
@@ -87,58 +86,65 @@ class _OrganizeMeState extends State<OrganizeMe> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          brightness: Brightness.light,
-        ),
-        home: DefaultTabController(
-          length: 5,
-          child: Scaffold(
-              appBar: AppBar(
-                bottomOpacity: 0.7,
-                bottom: const TabBar(
-                  // tabAlignment: TabAlignment.center,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.light,
+      ),
+      home: DefaultTabController(
+        length: 5,
+        child: Scaffold(
+          appBar: AppBar(
+            bottomOpacity: 0.7,
+            bottom: const TabBar(
+              // tabAlignment: TabAlignment.center,
 
-                  tabs: [
-                    Tab(
-                      icon: Icon(Icons.task_alt_outlined),
-                    ),
-                    Tab(
-                      icon: Icon(Icons.calendar_month),
-                    ),
-                    Tab(
-                      icon: Icon(Icons.note_alt),
-                    ),
-                    Tab(
-                      icon: Icon(Icons.payments),
-                    ),
-                    Tab(
-                      icon: Icon(Icons.medical_information_outlined),
-                    ),
-                  ],
+              tabs: [
+                Tab(
+                  icon: Icon(Icons.task_alt_outlined),
                 ),
-                title: const Text(
-                  'OrganizeMe',
-                  style: TextStyle(color: deepPurple),
+                Tab(
+                  icon: Icon(Icons.calendar_month),
                 ),
-                actions: const [
-                  IconButton(
-                      onPressed: null, icon: Icon(Icons.wb_sunny_outlined)),
-                  IconButton(
-                      onPressed: null,
-                      icon: Icon(Icons.energy_savings_leaf_outlined))
-                ],
+                Tab(
+                  icon: Icon(Icons.note_alt),
+                ),
+                Tab(
+                  icon: Icon(Icons.payments),
+                ),
+                Tab(
+                  icon: Icon(Icons.medical_information_outlined),
+                ),
+              ],
+            ),
+            title: const Text(
+              'OrganizeMe',
+              style: TextStyle(color: deepPurple),
+            ),
+            actions: const [
+              IconButton(
+                onPressed: null,
+                icon: Icon(Icons.wb_sunny_outlined),
               ),
-              body: TabBarView(children: [
-                const DayCalendar(),
-                BlocProvider<AppoitmentCubit>(
-                  create: (context) => AppoitmentCubit(),
-                  child: const MonthCalendar(),
-                ),
-                const NoteView(),
-                const BillsListView(),
-                const MedsAndDocs()
-              ])),
-        ));
+              IconButton(
+                onPressed: null,
+                icon: Icon(Icons.energy_savings_leaf_outlined),
+              ),
+            ],
+          ),
+          body: TabBarView(
+            children: [
+              const DayCalendar(),
+              BlocProvider<AppoitmentCubit>(
+                create: (context) => AppoitmentCubit(),
+                child: const MonthCalendar(),
+              ),
+              const NoteView(),
+              const BillsListView(),
+              const MedsAndDocs()
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
