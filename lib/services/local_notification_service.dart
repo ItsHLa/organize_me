@@ -25,14 +25,14 @@ class LocalNotificationService {
   // scheduled Notification
   static void showScheduledNotification() async {
     AndroidNotificationDetails android = const AndroidNotificationDetails(
-        'id 3 ', 'scheduled Notification',
+        'id 1 ', 'scheduled Notification',
         importance: Importance.max, priority: Priority.high);
     tz.initializeTimeZones();
     final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
     NotificationDetails details = NotificationDetails(android: android);
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        2,
+        0,
         'scheduled Notification',
         'body',
         tz.TZDateTime(tz.local, 2024),

@@ -12,13 +12,6 @@ class AppoitmentCubit extends Cubit<AppoitmentState> {
     String subject,
   ) {
     try {
-      // Appointment app = Appointment(
-      //   startTime: startTime,
-      //   endTime: endTime,
-      //   subject: subject,
-      //   color: deepPurple,
-      // );
-
       // add the scheduled notification
       emit(AppoitmentAddedSuccsess());
     } catch (e) {

@@ -5,8 +5,15 @@ import 'package:organize_me/scrns_and_widgets/task_section/widgets/time_line.dar
 
 import '../app_bar.dart';
 
-class DayCalendar extends StatelessWidget {
+class DayCalendar extends StatefulWidget {
   const DayCalendar({super.key});
+
+  @override
+  State<DayCalendar> createState() => _DayCalendarState();
+}
+
+class _DayCalendarState extends State<DayCalendar> {
+  bool val = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,14 @@ class DayCalendar extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {
-                return const MyTimeLine();
+                return MyTimeLine(
+                  value: val,
+                  onChange: (v) {
+                    setState(() {
+                      val = v!;
+                    });
+                  },
+                );
               },
             ),
           ),
