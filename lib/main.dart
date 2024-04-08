@@ -4,6 +4,7 @@ import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/drawer.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
 import 'package:organize_me/services/local_notification_service.dart';
 import 'package:telephony/telephony.dart';
 
@@ -67,8 +68,7 @@ class OrganizeMe extends StatefulWidget {
 
 class _OrganizeMeState extends State<OrganizeMe> {
   void _getAllNotes() async {
-    BlocProvider.of<NotesBloc>(context).notes =
-        await DatabaseHelper.getAllNotes();
+    BlocProvider.of<NotesBloc>(context).notes = await Note.getAllNotes();
   }
 
   @override

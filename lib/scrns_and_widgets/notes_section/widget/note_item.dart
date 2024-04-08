@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
-import 'package:organize_me/database/db.dart';
-import 'package:organize_me/scrns_and_widgets/notes_section/models/Note.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
 
 import '../bloc/notes_bloc.dart';
 import '../full_note_scrn.dart';
@@ -90,9 +89,8 @@ class _AlterDialogCustomState extends State<AlterDialogCustom> {
       actions: [
         ElevatedButton(
           onPressed: () async {
-            Note note =
-                Note.fromMap(await DatabaseHelper.geOnetNote(widget.noteId));
-            await DatabaseHelper.deleteNote(widget.noteId);
+            Note note = Note.fromMap(await Note.geOnetNote(widget.noteId));
+            await Note.deleteNote(widget.noteId);
             if (context.mounted) {
               BlocProvider.of<NotesBloc>(context).add(
                 DeleteNoteEvent(note: note),
