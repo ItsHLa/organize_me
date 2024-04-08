@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/input_text.dart';
 
-class AddNumber extends StatefulWidget {
-  const AddNumber({super.key});
+class InputPhoneNumber extends StatefulWidget {
+  const InputPhoneNumber({super.key});
 
   @override
-  State<AddNumber> createState() => _AddNumberState();
+  State<InputPhoneNumber> createState() => _AddNumberState();
 }
 
-class _AddNumberState extends State<AddNumber> {
+class _AddNumberState extends State<InputPhoneNumber> {
   GlobalKey<FormState> numKey = GlobalKey();
 
   @override
