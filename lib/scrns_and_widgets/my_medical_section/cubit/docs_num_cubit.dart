@@ -4,32 +4,32 @@ import 'package:flutter/material.dart';
 part 'docs_num_state.dart';
 
 class DocsNumCubit extends Cubit<DocsNumState> {
-  DocsNumCubit() : super(DocsNumInitial(DocsNumber: const []));
+  DocsNumCubit() : super(const DocsNumInitial(docsNumber: []));
 
   void addPhoneNumber(String name, String phoneNumber) {
     try {
       // add
-      emit(AddDocsNumSuccess(DocsNumber: const []));
+      emit(const AddDocsNumSuccess(docsNumber: []));
     } catch (e) {
-      emit(AddDocsNumFailed('تعذر إدخال جهة الاتصال', DocsNumber: const []));
+      emit(const AddDocsNumFailed('تعذر إدخال جهة الاتصال', docsNumber: []));
     }
   }
 
   void editPhoneNumber(String name, String phoneNumber) {
     try {
       // add
-      emit(AddDocsNumSuccess(DocsNumber: const []));
+      emit(const AddDocsNumSuccess(docsNumber: []));
     } catch (e) {
-      emit(AddDocsNumFailed('تعذر إدخال جهة الاتصال', DocsNumber: const []));
+      emit(const AddDocsNumFailed('تعذر إدخال جهة الاتصال', docsNumber: []));
     }
   }
 
   void deletePhoneNumber(int id) {
     try {
       // add
-      emit(DeleteDocsNumSuccess(DocsNumber: const []));
+      emit(const DeleteDocsNumSuccess(docsNumber: []));
     } catch (e) {
-      emit(DeleteDocsNumFailed('تعذر حذف جهة الاتصال', DocsNumber: const []));
+      emit(const DeleteDocsNumFailed('تعذر حذف جهة الاتصال', docsNumber: []));
     }
   }
 }
