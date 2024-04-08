@@ -2,7 +2,7 @@ part of 'docs_num_cubit.dart';
 
 @immutable
 sealed class DocsNumState {
-  final List<String> DocsNumber;
+  final List DocsNumber;
 
   DocsNumState({required this.DocsNumber});
 }

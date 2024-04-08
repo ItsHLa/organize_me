@@ -23,9 +23,9 @@ class DocsNumbers extends StatelessWidget {
             showModalBottomSheet(
                 context: context,
                 builder: (newcontext) => BlocProvider<DocsNumCubit>.value(
-                      value: BlocProvider.of(context),
-                      child: const EditPhoneNumber(),
-                    ));
+                  value: BlocProvider.of(context),
+                  child: const EditPhoneNumber(),
+                ));
           },
         );
       },
