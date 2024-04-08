@@ -11,26 +11,28 @@ class DayCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: MyFab(
-          icon: Icons.add_task,
-          onPressed: () {
-            showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
-                builder: (context) => const InputTask());
-          },
-        ),
-        body: Column(
-          children: [
-            const MAppBar(),
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return const MyTimeLine();
-                },
-              ),
+      floatingActionButton: MyFab(
+        icon: Icons.add_task,
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (context) => const InputTask(),
+          );
+        },
+      ),
+      body: Column(
+        children: [
+          const MAppBar(),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return const MyTimeLine();
+              },
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

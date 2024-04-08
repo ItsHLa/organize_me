@@ -12,19 +12,19 @@ class AppoitmentItem extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text('Appoitment Name'),
-            Spacer(),
+            const Text('Appoitment Name'),
+            const Spacer(),
             IconButton(
                 onPressed: () {
                   // print(index);
                   // BlocProvider.of<AppoitmentCubit> (context).deleteAppoitment();
                 },
-                icon: Icon(Icons.cancel_outlined))
+                icon: const Icon(Icons.cancel_outlined))
           ],
         ),
         Container(
-          padding: EdgeInsets.all(10),
-          child: Text('Apppoitment Details'),
+          padding: const EdgeInsets.all(10),
+          child: const Text('Apppoitment Details'),
         )
       ],
     ));

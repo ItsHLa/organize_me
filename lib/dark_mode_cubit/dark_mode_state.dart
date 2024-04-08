@@ -4,17 +4,17 @@ part of 'dark_mode_cubit.dart';
 sealed class DarkModeState {
   final Icon icon;
 
-  DarkModeState(this.icon);
+  const DarkModeState(this.icon);
 }
 
 final class DarkModeInitial extends DarkModeState {
-  DarkModeInitial(super.icon);
+  const DarkModeInitial(super.icon);
 }
 
 final class DarkModeOn extends DarkModeState {
-  DarkModeOn(super.icon);
+  const DarkModeOn(super.icon);
 }
 
 final class DarkModeOff extends DarkModeState {
-  DarkModeOff(super.icon);
+  const DarkModeOff(super.icon);
 }
