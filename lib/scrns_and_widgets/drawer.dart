@@ -50,9 +50,13 @@ class MDrawe extends StatelessWidget {
               label: 'فواتير',
               screen: buildScrn('فواتير')),
           RailItem(
-              icon: const Icon(Icons.medical_information_outlined),
-              label: "صحة",
-              screen: buildScrn('صحة')),
+              icon: const Icon(Icons.phone),
+              label: "اطباء",
+              screen: buildScrn('اطباء')),
+          RailItem(
+              icon: const Icon(Icons.medication),
+              label: "ادوية",
+              screen: buildScrn('ادوية')),
         ]);
   }
 
@@ -68,7 +72,9 @@ class MDrawe extends StatelessWidget {
         return const NoteView();
       case "فواتير":
         return const MyBills();
-      case "صحة":
+      case "اطباء":
+        return const MedsAndDocs();
+      case "ادوية":
         return const MedsAndDocs();
     }
   }

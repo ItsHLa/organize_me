@@ -11,8 +11,11 @@ class DocsNumbers extends StatelessWidget {
         return const DocsNumber(
           docsName: 'Docs Name',
           phoneNumber: "09976765465",
+          onPressed: call,
         );
       },
     );
   }
 }
+
+void call() {}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/add_num.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/widgets/docs_numbers_listview.dart';
 
 import '../app_bar.dart';
@@ -10,19 +11,14 @@ class MedsAndDocs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: SpeedDial(
-        icon: Icons.drag_handle,
-        children: [
-          SpeedDialChild(
-            shape: const StadiumBorder(),
-            onTap: null,
-            child: const Icon(Icons.medication),
-          ),
-          SpeedDialChild(
-              shape: const StadiumBorder(),
-              onTap: null,
-              child: const Icon(Icons.add_call)),
-        ],
+      floatingActionButton: MyFab(
+        icon: Icons.add_call,
+        onPressed: () {
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => AddNumber());
+        },
       ),
       body: const Column(children: [MAppBar(), Expanded(child: DocsNumbers())]),
     );
