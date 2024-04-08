@@ -11,7 +11,16 @@ class DocsNumCubit extends Cubit<DocsNumState> {
       // add
       emit(AddDocsNumSuccess(DocsNumber: []));
     } catch (e) {
-      emit(AddDocsNumFailed('تعذر إدخال رقم الهاتف', DocsNumber: []));
+      emit(AddDocsNumFailed('تعذر إدخال جهة الاتصال', DocsNumber: []));
+    }
+  }
+
+  void editPhoneNumber(String name, String phoneNumber) {
+    try {
+      // add
+      emit(AddDocsNumSuccess(DocsNumber: []));
+    } catch (e) {
+      emit(AddDocsNumFailed('تعذر إدخال جهة الاتصال', DocsNumber: []));
     }
   }
 
@@ -20,7 +29,7 @@ class DocsNumCubit extends Cubit<DocsNumState> {
       // add
       emit(DeleteDocsNumSuccess(DocsNumber: []));
     } catch (e) {
-      emit(DeleteDocsNumFailed('تعذر حذف رقم الهاتف', DocsNumber: []));
+      emit(DeleteDocsNumFailed('تعذر حذف جهة الاتصال', DocsNumber: []));
     }
   }
 }

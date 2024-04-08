@@ -6,12 +6,14 @@ class DocsNumber extends StatelessWidget {
       required this.docsName,
       required this.phoneNumber,
       this.onPressedEdit,
-      this.onPressedCall});
+      this.onPressedCall,
+      this.onPressedDelete});
 
   final String docsName;
   final String phoneNumber;
   final void Function()? onPressedEdit;
   final void Function()? onPressedCall;
+  final void Function()? onPressedDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,10 @@ class DocsNumber extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: onPressedEdit,
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: onPressedDelete,
               ),
             ],
           ),
