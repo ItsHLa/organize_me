@@ -2,7 +2,7 @@ part of 'task_cubit.dart';
 
 @immutable
 sealed class TaskState {
-  final List tasks;
+  final List<Task> tasks;
 
   const TaskState({required this.tasks});
 }

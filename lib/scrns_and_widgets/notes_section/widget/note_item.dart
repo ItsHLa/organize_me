@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/widget/icon_button.dart';
 
 import '../bloc/notes_bloc.dart';
 import '../full_note_scrn.dart';
@@ -37,6 +38,17 @@ class NoteItem extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
+                    IconButtonCustom(
+                      logic: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlterDialogCustom(
+                            noteId: note.id,
+                          ),
+                        );
+                      },
+                      icon: Icons.delete_outline,
+                    )
                   ],
                 ),
                 const Divider()

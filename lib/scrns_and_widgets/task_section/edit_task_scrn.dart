@@ -22,7 +22,7 @@ class _EditTaskScrnState extends State<EditTaskScrn> {
         }
       },
       child: InputTask(
-        logic: () {
+        logic: (title, tag, content, startTime, endTime) {
           BlocProvider.of<TaskCubit>(context).editTask();
         },
       ),

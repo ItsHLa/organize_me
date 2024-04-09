@@ -5,21 +5,24 @@ import 'package:timeline_tile/timeline_tile.dart';
 import '../../../constants.dart';
 
 class MyTimeLine extends StatelessWidget {
-  const MyTimeLine(
-      {super.key,
-      required this.task1Type,
-      required this.task1Description,
-      required this.task2Type,
-      required this.task2Description,
-      this.onPressedtask1,
-      this.onPressedtask2});
+  const MyTimeLine({
+    super.key,
+    required this.taskTitle,
+    required this.taskContent,
+    this.taskTag,
+    this.onPressed,
+    // required this.task2Type,
+    // required this.task2Description,
+    // this.onPressedtask2,
+  });
 
-  final String task1Type;
-  final String task1Description;
-  final String task2Type;
-  final String task2Description;
-  final void Function()? onPressedtask1;
-  final void Function()? onPressedtask2;
+  final String taskTitle;
+  final String taskContent;
+  final String? taskTag;
+  final void Function()? onPressed;
+  // final String task2Type;
+  // final String task2Description;
+  // final void Function()? onPressedtask2;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +42,10 @@ class MyTimeLine extends StatelessWidget {
               ),
             ),
             endChild: TaskItem(
-              onPressed: onPressedtask1,
-              taskType: task1Type,
-              description: task1Description,
+              onPressed: onPressed,
+              taskTitle: taskTitle,
+              taskContent: taskContent,
+              taskTag: taskTag,
             )),
         const TimelineDivider(
           begin: 0.1,
@@ -49,30 +53,30 @@ class MyTimeLine extends StatelessWidget {
           thickness: 6,
           color: deepPurple,
         ),
-        TimelineTile(
-            lineXY: 0.9,
-            alignment: TimelineAlign.manual,
-            afterLineStyle: const LineStyle(color: deepPurple),
-            beforeLineStyle: const LineStyle(color: deepPurple),
-            indicatorStyle: IndicatorStyle(
-              width: 25,
-              color: deepPurple,
-              iconStyle: IconStyle(
-                color: Colors.white54,
-                iconData: Icons.task_alt_outlined,
-              ),
-            ),
-            startChild: TaskItem(
-              onPressed: onPressedtask2,
-              taskType: task2Type,
-              description: task2Description,
-            )),
-        const TimelineDivider(
-          begin: 0.1,
-          end: 0.9,
-          thickness: 6,
-          color: deepPurple,
-        ),
+        // TimelineTile(
+        //     lineXY: 0.9,
+        //     alignment: TimelineAlign.manual,
+        //     afterLineStyle: const LineStyle(color: deepPurple),
+        //     beforeLineStyle: const LineStyle(color: deepPurple),
+        //     indicatorStyle: IndicatorStyle(
+        //       width: 25,
+        //       color: deepPurple,
+        //       iconStyle: IconStyle(
+        //         color: Colors.white54,
+        //         iconData: Icons.task_alt_outlined,
+        //       ),
+        //     ),
+        //     startChild: TaskItem(
+        //       onPressed: onPressedtask2,
+        //       taskType: task2Type,
+        //       description: task2Description,
+        //     )),
+        // const TimelineDivider(
+        //   begin: 0.1,
+        //   end: 0.9,
+        //   thickness: 6,
+        //   color: deepPurple,
+        // ),
       ],
     );
   }

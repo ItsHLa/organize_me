@@ -7,7 +7,7 @@ class MyBills extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Card(
       child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(10.0),
           child: ListTile(
             title: Row(
               children: [Text('9/4/2024'), Spacer(), Text('0998898')],

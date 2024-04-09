@@ -6,7 +6,6 @@ import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
 import 'bloc/notes_bloc.dart';
 import 'widget/icon_button.dart';
 import 'widget/input.dart';
-import 'widget/note_item.dart';
 
 class NotePage extends StatelessWidget {
   final Note note;
@@ -20,17 +19,18 @@ class NotePage extends StatelessWidget {
     return BlocBuilder<NotesBloc, NotesState>(
       builder: (context, state) {
         Note currNote = note;
-        if (state is NoteUpdated || state is NoteDeleted) {
+        // if (state is NoteUpdated || state is NoteDeleted) {
+        if (state is NoteUpdated) {
           SchedulerBinding.instance.addPostFrameCallback(
             (_) {
               Navigator.of(context).pop();
             },
           );
-          if (state is NoteUpdated) {
-            currNote = state.note;
-          }
-          BlocProvider.of<NotesBloc>(context)
-              .emit(NotesLoadingCompleted(notes: state.notes));
+          // if (state is NoteUpdated) {
+          currNote = state.note;
+          // }
+          // BlocProvider.of<NotesBloc>(context)
+          //     .emit(NotesLoadingCompleted(notes: state.notes));
         }
         return Scaffold(
           appBar: AppBar(),
@@ -70,17 +70,6 @@ class NotePage extends StatelessWidget {
                                 );
                               },
                             ),
-                            IconButtonCustom(
-                              logic: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlterDialogCustom(
-                                    noteId: currNote.id,
-                                  ),
-                                );
-                              },
-                              icon: Icons.delete_outline,
-                            )
                           ],
                         )
                       ],

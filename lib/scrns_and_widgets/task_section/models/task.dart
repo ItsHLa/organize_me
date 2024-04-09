@@ -7,8 +7,8 @@ class Task {
   final String tag;
   final String content;
   final String creationDate;
-  final String startDate;
-  final String endDate;
+  final String startTime;
+  final String endTime;
   final String status;
 
   const Task({
@@ -17,8 +17,8 @@ class Task {
     required this.tag,
     required this.content,
     required this.creationDate,
-    required this.endDate,
-    required this.startDate,
+    required this.endTime,
+    required this.startTime,
     required this.status,
   });
 
@@ -27,8 +27,8 @@ class Task {
       id: taskMap['id'],
       content: taskMap['content'],
       creationDate: taskMap['creation_date'],
-      endDate: taskMap['end_date'],
-      startDate: taskMap['start_map'],
+      endTime: taskMap['end_time'],
+      startTime: taskMap['start_time'],
       status: taskMap['status'],
       tag: taskMap['tag'],
       title: taskMap['title'],
@@ -39,8 +39,8 @@ class Task {
     String title,
     String content,
     String? tag,
-    String startDate,
-    String endDate,
+    String startTime,
+    String endTime,
   ) async {
     Database? mydb = await DatabaseHelper.db;
     String now = DateTime.now().toString();
@@ -48,10 +48,10 @@ class Task {
       """
         INSERT OR IGNORE INTO tasks(title,
                                     content,
-                                    createion_date,
+                                    creation_date,
                                     tag,
-                                    start_date,
-                                    end_date)
+                                    start_time,
+                                    end_time)
 
                                     VALUES (?, ?, ?, ?, ?, ?);
       """,
@@ -60,8 +60,8 @@ class Task {
         content,
         now,
         tag,
-        startDate,
-        endDate,
+        startTime,
+        endTime,
       ],
     );
     return (await geOnetTask(noteId));
@@ -71,8 +71,8 @@ class Task {
     int taskId, {
     String newContent = '',
     String newTitle = '',
-    String newStartDate = '',
-    String newEndDate = '',
+    String newstartTime = '',
+    String newendTime = '',
     String newTag = '',
   }) async {
     Database? mydb = await DatabaseHelper.db;
@@ -80,17 +80,17 @@ class Task {
     String editContent =
         newContent.isNotEmpty ? "content = '$newContent'," : "";
     String editTitle = newTitle.isNotEmpty ? "title = '$newTitle'," : "";
-    String editStartDate =
-        newStartDate.isNotEmpty ? "start_date = '$newStartDate'," : "";
-    String editEndDate =
-        newEndDate.isNotEmpty ? "end_date = '$newEndDate'," : "";
+    String editstartTime =
+        newstartTime.isNotEmpty ? "start_time = '$newstartTime'," : "";
+    String editendTime =
+        newendTime.isNotEmpty ? "end_time = '$newendTime'," : "";
     String editTag = newTag.isNotEmpty ? "tag = '$newTag'," : "";
     await mydb!.rawUpdate(
       """
         UPDATE tasks SET $editContent
                          $editTitle
-                         $editStartDate
-                         $editEndDate
+                         $editstartTime
+                         $editendTime
                          $editTag
                          last_modified = ? WHERE id = ?;
       """,

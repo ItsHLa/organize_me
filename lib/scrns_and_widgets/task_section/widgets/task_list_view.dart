@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/models/task.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/time_line.dart';
 
 class TaskListView extends StatelessWidget {
-  const TaskListView({super.key, required this.Tasks});
+  const TaskListView({super.key, required this.tasks});
 
-  final List Tasks;
+  final List<Task> tasks;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      itemCount: tasks.length,
       itemBuilder: (context, index) {
-        return const MyTimeLine(
-          task1Type: 'task1',
-          task1Description: 'task1Description',
-          task2Type: 'task2',
-          task2Description: 'task2Description',
+        return MyTimeLine(
+          taskTitle: tasks[index].title,
+          taskContent: tasks[index].content,
+          taskTag: tasks[index].tag,
+          // task2Type: 'task2',
+          // task2Description: 'task2Description',
         );
       },
     );

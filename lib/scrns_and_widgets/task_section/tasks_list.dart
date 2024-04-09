@@ -9,31 +9,28 @@ class Tasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<TaskCubit>(context).loadTasks();
-    return BlocBuilder<TaskCubit, TaskState>(builder: (context, state) {
-      if (state is LoadingTasks) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      } else if (state is TaskLoaded ||
-          state is AddTaskSuccess ||
-          state is DeleteTaskSuccess && state.tasks.isNotEmpty) {
-        return const TaskListView(
-          Tasks: [],
-        );
-      } else if (state is DeleteTaskSuccess && state.tasks.isEmpty) {
-        return const Center(
-          child: Text(
-            "ليس لديك مهام بعد",
-            style: TextStyle(fontSize: 20),
-          ),
-        );
-      }
-      return const Center(
-        child: Text(
-          "ليس لديك مهام بعد",
-          style: TextStyle(fontSize: 20),
-        ),
-      );
-    });
+    return BlocBuilder<TaskCubit, TaskState>(
+      builder: (context, state) {
+        if (state is LoadingTasks) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state.tasks.isNotEmpty &&
+            (state is TaskLoaded ||
+                state is AddTaskSuccess ||
+                state is DeleteTaskSuccess)) {
+          return TaskListView(
+            tasks: state.tasks,
+          );
+        } else {
+          return const Center(
+            child: Text(
+              "ليس لديك مهام بعد",
+              style: TextStyle(fontSize: 20),
+            ),
+          );
+        }
+      },
+    );
   }
 }

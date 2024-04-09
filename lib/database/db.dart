@@ -46,8 +46,8 @@ class DatabaseHelper {
             content TEXT NOT NULL,
             tag TEXT,
             creation_date TEXT,
-            start_date TEXT,
-            end_date TEXT,
+            start_time TEXT,
+            end_time TEXT,
             status TEXT DEFAULT 'pending',
             last_modified TEXT DEFAULT NULL
           );

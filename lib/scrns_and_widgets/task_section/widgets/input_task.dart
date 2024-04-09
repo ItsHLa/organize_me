@@ -6,7 +6,7 @@ import '../../input_text.dart';
 class InputTask extends StatefulWidget {
   const InputTask({super.key, this.logic});
 
-  final void Function()? logic;
+  final void Function(String, String?, String, String, String)? logic;
 
   @override
   State<InputTask> createState() => _InputTaskState();
@@ -17,19 +17,21 @@ class _InputTaskState extends State<InputTask> {
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
   TextEditingController start = TextEditingController();
   TextEditingController end = TextEditingController();
-  String? taskType;
-  String? taskDescription;
-  TimeOfDay? starTime;
-  TimeOfDay? endTime;
+  String? taskTag;
+  String taskContent = '';
+  String taskTitle = '';
+  TimeOfDay startTime = TimeOfDay.now();
+  TimeOfDay endTime = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.only(
-            right: 9,
-            left: 9,
-            bottom: MediaQuery.of(context).viewInsets.bottom),
+          right: 9,
+          left: 9,
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: Form(
           autovalidateMode: autoValidate,
           key: taskKey,
@@ -39,19 +41,21 @@ class _InputTaskState extends State<InputTask> {
                 height: 10,
               ),
               InputText(
+                hint: 'عنوان المهمة',
+                save: (value) {
+                  taskTitle = value ?? '';
+                },
+              ),
+              InputText(
                 hint: 'نوع المهمة',
                 save: (value) {
-                  setState(() {
-                    taskType = value;
-                  });
+                  taskTag = value ?? '';
                 },
               ),
               InputText(
                 hint: 'وصف المهمة',
                 save: (value) {
-                  setState(() {
-                    taskDescription = value;
-                  });
+                  taskContent = value ?? '';
                 },
               ),
               const SizedBox(
@@ -60,15 +64,11 @@ class _InputTaskState extends State<InputTask> {
               MyDatePicker(
                 labelText: 'وقت البدء',
                 onTap: () async {
-                  starTime = await showTimePicker(
+                  startTime = (await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.now(),
-                  );
-                  setState(
-                    () {
-                      start.text = starTime.toString();
-                    },
-                  );
+                  ))!;
+                  start.text = startTime.toString();
                 },
                 controller: start,
               ),
@@ -78,15 +78,11 @@ class _InputTaskState extends State<InputTask> {
               MyDatePicker(
                 labelText: 'وقت الانتهاء',
                 onTap: () async {
-                  endTime = await showTimePicker(
+                  endTime = (await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.now(),
-                  );
-                  setState(
-                    () {
-                      end.text = endTime.toString();
-                    },
-                  );
+                  ))!;
+                  end.text = endTime.toString();
                 },
                 controller: end,
               ),
@@ -94,15 +90,23 @@ class _InputTaskState extends State<InputTask> {
                 height: 5,
               ),
               ElevatedButton(
-                onPressed: () {
-                  if (InputText.validateField(taskKey)) {
-                    taskKey.currentState?.save();
-                    print(taskType);
-                    widget.logic;
-                    print(taskDescription);
-                  } else {
-                    autoValidate = AutovalidateMode.always;
+                onPressed: () async {
+                  taskKey.currentState?.save();
+                  autoValidate = AutovalidateMode.always;
+                  if (taskTitle.isEmpty ||
+                      taskContent.isEmpty ||
+                      start.text.isEmpty ||
+                      end.text.isEmpty) {
+                    InputText.validateField(taskKey);
+                    return;
                   }
+                  widget.logic!(
+                    taskTitle,
+                    taskTag,
+                    taskContent,
+                    start.text,
+                    end.text,
+                  );
                 },
                 child: const Text('اضافة المهمة'),
               ),

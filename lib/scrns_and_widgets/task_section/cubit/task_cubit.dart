@@ -1,16 +1,26 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/models/task.dart';
 
 part 'task_state.dart';
 
 class TaskCubit extends Cubit<TaskState> {
+  List<Task> tasks = [];
   TaskCubit() : super(const TaskInitial(tasks: []));
 
-  void addTask() {
+  void addTask(
+    String title,
+    String tag,
+    String content,
+    String startTime,
+    String endTime,
+  ) async {
     try {
-      // add to database
+      Map task = await Task.addTask(title, content, tag, startTime, endTime);
+      tasks.add(Task.fromMap(task));
       // schedule the task
-      emit(const AddTaskSuccess(tasks: []));
+      emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(const AddTaskFailed('تعذر اضافة المهمة', tasks: []));
     }
@@ -36,11 +46,15 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void loadTasks() {
+  void loadTasks() async {
     emit(const LoadingTasks(tasks: []));
     try {
-      // get  all tasks
-      emit(const TaskLoaded(tasks: []));
+      await Task.getAllTasks().then(
+        (value) {
+          tasks = value;
+          emit(TaskLoaded(tasks: tasks));
+        },
+      );
     } catch (e) {
       emit(const LoadingTasks(tasks: []));
     }

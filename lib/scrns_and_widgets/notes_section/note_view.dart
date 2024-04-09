@@ -29,10 +29,14 @@ class _NoteViewState extends State<NoteView> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NotesBloc, NotesState>(
-      builder: (context, state) {
-        if (state is NoteAdded) {
+      buildWhen: (previous, current) {
+        if (previous is NoteAdded) {
           Navigator.of(context).pop();
-        } else if (state is NotesLoading) {
+        }
+        return true;
+      },
+      builder: (context, state) {
+        if (state is NotesLoading) {
           BlocProvider.of<NotesBloc>(context).add(LoadNotesEvent());
         }
         List<Note> notes = BlocProvider.of<NotesBloc>(context).notes;
@@ -51,23 +55,26 @@ class _NoteViewState extends State<NoteView> {
               );
             },
           ),
-          body: notes.isEmpty
-              ? (state is NotesLoadingCompleted
-                  ? const Center(
-                      child: Text(
-                      "ليس لديك ملاحظات بعد",
-                      style: TextStyle(fontSize: 20),
-                    ))
-                  : const Center(child: CircularProgressIndicator()))
-              : Column(
-                  children: [
-                    const MAppBar(),
-                    Expanded(
-                        child: NoteListView(
-                      notes: notes,
-                    )),
-                  ],
-                ),
+          body: Column(
+            children: [
+              const MAppBar(),
+              notes.isEmpty
+                  ? (state is NotesLoadingCompleted
+                      ? const Center(
+                          child: Text(
+                          "ليس لديك ملاحظات بعد",
+                          style: TextStyle(fontSize: 20),
+                        ))
+                      : const Center(
+                          child: CircularProgressIndicator(),
+                        ))
+                  : Expanded(
+                      child: NoteListView(
+                        notes: notes,
+                      ),
+                    ),
+            ],
+          ),
         );
       },
     );

@@ -14,12 +14,14 @@ class DocsNumbers extends StatelessWidget {
       builder: (context, state) {
         if (state is DocsNumLoadingData) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is DocsNumLoaded ||
-            state is AddDocsNumSuccess ||
-            state is DeleteDocsNumSuccess && state.docsNumber.isNotEmpty) {
+        } else if (state.docsNumber.isNotEmpty &&
+            (state is DocsNumLoaded ||
+                state is AddDocsNumSuccess ||
+                state is DeleteDocsNumSuccess)) {
           return DocsNumbersListView(
-              contacts: state.docsNumber as List<DoctorsContacts>);
-        } else if (state is DeleteDocsNumSuccess && state.docsNumber.isEmpty) {
+            contacts: state.docsNumber as List<DoctorsContacts>,
+          );
+        } else {
           return const Center(
             child: Text(
               "ليس لديك جهات اتصال بعد",
@@ -27,12 +29,6 @@ class DocsNumbers extends StatelessWidget {
             ),
           );
         }
-        return const Center(
-          child: Text(
-            "ليس لديك جهات اتصال بعد",
-            style: TextStyle(fontSize: 20),
-          ),
-        );
       },
     );
   }
