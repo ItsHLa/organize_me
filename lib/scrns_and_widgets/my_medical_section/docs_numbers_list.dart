@@ -16,11 +16,17 @@ class DocsNumbers extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         } else if (state is DocsNumLoaded ||
             state is AddDocsNumSuccess ||
-            state is DeleteDocsNumSuccess) {
+            state is DeleteDocsNumSuccess && state.docsNumber.isNotEmpty) {
           return DocsNumbersListView(
               contacts: state.docsNumber as List<DoctorsContacts>);
+        } else if (state is DeleteDocsNumSuccess && state.docsNumber.isEmpty) {
+          return const Center(
+            child: Text(
+              "ليس لديك جهات اتصال بعد",
+              style: TextStyle(fontSize: 20),
+            ),
+          );
         }
-
         return const Center(
           child: Text(
             "ليس لديك جهات اتصال بعد",

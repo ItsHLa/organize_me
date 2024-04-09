@@ -30,7 +30,9 @@ class DocsNumber extends StatelessWidget {
         ),
         title: Row(
           children: [
-            Text(docsName),
+            Column(
+              children: [Text(docsName), Text(phoneNumber)],
+            ),
             const Spacer(),
             IconButton(
               icon: const Icon(Icons.edit),

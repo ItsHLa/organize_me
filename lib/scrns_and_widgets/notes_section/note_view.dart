@@ -55,7 +55,7 @@ class _NoteViewState extends State<NoteView> {
               ? (state is NotesLoadingCompleted
                   ? const Center(
                       child: Text(
-                      "ليس لديك مهام بعد.",
+                      "ليس لديك ملاحظات بعد",
                       style: TextStyle(fontSize: 20),
                     ))
                   : const Center(child: CircularProgressIndicator()))

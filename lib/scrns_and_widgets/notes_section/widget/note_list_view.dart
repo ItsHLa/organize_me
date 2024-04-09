@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
 
 import 'note_item.dart';
 
 class NoteListView extends StatefulWidget {
   final List<Note> notes;
+
   const NoteListView({super.key, required this.notes});
 
   @override
@@ -14,15 +17,19 @@ class NoteListView extends StatefulWidget {
 class _NoteListViewState extends State<NoteListView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: widget.notes.length,
-        itemBuilder: (context, index) {
-          return NoteItem(note: widget.notes[index]);
-        },
-      ),
+    return BlocBuilder<NotesBloc, NotesState>(
+      builder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: widget.notes.length,
+            itemBuilder: (context, index) {
+              return NoteItem(note: widget.notes[index]);
+            },
+          ),
+        );
+      },
     );
   }
 }
