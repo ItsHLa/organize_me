@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/time_line.dart';
 
 class TaskListView extends StatelessWidget {
@@ -10,17 +8,13 @@ class TaskListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskCubit, TaskState>(
-      builder: (context, state) {
-        return ListView.builder(
-          itemBuilder: (context, index) {
-            return const MyTimeLine(
-              task1Type: 'task1',
-              task1Description: 'task1Description',
-              task2Type: 'task2',
-              task2Description: 'task2Description',
-            );
-          },
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return const MyTimeLine(
+          task1Type: 'task1',
+          task1Description: 'task1Description',
+          task2Type: 'task2',
+          task2Description: 'task2Description',
         );
       },
     );
