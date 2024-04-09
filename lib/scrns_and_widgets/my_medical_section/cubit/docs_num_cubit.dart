@@ -54,6 +54,16 @@ class DocsNumCubit extends Cubit<DocsNumState> {
     }
   }
 
+  void loadDocsNumbers() async {
+    emit(const DocsNumLoadingData(docsNumber: []));
+    try {
+      var allDocNumbers = await DoctorsContacts.getAllContacts();
+      emit(DocsNumLoaded(docsNumber: allDocNumbers));
+    } catch (e) {
+      emit(const DocsNumLoadingData(docsNumber: []));
+    }
+  }
+
   void call() {
     // we will use uel_lancher here
   }
