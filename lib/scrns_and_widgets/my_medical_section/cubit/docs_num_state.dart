@@ -11,6 +11,10 @@ final class DocsNumInitial extends DocsNumState {
   const DocsNumInitial({required super.docsNumber});
 }
 
+final class DocsNumLoadingData extends DocsNumState {
+  const DocsNumLoadingData({required super.docsNumber});
+}
+
 final class AddDocsNumSuccess extends DocsNumState {
   const AddDocsNumSuccess({required super.docsNumber});
 }
