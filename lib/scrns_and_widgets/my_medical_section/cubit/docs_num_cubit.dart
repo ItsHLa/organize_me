@@ -60,9 +60,9 @@ class DocsNumCubit extends Cubit<DocsNumState> {
       await DoctorsContacts.getAllContacts().then(
         (value) {
           contacts = value;
-          emit(DocsNumLoaded(docsNumber: contacts));
         },
       );
+      emit(DocsNumLoaded(docsNumber: contacts));
     } catch (e) {
       emit(const DocsNumLoadingData(docsNumber: []));
     }

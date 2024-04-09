@@ -9,25 +9,24 @@ class DocsNumbers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<DocsNumCubit>(context).loadDocsNumbers();
     return BlocBuilder<DocsNumCubit, DocsNumState>(
       builder: (context, state) {
         if (state is DocsNumLoadingData) {
-          BlocProvider.of<DocsNumCubit>(context).loadDocsNumbers();
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is DocsNumLoaded ||
+            state is AddDocsNumSuccess ||
+            state is DeleteDocsNumSuccess) {
+          return DocsNumbersListView(
+              contacts: state.docsNumber as List<DoctorsContacts>);
         }
-        List<DoctorsContacts> contacts =
-            BlocProvider.of<DocsNumCubit>(context).contacts;
-        return contacts.isEmpty
-            ? (state is! DocsNumLoaded
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : const Center(
-                    child: Text(
-                      "ليس لديك جهات اتصال بعد",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ))
-            : DocsNumbersListView(contacts: contacts);
+
+        return const Center(
+          child: Text(
+            "ليس لديك جهات اتصال بعد",
+            style: TextStyle(fontSize: 20),
+          ),
+        );
       },
     );
   }
