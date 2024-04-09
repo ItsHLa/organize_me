@@ -57,7 +57,8 @@ class DocsNumCubit extends Cubit<DocsNumState> {
   void loadDocsNumbers() async {
     emit(const DocsNumLoadingData(docsNumber: []));
     try {
-      var allDocNumbers = await DoctorsContacts.getAllContacts();
+      List<DoctorsContacts> allDocNumbers =
+          await DoctorsContacts.getAllContacts();
       emit(DocsNumLoaded(docsNumber: allDocNumbers));
     } catch (e) {
       emit(const DocsNumLoadingData(docsNumber: []));
