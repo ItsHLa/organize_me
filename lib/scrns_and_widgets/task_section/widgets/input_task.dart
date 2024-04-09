@@ -97,7 +97,9 @@ class _InputTaskState extends State<InputTask> {
                 onPressed: () {
                   if (InputText.validateField(taskKey)) {
                     taskKey.currentState?.save();
+                    print(taskType);
                     widget.logic;
+                    print(taskDescription);
                   } else {
                     autoValidate = AutovalidateMode.always;
                   }
