@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/tasks_list.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/input_task.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/time_line.dart';
 
 import '../app_bar.dart';
 
@@ -13,8 +15,6 @@ class DayCalendar extends StatefulWidget {
 }
 
 class _DayCalendarState extends State<DayCalendar> {
-  bool val = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,27 +24,17 @@ class _DayCalendarState extends State<DayCalendar> {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            builder: (context) => const InputTask(),
+            builder: (newcontext) => BlocProvider<TaskCubit>.value(
+              value: BlocProvider.of(context),
+              child: const InputTask(),
+            ),
           );
         },
       ),
-      body: Column(
+      body: const Column(
         children: [
-          const MAppBar(),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return MyTimeLine(
-                  value: val,
-                  onChange: (v) {
-                    setState(() {
-                      val = v!;
-                    });
-                  },
-                );
-              },
-            ),
-          ),
+          MAppBar(),
+          Expanded(child: Tasks()),
         ],
       ),
     );

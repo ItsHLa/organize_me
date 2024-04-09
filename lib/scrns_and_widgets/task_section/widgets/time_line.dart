@@ -31,6 +31,35 @@ class MyTimeLine extends StatelessWidget {
               value: value,
               onChange: onChange,
             )),
+        const TimelineDivider(
+          begin: 0.1,
+          end: 0.9,
+          thickness: 6,
+          color: deepPurple,
+        ),
+        TimelineTile(
+            lineXY: 0.9,
+            alignment: TimelineAlign.manual,
+            afterLineStyle: const LineStyle(color: deepPurple),
+            beforeLineStyle: const LineStyle(color: deepPurple),
+            indicatorStyle: IndicatorStyle(
+              width: 25,
+              color: deepPurple,
+              iconStyle: IconStyle(
+                color: Colors.white54,
+                iconData: Icons.task_alt_outlined,
+              ),
+            ),
+            startChild: TaskItem(
+              value: value,
+              onChange: onChange,
+            )),
+        const TimelineDivider(
+          begin: 0.1,
+          end: 0.9,
+          thickness: 6,
+          color: deepPurple,
+        ),
       ],
     );
   }

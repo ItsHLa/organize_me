@@ -6,6 +6,7 @@ import 'package:organize_me/scrns_and_widgets/my_medical_section/cubit/docs_num_
 import 'package:organize_me/scrns_and_widgets/my_medical_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/appoitments_calendar.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 
 import '../constants.dart';
@@ -69,7 +70,10 @@ class MDrawe extends StatelessWidget {
           child: const MonthCalendar(),
         );
       case "مهام":
-        return const DayCalendar();
+        return BlocProvider<TaskCubit>(
+          create: (context) => TaskCubit(),
+          child: const DayCalendar(),
+        );
       case "مفكرة":
         return const NoteView();
       case "فواتير":
