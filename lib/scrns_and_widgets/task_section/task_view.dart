@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/tasks_list.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/input_task.dart';
 
 import '../app_bar.dart';
+import 'add_task_scrn.dart';
 
 class DayCalendar extends StatefulWidget {
   const DayCalendar({super.key});
@@ -26,7 +26,7 @@ class _DayCalendarState extends State<DayCalendar> {
             context: context,
             builder: (newcontext) => BlocProvider<TaskCubit>.value(
               value: BlocProvider.of(context),
-              child: const InputTask(),
+              child: const AddTaskScrn(),
             ),
           );
         },
