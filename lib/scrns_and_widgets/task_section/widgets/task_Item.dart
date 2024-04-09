@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 
 class TaskItem extends StatelessWidget {
-  const TaskItem({super.key, required this.value, this.onChange});
+  const TaskItem(
+      {super.key,
+      required this.taskType,
+      required this.description,
+      this.onPressed});
 
-  final bool value;
-
-  final void Function(bool?)? onChange;
+  final String taskType;
+  final String description;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-        value: value,
-        onChanged: onChange,
+    return ListTile(
+        trailing: IconButton(
+          icon: const Icon(Icons.check_circle_outline),
+          onPressed: onPressed,
+        ),
         shape: const StadiumBorder(),
-        title: const Text('Task Name'),
+        title: Text(taskType),
         subtitle: Container(
           padding: const EdgeInsets.all(8),
-          child: const Text(
-            'Description Description Description Description',
-          ),
+          child: Text(description),
         ));
   }
 }

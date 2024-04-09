@@ -5,10 +5,21 @@ import 'package:timeline_tile/timeline_tile.dart';
 import '../../../constants.dart';
 
 class MyTimeLine extends StatelessWidget {
-  const MyTimeLine({super.key, required this.value, this.onChange});
+  const MyTimeLine(
+      {super.key,
+      required this.task1Type,
+      required this.task1Description,
+      required this.task2Type,
+      required this.task2Description,
+      this.onPressedtask1,
+      this.onPressedtask2});
 
-  final bool value;
-  final void Function(bool?)? onChange;
+  final String task1Type;
+  final String task1Description;
+  final String task2Type;
+  final String task2Description;
+  final void Function()? onPressedtask1;
+  final void Function()? onPressedtask2;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +39,9 @@ class MyTimeLine extends StatelessWidget {
               ),
             ),
             endChild: TaskItem(
-              value: value,
-              onChange: onChange,
+              onPressed: onPressedtask1,
+              taskType: task1Type,
+              description: task1Description,
             )),
         const TimelineDivider(
           begin: 0.1,
@@ -51,8 +63,9 @@ class MyTimeLine extends StatelessWidget {
               ),
             ),
             startChild: TaskItem(
-              value: value,
-              onChange: onChange,
+              onPressed: onPressedtask2,
+              taskType: task2Type,
+              description: task2Description,
             )),
         const TimelineDivider(
           begin: 0.1,

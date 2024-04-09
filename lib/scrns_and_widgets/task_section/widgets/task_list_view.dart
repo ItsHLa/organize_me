@@ -14,9 +14,11 @@ class TaskListView extends StatelessWidget {
       builder: (context, state) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            return MyTimeLine(
-              value: true,
-              onChange: (v) {},
+            return const MyTimeLine(
+              task1Type: 'task1',
+              task1Description: 'task1Description',
+              task2Type: 'task2',
+              task2Description: 'task2Description',
             );
           },
         );
