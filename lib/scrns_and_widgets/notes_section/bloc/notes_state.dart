@@ -6,10 +6,6 @@ sealed class NotesState {
   const NotesState({required this.notes});
 }
 
-final class NotesInitial extends NotesState {
-  const NotesInitial({required super.notes});
-}
-
 class NoteUpdated extends NotesState {
   final Note note;
   const NoteUpdated({
@@ -24,4 +20,12 @@ class NoteAdded extends NotesState {
 
 class NoteDeleted extends NotesState {
   const NoteDeleted({required super.notes});
+}
+
+class NotesLoading extends NotesState {
+  const NotesLoading({required super.notes});
+}
+
+class NotesLoadingCompleted extends NotesState {
+  const NotesLoadingCompleted({required super.notes});
 }

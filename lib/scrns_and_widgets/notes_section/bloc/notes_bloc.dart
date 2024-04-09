@@ -7,10 +7,11 @@ part 'notes_state.dart';
 
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
   List<Note> notes = [];
-  NotesBloc() : super(const NotesInitial(notes: [])) {
+  NotesBloc() : super(const NotesLoading(notes: [])) {
     on<AddNoteEvent>(_addNote);
     on<DeleteNoteEvent>(_deleteNote);
     on<UpdateNoteEvent>(_updateNote);
+    on<LoadNotesEvent>(_getAllNotes);
   }
   void _addNote(AddNoteEvent event, Emitter<NotesState> emit) {
     notes.add(event.note);
@@ -35,9 +36,21 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         break;
       }
     }
-    emit(NoteUpdated(
-      notes: notes,
-      note: event.note,
-    ));
+    emit(
+      NoteUpdated(
+        notes: notes,
+        note: event.note,
+      ),
+    );
+  }
+
+  void _getAllNotes(LoadNotesEvent event, Emitter<NotesState> emit) async {
+    emit(NotesLoading(notes: notes));
+    await Note.getAllNotes().then(
+      (value) {
+        notes = value;
+        emit(NotesLoadingCompleted(notes: notes));
+      },
+    );
   }
 }

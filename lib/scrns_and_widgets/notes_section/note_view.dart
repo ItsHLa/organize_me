@@ -16,15 +16,15 @@ class NoteView extends StatefulWidget {
 }
 
 class _NoteViewState extends State<NoteView> {
-  void _getAllNotes() async {
-    BlocProvider.of<NotesBloc>(context).notes = await Note.getAllNotes();
-  }
+  // void _getAllNotes() async {
+  //   BlocProvider.of<NotesBloc>(context).notes = await Note.getAllNotes();
+  // }
 
-  @override
-  void initState() {
-    _getAllNotes();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _getAllNotes();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -32,27 +32,42 @@ class _NoteViewState extends State<NoteView> {
       builder: (context, state) {
         if (state is NoteAdded) {
           Navigator.of(context).pop();
+        } else if (state is NotesLoading) {
+          BlocProvider.of<NotesBloc>(context).add(LoadNotesEvent());
         }
+        List<Note> notes = BlocProvider.of<NotesBloc>(context).notes;
         return Scaffold(
           floatingActionButtonLocation:
               FloatingActionButtonLocation.endContained,
           floatingActionButton: MyFab(
-              icon: Icons.add,
-              onPressed: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) {
-                    return const AddNoteScrn();
-                  },
-                );
-              }),
-          body: const Column(
-            children: [
-              MAppBar(),
-              Expanded(child: NoteListView()),
-            ],
+            icon: Icons.add,
+            onPressed: () {
+              showModalBottomSheet(
+                isScrollControlled: true,
+                context: context,
+                builder: (context) {
+                  return const AddNoteScrn();
+                },
+              );
+            },
           ),
+          body: notes.isEmpty
+              ? (state is NotesLoadingCompleted
+                  ? const Center(
+                      child: Text(
+                      "ليس لديك مهام بعد.",
+                      style: TextStyle(fontSize: 20),
+                    ))
+                  : const Center(child: CircularProgressIndicator()))
+              : Column(
+                  children: [
+                    const MAppBar(),
+                    Expanded(
+                        child: NoteListView(
+                      notes: notes,
+                    )),
+                  ],
+                ),
         );
       },
     );

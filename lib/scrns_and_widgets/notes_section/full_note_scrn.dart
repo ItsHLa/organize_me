@@ -20,19 +20,17 @@ class NotePage extends StatelessWidget {
     return BlocBuilder<NotesBloc, NotesState>(
       builder: (context, state) {
         Note currNote = note;
-        if (state is NoteUpdated) {
-          SchedulerBinding.instance.addPostFrameCallback(
-            (timeStamp) {
-              Navigator.of(context).pop();
-            },
-          );
-          currNote = state.note;
-        } else if (state is NoteDeleted) {
+        if (state is NoteUpdated || state is NoteDeleted) {
           SchedulerBinding.instance.addPostFrameCallback(
             (_) {
               Navigator.of(context).pop();
             },
           );
+          if (state is NoteUpdated) {
+            currNote = state.note;
+          }
+          BlocProvider.of<NotesBloc>(context)
+              .emit(NotesLoadingCompleted(notes: state.notes));
         }
         return Scaffold(
           appBar: AppBar(),

@@ -11,19 +11,23 @@ class DocsNumbers extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DocsNumCubit, DocsNumState>(
       builder: (context, state) {
-        BlocProvider.of<DocsNumCubit>(context).loadDocsNumbers();
-        if (state.docsNumber.isEmpty) {
-          return const Center(
-            child: Text('لا يوجد جهات اتصال'),
-          );
-        } else {
-          return (state is DocsNumLoadingData
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : DocsNumbersListView(
-                  contacts: state.docsNumber as List<DoctorsContacts>));
+        if (state is DocsNumLoadingData) {
+          BlocProvider.of<DocsNumCubit>(context).loadDocsNumbers();
         }
+        List<DoctorsContacts> contacts =
+            BlocProvider.of<DocsNumCubit>(context).contacts;
+        return contacts.isEmpty
+            ? (state is! DocsNumLoaded
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : const Center(
+                    child: Text(
+                      "ليس لديك جهات اتصال بعد",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ))
+            : DocsNumbersListView(contacts: contacts);
       },
     );
   }

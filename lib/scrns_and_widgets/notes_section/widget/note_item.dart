@@ -16,13 +16,15 @@ class NoteItem extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => NotePage(
-                  note: note,
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => NotePage(
+                    note: note,
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
             title: Column(
               children: [
                 Row(

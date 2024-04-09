@@ -17,3 +17,7 @@ class UpdateNoteEvent extends NotesEvent {
   final Note note;
   UpdateNoteEvent({required this.note});
 }
+
+class LoadNotesEvent extends NotesEvent {
+  LoadNotesEvent();
+}
