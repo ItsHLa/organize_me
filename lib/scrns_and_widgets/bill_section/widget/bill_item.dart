@@ -1,15 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/constants.dart';
 
 class MyBills extends StatelessWidget {
   const MyBills({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return const Card(
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
+          padding: const EdgeInsets.all(10.0),
+          child: ListTile(
+            title: Row(
+              children: [Text('9/4/2024'), Spacer(), Text('0998898')],
+            ),
+            subtitle: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                RowWidget(title: 'رقم الباركود', value: "123"),
+                RowWidget(title: 'رقم العداد  ', value: "123"),
+                RowWidget(title: 'المبلغ         ', value: "123"),
+              ],
+            ),
+          )),
+    );
+  }
+}
+
+/*
+* Column(
           children: [
             Row(
               children: [
@@ -39,7 +56,7 @@ class MyBills extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                RowWidget(title: 'الباركود', value: "123"),
+                RowWidget(title: 'رقم الباركود', value: "123"),
                 SizedBox(
                   height: 2,
                 ),
@@ -65,10 +82,8 @@ class MyBills extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
+*
+* */
 
 class RowWidget extends StatelessWidget {
   const RowWidget({super.key, required this.title, required this.value});
@@ -84,7 +99,7 @@ class RowWidget extends StatelessWidget {
           title,
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
-        const Text('  :  '),
+        const Text('  : '),
         const SizedBox(
           width: 20,
         ),
