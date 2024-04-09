@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../date_time_picker.dart';
 import '../../input_text.dart';
-import '../cubit/task_cubit.dart';
 
 class InputTask extends StatefulWidget {
-  const InputTask({super.key});
+  const InputTask({super.key, this.logic});
+
+  final void Function()? logic;
 
   @override
   State<InputTask> createState() => _InputTaskState();
 }
 
 class _InputTaskState extends State<InputTask> {
+  AutovalidateMode autoValidate = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
   TextEditingController start = TextEditingController();
   TextEditingController end = TextEditingController();
@@ -20,7 +21,6 @@ class _InputTaskState extends State<InputTask> {
   String? taskDescription;
   TimeOfDay? starTime;
   TimeOfDay? endTime;
-  AutovalidateMode autoValidate = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class _InputTaskState extends State<InputTask> {
                     initialTime: TimeOfDay.now(),
                   );
                   setState(
-                        () {
+                    () {
                       start.text = starTime.toString();
                     },
                   );
@@ -96,13 +96,13 @@ class _InputTaskState extends State<InputTask> {
               ElevatedButton(
                 onPressed: () {
                   if (InputText.validateField(taskKey)) {
-                    taskKey.currentState?.validate();
-                    BlocProvider.of<TaskCubit>(context).addTask();
+                    taskKey.currentState?.save();
+                    widget.logic;
                   } else {
                     autoValidate = AutovalidateMode.always;
                   }
                 },
-                child: Text('اضافة المهمة'),
+                child: const Text('اضافة المهمة'),
               ),
               const SizedBox(
                 height: 15,
