@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/models/task.dart';
 
 part 'task_state.dart';
@@ -26,7 +26,7 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void deleteTask() {
+  void deleteTask(int id) {
     try {
       // delete
       // cancel scheduling the task

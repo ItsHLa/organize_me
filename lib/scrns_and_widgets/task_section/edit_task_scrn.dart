@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'cubit/task_cubit.dart';
+import 'models/task.dart';
 import 'widgets/input_task.dart';
 
-class EditTaskScrn extends StatefulWidget {
-  const EditTaskScrn({super.key});
+class EditTaskScrn extends StatelessWidget {
+  const EditTaskScrn({super.key, required this.task});
 
-  @override
-  State<EditTaskScrn> createState() => _EditTaskScrnState();
-}
+  final Task task;
 
-class _EditTaskScrnState extends State<EditTaskScrn> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<TaskCubit, TaskState>(
