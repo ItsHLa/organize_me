@@ -29,7 +29,6 @@ class TaskItem extends StatelessWidget {
           Expanded(
             child: ExpansionTile(
               subtitle: Container(
-                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white10),
