@@ -22,6 +22,11 @@ class LocalNotificationService {
     );
   }
 
+  // for canceling Notification
+  static cancelNotification(int id) async {
+    await flutterLocalNotificationsPlugin.cancel(id);
+  }
+
   // scheduled Notification
   static void showScheduledNotification() async {
     AndroidNotificationDetails android = const AndroidNotificationDetails(

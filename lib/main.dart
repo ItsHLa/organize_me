@@ -5,6 +5,7 @@ import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/drawer.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/services/local_notification_service.dart';
+import 'package:organize_me/services/work_manager_service.dart';
 import 'package:telephony/telephony.dart';
 
 backgroundMessageHandler(SmsMessage message) async {
@@ -37,7 +38,13 @@ backgroundMessageHandler(SmsMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await LocalNotificationService.inite();
+  // it will wait the largest time in its List
+  // example :
+  await Future.wait([
+    LocalNotificationService.inite(), // wait 3s
+    WorkManagerService().init()
+  ]); // wait 7s
+  // then it will wait for 7s
   runApp(const MyApp());
 }
 
