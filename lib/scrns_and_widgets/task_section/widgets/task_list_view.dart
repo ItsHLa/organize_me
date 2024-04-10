@@ -10,6 +10,7 @@ class TaskListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: EdgeInsets.all(8),
       itemCount: tasks.length,
       itemBuilder: (context, index) {
         return MyTimeLine(

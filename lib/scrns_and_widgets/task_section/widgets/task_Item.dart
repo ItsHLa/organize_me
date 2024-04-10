@@ -16,22 +16,41 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      shape: const StadiumBorder(),
-      title: Text(taskTitle),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      margin: EdgeInsets.all(8),
+      child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.only(left: 5),
-            child: Text(taskContent),
-          ),
-          taskTag != null
-              ? Container(
+          Expanded(
+            child: ExpansionTile(
+              subtitle: Text('start Time - End Time'),
+              //trailing:  IconButton(onPressed: null, icon: Icon(Icons.check_circle_outline)),
+              shape: const StadiumBorder(),
+              title: Text(taskTitle),
+              children: [
+                Container(
                   padding: const EdgeInsets.only(left: 5),
-                  child: Text(taskTag!),
+                  child: Text(taskContent),
+                ),
+                taskTag != null
+                    ? Container(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Text(taskTag!),
+                      )
+                    : Container(),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Spacer(),
+                    IconButton(onPressed: null, icon: Icon(Icons.edit)),
+                    IconButton(onPressed: null, icon: Icon(Icons.delete)),
+                  ],
                 )
-              : Container(),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
         ],
       ),
     );
