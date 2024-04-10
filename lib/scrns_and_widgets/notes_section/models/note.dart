@@ -24,7 +24,7 @@ class Note {
 
   static Future<Map> addNote(String title, String content) async {
     Database? mydb = await DatabaseHelper.db;
-    String now = DateTime.now().toString();
+    String now = DateTime.now().toString().substring(0, 16);
     int noteId = await mydb!.rawInsert(
       """
         INSERT OR IGNORE INTO notes(title, content, date) VALUES (?, ?, ?);
@@ -73,7 +73,7 @@ class Note {
     Database? mydb = await DatabaseHelper.db;
     List<Map> note = await mydb!.rawQuery(
       """
-        SELECT * FROM notes WHERE id = ?
+        SELECT * FROM notes WHERE id = ?;
       """,
       [
         noteId,
@@ -87,7 +87,7 @@ class Note {
     Database? mydb = await DatabaseHelper.db;
     List<Map> notesMap = await mydb!.rawQuery(
       """
-        SELECT * FROM notes
+        SELECT * FROM notes;
       """,
     );
     List<Note> notes = [];

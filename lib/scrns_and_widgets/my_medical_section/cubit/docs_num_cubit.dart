@@ -42,12 +42,7 @@ class DocsNumCubit extends Cubit<DocsNumState> {
   void deletePhoneNumber(int id) async {
     try {
       await DoctorsContacts.deleteContact(id);
-      for (DoctorsContacts c in contacts) {
-        if (c.id == id) {
-          contacts.remove(c);
-          break;
-        }
-      }
+      contacts.remove(contacts.singleWhere((con) => con.id == id));
       emit(DeleteDocsNumSuccess(docsNumber: contacts));
     } catch (e) {
       emit(DeleteDocsNumFailed('تعذر حذف جهة الاتصال', docsNumber: contacts));

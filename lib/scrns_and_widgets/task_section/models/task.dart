@@ -71,8 +71,8 @@ class Task {
     int taskId, {
     String newContent = '',
     String newTitle = '',
-    String newstartTime = '',
-    String newendTime = '',
+    String newStartTime = '',
+    String newEndTime = '',
     String newTag = '',
   }) async {
     Database? mydb = await DatabaseHelper.db;
@@ -81,9 +81,9 @@ class Task {
         newContent.isNotEmpty ? "content = '$newContent'," : "";
     String editTitle = newTitle.isNotEmpty ? "title = '$newTitle'," : "";
     String editstartTime =
-        newstartTime.isNotEmpty ? "start_time = '$newstartTime'," : "";
+        newStartTime.isNotEmpty ? "start_time = '$newStartTime'," : "";
     String editendTime =
-        newendTime.isNotEmpty ? "end_time = '$newendTime'," : "";
+        newEndTime.isNotEmpty ? "end_time = '$newEndTime'," : "";
     String editTag = newTag.isNotEmpty ? "tag = '$newTag'," : "";
     await mydb!.rawUpdate(
       """
@@ -102,7 +102,7 @@ class Task {
     return geOnetTask(taskId);
   }
 
-  static deleteTask(int taskId) async {
+  static Future deleteTask(int taskId) async {
     Database? mydb = await DatabaseHelper.db;
     await mydb!.rawInsert(
       """

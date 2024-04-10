@@ -22,12 +22,13 @@ class TaskListView extends StatelessWidget {
           endTime: tasks[index].endTime,
           onPressedEdit: () {
             showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
-                builder: (newcontext) => BlocProvider<TaskCubit>.value(
-                      value: BlocProvider.of(context),
-                      child: EditTaskScrn(task: tasks[index]),
-                    ));
+              isScrollControlled: true,
+              context: context,
+              builder: (newcontext) => BlocProvider<TaskCubit>.value(
+                value: BlocProvider.of(context),
+                child: EditTaskScrn(task: tasks[index]),
+              ),
+            );
           },
           onPressedDelete: () {
             BlocProvider.of<TaskCubit>(context).deleteTask(tasks[index].id);

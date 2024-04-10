@@ -17,32 +17,61 @@ class TaskCubit extends Cubit<TaskState> {
     String endTime,
   ) async {
     try {
-      Map task = await Task.addTask(title, content, tag, startTime, endTime);
+      Map task = await Task.addTask(
+        title,
+        content,
+        tag,
+        startTime,
+        endTime,
+      );
       tasks.add(Task.fromMap(task));
       // schedule the task
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
-      emit(const AddTaskFailed('تعذر اضافة المهمة', tasks: []));
+      emit(AddTaskFailed('تعذر اضافة المهمة', tasks: tasks));
     }
   }
 
-  void deleteTask(int id) {
+  void deleteTask(int id) async {
     try {
-      // delete
+      await Task.deleteTask(id).then(
+        (_) {
+          tasks.remove(tasks.singleWhere((task) => task.id == id));
+        },
+      );
       // cancel scheduling the task
-      emit(const DeleteTaskSuccess(tasks: []));
+      emit(DeleteTaskSuccess(tasks: tasks));
     } catch (e) {
-      emit(const DeleteTaskFailed('تعذر حذف المهمة', tasks: []));
+      emit(DeleteTaskFailed('تعذر حذف المهمة', tasks: tasks));
     }
   }
 
-  void editTask() {
+  void editTask(
+    id,
+    title,
+    tag,
+    content,
+    startTime,
+    endTime,
+  ) async {
     try {
-      // update
+      await Task.editTask(
+        id,
+        newContent: content,
+        newTag: tag,
+        newTitle: title,
+        newEndTime: endTime,
+        newStartTime: startTime,
+      ).then(
+        (newTask) {
+          int i = tasks.indexOf(tasks.singleWhere((task) => task.id == id));
+          tasks[i] = Task.fromMap(newTask);
+        },
+      );
       // reschedule the task
-      emit(const AddTaskSuccess(tasks: []));
+      emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
-      emit(const AddTaskFailed('تعذر تعديل المهمة', tasks: []));
+      emit(AddTaskFailed('تعذر تعديل المهمة', tasks: tasks));
     }
   }
 
@@ -56,7 +85,7 @@ class TaskCubit extends Cubit<TaskState> {
         },
       );
     } catch (e) {
-      emit(const LoadingTasks(tasks: []));
+      emit(LoadingTasks(tasks: tasks));
     }
   }
 }

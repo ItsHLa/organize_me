@@ -20,8 +20,23 @@ class EditTaskScrn extends StatelessWidget {
         }
       },
       child: InputTask(
-        logic: (title, tag, content, startTime, endTime) {
-          BlocProvider.of<TaskCubit>(context).editTask();
+        task: task,
+        logic: ({
+          int? id,
+          String? title,
+          String? tag,
+          String? content,
+          String? startTime,
+          String? endTime,
+        }) {
+          BlocProvider.of<TaskCubit>(context).editTask(
+            id,
+            title,
+            tag,
+            content,
+            startTime,
+            endTime,
+          );
         },
       ),
     );

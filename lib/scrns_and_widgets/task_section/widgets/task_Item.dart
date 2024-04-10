@@ -6,8 +6,8 @@ class TaskItem extends StatelessWidget {
     required this.taskTitle,
     required this.taskContent,
     this.taskTag,
-    required this.TaskStartTime,
-    required this.TaskEndTime,
+    required this.taskStartTime,
+    required this.taskEndTime,
     this.onPressedEdit,
     this.onPressedDelete,
   });
@@ -15,8 +15,8 @@ class TaskItem extends StatelessWidget {
   final String taskTitle;
   final String taskContent;
   final String? taskTag;
-  final String TaskStartTime;
-  final String TaskEndTime;
+  final String taskStartTime;
+  final String taskEndTime;
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
 
@@ -29,10 +29,11 @@ class TaskItem extends StatelessWidget {
           Expanded(
             child: ExpansionTile(
               subtitle: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white10),
-                  child: Text('$TaskStartTime - $TaskEndTime')),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white10),
+                child: Text('$taskStartTime - $taskEndTime'),
+              ),
               //trailing:  IconButton(onPressed: null, icon: Icon(Icons.check_circle_outline)),
               shape: const StadiumBorder(),
               title: Text(taskTitle),
@@ -52,10 +53,13 @@ class TaskItem extends StatelessWidget {
                   children: [
                     const Spacer(),
                     IconButton(
-                        onPressed: onPressedEdit, icon: const Icon(Icons.edit)),
+                      onPressed: onPressedEdit,
+                      icon: const Icon(Icons.edit),
+                    ),
                     IconButton(
-                        onPressed: onPressedDelete,
-                        icon: const Icon(Icons.delete)),
+                      onPressed: onPressedDelete,
+                      icon: const Icon(Icons.delete),
+                    ),
                   ],
                 )
               ],

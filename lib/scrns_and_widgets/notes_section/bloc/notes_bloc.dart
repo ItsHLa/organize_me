@@ -20,12 +20,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   }
 
   void _deleteNote(DeleteNoteEvent event, Emitter<NotesState> emit) {
-    for (Note note in notes) {
-      if (note.id == event.note.id) {
-        notes.remove(note);
-        break;
-      }
-    }
+    notes.remove(notes.singleWhere((note) => note.id == event.note.id));
+
     emit(NoteDeleted(notes: notes));
     emit(NotesLoadingCompleted(notes: notes));
   }

@@ -24,19 +24,20 @@ class _AddTaskScrnState extends State<AddTaskScrn> {
         }
       },
       child: InputTask(
-        logic: (
-          String title,
+        logic: ({
+          int? id,
+          String? title,
           String? tag,
-          String content,
-          String startTime,
-          String endTime,
-        ) {
+          String? content,
+          String? startTime,
+          String? endTime,
+        }) {
           BlocProvider.of<TaskCubit>(context).addTask(
-            title,
+            title!,
             tag!,
-            content,
-            startTime,
-            endTime,
+            content!,
+            startTime!,
+            endTime!,
           );
         },
       ),

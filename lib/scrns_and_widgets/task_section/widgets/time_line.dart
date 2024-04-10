@@ -18,6 +18,9 @@ class MyTimeLine extends StatelessWidget {
     // required this.task2Description,
     // this.onPressedtask2,
   });
+  // final String task2Type;
+  // final String task2Description;
+  // final void Function()? onPressedtask2;
 
   final String taskTitle;
   final String taskContent;
@@ -27,42 +30,39 @@ class MyTimeLine extends StatelessWidget {
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
 
-  // final String task2Type;
-  // final String task2Description;
-  // final void Function()? onPressedtask2;
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TimelineTile(
-            lineXY: 0.1,
-            alignment: TimelineAlign.manual,
-            afterLineStyle: const LineStyle(color: deepPurple),
-            beforeLineStyle: const LineStyle(color: deepPurple),
-            indicatorStyle: IndicatorStyle(
-              width: 25,
-              color: deepPurple,
-              iconStyle: IconStyle(
-                color: Colors.white54,
-                iconData: Icons.task_alt_outlined,
-              ),
+          lineXY: 0.1,
+          alignment: TimelineAlign.manual,
+          afterLineStyle: const LineStyle(color: deepPurple),
+          beforeLineStyle: const LineStyle(color: deepPurple),
+          indicatorStyle: IndicatorStyle(
+            width: 25,
+            color: deepPurple,
+            iconStyle: IconStyle(
+              color: Colors.white54,
+              iconData: Icons.task_alt_outlined,
             ),
-            endChild: TaskItem(
-              TaskStartTime: startTime,
-              TaskEndTime: endTime,
-              onPressedDelete: onPressedDelete,
-              onPressedEdit: onPressedEdit,
-              taskTitle: taskTitle,
-              taskContent: taskContent,
-              taskTag: taskTag,
-            )),
-       /* const TimelineDivider(
-          begin: 0.1,
-          end: 0.9,
-          thickness: 6,
-          color: deepPurple,
-        ),*/
+          ),
+          endChild: TaskItem(
+            taskStartTime: startTime,
+            taskEndTime: endTime,
+            onPressedDelete: onPressedDelete,
+            onPressedEdit: onPressedEdit,
+            taskTitle: taskTitle,
+            taskContent: taskContent,
+            taskTag: taskTag,
+          ),
+        ),
+        // const TimelineDivider(
+        //   begin: 0.1,
+        //   end: 0.9,
+        //   thickness: 6,
+        //   color: deepPurple,
+        // ),
         // TimelineTile(
         //     lineXY: 0.9,
         //     alignment: TimelineAlign.manual,

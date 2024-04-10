@@ -22,6 +22,7 @@ class MyDatePicker extends StatelessWidget {
           if (value!.isEmpty) {
             return 'هذا الحقل لا يمكن ان يكون فارغ';
           }
+          return null;
         },
         controller: controller,
         readOnly: true,
