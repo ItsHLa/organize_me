@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/models/doctors_contacts.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/widgets/docs_number_item.dart';
 
 import '../cubit/docs_num_cubit.dart';
 import '../edit_phone_num.dart';
+import '../models/doctors_contacts.dart';
+import 'docs_number_item.dart';
 
 class DocsNumbersListView extends StatelessWidget {
   const DocsNumbersListView({super.key, required this.contacts});

@@ -2,8 +2,7 @@ import 'package:animated_rail/animated_rail/animated_rail.dart';
 import 'package:animated_rail/animated_rail/rail_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/cubit/docs_num_cubit.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/doctors_numbers.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/appoitments_calendar.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
@@ -11,6 +10,8 @@ import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 
 import '../constants.dart';
 import 'bill_section/bills_view.dart';
+import 'my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
+import 'my_medical_section/medicien_section/meds_page.dart';
 import 'notes_section/note_view.dart';
 
 class MDrawe extends StatelessWidget {
@@ -84,10 +85,7 @@ class MDrawe extends StatelessWidget {
           child: const MedsAndDocs(),
         );
       case "ادوية":
-        return BlocProvider(
-          create: (context) => DocsNumCubit(),
-          child: const MedsAndDocs(),
-        );
+        return const MedsPage();
     }
   }
 }

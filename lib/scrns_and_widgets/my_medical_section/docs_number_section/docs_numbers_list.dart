@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/cubit/docs_num_cubit.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/models/doctors_contacts.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/widgets/docs_numbers_listview.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/widgets/docs_numbers_listview.dart';
+
+import 'cubit/docs_num_cubit.dart';
+import 'models/doctors_contacts.dart';
 
 class DocsNumbers extends StatelessWidget {
   const DocsNumbers({super.key});
