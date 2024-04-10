@@ -62,5 +62,48 @@ class DatabaseHelper {
           );
       ''',
     );
+    await db.execute(
+      '''
+          CREATE TABLE IF NOT EXISTS electric_bills (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            payment_amount REAL,
+            commission_amount REAL,
+            date TEXT,
+            gov TEXT,
+            billing_number TEXT,
+            invoice_number TEXT,
+            operation_number TEXT,
+            subscription_number TEXT
+          );
+      ''',
+    );
+    await db.execute(
+      '''
+          CREATE TABLE IF NOT EXISTS water_bills (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            payment_amount REAL,
+            commission_amount REAL,
+            date TEXT,
+            gov TEXT,
+            receipt_number TEXT,
+            barcode_number TEXT,
+            counter_number TEXT,
+            operation_number TEXT
+          );
+      ''',
+    );
+    await db.execute(
+      '''
+          CREATE TABLE IF NOT EXISTS telecom_bills (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            payment_amount REAL,
+            commission_amount REAL,
+            invoice_number TEXT,
+            date TEXT,
+            phone_number_email TEXT,
+            operation_number TEXT
+          );
+      ''',
+    );
   }
 }

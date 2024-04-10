@@ -53,7 +53,7 @@ class DoctorsContacts {
 
   static deleteContact(int contactId) async {
     Database? mydb = await DatabaseHelper.db;
-    await mydb!.rawInsert(
+    await mydb!.rawDelete(
       """
         DELETE FROM doctors_contacts WHERE id = ?;
       """,

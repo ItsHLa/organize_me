@@ -104,7 +104,7 @@ class Task {
 
   static Future deleteTask(int taskId) async {
     Database? mydb = await DatabaseHelper.db;
-    await mydb!.rawInsert(
+    await mydb!.rawDelete(
       """
         DELETE FROM tasks WHERE id = ?;
       """,

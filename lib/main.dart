@@ -15,7 +15,7 @@ backgroundMessageHandler(SmsMessage message) async {
         // add to database
         // set notification after 3 months
       }
-      if (message.body!.contains('السورية للاتصالات ')) {
+      if (message.body!.contains('السورية للاتصالات')) {
         // add to database
         // set notification after 3 months
       }
@@ -26,7 +26,7 @@ backgroundMessageHandler(SmsMessage message) async {
       if (message.body!.contains('الغاز')) {
         // send notification
       }
-      if (message.body!.contains(' بنزين من محطة')) {
+      if (message.body!.contains('بنزين من محطة')) {
         // send notification
       }
       if (message.body!.contains('خبز')) {

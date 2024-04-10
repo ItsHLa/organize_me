@@ -59,7 +59,7 @@ class Note {
 
   static deleteNote(int noteId) async {
     Database? mydb = await DatabaseHelper.db;
-    await mydb!.rawInsert(
+    await mydb!.rawDelete(
       """
         DELETE FROM notes WHERE id = ?;
       """,
