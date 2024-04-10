@@ -1,4 +1,3 @@
-import 'package:organize_me/services/local_notification_service.dart';
 import 'package:workmanager/workmanager.dart';
 
 class WorkManagerService {
@@ -32,7 +31,7 @@ class WorkManagerService {
 void actionTask() {
   Workmanager().executeTask((taskName, inputData) {
     // here we put the code that needs to be executed in the background
-    LocalNotificationService.showScheduledNotification();
+    //like : LocalNotificationService.showScheduledNotification();
     return Future.value(true); //the return type
   });
 }
