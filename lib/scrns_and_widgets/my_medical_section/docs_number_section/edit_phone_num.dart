@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/input_text.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/widgets/input_phone_num.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/widgets/input_phone_num.dart';
 
 import 'cubit/docs_num_cubit.dart';
+import 'models/doctors_contacts.dart';
 
-class AddPhoneNum extends StatelessWidget {
-  const AddPhoneNum({super.key});
+class EditPhoneNumber extends StatelessWidget {
+  final DoctorsContacts contact;
+
+  const EditPhoneNumber({super.key, required this.contact});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +21,12 @@ class AddPhoneNum extends StatelessWidget {
       },
       child: InputPhoneNumber(
         onPressed: (numKey, name, phone) {
-          if (name.isEmpty || phone.isEmpty) {
+          if (name.isEmpty && phone.isEmpty) {
             InputText.validateField(numKey);
             return;
           }
-          BlocProvider.of<DocsNumCubit>(context).addPhoneNumber(
+          BlocProvider.of<DocsNumCubit>(context).editPhoneNumber(
+            contact.id,
             name,
             phone,
           );

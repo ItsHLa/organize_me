@@ -3,7 +3,7 @@ import 'package:animated_rail/animated_rail/rail_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/cubit/docs_num_cubit.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/doctors_numbers.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/appoitments_calendar.dart';
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';

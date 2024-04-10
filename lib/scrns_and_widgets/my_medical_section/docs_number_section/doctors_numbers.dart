@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_numbers_list.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/models/doctors_contacts.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/docs_numbers_list.dart';
 
-import '../app_bar.dart';
+import '../../app_bar.dart';
 import 'add_phone_num.dart';
 import 'cubit/docs_num_cubit.dart';
+import 'models/doctors_contacts.dart';
 
 class MedsAndDocs extends StatefulWidget {
   const MedsAndDocs({super.key});

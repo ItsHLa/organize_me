@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/models/doctors_contacts.dart';
+
+import '../models/doctors_contacts.dart';
 
 part 'docs_num_state.dart';
 
 class DocsNumCubit extends Cubit<DocsNumState> {
   List<DoctorsContacts> contacts = [];
+
   DocsNumCubit() : super(const DocsNumInitial(docsNumber: []));
 
   void addPhoneNumber(String name, String phoneNumber) async {
