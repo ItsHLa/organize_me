@@ -17,10 +17,6 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      trailing: IconButton(
-        icon: const Icon(Icons.check_circle_outline),
-        onPressed: onPressed,
-      ),
       shape: const StadiumBorder(),
       title: Text(taskTitle),
       subtitle: Column(

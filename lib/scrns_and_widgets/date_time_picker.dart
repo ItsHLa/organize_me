@@ -17,7 +17,12 @@ class MyDatePicker extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       height: 70,
-      child: TextField(
+      child: TextFormField(
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'هذا الحقل لا يمكن ان يكون فارغ';
+          }
+        },
         controller: controller,
         readOnly: true,
         onTap: onTap,

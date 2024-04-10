@@ -47,12 +47,12 @@ class MyTimeLine extends StatelessWidget {
               taskContent: taskContent,
               taskTag: taskTag,
             )),
-        const TimelineDivider(
+       /* const TimelineDivider(
           begin: 0.1,
           end: 0.9,
           thickness: 6,
           color: deepPurple,
-        ),
+        ),*/
         // TimelineTile(
         //     lineXY: 0.9,
         //     alignment: TimelineAlign.manual,
