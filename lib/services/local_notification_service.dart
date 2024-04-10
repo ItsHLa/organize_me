@@ -31,7 +31,7 @@ class LocalNotificationService {
   }
 
   // scheduled Notification
-  static void showScheduledTaskNotification(
+  static void showScheduledNotification(
       {required DateTime currentDate,
       required TimeOfDay startTime,
       required TimeOfDay reminder,
