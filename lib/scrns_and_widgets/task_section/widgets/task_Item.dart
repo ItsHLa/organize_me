@@ -6,23 +6,34 @@ class TaskItem extends StatelessWidget {
     required this.taskTitle,
     required this.taskContent,
     this.taskTag,
-    this.onPressed,
+    required this.TaskStartTime,
+    required this.TaskEndTime,
+    this.onPressedEdit,
+    this.onPressedDelete,
   });
 
   final String taskTitle;
   final String taskContent;
   final String? taskTag;
-  final void Function()? onPressed;
+  final String TaskStartTime;
+  final String TaskEndTime;
+  final void Function()? onPressedEdit;
+  final void Function()? onPressedDelete;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       child: Column(
         children: [
           Expanded(
             child: ExpansionTile(
-              subtitle: Text('start Time - End Time'),
+              subtitle: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white10),
+                  child: Text('$TaskStartTime - $TaskEndTime')),
               //trailing:  IconButton(onPressed: null, icon: Icon(Icons.check_circle_outline)),
               shape: const StadiumBorder(),
               title: Text(taskTitle),
@@ -37,18 +48,21 @@ class TaskItem extends StatelessWidget {
                         child: Text(taskTag!),
                       )
                     : Container(),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Spacer(),
-                    IconButton(onPressed: null, icon: Icon(Icons.edit)),
-                    IconButton(onPressed: null, icon: Icon(Icons.delete)),
+                    const Spacer(),
+                    IconButton(
+                        onPressed: onPressedEdit, icon: const Icon(Icons.edit)),
+                    IconButton(
+                        onPressed: onPressedDelete,
+                        icon: const Icon(Icons.delete)),
                   ],
                 )
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
         ],

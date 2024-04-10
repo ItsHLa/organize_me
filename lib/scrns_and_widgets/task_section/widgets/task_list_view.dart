@@ -10,15 +10,17 @@ class TaskListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       itemCount: tasks.length,
       itemBuilder: (context, index) {
         return MyTimeLine(
+          startTime: tasks[index].startTime,
+          endTime: tasks[index].endTime,
+          onPressedEdit: null,
+          onPressedDelete: null,
           taskTitle: tasks[index].title,
           taskContent: tasks[index].content,
           taskTag: tasks[index].tag,
-          // task2Type: 'task2',
-          // task2Description: 'task2Description',
         );
       },
     );

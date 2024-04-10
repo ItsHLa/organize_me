@@ -10,7 +10,10 @@ class MyTimeLine extends StatelessWidget {
     required this.taskTitle,
     required this.taskContent,
     this.taskTag,
-    this.onPressed,
+    required this.startTime,
+    required this.endTime,
+    this.onPressedEdit,
+    this.onPressedDelete,
     // required this.task2Type,
     // required this.task2Description,
     // this.onPressedtask2,
@@ -19,7 +22,11 @@ class MyTimeLine extends StatelessWidget {
   final String taskTitle;
   final String taskContent;
   final String? taskTag;
-  final void Function()? onPressed;
+  final String startTime;
+  final String endTime;
+  final void Function()? onPressedEdit;
+  final void Function()? onPressedDelete;
+
   // final String task2Type;
   // final String task2Description;
   // final void Function()? onPressedtask2;
@@ -42,7 +49,10 @@ class MyTimeLine extends StatelessWidget {
               ),
             ),
             endChild: TaskItem(
-              onPressed: onPressed,
+              TaskStartTime: startTime,
+              TaskEndTime: endTime,
+              onPressedDelete: onPressedDelete,
+              onPressedEdit: onPressedEdit,
               taskTitle: taskTitle,
               taskContent: taskContent,
               taskTag: taskTag,

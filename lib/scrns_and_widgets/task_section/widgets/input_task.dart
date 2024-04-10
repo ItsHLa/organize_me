@@ -68,7 +68,7 @@ class _InputTaskState extends State<InputTask> {
                     context: context,
                     initialTime: TimeOfDay.now(),
                   ))!;
-                  start.text = startTime.toString();
+                  start.text = '${startTime.hour} : ${startTime.minute}';
                 },
                 controller: start,
               ),
@@ -82,7 +82,7 @@ class _InputTaskState extends State<InputTask> {
                     context: context,
                     initialTime: TimeOfDay.now(),
                   ))!;
-                  end.text = endTime.toString();
+                  end.text = "${endTime.hour} : ${endTime.minute}";
                 },
                 controller: end,
               ),
