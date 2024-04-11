@@ -7,11 +7,14 @@ class InputText extends StatefulWidget {
     this.lines = 1,
     this.save,
     this.maxLength,
+    this.keyboardType,
   });
+
   final String hint;
   final int lines;
   final void Function(String?)? save;
   final int? maxLength;
+  final TextInputType? keyboardType;
 
   static bool validateField(GlobalKey<FormState> formKey) {
     if (formKey.currentState!.validate()) {
@@ -29,6 +32,7 @@ class _InputTextState extends State<InputText> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.keyboardType,
       onSaved: widget.save,
       validator: (value) {
         if (value?.isEmpty ?? true) {
