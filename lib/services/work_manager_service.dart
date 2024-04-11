@@ -1,3 +1,4 @@
+import 'package:organize_me/services/local_notification_service/bills_notification.dart';
 import 'package:workmanager/workmanager.dart';
 
 class WorkManagerService {
@@ -5,10 +6,12 @@ class WorkManagerService {
     // register tasks
     // 'registerPeriodicTask' makes that task excecute every x [hours / days / minutes...]
     await Workmanager().registerPeriodicTask(
-      'id1', // uniqueName of task needs it for canceling it for example
-      'show simple notification', // taskName
-      frequency:
-          const Duration(), // the default value is 15m less that that it will set 15 minutes
+      'BillsNotification',
+      // uniqueName of task needs it for canceling it for example
+      'show Bills notification', // taskName
+      frequency: const Duration(
+          minutes:
+              15), // the default value is 15m less that that it will set 15 minutes
     );
   }
 
@@ -32,6 +35,7 @@ void actionTask() {
   Workmanager().executeTask((taskName, inputData) {
     // here we put the code that needs to be executed in the background
     //like : LocalNotificationService.showScheduledNotification();
+    BillsNotification.showBillSimpleNotification();
     return Future.value(true); //the return type
   });
 }

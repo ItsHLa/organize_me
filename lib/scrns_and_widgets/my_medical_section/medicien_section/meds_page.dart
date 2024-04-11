@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/services/local_notification_service/bills_notification.dart';
 
 import '../../app_bar.dart';
 import 'meds_grid.dart';
@@ -8,8 +9,11 @@ class MedsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        BillsNotification.showBillSimpleNotification();
+      }),
+      body: const Column(
         children: [MAppBar(), MedsGrid()],
       ),
     );
