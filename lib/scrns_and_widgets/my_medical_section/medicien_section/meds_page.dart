@@ -13,7 +13,7 @@ class MedsPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(onPressed: () {
         showModalBottomSheet(
           context: context,
-          builder: (context) => InputMedicien(),
+          builder: (context) => const InputMedicien(),
         );
       }),
       body: const Column(
