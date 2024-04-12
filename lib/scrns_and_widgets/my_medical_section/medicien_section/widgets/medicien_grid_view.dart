@@ -11,7 +11,7 @@ class MedsGridView extends StatelessWidget {
       gridDelegate:
           const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemBuilder: (context, index) {
-        return MedItem();
+        return const MedItem();
       },
     );
   }
