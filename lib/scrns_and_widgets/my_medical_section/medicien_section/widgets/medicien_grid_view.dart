@@ -8,8 +8,8 @@ class MedsGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 2, crossAxisCount: 2),
       itemBuilder: (context, index) {
         return const MedItem();
       },
