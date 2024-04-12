@@ -14,7 +14,6 @@ class MAppBar extends StatefulWidget {
 class _MAppBarState extends State<MAppBar> {
   @override
   Widget build(BuildContext context) {
-
     return AppBar(
       title: const Text(
         'OrganizeMe',
@@ -24,14 +23,19 @@ class _MAppBarState extends State<MAppBar> {
         BlocBuilder<DarkModeCubit, DarkModeState>(
           builder: (context, state) {
             return IconButton(
-                onPressed: () {
-                  BlocProvider.of<DarkModeCubit>(context).darkModeIsOn();
-                },
-                icon: state.icon);
+              onPressed: () {
+                BlocProvider.of<DarkModeCubit>(context).darkModeIsOn();
+              },
+              icon: state.icon,
+            );
           },
         ),
         const IconButton(
-            onPressed: null, icon: Icon(Icons.energy_savings_leaf_outlined))
+          onPressed: null,
+          icon: Icon(
+            Icons.energy_savings_leaf_outlined,
+          ),
+        )
       ],
     );
   }
