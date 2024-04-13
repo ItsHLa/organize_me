@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/telecom_bill_item.dart';
+import 'package:organize_me/scrns_and_widgets/my_list_view.dart';
 
 import 'electric_bills.dart';
 import 'water_bill_item.dart';
@@ -16,20 +17,20 @@ class BillsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(15),
-      itemBuilder: (context, index) {
-        switch (typeOfBill) {
-          case 'water':
-            return const WaterBills();
-          case 'electric ':
-            return const TelecomBills();
-          case ' telecom ':
-            return const ElectricBills();
-          default:
-            return ElectricBills();
-        }
-      },
-    );
+    return MyListView(
+        dataList: [],
+        itemCount: 100,
+        itemBuilder: (context, index) {
+          switch (typeOfBill) {
+            case 'water':
+              return const WaterBills();
+            case 'electric ':
+              return const TelecomBills();
+            case ' telecom ':
+              return const ElectricBills();
+            default:
+              return ElectricBills();
+          }
+        });
   }
 }
