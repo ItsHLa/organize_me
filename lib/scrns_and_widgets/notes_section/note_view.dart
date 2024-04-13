@@ -54,21 +54,25 @@ class _NoteViewState extends State<NoteView> {
               );
             },
           ),
-          body: notes.isEmpty
-              ? (state is NotesLoadingCompleted
-                  ? const Center(
-                      child: Text(
-                      "ليس لديك ملاحظات بعد",
-                      style: TextStyle(fontSize: 20),
-                    ))
-                  : const Center(
-                      child: CircularProgressIndicator(),
-                    ))
-              : Expanded(
-                  child: NoteListView(
-                    notes: notes,
-                  ),
-                ),
+          body: Column(
+            children: [
+              notes.isEmpty
+                  ? (state is NotesLoadingCompleted
+                      ? const Center(
+                          child: Text(
+                          "ليس لديك ملاحظات بعد",
+                          style: TextStyle(fontSize: 20),
+                        ))
+                      : const Center(
+                          child: CircularProgressIndicator(),
+                        ))
+                  : Expanded(
+                      child: NoteListView(
+                        notes: notes,
+                      ),
+                    ),
+            ],
+          ),
         );
       },
     );

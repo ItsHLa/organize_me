@@ -14,6 +14,7 @@ class DocsNumbersListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       itemCount: contacts.length,
       itemBuilder: (context, index) {
         return DocsNumber(
