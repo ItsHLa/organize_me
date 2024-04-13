@@ -7,7 +7,7 @@ class TelephonyService {
     return await telephony.requestPhoneAndSmsPermissions;
   }
 
-  static backgrounMessageHandler(SmsMessage message) async {
+   backgrounMessageHandler(SmsMessage message) async {
     if (message.body!.contains('تم دفع مبلغ')) {
       print(
           '${message.body}+++++++++++++++++++++++++++++++++++++++++++++++++++');
@@ -16,14 +16,14 @@ class TelephonyService {
     // You can also call other plugin in here
   }
 
-  static listenForIncomingSms() {
+  static void listenForIncomingSms() {
     telephony.listenIncomingSms(
-        onNewMessage: (message) {
-          if (message.address == 'SyriatelSEP') {
-            print(' reg is being used here ++++++++++');
-          }
-        },
-        listenInBackground: true,
-        onBackgroundMessage: backgrounMessageHandler);
+      onNewMessage: (message) {
+        if (message.address == 'SyriatelSEP') {
+          print(' reg is being used here ++++++++++');
+        }
+      },
+      listenInBackground: true,
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/my_button.dart';
 
 import '../../../date_time_picker.dart';
 import '../../../input_text.dart';
@@ -51,6 +52,7 @@ class _InputMedicienState extends State<InputMedicien> {
                 height: 6,
               ),
               MyDatePicker(
+                  icon: Icons.access_time_outlined,
                   labelText: 'موعد اخذ الدواء',
                   onTap: () {},
                   controller: TextEditingController(
@@ -60,6 +62,7 @@ class _InputMedicienState extends State<InputMedicien> {
                 height: 6,
               ),
               MyDatePicker(
+                  icon: Icons.access_time_outlined,
                   controller: TextEditingController(
                       text:
                           '${reminder?.hour.toString()} : ${reminder?.minute.toString()}'),
@@ -73,8 +76,12 @@ class _InputMedicienState extends State<InputMedicien> {
               const SizedBox(
                 height: 6,
               ),
-              const ElevatedButton(
-                  onPressed: null, child: Icon(Icons.add_circle_outline))
+              MyButton(
+                  onPressed: () {
+                    print('mssssg');
+                  },
+                  icon: Icons.add_circle_outline,
+                  label: 'اضافة الدواء')
             ],
           ),
         ),

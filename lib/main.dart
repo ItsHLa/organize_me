@@ -5,15 +5,15 @@ import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/drawer.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/services/local_notification_service/local_notification.dart';
-import 'package:organize_me/services/work_manager_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   // it will wait the largest time in its List
   // example :
   await Future.wait([
     LocalNotificationService.initi(), // wait 3s
-    WorkManagerService().init()
+    // WorkManagerService().init()
   ]); // wait 7s
   // then it will wait for 7s
   runApp(const MyApp());

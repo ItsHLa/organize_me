@@ -6,11 +6,13 @@ class MyDatePicker extends StatelessWidget {
     required this.labelText,
     required this.onTap,
     required this.controller,
+    this.icon,
   });
 
   final String labelText;
   final void Function()? onTap;
   final TextEditingController controller;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,8 @@ class MyDatePicker extends StatelessWidget {
         readOnly: true,
         onTap: onTap,
         decoration: InputDecoration(
-          suffixIcon: const Icon(Icons.date_range_outlined),
-          labelText: labelText,
+          suffixIcon: Icon(icon),
+          label: Text(labelText),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: const BorderSide(color: Colors.black12),
