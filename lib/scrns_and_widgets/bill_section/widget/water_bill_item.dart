@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 
-class MyBills extends StatelessWidget {
-  const MyBills({super.key});
+import '../../icon_Form.dart';
+
+class WaterBills extends StatelessWidget {
+  const WaterBills({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,6 +12,9 @@ class MyBills extends StatelessWidget {
       child: Padding(
           padding: EdgeInsets.all(10.0),
           child: ListTile(
+            trailing: IconForm(
+              child: waterBill,
+            ),
             title: Row(
               children: [Text('9/4/2024'), Spacer(), Text('0998898')],
             ),

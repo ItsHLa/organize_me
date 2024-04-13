@@ -12,7 +12,7 @@ class BillsList extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       children: const [
         BillItem(
-          billTitle: 'فواتير الغاز',
+          billTitle: 'فواتير الكهرباء',
         ),
         SizedBox(
           width: 3,

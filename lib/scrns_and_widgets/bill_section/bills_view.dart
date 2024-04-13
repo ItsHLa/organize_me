@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/app_bar.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/widget/bills_listview.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/payment_widget.dart';
 import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 
@@ -25,7 +26,7 @@ class MyBills extends StatelessWidget {
             height: 50,
             child: BillsList(),
           ),
-          // Expanded(child: BillsListView())
+          Expanded(child: BillsListView())
         ],
       ),
     );

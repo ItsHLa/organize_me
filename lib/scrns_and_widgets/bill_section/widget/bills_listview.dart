@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/widget/telecom_bill_item.dart';
 
-import 'bill_item.dart';
+import 'electric_bills.dart';
+import 'water_bill_item.dart';
 
 class BillsListView extends StatelessWidget {
-  const BillsListView({super.key});
+  const BillsListView({
+    super.key,
+    //   required this.typeOfBill
+  });
+
+  final String typeOfBill = 'water';
+
+//  final List Bills ;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(15),
       itemBuilder: (context, index) {
-        return const MyBills();
+        switch (typeOfBill) {
+          case 'water':
+            return const WaterBills();
+          case 'electric ':
+            return const TelecomBills();
+          case ' telecom ':
+            return const ElectricBills();
+          default:
+            return WaterBills();
+        }
       },
     );
   }
