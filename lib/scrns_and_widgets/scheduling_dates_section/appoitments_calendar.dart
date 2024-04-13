@@ -5,8 +5,6 @@ import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/add_appoi
 import 'package:organize_me/scrns_and_widgets/scheduling_dates_section/cubit/appoitment_cubit.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../app_bar.dart';
-
 class MonthCalendar extends StatelessWidget {
   const MonthCalendar({super.key});
 
@@ -30,7 +28,6 @@ class MonthCalendar extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const MAppBar(),
               Card(
                 margin: const EdgeInsets.all(8.0),
                 elevation: 5.0,

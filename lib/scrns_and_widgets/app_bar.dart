@@ -4,14 +4,9 @@ import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 
 import '../constants.dart';
 
-class MAppBar extends StatefulWidget {
-  const MAppBar({super.key});
+class MyAppBar extends StatelessWidget {
+  const MyAppBar({super.key});
 
-  @override
-  State<MAppBar> createState() => _MAppBarState();
-}
-
-class _MAppBarState extends State<MAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(

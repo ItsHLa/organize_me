@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/database/db.dart';
-import 'package:organize_me/scrns_and_widgets/drawer.dart';
+import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/services/local_notification_service/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
@@ -29,12 +29,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    // requestSmsPermission(); // Request SMS permission
-    TelephonyService.listenForIncomingSms(); // Start listening to incoming SMS
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +58,8 @@ class _OrganizeMeState extends State<OrganizeMe> {
   void initState() {
     DatabaseHelper.intialDb();
     super.initState();
+    TelephonyService.askForPermission();
+    TelephonyService.listenForIncomingSms();
   }
 
   @override
@@ -78,10 +74,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
               brightness:
                   state is DarkModeOn ? Brightness.dark : Brightness.light,
             ),
-            home: const Scaffold(
-              body: MDrawe(),
-            ),
-          );
+              home: const HomePage());
         },
       ),
     );
