@@ -31,6 +31,7 @@ class _MedsAndDocsState extends State<MedsAndDocs> {
     return BlocBuilder<DocsNumCubit, DocsNumState>(
       builder: (context, state) {
         return Scaffold(
+          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
           floatingActionButton: MyFab(
             icon: Icons.add_call,
             onPressed: () {

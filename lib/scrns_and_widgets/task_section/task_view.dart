@@ -17,6 +17,7 @@ class _DayCalendarState extends State<DayCalendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: MyFab(
         icon: Icons.add_task,
         onPressed: () {

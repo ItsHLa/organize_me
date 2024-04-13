@@ -10,6 +10,7 @@ class MedsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: MyFab(
         icon: Icons.medication,
         onPressed: () {

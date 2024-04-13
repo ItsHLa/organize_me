@@ -18,6 +18,7 @@ class MyBills extends StatelessWidget {
               context: context, builder: (context) => const PaymentPage());
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       body: const Column(
         children: [
           SizedBox(
