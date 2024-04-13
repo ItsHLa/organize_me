@@ -12,21 +12,26 @@ class TelecomBills extends StatelessWidget {
     return const Card(
       child: Padding(
           padding: EdgeInsets.all(10.0),
-          child: ListTile(
-            trailing: IconForm(
-              child: electricBill,
-            ),
-            title: Row(
-              children: [Text('9/4/2024'), Spacer(), Text('0998898')],
-            ),
-            subtitle: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                MyRow(title: 'رقم الباركود', value: "123"),
-                MyRow(title: 'رقم العداد  ', value: "123"),
-                MyRow(title: 'المبلغ         ', value: "123"),
-              ],
-            ),
+          child: Column(
+            children: [
+              Center(
+                child: IconForm(
+                  child: telecomBill,
+                ),
+              ),
+              ListTile(
+                title: Row(
+                  children: [Text('9/4/2024'), Spacer(), Text('0998898')],
+                ),
+                subtitle: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MyRow(title: 'رقم الهاتف الثابت ', value: "123"),
+                    MyRow(title: 'المبلغ                   ', value: "123"),
+                  ],
+                ),
+              ),
+            ],
           )),
     );
   }

@@ -10,7 +10,7 @@ class BillsListView extends StatelessWidget {
     //   required this.typeOfBill
   });
 
-  final String typeOfBill = 'water';
+  final String typeOfBill = 'telecom';
 
 //  final List Bills ;
 
@@ -27,7 +27,7 @@ class BillsListView extends StatelessWidget {
           case ' telecom ':
             return const ElectricBills();
           default:
-            return WaterBills();
+            return TelecomBills();
         }
       },
     );
