@@ -70,10 +70,11 @@ class _OrganizeMeState extends State<OrganizeMe> {
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              brightness:
-                  state is DarkModeOn ? Brightness.dark : Brightness.light,
-            ),
+              darkTheme: ThemeData(brightness: Brightness.dark),
+              theme: ThemeData(
+                brightness:
+                    state is DarkModeOn ? Brightness.dark : Brightness.light,
+              ),
               home: const HomePage());
         },
       ),

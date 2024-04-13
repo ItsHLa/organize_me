@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 
 class MedItem extends StatelessWidget {
-  const MedItem({super.key});
+  const MedItem(
+      {super.key,
+      required this.medTitle,
+      required this.numberOfDoses,
+      required this.timeOfMeds});
+
+  final String medTitle;
+  final String numberOfDoses;
+  final List timeOfMeds;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +18,7 @@ class MedItem extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            subtitle: const Text('2 pills'),
+            subtitle: Text('${numberOfDoses} pills'),
             onTap: () {
               showDialog(
                 context: context,
@@ -20,7 +28,7 @@ class MedItem extends StatelessWidget {
             trailing: const IconForm(
               child: Icon(Icons.medication),
             ),
-            title: const Text('Setamol'),
+            title: Text('$medTitle'),
           ),
         ],
       ),
