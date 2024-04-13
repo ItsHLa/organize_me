@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 
 class MedItem extends StatelessWidget {
   const MedItem({super.key});
@@ -16,12 +17,9 @@ class MedItem extends StatelessWidget {
                 builder: (context) => const MedicienDetails(),
               );
             },
-            leading: Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                    color: Colors.white54,
-                    borderRadius: BorderRadius.circular(18)),
-                child: const Icon(Icons.medication)),
+            trailing: const IconForm(
+              child: Icon(Icons.medication),
+            ),
             title: const Text('Setamol'),
           ),
         ],

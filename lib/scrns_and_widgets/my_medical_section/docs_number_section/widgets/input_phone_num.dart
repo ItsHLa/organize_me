@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/input_text.dart';
+import 'package:organize_me/scrns_and_widgets/my_button.dart';
 
 class InputPhoneNumber extends StatefulWidget {
   const InputPhoneNumber({super.key, required this.onPressed});
@@ -43,6 +44,7 @@ class _AddNumberState extends State<InputPhoneNumber> {
                 height: 5,
               ),
               InputText(
+                keyboardType: TextInputType.phone,
                 hint: 'الرقم',
                 save: (value) {
                   newPhone = value ?? '';
@@ -51,14 +53,14 @@ class _AddNumberState extends State<InputPhoneNumber> {
               const SizedBox(
                 height: 5,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  validateMode = AutovalidateMode.always;
-                  numKey.currentState!.save();
-                  widget.onPressed(numKey, newName, newPhone);
-                },
-                child: const Icon(Icons.add),
-              ),
+              MyButton(
+                  onPressed: () {
+                    validateMode = AutovalidateMode.always;
+                    numKey.currentState!.save();
+                    widget.onPressed(numKey, newName, newPhone);
+                  },
+                  icon: Icons.add,
+                  label: 'اضافة جهه الاتصال'),
               const SizedBox(
                 height: 15,
               ),

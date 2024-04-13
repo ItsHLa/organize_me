@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 
 class DocsNumber extends StatelessWidget {
   const DocsNumber({
@@ -21,12 +22,8 @@ class DocsNumber extends StatelessWidget {
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.all(8),
-        leading: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: const Icon(Icons.person_2_outlined),
+        leading: const IconForm(
+          child: Icon(Icons.person_2_outlined),
         ),
         title: Row(
           children: [
