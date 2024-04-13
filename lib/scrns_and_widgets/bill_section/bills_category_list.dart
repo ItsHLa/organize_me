@@ -12,7 +12,7 @@ class BillsList extends StatelessWidget {
     return Row(
       children: [
         BillItem(
-          iconBill: Icons.water_drop,
+          iconBill:,
           billTitle: "فواتير المياه",
           iconColor: blue,
           logic: () {
@@ -24,7 +24,7 @@ class BillsList extends StatelessWidget {
           },
         ),
         const BillItem(
-          iconBill: Icons.electric_bolt,
+          iconBill:,
           billTitle: "فواتير الكهرباء",
           iconColor: yellow,
           logic: null,

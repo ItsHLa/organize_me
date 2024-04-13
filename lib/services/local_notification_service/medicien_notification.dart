@@ -30,9 +30,10 @@ class MedicienNotification extends LocalNotificationService {
         .zonedSchedule(
             med.id,
             med.name,
-            ' لا تنسى ان تاخذ ${med.numberOfDose}  من دوائك',
+            ' لا تنسى ان تاخذ ${med.numberOfDose}  من دوائك ',
             tz.TZDateTime(tz.local, dateOfDose.year, dateOfDose.month,
-                dateOfDose.day, timeOfDose.hour, timeOfDose.minute),
+                    dateOfDose.day, timeOfDose.hour, timeOfDose.minute)
+                .subtract(const Duration(minutes: 30)),
             medicienDetails,
             uiLocalNotificationDateInterpretation:
                 UILocalNotificationDateInterpretation.absoluteTime);

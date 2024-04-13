@@ -5,6 +5,8 @@ import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/drawer.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/services/local_notification_service/local_notification.dart';
+import 'package:organize_me/services/telephony_service.dart';
+import 'package:organize_me/services/work_manager_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,14 +15,26 @@ void main() async {
   // example :
   await Future.wait([
     LocalNotificationService.initi(), // wait 3s
-    // WorkManagerService().init()
+    WorkManagerService().init()
   ]); // wait 7s
   // then it will wait for 7s
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    // requestSmsPermission(); // Request SMS permission
+    TelephonyService.listenForIncomingSms(); // Start listening to incoming SMS
+  }
 
   @override
   Widget build(BuildContext context) {

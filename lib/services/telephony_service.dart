@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:telephony/telephony.dart';
 
 class TelephonyService {
@@ -7,23 +9,20 @@ class TelephonyService {
     return await telephony.requestPhoneAndSmsPermissions;
   }
 
-   backgrounMessageHandler(SmsMessage message) async {
-    if (message.body!.contains('تم دفع مبلغ')) {
-      print(
-          '${message.body}+++++++++++++++++++++++++++++++++++++++++++++++++++');
-    }
-    //Handle background message
-    // You can also call other plugin in here
-  }
-
   static void listenForIncomingSms() {
-    telephony.listenIncomingSms(
-      onNewMessage: (message) {
-        if (message.address == 'SyriatelSEP') {
-          print(' reg is being used here ++++++++++');
-        }
-      },
-      listenInBackground: true,
-    );
+    void startSmsListener() {
+      telephony.listenIncomingSms(
+        onNewMessage: (SmsMessage message) {
+          print('Received SMS : ${message.body}');
+
+          // we will pass the body of message here based on contact address
+        },
+      );
+    }
   }
+}
+
+void onBackgroundMessage(SmsMessage message) async {
+// same code  for listener ...
+  print("Received SMS on background : ${message.body}");
 }

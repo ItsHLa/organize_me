@@ -11,7 +11,7 @@ class WorkManagerService {
       'show Bills notification', // taskName
       frequency: const Duration(
           days:
-              30), // the default value is 15m less that that it will set 15 minutes
+              7), // the default value is 15m less that that it will set 15 minutes
     );
   }
 
@@ -34,7 +34,8 @@ class WorkManagerService {
 void workManagerBillNotification() {
   Workmanager().executeTask((taskName, inputData) {
     // here we put the code that needs to be executed in the background
-    BillsNotification.showBillSimpleNotification();
+    BillsNotification.showBillMonthlyNotification();
+    //  BillsNotification.showSimpleBill();
     return Future.value(true); //the return type
   });
 }
