@@ -34,7 +34,8 @@ class _MedsAndDocsState extends State<MedsAndDocs> {
           floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
           floatingActionButton: MyFab(
             icon: Icons.add_call,
-            onPressed: () {
+            onPressed: () async {
+              // print(await TelephonyService.getInboxSms());
               showModalBottomSheet(
                 isScrollControlled: true,
                 context: context,

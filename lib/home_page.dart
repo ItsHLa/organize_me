@@ -82,17 +82,23 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        bottomNavigationBar: CircularBottomNavigation(
-          circleSize: 40,
-          iconsSize: 20,
-          controller: _navigationController,
-          tabItems,
-          //selectedPos: pageIndex,
-          selectedCallback: (idx) {
-            setState(() {
-              pageIndex = idx!;
-              _navigationController.value = idx!;
-            });
+        bottomNavigationBar: BlocBuilder<DarkModeCubit, DarkModeState>(
+          builder: (context, state) {
+            return CircularBottomNavigation(
+              barBackgroundColor:
+                  state is DarkModeOn ? Colors.black87 : Colors.white,
+              circleSize: 40,
+              iconsSize: 20,
+              controller: _navigationController,
+              tabItems,
+              //selectedPos: pageIndex,
+              selectedCallback: (idx) {
+                setState(() {
+                  pageIndex = idx!;
+                  _navigationController.value = idx!;
+                });
+              },
+            );
           },
         ),
         body: pages[pageIndex]);
