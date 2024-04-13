@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../my_list_view.dart';
 import '../cubit/docs_num_cubit.dart';
 import '../edit_phone_num.dart';
 import '../models/doctors_contacts.dart';
@@ -13,8 +14,8 @@ class DocsNumbersListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+    return MyListView(
+      dataList: contacts,
       itemCount: contacts.length,
       itemBuilder: (context, index) {
         return DocsNumber(
