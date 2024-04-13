@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/app_bar.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/bili_category_item.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/bills_listview.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/payment_widget.dart';
 import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 
-import '../../constants.dart';
+import 'bills_category_list.dart';
 
 class MyBills extends StatelessWidget {
   const MyBills({super.key});
@@ -20,35 +18,14 @@ class MyBills extends StatelessWidget {
               context: context, builder: (context) => const PaymentPage());
         },
       ),
-      body: Column(
+      body: const Column(
         children: [
-          const MAppBar(),
+          MAppBar(),
           SizedBox(
             height: 50,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                BillItem(
-                  iconBill: Icons.water_drop,
-                  billTitle: "فواتير المياه",
-                  iconColor: blue,
-                ),
-                BillItem(
-                  iconBill: Icons.electric_bolt,
-                  billTitle: "فواتير الكهرباء",
-                  iconColor: yellow,
-                  logic: null,
-                ),
-                BillItem(
-                  iconBill: Icons.call,
-                  billTitle: "فواتير الاتصالات",
-                  iconColor: green,
-                  logic: null,
-                ),
-              ],
-            ),
+            child: BillsList(),
           ),
-          const Expanded(child: BillsListView())
+          // Expanded(child: BillsListView())
         ],
       ),
     );

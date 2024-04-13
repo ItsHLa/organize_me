@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/constants.dart';
 
 import 'widget/bili_category_item.dart';
 
@@ -8,14 +7,25 @@ class BillsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const BillItem(
-          iconBill: Icons.call,
-          billTitle: "فواتير الاتصالات",
-          iconColor: green,
-          logic: null,
+    return ListView(
+      padding: const EdgeInsets.all(5),
+      scrollDirection: Axis.horizontal,
+      children: const [
+        BillItem(
+          billTitle: 'فواتير الغاز',
         ),
+        SizedBox(
+          width: 3,
+        ),
+        BillItem(
+          billTitle: 'فواتير المياة',
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        BillItem(
+          billTitle: 'فواتير الاتصالات',
+        )
       ],
     );
   }
