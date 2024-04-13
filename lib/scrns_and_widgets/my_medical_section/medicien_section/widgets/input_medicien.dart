@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_button.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
 
 import '../../../date_time_picker.dart';
 import '../../../input_text.dart';
@@ -21,7 +23,11 @@ class _InputMedicienState extends State<InputMedicien> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: EdgeInsets.only(
+          top: 8,
+          left: 8,
+          right: 8,
+          bottom: MediaQuery.of(context).viewInsets.bottom),
       child: SingleChildScrollView(
         child: Form(
           child: Column(
@@ -61,27 +67,15 @@ class _InputMedicienState extends State<InputMedicien> {
               const SizedBox(
                 height: 6,
               ),
-              MyDatePicker(
-                  icon: Icons.access_time_outlined,
-                  controller: TextEditingController(
-                      text:
-                          '${reminder?.hour.toString()} : ${reminder?.minute.toString()}'),
-                  labelText: 'تذكير قبل',
-                  onTap: () async {
-                    reminder = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    );
-                  }),
-              const SizedBox(
-                height: 6,
-              ),
               MyButton(
                   onPressed: () {
-                    print('mssssg');
+                    BlocProvider.of<MedicienCubit>(context).addMed();
                   },
                   icon: Icons.add_circle_outline,
-                  label: 'اضافة الدواء')
+                  label: 'اضافة الدواء'),
+              const SizedBox(
+                height: 15,
+              )
             ],
           ),
         ),

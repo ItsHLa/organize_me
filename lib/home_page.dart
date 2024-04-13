@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/bills_view.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/doctors_numbers.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/meds_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
@@ -50,7 +51,10 @@ class _HomePageState extends State<HomePage> {
     MyBills(),
     BlocProvider(
         create: (context) => DocsNumCubit(), child: const MedsAndDocs()),
-    MedsPage()
+    BlocProvider<MedicienCubit>(
+      create: (context) => MedicienCubit(),
+      child: const MedsPage(),
+    )
   ];
   final CircularBottomNavigationController _navigationController =
       CircularBottomNavigationController(0);
