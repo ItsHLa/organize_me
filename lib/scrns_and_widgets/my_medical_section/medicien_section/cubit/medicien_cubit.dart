@@ -10,12 +10,20 @@ class MedicienCubit extends Cubit<MedicienState> {
     try {
       //add to db
       //MedicienNotification.showMedicienNotification(
-      // med: med,
+      // med: med, pass the object
       // dateOfDose: dateOfDose,
       // timeOfDose: timeOfDose);
       emit(const AddMedSuccses(meds: []));
     } catch (e) {
       emit(const AddMedsFailed(meds: []));
+    }
+  }
+
+  void editMed() {
+    try {
+      emit(AddMedSuccses(Meds: []));
+    } catch (e) {
+      emit(AddMedsFailed(Meds: []));
     }
   }
 
