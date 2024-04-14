@@ -18,10 +18,9 @@ class MedsGrid extends StatelessWidget {
         } else if (state is MedsLoaded ||
             state is AddMedSuccses ||
             state is DeleteMedsSuccses && state.Meds.isNotEmpty) {
-          return const Expanded(
-              child: MedsListView(
+          return const MedsListView(
             Meds: [],
-          ));
+          );
         } else {
           return const Center(
             child: Text('لا يوجد ادوية بعد'),
