@@ -32,7 +32,6 @@ class TaskItem extends StatelessWidget {
                     color: Colors.white10),
                 child: Text('$taskStartTime - $taskEndTime'),
               ),
-              //trailing:  IconButton(onPressed: null, icon: Icon(Icons.check_circle_outline)),
               shape: const StadiumBorder(),
               title: Text(taskTitle),
               children: [

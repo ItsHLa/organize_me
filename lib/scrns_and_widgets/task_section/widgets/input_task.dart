@@ -19,16 +19,8 @@ class InputTask extends StatelessWidget {
   final void Function()? saveStartTime;
   final void Function()? saveEndTime;
   final TextEditingController start;
-
   final TextEditingController end;
 
-  //final void Function({
-  // int? id,
-  // String? title,
-  // String? content,
-  // String? startTime,
-  // String? endTime,
-  // })? logic;
 
   @override
   Widget build(BuildContext context) {

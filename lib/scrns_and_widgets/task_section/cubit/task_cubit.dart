@@ -1,29 +1,37 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/models/task.dart';
+import 'package:organize_me/services/local_notification_service/task_notification.dart';
 
 part 'task_state.dart';
 
 class TaskCubit extends Cubit<TaskState> {
   List<Task> tasks = [];
+
   TaskCubit() : super(const TaskInitial(tasks: []));
 
   void addTask(
-    String title,
-    String content,
-    String startTime,
-    String endTime,
-  ) async {
+      String title,
+      String content,
+      // String startTime,
+      // String endTime,
+      TimeOfDay startTime,
+      TimeOfDay endTime) async {
     try {
       Map task = await Task.addTask(
         title,
         content,
-        startTime,
-        endTime,
+        '${startTime!.hour}:${startTime!.minute}',
+        '${endTime!.hour}:${endTime!.minute}',
       );
       tasks.add(Task.fromMap(task));
-      // schedule the task
+      TaskNotification.showTaskNotification(
+        id: 1,
+        title: title,
+        content: content,
+        taskTime: startTime,
+        dateTime: DateTime.now(),
+      );
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر اضافة المهمة', tasks: tasks));
