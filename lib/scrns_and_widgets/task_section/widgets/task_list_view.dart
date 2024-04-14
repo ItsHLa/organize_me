@@ -4,7 +4,7 @@ import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart
 import 'package:organize_me/scrns_and_widgets/task_section/models/task.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/time_line.dart';
 
-import '../edit_task_scrn.dart';
+import '../edit_task_screen.dart';
 
 class TaskListView extends StatelessWidget {
   const TaskListView({super.key, required this.tasks});
@@ -26,7 +26,7 @@ class TaskListView extends StatelessWidget {
               context: context,
               builder: (newcontext) => BlocProvider<TaskCubit>.value(
                 value: BlocProvider.of(context),
-                child: EditTaskScrn(task: tasks[index]),
+                child: EditTask(task: tasks[index]),
               ),
             );
           },

@@ -4,7 +4,7 @@ import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/tasks_list.dart';
 
-import 'add_task_scrn.dart';
+import 'add_task_screen.dart';
 
 class DayCalendar extends StatefulWidget {
   const DayCalendar({super.key});
@@ -26,7 +26,7 @@ class _DayCalendarState extends State<DayCalendar> {
             context: context,
             builder: (newcontext) => BlocProvider<TaskCubit>.value(
               value: BlocProvider.of(context),
-              child: const AddTaskScrn(),
+              child: const AddTaskScreen(),
             ),
           );
         },
