@@ -21,9 +21,9 @@ class MedicienCubit extends Cubit<MedicienState> {
 
   void editMed() {
     try {
-      emit(AddMedSuccses(Meds: []));
+      emit(const AddMedSuccses(meds: []));
     } catch (e) {
-      emit(AddMedsFailed(Meds: []));
+      emit(const AddMedsFailed(meds: []));
     }
   }
 
