@@ -76,18 +76,22 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 height: 10,
               ),
               MyButton(
-                  onPressed: () {
-                    if (taskKey.currentState!.validate()) {
-                      taskKey.currentState!.save();
-                      BlocProvider.of<TaskCubit>(context).addTask(
-                          taskTitle, 'tag', taskContent, startTime, endTime);
-                      print('Added a Task');
-                    } else {
-                      autoValidated = AutovalidateMode.always;
-                    }
-                  },
-                  icon: Icons.add_task_outlined,
-                  label: 'اضافة المهمة'),
+                onPressed: () {
+                  if (taskKey.currentState!.validate()) {
+                    taskKey.currentState!.save();
+                    BlocProvider.of<TaskCubit>(context).addTask(
+                      taskTitle,
+                      taskContent,
+                      startTime,
+                      endTime,
+                    );
+                  } else {
+                    autoValidated = AutovalidateMode.always;
+                  }
+                },
+                icon: Icons.add_task_outlined,
+                label: 'اضافة المهمة',
+              ),
               const SizedBox(
                 height: 15,
               ),

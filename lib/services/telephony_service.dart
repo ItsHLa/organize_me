@@ -20,6 +20,7 @@ class TelephonyService {
 
   static void listenForIncomingSms() {
     telephony.listenIncomingSms(
+      listenInBackground: false,
       onNewMessage: (SmsMessage message) {
         if (message.address == 'SyriatelSEP') {
           print(message.body);

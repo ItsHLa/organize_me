@@ -4,7 +4,6 @@ import 'package:sqflite/sqflite.dart';
 class Task {
   final int id;
   final String title;
-  final String tag;
   final String content;
   final String creationDate;
   final String startTime;
@@ -14,7 +13,6 @@ class Task {
   const Task({
     required this.id,
     required this.title,
-    required this.tag,
     required this.content,
     required this.creationDate,
     required this.endTime,
@@ -30,7 +28,6 @@ class Task {
       endTime: taskMap['end_time'],
       startTime: taskMap['start_time'],
       status: taskMap['status'],
-      tag: taskMap['tag'],
       title: taskMap['title'],
     );
   }
@@ -38,7 +35,6 @@ class Task {
   static Future<Map> addTask(
     String title,
     String content,
-    String? tag,
     String startTime,
     String endTime,
   ) async {
@@ -49,17 +45,15 @@ class Task {
         INSERT OR IGNORE INTO tasks(title,
                                     content,
                                     creation_date,
-                                    tag,
                                     start_time,
                                     end_time)
 
-                                    VALUES (?, ?, ?, ?, ?, ?);
+                                    VALUES (?, ?, ?, ?, ?);
       """,
       [
         title,
         content,
         now,
-        tag,
         startTime,
         endTime,
       ],
@@ -73,7 +67,6 @@ class Task {
     String newTitle = '',
     String newStartTime = '',
     String newEndTime = '',
-    String newTag = '',
   }) async {
     Database? mydb = await DatabaseHelper.db;
     String lastModified = DateTime.now().toString();
@@ -84,14 +77,12 @@ class Task {
         newStartTime.isNotEmpty ? "start_time = '$newStartTime'," : "";
     String editendTime =
         newEndTime.isNotEmpty ? "end_time = '$newEndTime'," : "";
-    String editTag = newTag.isNotEmpty ? "tag = '$newTag'," : "";
     await mydb!.rawUpdate(
       """
         UPDATE tasks SET $editContent
                          $editTitle
                          $editstartTime
                          $editendTime
-                         $editTag
                          last_modified = ? WHERE id = ?;
       """,
       [

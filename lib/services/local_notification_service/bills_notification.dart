@@ -46,15 +46,23 @@ class BillsNotification extends LocalNotificationService {
     if (scheduledTime.isBefore(currentTime)) {
       scheduledTime = scheduledTime.add(const Duration(days: 7));
     }
+    DateTime now = DateTime.now();
     await LocalNotificationService.flutterLocalNotificationsPlugin
         .zonedSchedule(
-            2,
-            'Organize Me',
-            ' لا تنسى دفع فواتيرك الشهرية ',
-            tz.TZDateTime(tz.local, DateTime.now().year, DateTime.now().month,
-                DateTime.now().day, 12, 0),
-            billsdetails,
-            uiLocalNotificationDateInterpretation:
-                UILocalNotificationDateInterpretation.absoluteTime);
+      2,
+      'Organize Me',
+      ' لا تنسى دفع فواتيرك الشهرية ',
+      tz.TZDateTime(
+        tz.local,
+        now.year,
+        now.month,
+        now.day,
+        12,
+        0,
+      ),
+      billsdetails,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
   }
 }
