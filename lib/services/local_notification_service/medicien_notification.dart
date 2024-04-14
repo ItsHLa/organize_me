@@ -24,7 +24,7 @@ class MedicienNotification extends LocalNotificationService {
         NotificationDetails(android: medicienAndroidNotificationDetails);
     tz.initializeTimeZones();
     String currentTimeZone =
-        await FlutterTimezone.getLocalTimezone().toString();
+        (await FlutterTimezone.getLocalTimezone()).toString();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
     await LocalNotificationService.flutterLocalNotificationsPlugin
         .zonedSchedule(

@@ -17,10 +17,10 @@ class MedsGrid extends StatelessWidget {
           );
         } else if (state is MedsLoaded ||
             state is AddMedSuccses ||
-            state is DeleteMedsSuccses && state.Meds.isNotEmpty) {
+            state is DeleteMedsSuccses && state.meds.isNotEmpty) {
           return const Expanded(
               child: MedsListView(
-            Meds: [],
+            meds: [],
           ));
         } else {
           return const Center(

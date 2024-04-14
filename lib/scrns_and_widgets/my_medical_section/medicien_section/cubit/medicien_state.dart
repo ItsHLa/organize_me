@@ -2,35 +2,35 @@ part of 'medicien_cubit.dart';
 
 @immutable
 sealed class MedicienState {
-  final List Meds;
+  final List meds;
 
-  MedicienState({required this.Meds});
+  const MedicienState({required this.meds});
 }
 
 final class MedInitial extends MedicienState {
-  MedInitial({required super.Meds});
+  const MedInitial({required super.meds});
 }
 
 final class AddMedSuccses extends MedicienState {
-  AddMedSuccses({required super.Meds});
+  const AddMedSuccses({required super.meds});
 }
 
 final class AddMedsFailed extends MedicienState {
-  AddMedsFailed({required super.Meds});
+  const AddMedsFailed({required super.meds});
 }
 
 final class DeleteMedsSuccses extends MedicienState {
-  DeleteMedsSuccses({required super.Meds});
+  const DeleteMedsSuccses({required super.meds});
 }
 
 final class DeleteMedsFailed extends MedicienState {
-  DeleteMedsFailed({required super.Meds});
+  const DeleteMedsFailed({required super.meds});
 }
 
 final class LoadMeds extends MedicienState {
-  LoadMeds({required super.Meds});
+  const LoadMeds({required super.meds});
 }
 
 final class MedsLoaded extends MedicienState {
-  MedsLoaded({required super.Meds});
+  const MedsLoaded({required super.meds});
 }

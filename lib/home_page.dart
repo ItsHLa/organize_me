@@ -47,8 +47,8 @@ class _HomePageState extends State<HomePage> {
   List pages = [
     BlocProvider<TaskCubit>(
         create: (context) => TaskCubit(), child: const DayCalendar()),
-    NoteView(),
-    MyBills(),
+    const NoteView(),
+    const MyBills(),
     BlocProvider(
         create: (context) => DocsNumCubit(), child: const MedsAndDocs()),
     BlocProvider<MedicienCubit>(
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
               selectedCallback: (idx) {
                 setState(() {
                   pageIndex = idx!;
-                  _navigationController.value = idx!;
+                  _navigationController.value = idx;
                 });
               },
             );
