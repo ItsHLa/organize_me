@@ -58,13 +58,17 @@ class _NoteViewState extends State<NoteView> {
             children: [
               notes.isEmpty
                   ? (state is NotesLoadingCompleted
-                      ? const Center(
-                          child: Text(
-                          "ليس لديك ملاحظات بعد",
-                          style: TextStyle(fontSize: 20),
-                        ))
-                      : const Center(
-                          child: CircularProgressIndicator(),
+                      ? const Expanded(
+                          child: Center(
+                              child: Text(
+                            "ليس لديك ملاحظات بعد",
+                            style: TextStyle(fontSize: 20),
+                          )),
+                        )
+                      : const Expanded(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
                         ))
                   : Expanded(
                       child: NoteListView(

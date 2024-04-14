@@ -7,26 +7,29 @@ class BillsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(5),
-      scrollDirection: Axis.horizontal,
-      children: const [
-        BillItem(
-          billTitle: 'فواتير الكهرباء',
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        BillItem(
-          billTitle: 'فواتير المياه',
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        BillItem(
-          billTitle: 'فواتير الاتصالات',
-        )
-      ],
-    );
+    return Row(children: [
+      //IconButton(onPressed: (){}, icon: Icon(Icons.me)),
+      ListView(
+        padding: const EdgeInsets.all(5),
+        scrollDirection: Axis.horizontal,
+        children: const [
+          BillItem(
+            billTitle: 'فواتير الكهرباء',
+          ),
+          SizedBox(
+            width: 3,
+          ),
+          BillItem(
+            billTitle: 'فواتير المياه',
+          ),
+          SizedBox(
+            width: 3,
+          ),
+          BillItem(
+            billTitle: 'فواتير الاتصالات',
+          )
+        ],
+      ),
+    ]);
   }
 }

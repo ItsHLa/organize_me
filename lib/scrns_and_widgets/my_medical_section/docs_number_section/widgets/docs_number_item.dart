@@ -9,10 +9,12 @@ class DocsNumber extends StatelessWidget {
     this.onPressedEdit,
     this.onPressedCall,
     this.onPressedDelete,
+    required this.onTap,
   });
 
   final String docsName;
   final String phoneNumber;
+  final Function()? onTap;
   final void Function()? onPressedEdit;
   final void Function()? onPressedCall;
   final void Function()? onPressedDelete;
@@ -21,6 +23,7 @@ class DocsNumber extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: onTap,
         contentPadding: const EdgeInsets.all(8),
         leading: const IconForm(
           child: Icon(Icons.person_2_outlined),
@@ -39,11 +42,11 @@ class DocsNumber extends StatelessWidget {
               icon: const Icon(Icons.delete),
               onPressed: onPressedDelete,
             ),
+            IconButton(
+              icon: const Icon(Icons.call),
+              onPressed: onPressedCall,
+            ),
           ],
-        ),
-        trailing: IconButton(
-          icon: const Icon(Icons.call),
-          onPressed: onPressedCall,
         ),
       ),
     );
