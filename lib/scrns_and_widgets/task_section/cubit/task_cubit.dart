@@ -10,13 +10,8 @@ class TaskCubit extends Cubit<TaskState> {
 
   TaskCubit() : super(const TaskInitial(tasks: []));
 
-  void addTask(
-      String title,
-      String content,
-      // String startTime,
-      // String endTime,
-      TimeOfDay startTime,
-      TimeOfDay endTime) async {
+  void addTask(String title, String content, DateTime dateTime,
+      TimeOfDay startTime, TimeOfDay endTime) async {
     try {
       Map task = await Task.addTask(
         title,
@@ -30,7 +25,7 @@ class TaskCubit extends Cubit<TaskState> {
         title: title,
         content: content,
         taskTime: startTime,
-        dateTime: DateTime.now(),
+        dateTime: dateTime,
       );
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {

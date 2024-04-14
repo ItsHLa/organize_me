@@ -14,9 +14,12 @@ class AddTaskScreen extends StatefulWidget {
 class _AddTaskScreenState extends State<AddTaskScreen> {
   String taskTitle = '';
   String taskContent = '';
+  String taskTag = '';
 
   TimeOfDay? start = TimeOfDay.now();
   TimeOfDay? end = TimeOfDay.now();
+  DateTime? date = DateTime.now();
+  String dateTime = '';
   String startTime = '';
   String endTime = '';
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
@@ -44,6 +47,22 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 key: taskKey,
                 autovalidateMode: autoValidated,
                 child: InputTask(
+                  saveTag: (value) {
+                    setState(() {
+                      taskTag = value!;
+                    });
+                  },
+                  saveDate: () async {
+                    date = (await showDatePicker(
+                      context: context,
+                      firstDate: DateTime(2024),
+                      lastDate: DateTime(3000),
+                      initialDate: DateTime.now(),
+                    ));
+                    setState(() {
+                      dateTime = '${date?.day}/${date?.month}/${date?.year}';
+                    });
+                  },
                   saveTitle: (value) {
                     taskTitle = value ?? '';
                   },
@@ -70,6 +89,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   },
                   start: TextEditingController(text: startTime),
                   end: TextEditingController(text: endTime),
+                  Date: TextEditingController(text: dateTime),
                 ),
               ),
               const SizedBox(
@@ -82,6 +102,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     BlocProvider.of<TaskCubit>(context).addTask(
                       taskTitle,
                       taskContent,
+                      date!,
                       start!,
                       end!,
                     );

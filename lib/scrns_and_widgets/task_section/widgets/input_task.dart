@@ -12,15 +12,20 @@ class InputTask extends StatelessWidget {
     required this.saveEndTime,
     required this.start,
     required this.end,
+    this.saveTag,
+    required this.Date,
+    this.saveDate,
   });
 
   final void Function(String?)? saveTitle;
   final void Function(String?)? saveContent;
+  final void Function(String?)? saveTag;
   final void Function()? saveStartTime;
   final void Function()? saveEndTime;
+  final void Function()? saveDate;
+  final TextEditingController Date;
   final TextEditingController start;
   final TextEditingController end;
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +34,24 @@ class InputTask extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        InputText(hint: 'نوع المهمة', save: saveTitle),
+        InputText(hint: 'اسم المهمة', save: saveTitle),
+        const SizedBox(
+          height: 5,
+        ),
+        InputText(hint: 'نوع المهمة', save: saveTag),
+        const SizedBox(
+          height: 5,
+        ),
         InputText(hint: 'وصف المهمة', save: saveContent),
+        const SizedBox(
+          height: 5,
+        ),
+        MyDatePicker(
+          icon: Icons.date_range,
+          labelText: ' تاريخ المهمة',
+          onTap: saveDate,
+          controller: Date,
+        ),
         const SizedBox(
           height: 5,
         ),

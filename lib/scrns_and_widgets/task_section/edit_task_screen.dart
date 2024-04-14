@@ -18,10 +18,13 @@ class EditTask extends StatefulWidget {
 class _EditTaskState extends State<EditTask> {
   String editedTaskTitle = '';
   String editedTaskContent = '';
+  String taskTag = '';
   TimeOfDay? editedStart = TimeOfDay.now();
   TimeOfDay? editedEnd = TimeOfDay.now();
   String editedStartTime = '';
   String editedEndTime = '';
+  DateTime? date = DateTime.now();
+  String dateTime = '';
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
 
@@ -46,6 +49,22 @@ class _EditTaskState extends State<EditTask> {
             child: Column(
               children: [
                 InputTask(
+                  saveTag: (value) {
+                    setState(() {
+                      taskTag = value!;
+                    });
+                  },
+                  saveDate: () async {
+                    date = (await showDatePicker(
+                      context: context,
+                      firstDate: DateTime(2024),
+                      lastDate: DateTime(3000),
+                    ));
+                    setState(() {
+                      dateTime = '${date?.day}/${date?.month}/${date?.year}';
+                    });
+                  },
+                  Date: TextEditingController(text: dateTime),
                   saveTitle: (value) {
                     editedTaskTitle = value ?? '';
                   },
@@ -59,7 +78,7 @@ class _EditTaskState extends State<EditTask> {
                     ));
                     setState(() {
                       editedStartTime =
-                          '${editedStart!.hour}:${editedStart!.minute}';
+                      '${editedStart!.hour}:${editedStart!.minute}';
                     });
                   },
                   saveEndTime: () async {
