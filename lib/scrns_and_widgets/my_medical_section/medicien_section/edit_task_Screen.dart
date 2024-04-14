@@ -4,12 +4,14 @@ import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_sectio
 
 import '../../add_data_page.dart';
 import 'cubit/medicien_cubit.dart';
-import 'medicien_model.dart';
 
 class EditMedsScreen extends StatefulWidget {
-  const EditMedsScreen({super.key, required this.med});
+  const EditMedsScreen({
+    super.key,
+    //  required this.med
+  });
 
-  final Medicien med;
+  // final Medicien med;
 
   @override
   State<EditMedsScreen> createState() => _EditMedsScreenState();

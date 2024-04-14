@@ -19,13 +19,17 @@ class MedsListView extends StatelessWidget {
             medTitle: 'سيتامول',
             numberOfDoses: '2',
             timeOfMeds: ['7:00', '3:00', '10:00'].toString(),
-            onPressedEdit: () {
-              //  showModalBottomSheet(
-              //  isScrollControlled: true,
-              // context: context,
-              // builder: (context) => EditMedsScreen(med: ),);
-              //
-            },
+            //onPressedEdit: () {
+            //showModalBottomSheet(
+            //isScrollControlled: true,
+            //context: context,
+            //builder: (newcontext) =>
+            //  BlocProvider.value(
+            //  value: BlocProvider.of(context),
+            // child: EditMedsScreen(),
+            //           ),
+            // );
+            // },
             onPressedDelete: () {
               BlocProvider.of<MedicienCubit>(context).deleteMed();
             },
