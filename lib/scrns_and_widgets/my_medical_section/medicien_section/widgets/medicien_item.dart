@@ -6,11 +6,15 @@ class MedItem extends StatelessWidget {
       {super.key,
       required this.medTitle,
       required this.numberOfDoses,
-      required this.timeOfMeds});
+      required this.timeOfMeds,
+      this.onPressedEdit,
+      this.onPressedDelete});
 
   final String medTitle;
   final String numberOfDoses;
-  final List timeOfMeds;
+  final String timeOfMeds;
+  final void Function()? onPressedEdit;
+  final void Function()? onPressedDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -18,75 +22,35 @@ class MedItem extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            subtitle: Text('${numberOfDoses} pills'),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) => const MedicienDetails(),
-              );
-            },
-            trailing: const IconForm(
-              child: Icon(Icons.medication),
-            ),
-            title: Text('$medTitle'),
-          ),
+              subtitle: Container(
+                padding: const EdgeInsets.all(5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text('$numberOfDoses عدد الجرعات '),
+                    Text('$timeOfMeds مواعيد الدواء ')
+                  ],
+                ),
+              ),
+              title: Row(
+                children: [
+                  const IconForm(
+                    child: Icon(Icons.medication),
+                  ),
+                  const Spacer(),
+                  Text(medTitle),
+                ],
+              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(onPressed: onPressedEdit, child: const Text('تعديل')),
+              TextButton(onPressed: onPressedDelete, child: const Text('حذف')),
+            ],
+          )
         ],
       ),
     );
   }
 }
 
-class MedicienDetails extends StatelessWidget {
-  const MedicienDetails({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      contentPadding: const EdgeInsets.all(8),
-      actionsAlignment: MainAxisAlignment.spaceEvenly,
-      title: const Text('سيتامول'),
-      content: const SingleChildScrollView(
-        child: Column(children: [
-          Row(
-            children: [
-              Chip(
-                label: Text(
-                  'عدد الجرعات :',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text('2 '),
-            ],
-          ),
-          Text('مواعيد اخذ الدواء :',
-              style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('7 : 00 '),
-          Text('7 : 00 '),
-          Text('7 : 00 '),
-          Text('7 : 00 '),
-          Text('7 : 00 '),
-          Text('7 : 00 '),
-          Text('7 : 00 '),
-          Text('7 : 00 '),
-          Text('7 : 00 '),
-          Text('7 : 00 '),
-        ]),
-      ),
-      actions: [
-        TextButton(
-            onPressed: () {
-              print('update ++++++');
-            },
-            child: const Text('تعديل')),
-        TextButton(
-            onPressed: () {
-              print('delete ++++++++');
-            },
-            child: const Text('حذف')),
-      ],
-    );
-  }
-}

@@ -8,7 +8,7 @@ class MedsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //BlocProvider.of<MedicienCubit>(context).loadMedsData();
+    BlocProvider.of<MedicienCubit>(context).loadMedsData();
     return BlocBuilder<MedicienCubit, MedicienState>(
       builder: (context, state) {
         if (state is LoadMeds) {
