@@ -34,12 +34,14 @@ class DocsNumbersListView extends StatelessWidget {
                       onPressedEdit: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (newcontext) =>
-                                BlocProvider<DocsNumCubit>.value(
-                                  value: BlocProvider.of(context),
-                                  child:
-                                      EditPhoneNumber(contact: contacts[index]),
-                                ));
+                            builder: (Modalcontext) {
+                              Navigator.of(newcontext).pop();
+                              return BlocProvider<DocsNumCubit>.value(
+                                value: BlocProvider.of(context),
+                                child:
+                                    EditPhoneNumber(contact: contacts[index]),
+                              );
+                            });
                       },
                       contactName: contacts[index].name,
                       contactNumber: contacts[index].phone,

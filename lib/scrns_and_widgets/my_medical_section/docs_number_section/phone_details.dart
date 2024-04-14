@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
 
 class ContactDetails extends StatelessWidget {
@@ -29,9 +30,18 @@ class ContactDetails extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        content: Text(
-          contactNumber,
-          style: TextStyle(fontSize: 20),
+        content: ListTile(
+          title: Text(
+            contactNumber,
+            style: const TextStyle(fontSize: 20),
+          ),
+          trailing: IconButton(
+            onPressed: () {
+              BlocProvider.of<DocsNumCubit>(context).call();
+            },
+            icon: const Icon(Icons.call),
+            color: green,
+          ),
         ),
         actionsAlignment: MainAxisAlignment.center,
         actions: [

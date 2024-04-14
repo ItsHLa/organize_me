@@ -15,6 +15,10 @@ final class NoDocsNum extends DocsNumState {
   const NoDocsNum({required super.docsNumber});
 }
 
+final class EditingPhoneNumber extends DocsNumState {
+  const EditingPhoneNumber({required super.docsNumber});
+}
+
 final class DocsNumLoadingData extends DocsNumState {
   const DocsNumLoadingData({required super.docsNumber});
 }
