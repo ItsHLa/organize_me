@@ -80,7 +80,6 @@ class _EditTaskState extends State<EditTask> {
                       BlocProvider.of<TaskCubit>(context).editTask(
                         widget.task.id,
                         editedTaskTitle,
-                        'editedtag',
                         editedTaskContent,
                         editedStartTime,
                         editedEndTime,

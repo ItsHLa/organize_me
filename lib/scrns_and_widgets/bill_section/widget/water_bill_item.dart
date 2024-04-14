@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_row.dart';
 
-import '../../icon_Form.dart';
+import '../../icon_form.dart';
 
 class WaterBills extends StatelessWidget {
   const WaterBills({super.key});
@@ -37,5 +37,3 @@ class WaterBills extends StatelessWidget {
     );
   }
 }
-
-

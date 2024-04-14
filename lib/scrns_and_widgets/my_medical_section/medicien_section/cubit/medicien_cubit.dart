@@ -1,10 +1,10 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 
 part 'medicien_state.dart';
 
 class MedicienCubit extends Cubit<MedicienState> {
-  MedicienCubit() : super(MedInitial(Meds: []));
+  MedicienCubit() : super(const MedInitial(meds: []));
 
   void addMed() {
     try {
@@ -13,17 +13,17 @@ class MedicienCubit extends Cubit<MedicienState> {
       // med: med, pass the object
       // dateOfDose: dateOfDose,
       // timeOfDose: timeOfDose);
-      emit(AddMedSuccses(Meds: []));
+      emit(const AddMedSuccses(meds: []));
     } catch (e) {
-      emit(AddMedsFailed(Meds: []));
+      emit(const AddMedsFailed(meds: []));
     }
   }
 
   void editMed() {
     try {
-      emit(AddMedSuccses(Meds: []));
+      emit(const AddMedSuccses(meds: []));
     } catch (e) {
-      emit(AddMedsFailed(Meds: []));
+      emit(const AddMedsFailed(meds: []));
     }
   }
 
@@ -31,18 +31,18 @@ class MedicienCubit extends Cubit<MedicienState> {
     try {
       //MedicienNotification.cancelMedicienNotification(id);
       // pass the id of med
-      emit(DeleteMedsSuccses(Meds: []));
+      emit(const DeleteMedsSuccses(meds: []));
     } catch (e) {
-      emit(DeleteMedsFailed(Meds: []));
+      emit(const DeleteMedsFailed(meds: []));
     }
   }
 
   void loadMedsData() {
-    emit(LoadMeds(Meds: []));
+    emit(const LoadMeds(meds: []));
     try {
-      emit(MedsLoaded(Meds: []));
+      emit(const MedsLoaded(meds: []));
     } catch (e) {
-      emit(MedsLoaded(Meds: []));
+      emit(const MedsLoaded(meds: []));
     }
   }
 }

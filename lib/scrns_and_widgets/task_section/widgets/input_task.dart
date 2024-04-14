@@ -25,7 +25,6 @@ class InputTask extends StatelessWidget {
   //final void Function({
   // int? id,
   // String? title,
-  // String? tag,
   // String? content,
   // String? startTime,
   // String? endTime,
@@ -39,11 +38,12 @@ class InputTask extends StatelessWidget {
           height: 10,
         ),
         InputText(hint: 'نوع المهمة', save: saveTitle),
-        InputText(hint: 'وصف المهمة', save: saveTitle),
+        InputText(hint: 'وصف المهمة', save: saveContent),
         const SizedBox(
           height: 5,
         ),
         MyDatePicker(
+          icon: Icons.access_time_outlined,
           labelText: 'وقت البدء',
           onTap: saveStartTime,
           controller: start,

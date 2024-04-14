@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_row.dart';
 
-import '../../icon_Form.dart';
+import '../../icon_form.dart';
 
 class TelecomBills extends StatelessWidget {
   const TelecomBills({super.key});

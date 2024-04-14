@@ -18,7 +18,7 @@ class BillsList extends StatelessWidget {
           width: 3,
         ),
         BillItem(
-          billTitle: 'فواتير المياة',
+          billTitle: 'فواتير المياه',
         ),
         SizedBox(
           width: 3,

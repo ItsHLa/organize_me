@@ -18,7 +18,7 @@ class BillsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyListView(
-        dataList: [],
+        dataList: const [],
         itemCount: 100,
         itemBuilder: (context, index) {
           switch (typeOfBill) {
@@ -29,7 +29,7 @@ class BillsListView extends StatelessWidget {
             case ' telecom ':
               return const ElectricBills();
             default:
-              return ElectricBills();
+              return const ElectricBills();
           }
         });
   }

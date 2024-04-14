@@ -35,7 +35,6 @@ class TaskListView extends StatelessWidget {
           },
           taskTitle: tasks[index].title,
           taskContent: tasks[index].content,
-          taskTag: tasks[index].tag,
         );
       },
     );

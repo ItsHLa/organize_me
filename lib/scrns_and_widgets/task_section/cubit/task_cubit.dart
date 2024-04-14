@@ -11,7 +11,6 @@ class TaskCubit extends Cubit<TaskState> {
 
   void addTask(
     String title,
-    String tag,
     String content,
     String startTime,
     String endTime,
@@ -20,7 +19,6 @@ class TaskCubit extends Cubit<TaskState> {
       Map task = await Task.addTask(
         title,
         content,
-        tag,
         startTime,
         endTime,
       );
@@ -49,7 +47,6 @@ class TaskCubit extends Cubit<TaskState> {
   void editTask(
     id,
     title,
-    tag,
     content,
     startTime,
     endTime,
@@ -58,7 +55,6 @@ class TaskCubit extends Cubit<TaskState> {
       await Task.editTask(
         id,
         newContent: content,
-        newTag: tag,
         newTitle: title,
         newEndTime: endTime,
         newStartTime: startTime,

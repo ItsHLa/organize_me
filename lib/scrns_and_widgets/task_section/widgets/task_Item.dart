@@ -5,7 +5,6 @@ class TaskItem extends StatelessWidget {
     super.key,
     required this.taskTitle,
     required this.taskContent,
-    this.taskTag,
     required this.taskStartTime,
     required this.taskEndTime,
     this.onPressedEdit,
@@ -14,7 +13,6 @@ class TaskItem extends StatelessWidget {
 
   final String taskTitle;
   final String taskContent;
-  final String? taskTag;
   final String taskStartTime;
   final String taskEndTime;
   final void Function()? onPressedEdit;
@@ -42,12 +40,6 @@ class TaskItem extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 5),
                   child: Text(taskContent),
                 ),
-                taskTag != null
-                    ? Container(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: Text(taskTag!),
-                      )
-                    : Container(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
