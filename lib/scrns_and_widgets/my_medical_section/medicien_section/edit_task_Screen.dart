@@ -21,6 +21,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
   String editedMedicienName = '';
   String editedNumberOfDoses = '';
   String editedTimeOfDose = '';
+  GlobalKey<FormState> medKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
         icon: Icons.add,
         label: 'تعديل الدواء',
         onPressed: () {
+          medKey.currentState?.save();
           BlocProvider.of<MedicienCubit>(context).editMed();
           print('Editing Medicien');
         },
