@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
 
 import '../../floating_action_button.dart';
-import 'add_medicien_Screen.dart';
+import 'add_medicien_screen.dart';
 import 'meds_list.dart';
 
 class MedsPage extends StatelessWidget {
