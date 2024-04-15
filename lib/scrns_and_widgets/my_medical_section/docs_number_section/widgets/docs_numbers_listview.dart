@@ -21,33 +21,30 @@ class DocsNumbersListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return DocsNumber(
           onTap: () {
-            showDialog(
-                context: context,
-                builder: (newcontext) {
-                  return BlocProvider<DocsNumCubit>.value(
-                    value: BlocProvider.of(context),
-                    child: ContactDetails(
-                      onPressedDelete: () {
-                        BlocProvider.of<DocsNumCubit>(context)
-                            .deletePhoneNumber(contacts[index].id);
-                      },
-                      onPressedEdit: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (Modalcontext) {
-                              Navigator.of(newcontext).pop();
-                              return BlocProvider<DocsNumCubit>.value(
-                                value: BlocProvider.of(context),
-                                child:
-                                    EditPhoneNumber(contact: contacts[index]),
-                              );
-                            });
-                      },
-                      contactName: contacts[index].name,
-                      contactNumber: contacts[index].phone,
-                    ),
-                  );
-                });
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (newcontext) => BlocProvider<DocsNumCubit>.value(
+                      value: BlocProvider.of(context),
+                      child: ContactDetails(
+                        onPressedDelete: () {
+                          BlocProvider.of<DocsNumCubit>(context)
+                              .deletePhoneNumber(contacts[index].id);
+                        },
+                        onPressedEdit: () {
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (Modalcontext) {
+                                return BlocProvider<DocsNumCubit>.value(
+                                  value: BlocProvider.of(context),
+                                  child:
+                                      EditPhoneNumber(contact: contacts[index]),
+                                );
+                              });
+                        },
+                        idx: index,
+                        contact: contacts[index],
+                      ),
+                    )));
           },
           docsName: contacts[index].name,
           phoneNumber: contacts[index].phone,

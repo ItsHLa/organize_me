@@ -3,58 +3,89 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
 
+import '../../icon_Form.dart';
+import 'models/doctors_contacts.dart';
+
 class ContactDetails extends StatelessWidget {
   const ContactDetails(
       {super.key,
       this.onPressedDelete,
       this.onPressedEdit,
-      required this.contactName,
-      required this.contactNumber});
+      required this.contact,
+      required this.idx});
 
   final void Function()? onPressedDelete;
   final void Function()? onPressedEdit;
-  final String contactName;
-  final String contactNumber;
+  final DoctorsContacts contact;
+  final int idx;
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<DocsNumCubit, DocsNumState>(
-      listener: (context, state) {
-        if (state is DeleteDocsNumSuccess) {
-          Navigator.of(context).pop();
-        }
-      },
-      child: AlertDialog(
-        title: Text(
-          contactName,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        content: ListTile(
-          title: Text(
-            contactNumber,
-            style: const TextStyle(fontSize: 20),
+        listener: (dialogcontext, state) {
+          if (state is DeleteDocsNumSuccess) {
+            Navigator.of(dialogcontext).pop();
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            actions: [
+              TextButton(
+                onPressed: onPressedEdit,
+                child: const Text('تعديل'),
+              ),
+              TextButton(
+                onPressed: onPressedDelete,
+                child: const Text('حذف'),
+              ),
+            ],
           ),
-          trailing: IconButton(
-            onPressed: () {
-              BlocProvider.of<DocsNumCubit>(context).call();
-            },
-            icon: const Icon(Icons.call),
-            color: green,
+          body: Column(
+            children: [
+              const IconForm(
+                child: Icon(
+                  Icons.person_2_outlined,
+                  size: 40,
+                ),
+              ),
+              ListTile(
+                  title: BlocBuilder<DocsNumCubit, DocsNumState>(
+                    buildWhen: (previous, current) =>
+                        current is AddDocsNumSuccess,
+                    builder: (context, state) {
+                      return Text(
+                        state.docsNumber[idx].name,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25),
+                      );
+                    },
+                  ),
+                  subtitle: const Text('دكتور',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18))),
+              ListTile(
+                title: BlocBuilder<DocsNumCubit, DocsNumState>(
+                  buildWhen: (previous, current) =>
+                      current is AddDocsNumSuccess,
+                  builder: (context, state) {
+                    return Text(
+                      state.docsNumber[idx].phone,
+                      style: const TextStyle(fontSize: 20),
+                    );
+                  },
+                ),
+                trailing: IconButton(
+                  onPressed: () {
+                    BlocProvider.of<DocsNumCubit>(context).call();
+                  },
+                  icon: const Icon(Icons.call),
+                  color: green,
+                ),
+              )
+            ],
           ),
-        ),
-        actionsAlignment: MainAxisAlignment.center,
-        actions: [
-          TextButton(
-            onPressed: onPressedEdit,
-            child: const Text('تعديل'),
-          ),
-          TextButton(
-            onPressed: onPressedDelete,
-            child: const Text('حذف'),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }

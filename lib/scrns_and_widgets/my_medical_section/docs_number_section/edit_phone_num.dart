@@ -24,9 +24,9 @@ class _EditPhoneNumber extends State<EditPhoneNumber> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<DocsNumCubit, DocsNumState>(
-        listener: (context, state) {
+        listener: (Modalcontext, state) {
           if (state is AddDocsNumSuccess) {
-            Navigator.of(context).pop();
+            Navigator.of(Modalcontext).pop();
           }
         },
         child: Form(
