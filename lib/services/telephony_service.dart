@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:telephony/telephony.dart';
 
 class TelephonyService {
@@ -13,7 +14,7 @@ class TelephonyService {
     List sms = await telephony.getInboxSms();
     for (int i = 0; i < sms.length; i++) {
       if (sms[i].address == 'SyriatelSEP') {
-        print(sms[i].body);
+        debugPrint(sms[i].body);
       }
     }
   }
@@ -23,7 +24,7 @@ class TelephonyService {
       listenInBackground: false,
       onNewMessage: (SmsMessage message) {
         if (message.address == 'SyriatelSEP') {
-          print(message.body);
+          debugPrint(message.body);
         }
 
         //print('Received SMS : ${message.body.toString()}');
@@ -36,5 +37,5 @@ class TelephonyService {
 
 void onBackgroundMessage(SmsMessage message) async {
 // same code  for listener ...
-  print("Received SMS on background : ${message.body}");
+  debugPrint("Received SMS on background : ${message.body}");
 }

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/widgets/docs_numbers_listview.dart';
 
 import 'cubit/docs_num_cubit.dart';
-import 'models/doctors_contacts.dart';
 
 class DocsNumbers extends StatelessWidget {
   const DocsNumbers({super.key});
@@ -20,7 +19,7 @@ class DocsNumbers extends StatelessWidget {
                 state is AddDocsNumSuccess ||
                 state is DeleteDocsNumSuccess)) {
           return DocsNumbersListView(
-            contacts: state.docsNumber as List<DoctorsContacts>,
+            contacts: state.docsNumber,
           );
         } else {
           return const Center(

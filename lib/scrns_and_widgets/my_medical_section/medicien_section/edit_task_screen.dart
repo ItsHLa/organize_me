@@ -37,7 +37,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
         onPressed: () {
           medKey.currentState?.save();
           BlocProvider.of<MedicienCubit>(context).editMed();
-          print('Editing Medicien');
+          debugPrint('Editing Medicien');
         },
         child: MedsInput(
           timeOfDoses: TextEditingController(text: editedTimeOfDose),

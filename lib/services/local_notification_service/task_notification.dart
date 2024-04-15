@@ -52,7 +52,7 @@ class TaskNotification extends LocalNotificationService {
               // to reminde before time
               scheduledTime.subtract(const Duration(hours: 1)),
               taskDetails,
-              payload: ' Title : ${title} , Content : ${content}',
+              payload: ' Title : $title , Content : $content',
               uiLocalNotificationDateInterpretation:
                   UILocalNotificationDateInterpretation.absoluteTime);
 
@@ -60,7 +60,7 @@ class TaskNotification extends LocalNotificationService {
       await LocalNotificationService.flutterLocalNotificationsPlugin
           .zonedSchedule(id, title, content,
               scheduledTime.subtract(const Duration(minutes: 15)), taskDetails,
-              payload: ' Title : ${title} , Content : ${content}',
+              payload: ' Title : $title , Content : $content',
               uiLocalNotificationDateInterpretation:
                   UILocalNotificationDateInterpretation.absoluteTime);
     } else {

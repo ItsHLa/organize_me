@@ -10,14 +10,20 @@ class TaskCubit extends Cubit<TaskState> {
 
   TaskCubit() : super(const TaskInitial(tasks: []));
 
-  void addTask(String title, String content, DateTime dateTime,
-      TimeOfDay startTime, TimeOfDay endTime) async {
+  void addTask(
+    String title,
+    String content,
+    DateTime dateTime,
+    TimeOfDay startTime,
+    TimeOfDay endTime,
+  ) async {
     try {
       Map task = await Task.addTask(
         title,
         content,
-        '${startTime!.hour}:${startTime!.minute}',
-        '${endTime!.hour}:${endTime!.minute}',
+        '${startTime.hour}:${startTime.minute}',
+        '${endTime.hour}:${endTime.minute}',
+        '${dateTime.day}/${dateTime.month}/${dateTime.year}',
       );
       tasks.add(Task.fromMap(task));
       TaskNotification.showTaskNotification(

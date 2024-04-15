@@ -33,7 +33,7 @@ class DocsNumbersListView extends StatelessWidget {
                           showModalBottomSheet(
                               isScrollControlled: true,
                               context: context,
-                              builder: (Modalcontext) {
+                              builder: (modalcontext) {
                                 return BlocProvider<DocsNumCubit>.value(
                                   value: BlocProvider.of(context),
                                   child:

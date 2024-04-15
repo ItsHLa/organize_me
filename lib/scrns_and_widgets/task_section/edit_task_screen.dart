@@ -18,7 +18,6 @@ class EditTask extends StatefulWidget {
 class _EditTaskState extends State<EditTask> {
   String editedTaskTitle = '';
   String editedTaskContent = '';
-  String taskTag = '';
   TimeOfDay? editedStart = TimeOfDay.now();
   TimeOfDay? editedEnd = TimeOfDay.now();
   String editedStartTime = '';
@@ -49,11 +48,6 @@ class _EditTaskState extends State<EditTask> {
             child: Column(
               children: [
                 InputTask(
-                  saveTag: (value) {
-                    setState(() {
-                      taskTag = value!;
-                    });
-                  },
                   saveDate: () async {
                     date = (await showDatePicker(
                       context: context,
@@ -61,10 +55,12 @@ class _EditTaskState extends State<EditTask> {
                       lastDate: DateTime(3000),
                     ));
                     setState(() {
-                      dateTime = '${date?.day}/${date?.month}/${date?.year}';
+                      if (date?.day != null) {
+                        dateTime = '${date?.day}/${date?.month}/${date?.year}';
+                      }
                     });
                   },
-                  Date: TextEditingController(text: dateTime),
+                  date: TextEditingController(text: dateTime),
                   saveTitle: (value) {
                     editedTaskTitle = value ?? '';
                   },
@@ -77,8 +73,10 @@ class _EditTaskState extends State<EditTask> {
                       initialTime: TimeOfDay.now(),
                     ));
                     setState(() {
-                      editedStartTime =
-                      '${editedStart!.hour}:${editedStart!.minute}';
+                      if (editedStart?.hour != null) {
+                        editedStartTime =
+                            '${editedStart!.hour}:${editedStart!.minute}';
+                      }
                     });
                   },
                   saveEndTime: () async {
@@ -87,7 +85,10 @@ class _EditTaskState extends State<EditTask> {
                       initialTime: TimeOfDay.now(),
                     );
                     setState(() {
-                      editedEndTime = '${editedEnd!.hour}:${editedEnd!.minute}';
+                      if (editedEnd?.hour != null) {
+                        editedEndTime =
+                            '${editedEnd!.hour}:${editedEnd!.minute}';
+                      }
                     });
                   },
                   start: TextEditingController(text: editedStartTime),

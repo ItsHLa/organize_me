@@ -12,18 +12,16 @@ class InputTask extends StatelessWidget {
     required this.saveEndTime,
     required this.start,
     required this.end,
-    this.saveTag,
-    required this.Date,
+    required this.date,
     this.saveDate,
   });
 
   final void Function(String?)? saveTitle;
   final void Function(String?)? saveContent;
-  final void Function(String?)? saveTag;
   final void Function()? saveStartTime;
   final void Function()? saveEndTime;
   final void Function()? saveDate;
-  final TextEditingController Date;
+  final TextEditingController date;
   final TextEditingController start;
   final TextEditingController end;
 
@@ -38,10 +36,6 @@ class InputTask extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        InputText(hint: 'نوع المهمة', save: saveTag),
-        const SizedBox(
-          height: 5,
-        ),
         InputText(hint: 'وصف المهمة', save: saveContent),
         const SizedBox(
           height: 5,
@@ -50,7 +44,7 @@ class InputTask extends StatelessWidget {
           icon: Icons.date_range,
           labelText: ' تاريخ المهمة',
           onTap: saveDate,
-          controller: Date,
+          controller: date,
         ),
         const SizedBox(
           height: 5,

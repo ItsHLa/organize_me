@@ -14,7 +14,6 @@ class AddTaskScreen extends StatefulWidget {
 class _AddTaskScreenState extends State<AddTaskScreen> {
   String taskTitle = '';
   String taskContent = '';
-  String taskTag = '';
 
   TimeOfDay? start = TimeOfDay.now();
   TimeOfDay? end = TimeOfDay.now();
@@ -47,11 +46,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 key: taskKey,
                 autovalidateMode: autoValidated,
                 child: InputTask(
-                  saveTag: (value) {
-                    setState(() {
-                      taskTag = value!;
-                    });
-                  },
                   saveDate: () async {
                     date = (await showDatePicker(
                       context: context,
@@ -60,7 +54,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       initialDate: DateTime.now(),
                     ));
                     setState(() {
-                      dateTime = '${date?.day}/${date?.month}/${date?.year}';
+                      if (date?.day != null) {
+                        dateTime = '${date?.day}/${date?.month}/${date?.year}';
+                      }
                     });
                   },
                   saveTitle: (value) {
@@ -75,7 +71,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       initialTime: TimeOfDay.now(),
                     ));
                     setState(() {
-                      startTime = '${start?.hour}:${start?.minute}';
+                      if (start?.hour != null) {
+                        startTime = '${start?.hour}:${start?.minute}';
+                      }
                     });
                   },
                   saveEndTime: () async {
@@ -84,12 +82,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       initialTime: TimeOfDay.now(),
                     );
                     setState(() {
-                      endTime = '${end!.hour}:${end!.minute}';
+                      if (end?.hour != null) {
+                        endTime = '${end!.hour}:${end!.minute}';
+                      }
                     });
                   },
                   start: TextEditingController(text: startTime),
                   end: TextEditingController(text: endTime),
-                  Date: TextEditingController(text: dateTime),
+                  date: TextEditingController(text: dateTime),
                 ),
               ),
               const SizedBox(

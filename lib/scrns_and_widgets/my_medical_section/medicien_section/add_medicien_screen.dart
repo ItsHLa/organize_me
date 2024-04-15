@@ -38,7 +38,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
             if (InputText.validateField(medKey)) {
               medKey.currentState?.validate();
               BlocProvider.of<MedicienCubit>(context).addMed();
-              print('Adding Medicien');
+              debugPrint('Adding Medicien');
             } else {
               autoValidate = AutovalidateMode.always;
             }
