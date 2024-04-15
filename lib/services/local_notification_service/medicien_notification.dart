@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
 import 'package:organize_me/services/local_notification_service/local_notification.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -12,10 +11,10 @@ class MedicienNotification extends LocalNotificationService {
   }
 
   static showMedicienNotification({
-    required Med med,
-    required DateTime dateOfDose,
+    required int id,
+    required String medName,
     required TimeOfDay timeOfDose,
-    required TimeOfDay reminder,
+    required int hoursBetweenShots,
   }) async {
     AndroidNotificationDetails medicienAndroidNotificationDetails =
         const AndroidNotificationDetails(
@@ -30,16 +29,17 @@ class MedicienNotification extends LocalNotificationService {
     String currentTimeZone =
         (await FlutterTimezone.getLocalTimezone()).toString();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
+    var currentTime = tz.TZDateTime.now(tz.local);
     await LocalNotificationService.flutterLocalNotificationsPlugin
         .zonedSchedule(
-      med.id,
-      med.name,
+      id,
+      medName,
       'لا تنسى دواءك',
       tz.TZDateTime(
         tz.local,
-        dateOfDose.year,
-        dateOfDose.month,
-        dateOfDose.day,
+        currentTime.year,
+        currentTime.month,
+        currentTime.day,
         timeOfDose.hour,
         timeOfDose.minute,
       )
@@ -47,7 +47,7 @@ class MedicienNotification extends LocalNotificationService {
             const Duration(minutes: 15),
           )
           .add(
-            const Duration(days: 1),
+        Duration(days: 1, hours: hoursBetweenShots),
           ),
       medicienDetails,
       uiLocalNotificationDateInterpretation:

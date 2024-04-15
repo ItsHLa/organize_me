@@ -1,24 +1,29 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
+
+import '../../../../services/local_notification_service/medicien_notification.dart';
 
 part 'medicien_state.dart';
 
 class MedicienCubit extends Cubit<MedicienState> {
   List<Med> meds = [];
+
   MedicienCubit() : super(const MedInitial(meds: []));
 
   void addMed(
     String name,
-    String shotTime,
+    TimeOfDay timeOfshot,
     int interval,
   ) async {
     try {
+      String shotTime = '${timeOfshot.hour} : ${timeOfshot.minute}';
       await Med.addMed(name, shotTime, interval).then((med) => meds.add(med));
-      //MedicienNotification.showMedicienNotification(
-      // med: med, pass the object
-      // dateOfDose: dateOfDose,
-      // timeOfDose: timeOfDose);
+      MedicienNotification.showMedicienNotification(
+          id: 1,
+          hoursBetweenShots: interval,
+          medName: name,
+          timeOfDose: timeOfshot);
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
       emit(AddMedsFailed(meds: meds));
@@ -40,7 +45,7 @@ class MedicienCubit extends Cubit<MedicienState> {
           meds.singleWhere((med) => med.id == medId),
         ),
       );
-      //MedicienNotification.cancelMedicienNotification(id);
+      MedicienNotification.cancelMedicienNotification(medId);
       // pass the id of med
       emit(DeleteMedsSuccses(meds: meds));
     } catch (e) {

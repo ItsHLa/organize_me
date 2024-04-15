@@ -73,7 +73,12 @@ class TaskCubit extends Cubit<TaskState> {
           tasks[i] = Task.fromMap(newTask);
         },
       );
-      // reschedule the task
+      // TaskNotification.showTaskNotification(
+      //     id: id,
+      //   dateTime: dateTime,
+      // taskTime: taskTime,
+      // title: title,
+      // content: content)
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر تعديل المهمة', tasks: tasks));

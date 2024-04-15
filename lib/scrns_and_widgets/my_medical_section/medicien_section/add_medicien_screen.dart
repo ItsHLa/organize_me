@@ -17,6 +17,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
   String medicienName = '';
   int interval = 0;
   String shotTime = '';
+  TimeOfDay? time;
   GlobalKey<FormState> medKey = GlobalKey();
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
 
@@ -47,7 +48,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
               });
             },
             saveMedShotTime: () async {
-              TimeOfDay? time = await showTimePicker(
+              time = await showTimePicker(
                   context: context, initialTime: TimeOfDay.now());
               setState(() {
                 shotTime =
@@ -60,7 +61,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
               medKey.currentState?.save();
               BlocProvider.of<MedicienCubit>(context).addMed(
                 medicienName,
-                shotTime,
+                time!,
                 interval,
               );
               debugPrint('Adding Medicien');
