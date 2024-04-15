@@ -3,9 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/task_list_view.dart';
 
-class Tasks extends StatelessWidget {
+class Tasks extends StatefulWidget {
   const Tasks({super.key});
 
+  @override
+  State<Tasks> createState() => _TasksState();
+}
+
+class _TasksState extends State<Tasks> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<TaskCubit>(context).loadTasks();

@@ -80,9 +80,9 @@ class TaskCubit extends Cubit<TaskState> {
       await Task.getAllTasks().then(
         (value) {
           tasks = value;
-          emit(TaskLoaded(tasks: tasks));
         },
       );
+      emit(TaskLoaded(tasks: tasks));
     } catch (e) {
       emit(LoadingTasks(tasks: tasks));
     }
