@@ -60,10 +60,11 @@ class _NoteViewState extends State<NoteView> {
                   ? (state is NotesLoadingCompleted
                       ? const Expanded(
                           child: Center(
-                              child: Text(
-                            "ليس لديك ملاحظات بعد",
-                            style: TextStyle(fontSize: 20),
-                          )),
+                            child: Text(
+                              "ليس لديك ملاحظات بعد",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
                         )
                       : const Expanded(
                           child: Center(

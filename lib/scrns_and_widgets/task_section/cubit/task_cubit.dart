@@ -27,7 +27,7 @@ class TaskCubit extends Cubit<TaskState> {
       );
       tasks.add(Task.fromMap(task));
       TaskNotification.showTaskNotification(
-        id: 1,
+        id: task['id'],
         title: title,
         content: content,
         taskTime: startTime,

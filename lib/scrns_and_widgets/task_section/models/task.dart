@@ -43,7 +43,7 @@ class Task {
   ) async {
     Database? mydb = await DatabaseHelper.db;
     String now = DateTime.now().toString();
-    int noteId = await mydb!.rawInsert(
+    int taskId = await mydb!.rawInsert(
       """
         INSERT OR IGNORE INTO tasks(title,
                                     content,
@@ -63,7 +63,7 @@ class Task {
         startDate,
       ],
     );
-    return (await geOnetTask(noteId));
+    return (await geOneTask(taskId));
   }
 
   static Future<Map> editTask(
@@ -99,7 +99,7 @@ class Task {
         taskId,
       ],
     );
-    return geOnetTask(taskId);
+    return await geOneTask(taskId);
   }
 
   static Future deleteTask(int taskId) async {
@@ -114,7 +114,7 @@ class Task {
     );
   }
 
-  static Future<Map> geOnetTask(int taskId) async {
+  static Future<Map> geOneTask(int taskId) async {
     Database? mydb = await DatabaseHelper.db;
     List<Map> task = await mydb!.rawQuery(
       """
@@ -137,7 +137,7 @@ class Task {
     );
     List<Task> tasks = [];
     for (Map task in tasksMap) {
-      tasks.add(Task.fromMap(task));
+      tasks.add(fromMap(task));
     }
     return tasks;
   }

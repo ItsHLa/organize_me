@@ -86,7 +86,7 @@ class DoctorsContacts {
     );
     List<DoctorsContacts> contacts = [];
     for (Map contact in contactssMap) {
-      contacts.add(DoctorsContacts.fromMap(contact));
+      contacts.add(fromMap(contact));
     }
     return contacts;
   }

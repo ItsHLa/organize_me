@@ -27,7 +27,7 @@ class MedsPage extends StatelessWidget {
         },
       ),
       body: const Column(
-        children: [Expanded(child: MedsGrid())],
+        children: [MedsGrid()],
       ),
     );
   }

@@ -15,8 +15,8 @@ class AddMedsScreen extends StatefulWidget {
 
 class _AddMedsScreenState extends State<AddMedsScreen> {
   String medicienName = '';
-  String numberOfDoses = '';
-  String timeOfDose = '';
+  int interval = 0;
+  String shotTime = '';
   GlobalKey<FormState> medKey = GlobalKey();
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
 
@@ -34,36 +34,40 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
         child: InputDataPage(
           icon: Icons.add,
           label: 'اضافة الدواء',
-          onPressed: () {
-            if (InputText.validateField(medKey)) {
-              medKey.currentState?.validate();
-              BlocProvider.of<MedicienCubit>(context).addMed();
-              debugPrint('Adding Medicien');
-            } else {
-              autoValidate = AutovalidateMode.always;
-            }
-          },
           child: MedsInput(
-            timeOfDoses: TextEditingController(text: timeOfDose),
+            shotTime: TextEditingController(text: shotTime),
             saveMedName: (value) {
               setState(() {
                 medicienName = value!;
               });
             },
-            saveMedDoses: (value) {
+            saveMedInterval: (value) {
               setState(() {
-                numberOfDoses = value!;
+                interval = int.parse(value!);
               });
             },
-            saveMedsTime: () async {
+            saveMedShotTime: () async {
               TimeOfDay? time = await showTimePicker(
                   context: context, initialTime: TimeOfDay.now());
               setState(() {
-                timeOfDose =
-                    '${time?.hour.toString()} : ${time?.minute.toString()}';
+                shotTime =
+                    '${time?.hour.toString()}:${time?.minute.toString()}';
               });
             },
           ),
+          onPressed: () {
+            if (InputText.validateField(medKey)) {
+              medKey.currentState?.save();
+              BlocProvider.of<MedicienCubit>(context).addMed(
+                medicienName,
+                shotTime,
+                interval,
+              );
+              debugPrint('Adding Medicien');
+            } else {
+              autoValidate = AutovalidateMode.always;
+            }
+          },
         ),
       ),
     );

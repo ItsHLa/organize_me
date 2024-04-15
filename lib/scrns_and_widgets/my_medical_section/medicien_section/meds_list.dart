@@ -12,19 +12,28 @@ class MedsGrid extends StatelessWidget {
     return BlocBuilder<MedicienCubit, MedicienState>(
       builder: (context, state) {
         if (state is LoadMeds) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is MedsLoaded ||
-            state is AddMedSuccses ||
-            state is DeleteMedsSuccses && state.meds.isNotEmpty) {
           return const Expanded(
-              child: MedsListView(
-            meds: [],
-          ));
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (state.meds.isNotEmpty &&
+            (state is MedsLoaded ||
+                state is AddMedSuccses ||
+                state is DeleteMedsSuccses)) {
+          return Expanded(
+            child: MedsListView(
+              meds: state.meds,
+            ),
+          );
         } else {
-          return const Center(
-            child: Text('لا يوجد ادوية بعد'),
+          return const Expanded(
+            child: Center(
+              child: Text(
+                'لا يوجد أدوية بعد',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
           );
         }
       },

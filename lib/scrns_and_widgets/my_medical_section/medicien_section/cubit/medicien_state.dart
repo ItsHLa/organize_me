@@ -2,7 +2,7 @@ part of 'medicien_cubit.dart';
 
 @immutable
 sealed class MedicienState {
-  final List meds;
+  final List<Med> meds;
 
   const MedicienState({required this.meds});
 }

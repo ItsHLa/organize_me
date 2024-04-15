@@ -18,9 +18,9 @@ class EditMedsScreen extends StatefulWidget {
 }
 
 class _EditMedsScreenState extends State<EditMedsScreen> {
-  String editedMedicienName = '';
-  String editedNumberOfDoses = '';
-  String editedTimeOfDose = '';
+  String editedMedName = '';
+  String editedMedInterval = '';
+  String editedShotTime = '';
   GlobalKey<FormState> medKey = GlobalKey();
 
   @override
@@ -34,32 +34,34 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
       child: InputDataPage(
         icon: Icons.add,
         label: 'تعديل الدواء',
+        child: MedsInput(
+          shotTime: TextEditingController(text: editedShotTime),
+          saveMedName: (value) {
+            setState(() {
+              editedMedName = value!;
+            });
+          },
+          saveMedInterval: (value) {
+            setState(() {
+              editedMedInterval = value!;
+            });
+          },
+          saveMedShotTime: () async {
+            TimeOfDay? time = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.now(),
+            );
+            setState(() {
+              editedShotTime =
+                  '${time?.hour.toString()}:${time?.minute.toString()}';
+            });
+          },
+        ),
         onPressed: () {
           medKey.currentState?.save();
           BlocProvider.of<MedicienCubit>(context).editMed();
           debugPrint('Editing Medicien');
         },
-        child: MedsInput(
-          timeOfDoses: TextEditingController(text: editedTimeOfDose),
-          saveMedName: (value) {
-            setState(() {
-              editedMedicienName = value!;
-            });
-          },
-          saveMedDoses: (value) {
-            setState(() {
-              editedNumberOfDoses = value!;
-            });
-          },
-          saveMedsTime: () async {
-            TimeOfDay? time = await showTimePicker(
-                context: context, initialTime: TimeOfDay.now());
-            setState(() {
-              editedTimeOfDose =
-                  '${time?.hour.toString()} : ${time?.minute.toString()}';
-            });
-          },
-        ),
       ),
     );
   }

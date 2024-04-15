@@ -18,10 +18,12 @@ class TaskNotification extends LocalNotificationService {
   }) async {
     // setting up Task Channel or notification settings for android
     AndroidNotificationDetails androidTaskSettings =
-    const AndroidNotificationDetails('task_channel', 'Tasks',
-        // to make notification shows in notification bar ( alsetara I don't know what its called)
-            importance: Importance.max,
-            priority: Priority.high);
+        const AndroidNotificationDetails(
+      'task_channel', 'Tasks',
+      // to make notification shows in notification bar ( alsetara I don't know what its called)
+      importance: Importance.max,
+      priority: Priority.high,
+    );
     NotificationDetails taskDetails =
         NotificationDetails(android: androidTaskSettings);
     // setting up time to user time zone

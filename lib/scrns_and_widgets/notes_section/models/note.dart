@@ -92,7 +92,7 @@ class Note {
     );
     List<Note> notes = [];
     for (Map note in notesMap) {
-      notes.add(Note.fromMap(note));
+      notes.add(fromMap(note));
     }
     return notes;
   }
