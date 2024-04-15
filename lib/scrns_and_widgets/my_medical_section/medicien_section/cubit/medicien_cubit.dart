@@ -30,8 +30,20 @@ class MedicienCubit extends Cubit<MedicienState> {
     }
   }
 
-  void editMed() {
+  void editMed({
+    required String editedname,
+    required TimeOfDay editedtimeOfshot,
+    required int editedinterval,
+  }) {
     try {
+      String shotTime = '${editedtimeOfshot.hour} : ${editedtimeOfshot.minute}';
+      // editing info .......
+      //////
+      MedicienNotification.showMedicienNotification(
+          id: 1,
+          medName: editedname,
+          timeOfDose: editedtimeOfshot,
+          hoursBetweenShots: editedinterval);
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
       emit(AddMedsFailed(meds: meds));

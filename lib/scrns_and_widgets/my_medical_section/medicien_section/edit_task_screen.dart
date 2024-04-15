@@ -19,8 +19,11 @@ class EditMedsScreen extends StatefulWidget {
 
 class _EditMedsScreenState extends State<EditMedsScreen> {
   String editedMedName = '';
-  String editedMedInterval = '';
+  int? editedMedInterval;
+
   String editedShotTime = '';
+  TimeOfDay? time;
+
   GlobalKey<FormState> medKey = GlobalKey();
 
   @override
@@ -43,11 +46,11 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
           },
           saveMedInterval: (value) {
             setState(() {
-              editedMedInterval = value!;
+              editedMedInterval = int.parse(value!);
             });
           },
           saveMedShotTime: () async {
-            TimeOfDay? time = await showTimePicker(
+            time = await showTimePicker(
               context: context,
               initialTime: TimeOfDay.now(),
             );
@@ -59,7 +62,10 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
         ),
         onPressed: () {
           medKey.currentState?.save();
-          BlocProvider.of<MedicienCubit>(context).editMed();
+          BlocProvider.of<MedicienCubit>(context).editMed(
+              editedinterval: editedMedInterval!,
+              editedname: editedMedName,
+              editedtimeOfshot: time!);
           debugPrint('Editing Medicien');
         },
       ),
