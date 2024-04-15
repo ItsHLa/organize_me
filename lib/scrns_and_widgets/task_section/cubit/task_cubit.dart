@@ -40,7 +40,7 @@ class TaskCubit extends Cubit<TaskState> {
           tasks.remove(tasks.singleWhere((task) => task.id == id));
         },
       );
-      // cancel scheduling the task
+      TaskNotification.cancelTaskNotification(id);
       emit(DeleteTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(DeleteTaskFailed('تعذر حذف المهمة', tasks: tasks));
