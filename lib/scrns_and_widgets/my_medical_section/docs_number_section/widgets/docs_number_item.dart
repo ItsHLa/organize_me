@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/icon_form.dart';
 
 class DocsNumber extends StatelessWidget {
@@ -33,20 +34,14 @@ class DocsNumber extends StatelessWidget {
             Column(
               children: [Text(docsName), Text(phoneNumber)],
             ),
-            const Spacer(),
-            IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: onPressedEdit,
-            ),
-            IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: onPressedDelete,
-            ),
-            IconButton(
-              icon: const Icon(Icons.call),
-              onPressed: onPressedCall,
-            ),
           ],
+        ),
+        trailing: IconButton(
+          icon: const Icon(
+            Icons.call,
+            color: green,
+          ),
+          onPressed: onPressedCall,
         ),
       ),
     );
