@@ -28,6 +28,8 @@ class TaskNotification extends LocalNotificationService {
         await FlutterTimezone.getLocalTimezone(); // getting user location
     tz.setLocalLocation(tz.getLocation(currenTimeZone));
     // the function that calls notification
+
+    // before an hour
     await LocalNotificationService.flutterLocalNotificationsPlugin
         .zonedSchedule(
             id,
@@ -42,7 +44,47 @@ class TaskNotification extends LocalNotificationService {
                     taskTime.hour,
                     taskTime.minute)
                 // to reminde before time
-                .subtract(const Duration(minutes: 10)),
+                .subtract(const Duration(hours: 1)),
+            taskDetails,
+            payload: ' Title : ${title} , Content : ${content}',
+            uiLocalNotificationDateInterpretation:
+                UILocalNotificationDateInterpretation.absoluteTime);
+
+    // before 15 minutes
+    await LocalNotificationService.flutterLocalNotificationsPlugin
+        .zonedSchedule(
+            id,
+            title,
+            content,
+            tz.TZDateTime(
+                    tz.local, // location
+                    // task time and date
+                    dateTime.year,
+                    dateTime.month,
+                    dateTime.day,
+                    taskTime.hour,
+                    taskTime.minute)
+                // to reminde before time
+                .subtract(const Duration(minutes: 15)),
+            taskDetails,
+            payload: ' Title : ${title} , Content : ${content}',
+            uiLocalNotificationDateInterpretation:
+                UILocalNotificationDateInterpretation.absoluteTime);
+
+// at the time
+    await LocalNotificationService.flutterLocalNotificationsPlugin
+        .zonedSchedule(
+            id,
+            title,
+            content,
+            tz.TZDateTime(
+                tz.local, // location
+                // task time and date
+                dateTime.year,
+                dateTime.month,
+                dateTime.day,
+                taskTime.hour,
+                taskTime.minute),
             taskDetails,
             payload: ' Title : ${title} , Content : ${content}',
             uiLocalNotificationDateInterpretation:

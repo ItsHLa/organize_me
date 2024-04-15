@@ -33,7 +33,8 @@ class MedicienNotification extends LocalNotificationService {
             ' لا تنسى ان تاخذ ${med.numberOfDose}  من دوائك ',
             tz.TZDateTime(tz.local, dateOfDose.year, dateOfDose.month,
                     dateOfDose.day, timeOfDose.hour, timeOfDose.minute)
-                .subtract(const Duration(minutes: 30)),
+                .subtract(const Duration(minutes: 15))
+                .add(Duration(days: 1)),
             medicienDetails,
             uiLocalNotificationDateInterpretation:
                 UILocalNotificationDateInterpretation.absoluteTime);
