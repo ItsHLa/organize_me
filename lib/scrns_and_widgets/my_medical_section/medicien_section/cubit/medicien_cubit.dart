@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
+import 'package:organize_me/services/work_manager_service/medicien_work_manager.dart';
 
 import '../../../../services/local_notification_service/medicien_notification.dart';
 
@@ -19,11 +20,9 @@ class MedicienCubit extends Cubit<MedicienState> {
     try {
       String shotTime = '${timeOfshot.hour} : ${timeOfshot.minute}';
       await Med.addMed(name, shotTime, interval).then((med) => meds.add(med));
-      MedicienNotification.showMedicienNotification(
-          id: 1,
-          hoursBetweenShots: interval,
-          medName: name,
-          timeOfDose: timeOfshot);
+      MedicineAlarm.showMedicineNotificationInterval(
+          interval: Duration(hours: interval), id: 1, callback: myCallback);
+
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
       emit(AddMedsFailed(meds: meds));
@@ -31,6 +30,7 @@ class MedicienCubit extends Cubit<MedicienState> {
   }
 
   void editMed({
+    required int id,
     required String editedname,
     required TimeOfDay editedtimeOfshot,
     required int editedinterval,
@@ -39,11 +39,9 @@ class MedicienCubit extends Cubit<MedicienState> {
       String shotTime = '${editedtimeOfshot.hour} : ${editedtimeOfshot.minute}';
       // editing info .......
       //////
-      MedicienNotification.showMedicienNotification(
-          id: 1,
-          medName: editedname,
-          timeOfDose: editedtimeOfshot,
-          hoursBetweenShots: editedinterval);
+      //  MedicinesWorkManagerService().cancelTask('$id');
+      // MedicinesWorkManagerService().init(id, editedname, editedtimeOfshot, editedinterval);
+
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
       emit(AddMedsFailed(meds: meds));
@@ -77,4 +75,9 @@ class MedicienCubit extends Cubit<MedicienState> {
       emit(MedsLoaded(meds: meds));
     }
   }
+}
+
+@pragma('vm:entry-point')
+void myCallback({id, name}) {
+  MedicienNotification.showSimpleNatification(id: id, name: name);
 }

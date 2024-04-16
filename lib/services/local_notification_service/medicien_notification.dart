@@ -10,6 +10,24 @@ class MedicienNotification extends LocalNotificationService {
     LocalNotificationService.flutterLocalNotificationsPlugin.cancel(id);
   }
 
+  static showSimpleNatification({id, name}) {
+    AndroidNotificationDetails medicienAndroidNotificationDetails =
+        const AndroidNotificationDetails(
+      'medicien_channel',
+      'Mediciens',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+    NotificationDetails medicienDetails =
+        NotificationDetails(android: medicienAndroidNotificationDetails);
+    LocalNotificationService.flutterLocalNotificationsPlugin.show(
+      id,
+      name,
+      'لا تنسى دواءك',
+      medicienDetails,
+    );
+  }
+
   static showMedicienNotification({
     required int id,
     required String medName,

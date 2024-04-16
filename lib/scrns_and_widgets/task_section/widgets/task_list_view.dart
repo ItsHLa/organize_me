@@ -24,7 +24,7 @@ class TaskListView extends StatelessWidget {
                 builder: (newcontext) => BlocProvider<TaskCubit>.value(
                       value: BlocProvider.of(context),
                       child: TaskDetails(
-                        task: tasks[index],
+                        index: index,
                         onPressedEdit: () {
                           showModalBottomSheet(
                             isScrollControlled: true,
@@ -38,7 +38,7 @@ class TaskListView extends StatelessWidget {
                         },
                         onPressedDelete: () {
                           BlocProvider.of<TaskCubit>(context)
-                              .deleteTask(tasks[index].id);
+                              .deleteTask(tasks[index].id, context);
                         },
                       ),
                     )));

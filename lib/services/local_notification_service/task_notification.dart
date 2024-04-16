@@ -59,45 +59,8 @@ class TaskNotification extends LocalNotificationService {
               uiLocalNotificationDateInterpretation:
                   UILocalNotificationDateInterpretation.absoluteTime);
     }
-    //else if(scheduledTime.hour == currentTime.hour && scheduledTime.minute == currentTime.minute){
-    //LocalNotificationService.flutterLocalNotificationsPlugin.show(
-    //  id,
-    //title,
-    // content,
-    // taskDetails);
-    // }
   }
 
-  static void showTaskNotificationBefore1hour({
-    required int id,
-    required DateTime dateTime,
-    required TimeOfDay taskTime,
-    required String title,
-    required String content,
-  }) async {
-    AndroidNotificationDetails details = const AndroidNotificationDetails(
-        'task_channel', 'Tasks',
-        importance: Importance.max, priority: Priority.high);
-    NotificationDetails notificationDetails =
-        NotificationDetails(android: details);
-    tz.initializeTimeZones();
-    tz.setLocalLocation(
-        tz.getLocation(await FlutterTimezone.getLocalTimezone()));
-    var scheduledTime = tz.TZDateTime(tz.local, dateTime.year, dateTime.month,
-        dateTime.day, dateTime.hour, dateTime.minute);
-    var currentTime = tz.TZDateTime.now(tz.local);
-    if (scheduledTime.isAfter(currentTime)) {
-      await LocalNotificationService.flutterLocalNotificationsPlugin
-          .zonedSchedule(
-          id,
-              title,
-              content,
-              scheduledTime.subtract(const Duration(minutes: 59)),
-              notificationDetails,
-              uiLocalNotificationDateInterpretation:
-                  UILocalNotificationDateInterpretation.absoluteTime);
-    }
-  }
 
   static void cancelTaskNotification(int taskId) {
     LocalNotificationService.flutterLocalNotificationsPlugin.cancel(taskId);

@@ -98,12 +98,12 @@ class _EditTaskState extends State<EditTask> {
                     onPressed: () {
                       taskKey.currentState!.save();
                       BlocProvider.of<TaskCubit>(context).editTask(
-                        widget.task.id,
-                        editedTaskTitle,
-                        editedTaskContent,
-                        editedStartTime,
-                        editedEndTime,
-                      );
+                          id: widget.task.id,
+                          title: editedTaskTitle,
+                          content: editedTaskContent,
+                          dateTime: date!,
+                          startTime: editedStart!,
+                          endTime: editedEnd!);
                     },
                     icon: Icons.edit,
                     label: 'تعديل المهمة'),

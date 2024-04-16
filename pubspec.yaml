@@ -29,6 +29,8 @@ dependencies:
   flutter_timezone: ^1.0.8
   circular_bottom_navigation: ^2.4.0
   easy_date_timeline: ^1.0.3
+  alarm: ^3.1.0
+  android_alarm_manager_plus: ^4.0.2
 
 
 

@@ -26,13 +26,6 @@ class TaskCubit extends Cubit<TaskState> {
         '${dateTime.day}/${dateTime.month}/${dateTime.year}',
       );
       tasks.add(Task.fromMap(task));
-      TaskNotification.showTaskNotificationBefore1hour(
-        id: task['id'],
-        title: title,
-        content: content,
-        taskTime: startTime,
-        dateTime: dateTime,
-      );
       TaskNotification.showTaskNotificationBefore15minutes(
         id: task['id'],
         title: title,
@@ -46,8 +39,9 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void deleteTask(int id) async {
+  void deleteTask(int id, BuildContext context) async {
     try {
+      Navigator.of(context).pop();
       await Task.deleteTask(id).then(
         (_) {
           tasks.remove(tasks.singleWhere((task) => task.id == id));
@@ -60,32 +54,36 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void editTask(
-    id,
-    title,
-    content,
-    startTime,
-    endTime,
-  ) async {
+  void editTask({
+    required int id,
+    required String title,
+    required String content,
+    required DateTime dateTime,
+    required TimeOfDay startTime,
+    required TimeOfDay endTime,
+  }) async {
     try {
       await Task.editTask(
-        id,
-        newContent: content,
-        newTitle: title,
-        newEndTime: endTime,
-        newStartTime: startTime,
-      ).then(
+          id,
+              newContent: content,
+              newTitle: title,
+              newEndTime: '${endTime.hour}:${endTime.minute}',
+              newStartTime: '${startTime.hour}:${startTime.minute}',
+              newStartDate:
+                  '${dateTime.day}/${dateTime.month}/${dateTime.year}')
+          .then(
         (newTask) {
           int i = tasks.indexOf(tasks.singleWhere((task) => task.id == id));
           tasks[i] = Task.fromMap(newTask);
         },
       );
-      // TaskNotification.showTaskNotification(
-      //     id: id,
-      //   dateTime: dateTime,
-      // taskTime: taskTime,
-      // title: title,
-      // content: content)
+      TaskNotification.showTaskNotificationBefore15minutes(
+        id: id,
+        title: title,
+        content: content,
+        taskTime: startTime,
+        dateTime: dateTime,
+      );
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر تعديل المهمة', tasks: tasks));

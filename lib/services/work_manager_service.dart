@@ -3,15 +3,10 @@ import 'package:workmanager/workmanager.dart';
 
 class WorkManagerService {
   void registerMyBillNotification() async {
-    // register tasks
-    // 'registerPeriodicTask' makes that task excecute every x [hours / days / minutes...]
     await Workmanager().registerPeriodicTask(
       'BillsNotification',
-      // uniqueName of task needs it for canceling it for example
-      'show Bills notification', // taskName
-      frequency: const Duration(
-          days:
-              1), // the default value is 15m less that that it will set 15 minutes
+      'show Bills notification',
+      frequency: const Duration(days: 1),
     );
   }
 
@@ -39,3 +34,4 @@ void workManagerBillNotification() {
     return Future.value(true); //the return type
   });
 }
+

@@ -1,3 +1,4 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
@@ -15,7 +16,8 @@ void main() async {
   // example :
   await Future.wait([
     LocalNotificationService.initi(), // wait 3s
-    WorkManagerService().init()
+    WorkManagerService().init(),
+    AndroidAlarmManager.initialize()
   ]); // wait 7s
   // then it will wait for 7s
   runApp(const MyApp());
@@ -69,11 +71,11 @@ class _OrganizeMeState extends State<OrganizeMe> {
       child: BlocBuilder<DarkModeCubit, DarkModeState>(
         builder: (context, state) {
           return MaterialApp(
-            debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner: false,
               darkTheme: ThemeData(brightness: Brightness.dark),
               theme: ThemeData(
                 brightness:
-                    state is DarkModeOn ? Brightness.dark : Brightness.light,
+                state is DarkModeOn ? Brightness.dark : Brightness.light,
               ),
               home: const HomePage());
         },
