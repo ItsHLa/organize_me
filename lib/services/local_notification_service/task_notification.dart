@@ -33,7 +33,7 @@ class TaskNotification extends LocalNotificationService {
     tz.setLocalLocation(tz.getLocation(currenTimeZone));
     // the function that calls notification
     var currentTime = tz.TZDateTime.now(tz.local);
-    log('currentTime  ${currentTime.hour} : ${currentTime.minute}');
+    log('currentTime  ${currentTime.hour}:${currentTime.minute}');
 
     var scheduledTime = tz.TZDateTime(
         tz.local, // location
@@ -55,7 +55,7 @@ class TaskNotification extends LocalNotificationService {
       await LocalNotificationService.flutterLocalNotificationsPlugin
           .zonedSchedule(id, title, content,
               scheduledTime.subtract(const Duration(minutes: 30)), taskDetails,
-              payload: ' Title : $title , Content : $content',
+              payload: ' Title: $title , Content: $content',
               uiLocalNotificationDateInterpretation:
                   UILocalNotificationDateInterpretation.absoluteTime);
     }

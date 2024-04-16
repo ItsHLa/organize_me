@@ -36,7 +36,7 @@ class _AddDateScrnState extends State<AddDateScrn> {
     setState(
       () {
         controller.text =
-            ' ${date!.day} / ${date.month} / ${date.year} - ${time!.hour % 12} : ${time.minute} ';
+            ' ${date!.day}/${date.month}/${date.year} - ${time!.hour % 12}:${time.minute} ';
       },
     );
 

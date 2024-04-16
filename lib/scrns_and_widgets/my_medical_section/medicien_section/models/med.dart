@@ -39,7 +39,7 @@ class Med {
     return fromMap(await getOneMed(medId));
   }
 
-  static Future<Med> editTask(
+  static Future<Med> editMed(
     int medId, {
     String newName = '',
     int newInterval = 0,
@@ -53,7 +53,7 @@ class Med {
         newShotTime.isNotEmpty ? "shot_time = '$newShotTime'," : "";
     await mydb!.rawUpdate(
       """
-        UPDATE tasks SET $editName
+        UPDATE meds SET $editName
                          $editShotTime
                          $editInterval
                          last_modified = ? WHERE id = ?;

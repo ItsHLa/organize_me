@@ -17,7 +17,7 @@ class MedicienCubit extends Cubit<MedicienState> {
     int interval,
   ) async {
     try {
-      String shotTime = '${timeOfshot.hour} : ${timeOfshot.minute}';
+      String shotTime = '${timeOfshot.hour}:${timeOfshot.minute}';
       await Med.addMed(name, shotTime, interval).then((med) => meds.add(med));
       MedicienNotification.showMedicienNotification(
           id: 1,
@@ -31,19 +31,32 @@ class MedicienCubit extends Cubit<MedicienState> {
   }
 
   void editMed({
-    required String editedname,
-    required TimeOfDay editedtimeOfshot,
-    required int editedinterval,
-  }) {
+    required int medId,
+    required String editedName,
+    required TimeOfDay? editedShotTime,
+    required int editedInterval,
+  }) async {
     try {
-      String shotTime = '${editedtimeOfshot.hour} : ${editedtimeOfshot.minute}';
-      // editing info .......
-      //////
+      String shotTime = editedShotTime != null
+          ? '${editedShotTime.hour}:${editedShotTime.minute}'
+          : '';
+      Med newMed = await Med.editMed(
+        medId,
+        newInterval: editedInterval,
+        newName: editedName,
+        newShotTime: shotTime,
+      );
+      int i = meds.indexOf(meds.singleWhere((med) => med.id == medId));
+      meds[i] = newMed;
+      List<String> shotTimeList = newMed.shotTime.split(':');
       MedicienNotification.showMedicienNotification(
-          id: 1,
-          medName: editedname,
-          timeOfDose: editedtimeOfshot,
-          hoursBetweenShots: editedinterval);
+        id: 1,
+        medName: newMed.name,
+        timeOfDose: TimeOfDay(
+            hour: int.parse(shotTimeList[0]),
+            minute: int.parse(shotTimeList[1])),
+        hoursBetweenShots: editedInterval,
+      );
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
       emit(AddMedsFailed(meds: meds));
@@ -58,7 +71,6 @@ class MedicienCubit extends Cubit<MedicienState> {
         ),
       );
       MedicienNotification.cancelMedicienNotification(medId);
-      // pass the id of med
       emit(DeleteMedsSuccses(meds: meds));
     } catch (e) {
       emit(DeleteMedsFailed(meds: meds));
