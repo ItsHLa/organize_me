@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/icon_form.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
 
 class MedItem extends StatelessWidget {
   const MedItem({
     super.key,
-    required this.medName,
-    required this.interval,
-    required this.shotTime,
+    required this.med,
     this.onPressedEdit,
     this.onPressedDelete,
   });
 
-  final String medName;
-  final int interval;
-  final String shotTime;
+  final Med med;
+
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
 
@@ -28,8 +26,8 @@ class MedItem extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text('$interval عدد الساعات بين الجرعات'),
-                    Text('$shotTime موعد أخذ الدواء ')
+                    Text('${med.interval} عدد الساعات بين الجرعات'),
+                    Text('${med.shotTime} موعد أخذ الدواء ')
                   ],
                 ),
               ),
@@ -39,7 +37,7 @@ class MedItem extends StatelessWidget {
                     child: Icon(Icons.medication),
                   ),
                   const Spacer(),
-                  Text(medName),
+                  Text(med.name),
                 ],
               )),
           Row(

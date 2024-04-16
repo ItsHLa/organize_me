@@ -37,5 +37,5 @@ class TelephonyService {
 
 void onBackgroundMessage(SmsMessage message) async {
 // same code  for listener ...
-  debugPrint("Received SMS on background : ${message.body}");
+  debugPrint("Received SMS on background: ${message.body}");
 }

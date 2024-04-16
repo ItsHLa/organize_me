@@ -116,7 +116,10 @@ class FontStyleDetailsPage extends StatelessWidget {
                   const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
         ),
         const SizedBox(width: 10),
-        Text('$text', style: const TextStyle(fontSize: 16)),
+        Text(
+          text,
+          style: const TextStyle(fontSize: 16),
+        ),
       ],
     );
   }

@@ -47,21 +47,22 @@ class MedicienNotification extends LocalNotificationService {
     String currentTimeZone =
         (await FlutterTimezone.getLocalTimezone()).toString();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
-    var currentTime = tz.TZDateTime.now(tz.local);
-    var now = DateTime.now();
-    var scheduledTime = tz.TZDateTime(
-      tz.local,
-      now.year,
-      now.month,
-      now.day,
-      timeOfDose.hour,
-      timeOfDose.minute,
-    );
+    // var currentTime = tz.TZDateTime.now(tz.local);
+    // var now = DateTime.now();
+    // var scheduledTime = tz.TZDateTime(
+    //   tz.local,
+    //   now.year,
+    //   now.month,
+    //   now.day,
+    //   timeOfDose.hour,
+    //   timeOfDose.minute,
+    // );
     LocalNotificationService.flutterLocalNotificationsPlugin.periodicallyShow(
-        id,
-        medName,
-        'لا تنسى دواءك',
-        RepeatInterval.values[hoursBetweenShots],
-        medicienDetails);
+      id,
+      medName,
+      'لا تنسى دواءك',
+      RepeatInterval.values[hoursBetweenShots],
+      medicienDetails,
+    );
   }
 }
