@@ -22,28 +22,25 @@ class DocsNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        onTap: onTap,
-        contentPadding: const EdgeInsets.all(8),
-        leading: const IconForm(
-          child: Icon(Icons.person_2_outlined),
-        ),
-        title: Row(
-          children: [
-            Column(
-              children: [Text(docsName), Text(phoneNumber)],
-            ),
-          ],
-        ),
-        trailing: IconButton(
-          icon: const Icon(
-            Icons.call,
-            color: green,
+    return Column(
+      children: [
+        ListTile(
+          onTap: onTap,
+          leading: const IconForm(
+            child: Icon(Icons.person_2_outlined),
           ),
-          onPressed: onPressedCall,
+          title: Text(docsName),
+          subtitle: Text(phoneNumber),
+          trailing: IconButton(
+            icon: const Icon(
+              Icons.call,
+              color: green,
+            ),
+            onPressed: onPressedCall,
+          ),
         ),
-      ),
+        Divider()
+      ],
     );
   }
 }

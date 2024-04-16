@@ -11,7 +11,7 @@ class WorkManagerService {
       'show Bills notification', // taskName
       frequency: const Duration(
           days:
-              7), // the default value is 15m less that that it will set 15 minutes
+              1), // the default value is 15m less that that it will set 15 minutes
     );
   }
 

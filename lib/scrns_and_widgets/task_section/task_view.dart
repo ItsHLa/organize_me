@@ -6,14 +6,9 @@ import 'package:organize_me/scrns_and_widgets/task_section/tasks_list.dart';
 
 import 'add_task_screen.dart';
 
-class DayCalendar extends StatefulWidget {
+class DayCalendar extends StatelessWidget {
   const DayCalendar({super.key});
 
-  @override
-  State<DayCalendar> createState() => _DayCalendarState();
-}
-
-class _DayCalendarState extends State<DayCalendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +26,7 @@ class _DayCalendarState extends State<DayCalendar> {
           );
         },
       ),
-      body: const Column(
-        children: [
-          Expanded(child: Tasks()),
-        ],
-      ),
+      body: const Tasks(),
     );
   }
 }

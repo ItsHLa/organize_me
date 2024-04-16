@@ -54,7 +54,7 @@ class TaskNotification extends LocalNotificationService {
       // before 30 minutes
       await LocalNotificationService.flutterLocalNotificationsPlugin
           .zonedSchedule(id, title, content,
-              scheduledTime.subtract(const Duration(minutes: 30)), taskDetails,
+              scheduledTime.subtract(const Duration(minutes: 15)), taskDetails,
               payload: ' Title : $title , Content : $content',
               uiLocalNotificationDateInterpretation:
                   UILocalNotificationDateInterpretation.absoluteTime);
@@ -89,10 +89,10 @@ class TaskNotification extends LocalNotificationService {
     if (scheduledTime.isAfter(currentTime)) {
       await LocalNotificationService.flutterLocalNotificationsPlugin
           .zonedSchedule(
-              id,
+          id,
               title,
               content,
-              scheduledTime.subtract(const Duration(hours: 1)),
+              scheduledTime.subtract(const Duration(minutes: 59)),
               notificationDetails,
               uiLocalNotificationDateInterpretation:
                   UILocalNotificationDateInterpretation.absoluteTime);
