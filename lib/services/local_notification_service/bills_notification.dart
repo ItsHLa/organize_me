@@ -9,16 +9,6 @@ class BillsNotification extends LocalNotificationService {
     LocalNotificationService.flutterLocalNotificationsPlugin.cancel(billId);
   }
 
-  static void showSimpleBill() async {
-    AndroidNotificationDetails billsAndroidNotificationDetails =
-        const AndroidNotificationDetails('bills_channel', 'Bills',
-            importance: Importance.max, priority: Priority.high);
-    NotificationDetails billsdetails =
-        NotificationDetails(android: billsAndroidNotificationDetails);
-    await LocalNotificationService.flutterLocalNotificationsPlugin
-        .show(1, 'Organize Me', 'لاتنسى دفع فواتيرك', billsdetails);
-  }
-
   static void showBillMonthlyNotification() async {
     AndroidNotificationDetails billsAndroidNotificationDetails =
         const AndroidNotificationDetails('bills_channel', 'Bills',
@@ -44,9 +34,8 @@ class BillsNotification extends LocalNotificationService {
     // so we added 7 days
     // everytime the work manager triggers it will add the 7 days
     if (scheduledTime.isBefore(currentTime)) {
-      scheduledTime = scheduledTime.add(const Duration(days: 7));
+      scheduledTime = scheduledTime.add(const Duration(days: 1));
     }
-    DateTime now = DateTime.now();
     await LocalNotificationService.flutterLocalNotificationsPlugin
         .zonedSchedule(
       2,
@@ -54,9 +43,9 @@ class BillsNotification extends LocalNotificationService {
       ' لا تنسى دفع فواتيرك الشهرية ',
       tz.TZDateTime(
         tz.local,
-        now.year,
-        now.month,
-        now.day,
+        currentTime.year,
+        currentTime.month,
+        currentTime.day,
         12,
         0,
       ),

@@ -13,6 +13,7 @@ class MyTimeLine extends StatelessWidget {
     required this.endTime,
     this.onPressedEdit,
     this.onPressedDelete,
+    this.onTap,
   });
 
   final String taskTitle;
@@ -21,6 +22,7 @@ class MyTimeLine extends StatelessWidget {
   final String endTime;
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +42,12 @@ class MyTimeLine extends StatelessWidget {
             ),
           ),
           endChild: TaskItem(
+            onTap: onTap,
             taskStartTime: startTime,
             taskEndTime: endTime,
             onPressedDelete: onPressedDelete,
             onPressedEdit: onPressedEdit,
             taskTitle: taskTitle,
-            taskContent: taskContent,
           ),
         ),
       ],

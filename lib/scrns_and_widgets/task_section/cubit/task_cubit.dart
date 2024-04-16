@@ -26,7 +26,14 @@ class TaskCubit extends Cubit<TaskState> {
         '${dateTime.day}/${dateTime.month}/${dateTime.year}',
       );
       tasks.add(Task.fromMap(task));
-      TaskNotification.showTaskNotification(
+      TaskNotification.showTaskNotificationBefore1hour(
+        id: task['id'],
+        title: title,
+        content: content,
+        taskTime: startTime,
+        dateTime: dateTime,
+      );
+      TaskNotification.showTaskNotificationBefore15minutes(
         id: task['id'],
         title: title,
         content: content,

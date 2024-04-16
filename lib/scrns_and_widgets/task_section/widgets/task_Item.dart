@@ -4,63 +4,26 @@ class TaskItem extends StatelessWidget {
   const TaskItem({
     super.key,
     required this.taskTitle,
-    required this.taskContent,
     required this.taskStartTime,
     required this.taskEndTime,
     this.onPressedEdit,
     this.onPressedDelete,
+    this.onTap,
   });
 
   final String taskTitle;
-  final String taskContent;
   final String taskStartTime;
   final String taskEndTime;
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      child: Column(
-        children: [
-          Expanded(
-            child: ExpansionTile(
-              subtitle: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white10),
-                child: Text('$taskStartTime - $taskEndTime'),
-              ),
-              shape: const StadiumBorder(),
-              title: Text(taskTitle),
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Text(taskContent),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Spacer(),
-                    IconButton(
-                      onPressed: onPressedEdit,
-                      icon: const Icon(Icons.edit),
-                    ),
-                    IconButton(
-                      onPressed: onPressedDelete,
-                      icon: const Icon(Icons.delete),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-        ],
-      ),
+    return ListTile(
+      onTap: onTap,
+      title: Text(taskTitle),
+      subtitle: Text('$taskStartTime - $taskEndTime'),
     );
   }
 }
