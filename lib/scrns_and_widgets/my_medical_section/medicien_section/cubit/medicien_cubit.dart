@@ -29,6 +29,11 @@ class MedicienCubit extends Cubit<MedicienState> {
     }
   }
 
+  @pragma('vm:entry-point')
+  static void myCallback({id, name}) {
+    MedicienNotification.showSimpleNatification(id: id, name: name);
+  }
+
   void editMed({
     required int id,
     required String editedname,
@@ -39,8 +44,6 @@ class MedicienCubit extends Cubit<MedicienState> {
       String shotTime = '${editedtimeOfshot.hour} : ${editedtimeOfshot.minute}';
       // editing info .......
       //////
-      //  MedicinesWorkManagerService().cancelTask('$id');
-      // MedicinesWorkManagerService().init(id, editedname, editedtimeOfshot, editedinterval);
 
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
@@ -77,7 +80,3 @@ class MedicienCubit extends Cubit<MedicienState> {
   }
 }
 
-@pragma('vm:entry-point')
-void myCallback({id, name}) {
-  MedicienNotification.showSimpleNatification(id: id, name: name);
-}
