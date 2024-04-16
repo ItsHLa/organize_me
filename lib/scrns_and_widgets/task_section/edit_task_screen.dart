@@ -30,9 +30,9 @@ class _EditTaskState extends State<EditTask> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<TaskCubit, TaskState>(
-      listener: (context, state) {
+      listener: (modalcontext, state) {
         if (state is AddTaskSuccess) {
-          Navigator.of(context).pop();
+          Navigator.of(modalcontext).pop();
         }
       },
       child: Padding(
@@ -50,10 +50,11 @@ class _EditTaskState extends State<EditTask> {
                 InputTask(
                   saveDate: () async {
                     date = (await showDatePicker(
-                      context: context,
-                      firstDate: DateTime(2024),
-                      lastDate: DateTime(3000),
-                    ));
+                          context: context,
+                          firstDate: DateTime(2024),
+                          lastDate: DateTime(3000),
+                        )) ??
+                        DateTime.now();
                     setState(() {
                       if (date?.day != null) {
                         dateTime = '${date?.day}/${date?.month}/${date?.year}';
@@ -69,9 +70,10 @@ class _EditTaskState extends State<EditTask> {
                   },
                   saveStartTime: () async {
                     editedStart = (await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    ));
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        )) ??
+                        TimeOfDay.now();
                     setState(() {
                       if (editedStart?.hour != null) {
                         editedStartTime =
@@ -80,10 +82,11 @@ class _EditTaskState extends State<EditTask> {
                     });
                   },
                   saveEndTime: () async {
-                    editedEnd = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    );
+                    editedEnd = (await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        )) ??
+                        TimeOfDay.now();
                     setState(() {
                       if (editedEnd?.hour != null) {
                         editedEndTime =
@@ -98,6 +101,7 @@ class _EditTaskState extends State<EditTask> {
                     onPressed: () {
                       taskKey.currentState!.save();
                       BlocProvider.of<TaskCubit>(context).editTask(
+                          context: context,
                           id: widget.task.id,
                           title: editedTaskTitle,
                           content: editedTaskContent,

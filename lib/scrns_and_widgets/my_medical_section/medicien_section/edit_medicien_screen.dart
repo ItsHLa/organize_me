@@ -63,12 +63,11 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
           onPressed: () {
             medKey.currentState?.save();
             BlocProvider.of<MedicienCubit>(context).editMed(
-              medId: widget.medId,
-              editedInterval: editedMedInterval,
-              editedName: editedMedName,
-              editedShotTime: time,
-            );
-            debugPrint('Editing Medicien');
+                id: widget.medId,
+                editedtimeOfshot: time!,
+                editedinterval: editedMedInterval,
+                editedname: editedMedName);
+            debugPrint('Editing Medicine');
           },
         ),
       ),

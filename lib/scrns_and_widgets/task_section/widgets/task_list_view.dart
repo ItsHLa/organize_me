@@ -29,7 +29,7 @@ class TaskListView extends StatelessWidget {
                           showModalBottomSheet(
                             isScrollControlled: true,
                             context: context,
-                            builder: (newcontext) =>
+                            builder: (modalcontext) =>
                                 BlocProvider<TaskCubit>.value(
                               value: BlocProvider.of(context),
                               child: EditTask(task: tasks[index]),

@@ -10,13 +10,11 @@ class TaskCubit extends Cubit<TaskState> {
 
   TaskCubit() : super(const TaskInitial(tasks: []));
 
-  void addTask(
-    String title,
-    String content,
-    DateTime dateTime,
-    TimeOfDay startTime,
-    TimeOfDay endTime,
-  ) async {
+  void addTask(String title,
+      String content,
+      DateTime dateTime,
+      TimeOfDay startTime,
+      TimeOfDay endTime,) async {
     try {
       Map task = await Task.addTask(
         title,
@@ -43,7 +41,7 @@ class TaskCubit extends Cubit<TaskState> {
     try {
       Navigator.of(context).pop();
       await Task.deleteTask(id).then(
-        (_) {
+            (_) {
           tasks.remove(tasks.singleWhere((task) => task.id == id));
         },
       );
@@ -61,10 +59,9 @@ class TaskCubit extends Cubit<TaskState> {
     required DateTime dateTime,
     required TimeOfDay startTime,
     required TimeOfDay endTime,
-  }) async {
+    required BuildContext context}) async {
     try {
-      await Task.editTask(
-          id,
+      await Task.editTask(id,
               newContent: content,
               newTitle: title,
               newEndTime: '${endTime.hour}:${endTime.minute}',
@@ -79,8 +76,8 @@ class TaskCubit extends Cubit<TaskState> {
       );
       TaskNotification.showTaskNotificationBefore15minutes(
         id: id,
-        title: title,
-        content: content,
+        title: tasks[id].title,
+        content: tasks[id].content,
         taskTime: startTime,
         dateTime: dateTime,
       );
@@ -94,7 +91,7 @@ class TaskCubit extends Cubit<TaskState> {
     emit(const LoadingTasks(tasks: []));
     try {
       await Task.getAllTasks().then(
-        (value) {
+            (value) {
           tasks = value;
           emit(TaskLoaded(tasks: tasks));
         },
