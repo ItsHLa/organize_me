@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/task_item.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../../constants.dart';
@@ -14,12 +13,14 @@ class MyTimeLine extends StatelessWidget {
     this.onPressedEdit,
     this.onPressedDelete,
     this.onTap,
+    required this.date,
   });
 
   final String taskTitle;
   final String taskContent;
   final String startTime;
   final String endTime;
+  final String date;
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
   final void Function()? onTap;
@@ -35,20 +36,21 @@ class MyTimeLine extends StatelessWidget {
           beforeLineStyle: const LineStyle(color: deepPurple),
           indicatorStyle: IndicatorStyle(
             width: 25,
-            color: deepPurple,
+            color: Colors.grey,
             iconStyle: IconStyle(
               color: Colors.white54,
               iconData: Icons.task_alt_outlined,
             ),
           ),
-          endChild: TaskItem(
-            onTap: onTap,
-            taskStartTime: startTime,
-            taskEndTime: endTime,
-            onPressedDelete: onPressedDelete,
-            onPressedEdit: onPressedEdit,
-            taskTitle: taskTitle,
-          ),
+          // endChild: //TaskItem(
+          //onTap: onTap,
+          // taskStartTime: startTime,
+          //taskEndTime: endTime,
+          //onPressedDelete: onPressedDelete,
+          //onPressedEdit: onPressedEdit,
+          // taskTitle: taskTitle,
+          // date : date
+          // ),
         ),
       ],
     );

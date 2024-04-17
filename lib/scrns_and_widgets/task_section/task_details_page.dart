@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 
 class TaskDetails extends StatelessWidget {
@@ -22,65 +23,57 @@ class TaskDetails extends StatelessWidget {
           TextButton(onPressed: onPressedDelete, child: const Text('حذف')),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(9.0),
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: BlocBuilder<TaskCubit, TaskState>(
-            builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Text(
-                          state.tasks[index].title,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w600),
-                        ),
-                        Text(state.tasks[index].startTime,
-                            style: const TextStyle(fontSize: 18)),
-                      ],
+      body: Container(
+        decoration: BoxDecoration(
+            color: Colors.cyanAccent, borderRadius: BorderRadius.circular(20)),
+        margin: const EdgeInsets.only(bottom: 50, top: 50, left: 8, right: 8),
+        padding: const EdgeInsets.all(15),
+        child: BlocBuilder<TaskCubit, TaskState>(
+          builder: (context, state) {
+            return Column(
+              children: [
+                ListTile(
+                  leading: taskPending,
+                  title: Text(
+                    state.tasks[index].title,
+                  ),
+                  // subtitle: Text('''${state.tasks[index].startTime} \n''',
+                  //   style: const TextStyle(fontSize: 15 )),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 155,
+                      child: TaskInfo(
+                          title: 'تاريخ البدء',
+                          text: state.tasks[index].startDate),
                     ),
-                  ),
-                  FontStyleDetailsPage(
-                      title: 'الحالة', text: state.tasks[index].status),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  FontStyleDetailsPage(
-                      title: 'التاريخ', text: state.tasks[index].startDate),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(7),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: Colors.black54)),
-                    child: const Text('الوصف',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600)),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Expanded(
-                    child: ListView(
-                      children: [
-                        Text(
-                          state.tasks[index].content,
-                          style: const TextStyle(fontSize: 18),
-                        )
-                      ],
+                    SizedBox(
+                      width: 155,
+                      child: TaskInfo(
+                          title: 'توقيت البدء',
+                          text: state.tasks[index].startTime),
                     ),
-                  )
-                ],
-              );
-            },
-          ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TaskInfo(title: 'الحالة', text: state.tasks[index].status),
+                const SizedBox(
+                  height: 5,
+                ),
+                TaskInfo(
+                  title: 'الوصف',
+                  text: state.tasks[index].content,
+                )
+              ],
+            );
+          },
         ),
       ),
     );
@@ -102,21 +95,37 @@ class FontStyleDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.all(7),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.black54)),
-          child: Text(title,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-        ),
+        Text(title,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
         const SizedBox(width: 10),
         Text(
           text,
           style: const TextStyle(fontSize: 16),
         ),
       ],
+    );
+  }
+}
+
+class TaskInfo extends StatelessWidget {
+  const TaskInfo({super.key, required this.text, required this.title});
+
+  final String text;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(title),
+      subtitle: Container(
+        padding: const EdgeInsets.all(7),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.black54)),
+        child: SingleChildScrollView(
+          child: Text(text, style: const TextStyle(fontSize: 15)),
+        ),
+      ),
     );
   }
 }

@@ -21,7 +21,10 @@ class MedicienCubit extends Cubit<MedicienState> {
       String shotTime = '${timeOfshot.hour} : ${timeOfshot.minute}';
       await Med.addMed(name, shotTime, interval).then((med) => meds.add(med));
       MedicineAlarm.showMedicineNotificationInterval(
-          interval: Duration(hours: interval), id: 1, callback: myCallback);
+          startTime: timeOfshot,
+          interval: Duration(hours: interval),
+          id: 1,
+          callback: myCallback);
 
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
@@ -32,6 +35,7 @@ class MedicienCubit extends Cubit<MedicienState> {
   @pragma('vm:entry-point')
   static void myCallback({id, name}) {
     MedicienNotification.showSimpleNatification(id: id, name: name);
+    print('alarm on');
   }
 
   void editMed({

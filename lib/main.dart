@@ -1,4 +1,3 @@
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
@@ -7,7 +6,6 @@ import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/services/local_notification_service/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
-import 'package:organize_me/services/work_manager_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +14,8 @@ void main() async {
   // example :
   await Future.wait([
     LocalNotificationService.initi(), // wait 3s
-    WorkManagerService().init(),
-    AndroidAlarmManager.initialize()
+    // WorkManagerService().init(),
+    // AndroidAlarmManager.initialize()
   ]); // wait 7s
   // then it will wait for 7s
   runApp(const MyApp());

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/models/task.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/time_line.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/widgets/task_Item.dart';
 
 import '../edit_task_screen.dart';
 import '../task_details_page.dart';
@@ -18,7 +18,8 @@ class TaskListView extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       itemCount: tasks.length,
       itemBuilder: (context, index) {
-        return MyTimeLine(
+        return TaskItem(
+          date: tasks[index].startDate,
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (newcontext) => BlocProvider<TaskCubit>.value(
@@ -43,10 +44,9 @@ class TaskListView extends StatelessWidget {
                       ),
                     )));
           },
-          startTime: tasks[index].startTime,
-          endTime: tasks[index].endTime,
+          taskStartTime: tasks[index].startTime,
+          taskEndTime: tasks[index].endTime,
           taskTitle: tasks[index].title,
-          taskContent: tasks[index].content,
         );
       },
     );
