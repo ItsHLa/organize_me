@@ -16,4 +16,40 @@ abstract class LocalNotificationService {
         onDidReceiveNotificationResponse: onTap,
         onDidReceiveBackgroundNotificationResponse: onTap);
   }
+
+  static showSimpleMedicineNotification({id, name}) {
+    AndroidNotificationDetails medicienAndroidNotificationDetails =
+        const AndroidNotificationDetails(
+      'medicien_channel',
+      'Mediciens',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+    NotificationDetails medicienDetails =
+        NotificationDetails(android: medicienAndroidNotificationDetails);
+    LocalNotificationService.flutterLocalNotificationsPlugin.show(
+      id,
+      'Organize Me',
+      'لا تنسى دواءك',
+      medicienDetails,
+    );
+  }
+
+  static showSimpleMonthlyBillNotification({id}) {
+    AndroidNotificationDetails billsAndroidNotificationDetails =
+        const AndroidNotificationDetails(
+      'bills_channel',
+      'bills',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+    NotificationDetails billsDetails =
+        NotificationDetails(android: billsAndroidNotificationDetails);
+    LocalNotificationService.flutterLocalNotificationsPlugin.show(
+      id,
+      'Organize Me',
+      'لا تنسى دفع فواتيرك',
+      billsDetails,
+    );
+  }
 }

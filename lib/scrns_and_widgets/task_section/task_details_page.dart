@@ -17,64 +17,51 @@ class TaskDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextButton(onPressed: onPressedEdit, child: const Text('تعديل')),
-          TextButton(onPressed: onPressedDelete, child: const Text('حذف')),
-        ],
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-            color: Colors.cyanAccent, borderRadius: BorderRadius.circular(20)),
-        margin: const EdgeInsets.only(bottom: 50, top: 50, left: 8, right: 8),
-        padding: const EdgeInsets.all(15),
-        child: BlocBuilder<TaskCubit, TaskState>(
-          builder: (context, state) {
-            return Column(
-              children: [
-                ListTile(
+      body: BlocBuilder<TaskCubit, TaskState>(
+        builder: (context, state) {
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
                   leading: taskPending,
                   title: Text(
                     state.tasks[index].title,
+                    style: const TextStyle(fontSize: 20),
+                  )),
+              Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: 170,
+                        child: TaskInfo(
+                            title: 'تاريخ البدء',
+                            text: state.tasks[index].startDate),
+                      ),
+                      SizedBox(
+                        width: 170,
+                        child: TaskInfo(
+                            title: 'توقيت البدء',
+                            text: state.tasks[index].startTime),
+                      ),
+                    ],
                   ),
-                  // subtitle: Text('''${state.tasks[index].startTime} \n''',
-                  //   style: const TextStyle(fontSize: 15 )),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      width: 155,
-                      child: TaskInfo(
-                          title: 'تاريخ البدء',
-                          text: state.tasks[index].startDate),
-                    ),
-                    SizedBox(
-                      width: 155,
-                      child: TaskInfo(
-                          title: 'توقيت البدء',
-                          text: state.tasks[index].startTime),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TaskInfo(title: 'الحالة', text: state.tasks[index].status),
-                const SizedBox(
-                  height: 5,
-                ),
-                TaskInfo(
-                  title: 'الوصف',
-                  text: state.tasks[index].content,
-                )
-              ],
-            );
-          },
-        ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TaskInfo(title: 'الحالة', text: state.tasks[index].status),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TaskInfo(
+                    title: 'الوصف',
+                    text: state.tasks[index].content,
+                  )
+                ],
+              )
+            ],
+          );
+        },
       ),
     );
   }
@@ -117,12 +104,12 @@ class TaskInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(title),
-      subtitle: Container(
-        padding: const EdgeInsets.all(7),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.black54)),
-        child: SingleChildScrollView(
+      subtitle: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(7),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.black54)),
           child: Text(text, style: const TextStyle(fontSize: 15)),
         ),
       ),

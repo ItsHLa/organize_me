@@ -26,8 +26,9 @@ class TelephonyService {
         if (message.address == 'SyriatelSEP') {
           debugPrint(message.body);
         }
-
-        //print('Received SMS : ${message.body.toString()}');
+        debugPrint('message that is not a bill');
+        debugPrint(message.address);
+        debugPrint(message.body);
 
         // we will pass the body of message here based on contact address
       },

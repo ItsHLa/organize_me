@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
-import 'package:organize_me/services/work_manager_service/medicien_work_manager.dart';
+import 'package:organize_me/services/local_notification_service/medicien_notification.dart';
 
-import '../../../../services/local_notification_service/medicien_notification.dart';
+import '../../../../services/work_manager_service/medicien_work_manager.dart';
 
 part 'medicien_state.dart';
 
@@ -15,27 +15,22 @@ class MedicienCubit extends Cubit<MedicienState> {
   void addMed(
     String name,
     TimeOfDay timeOfshot,
-    int interval,
-  ) async {
+    int interval,) async {
     try {
       String shotTime = '${timeOfshot.hour} : ${timeOfshot.minute}';
       await Med.addMed(name, shotTime, interval).then((med) => meds.add(med));
+
       MedicineAlarm.showMedicineNotificationInterval(
-          startTime: timeOfshot,
-          interval: Duration(hours: interval),
-          id: 1,
-          callback: myCallback);
+          interval: Duration(minutes: interval),
+          id: 10,
+          name: name,
+          callback: callback,
+          startTime: timeOfshot);
 
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
       emit(AddMedsFailed(meds: meds));
     }
-  }
-
-  @pragma('vm:entry-point')
-  static void myCallback({id, name}) {
-    MedicienNotification.showSimpleNatification(id: id, name: name);
-    print('alarm on');
   }
 
   void editMed({
@@ -58,11 +53,11 @@ class MedicienCubit extends Cubit<MedicienState> {
   void deleteMed(int medId) async {
     try {
       await Med.deleteMed(medId).then(
-        (_) => meds.remove(
+            (_) => meds.remove(
           meds.singleWhere((med) => med.id == medId),
         ),
       );
-      MedicienNotification.cancelMedicienNotification(medId);
+      // MedicienNotification.cancelMedicienNotification(medId);
       // pass the id of med
       emit(DeleteMedsSuccses(meds: meds));
     } catch (e) {
@@ -84,3 +79,8 @@ class MedicienCubit extends Cubit<MedicienState> {
   }
 }
 
+@pragma('vm:entry-point')
+void callback(int id) async {
+  MedicienNotification.showSimpleNotification(id: id);
+  debugPrint('alarm on ${TimeOfDay.now()}');
+}
