@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/models/task.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/task_Item.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/widgets/task_item.dart';
 
 import '../edit_task_screen.dart';
 import '../task_details_page.dart';

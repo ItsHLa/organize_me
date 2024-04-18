@@ -39,7 +39,7 @@ class DocsNumber extends StatelessWidget {
             onPressed: onPressedCall,
           ),
         ),
-        Divider()
+        const Divider(),
       ],
     );
   }

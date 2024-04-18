@@ -15,7 +15,8 @@ class MedicienCubit extends Cubit<MedicienState> {
   void addMed(
     String name,
     TimeOfDay timeOfshot,
-    int interval,) async {
+    int interval,
+  ) async {
     try {
       String shotTime = '${timeOfshot.hour} : ${timeOfshot.minute}';
       await Med.addMed(name, shotTime, interval).then((med) => meds.add(med));
@@ -40,7 +41,7 @@ class MedicienCubit extends Cubit<MedicienState> {
     required int editedinterval,
   }) {
     try {
-      String shotTime = '${editedtimeOfshot.hour} : ${editedtimeOfshot.minute}';
+      // String shotTime = '${editedtimeOfshot.hour} : ${editedtimeOfshot.minute}';
       // editing info .......
       //////
 
@@ -53,7 +54,7 @@ class MedicienCubit extends Cubit<MedicienState> {
   void deleteMed(int medId) async {
     try {
       await Med.deleteMed(medId).then(
-            (_) => meds.remove(
+        (_) => meds.remove(
           meds.singleWhere((med) => med.id == medId),
         ),
       );
