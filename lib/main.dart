@@ -1,11 +1,9 @@
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
-import 'package:organize_me/services/android_alarm_manager.dart';
 import 'package:organize_me/services/local_notification_service/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service/medicien_work_manager.dart';
@@ -17,8 +15,9 @@ void billCallBack(int id) {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Future.wait(
-      [LocalNotificationService.initi(), AndroidAlarmManager.initialize()]);
+  await Future.wait([
+    LocalNotificationService.initi(),
+  ]);
   runApp(const MyApp());
 }
 
@@ -57,10 +56,8 @@ class OrganizeMe extends StatefulWidget {
 class _OrganizeMeState extends State<OrganizeMe> {
   @override
   void initState() {
-    MyAlarm.showBillNotificationInterval(id: 0, callback: billCallBack);
     DatabaseHelper.intialDb();
     super.initState();
-    MedicineAlarm.askForAlarmPermission();
     TelephonyService.askForPermission();
     TelephonyService.listenForIncomingSms();
   }

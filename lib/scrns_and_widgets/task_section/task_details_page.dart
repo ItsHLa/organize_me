@@ -20,45 +20,55 @@ class TaskDetails extends StatelessWidget {
       body: BlocBuilder<TaskCubit, TaskState>(
         builder: (context, state) {
           return CustomScrollView(
-            slivers: [
+            slivers: <Widget>[
               SliverAppBar(
-                  leading: taskPending,
-                  title: Text(
-                    state.tasks[index].title,
-                    style: const TextStyle(fontSize: 20),
-                  )),
-              Column(
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(
-                        width: 170,
-                        child: TaskInfo(
-                            title: 'تاريخ البدء',
-                            text: state.tasks[index].startDate),
-                      ),
-                      SizedBox(
-                        width: 170,
-                        child: TaskInfo(
-                            title: 'توقيت البدء',
-                            text: state.tasks[index].startTime),
-                      ),
-                    ],
+                expandedHeight: 300,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Center(
+                    child: ListTile(
+                        leading: taskPending,
+                        title: Text(
+                          state.tasks[index].title,
+                          style: const TextStyle(fontSize: 20),
+                        )),
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TaskInfo(title: 'الحالة', text: state.tasks[index].status),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TaskInfo(
-                    title: 'الوصف',
-                    text: state.tasks[index].content,
-                  )
-                ],
-              )
+                ),
+              ),
+              SliverList(
+                  delegate: SliverChildListDelegate.fixed([
+                Column(
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          width: 170,
+                          child: TaskInfo(
+                              title: 'تاريخ البدء',
+                              text: state.tasks[index].startDate),
+                        ),
+                        SizedBox(
+                          width: 170,
+                          child: TaskInfo(
+                              title: 'توقيت البدء',
+                              text: state.tasks[index].startTime),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TaskInfo(title: 'الحالة', text: state.tasks[index].status),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TaskInfo(
+                      title: 'الوصف',
+                      text: state.tasks[index].content,
+                    )
+                  ],
+                ),
+              ]))
             ],
           );
         },

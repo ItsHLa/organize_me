@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
 import 'package:organize_me/services/local_notification_service/medicien_notification.dart';
 
-import '../../../../services/work_manager_service/medicien_work_manager.dart';
-
 part 'medicien_state.dart';
 
 class MedicienCubit extends Cubit<MedicienState> {
@@ -21,12 +19,6 @@ class MedicienCubit extends Cubit<MedicienState> {
       String shotTime = '${timeOfshot.hour} : ${timeOfshot.minute}';
       await Med.addMed(name, shotTime, interval).then((med) => meds.add(med));
 
-      MedicineAlarm.showMedicineNotificationInterval(
-          interval: Duration(hours: interval),
-          id: 10,
-          name: name,
-          callback: callback,
-          startTime: timeOfshot);
 
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
