@@ -6,12 +6,7 @@ import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/services/local_notification_service/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
-import 'package:organize_me/services/work_manager_service/medicien_work_manager.dart';
 
-@pragma('vm:entry-point')
-void billCallBack(int id) {
-  LocalNotificationService.showSimpleMonthlyBillNotification(id: id);
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
