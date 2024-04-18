@@ -87,11 +87,13 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void loadTasks() async {
+  void loadTasks(DateTime currentDate) async {
+    String date =
+        '${currentDate.day}/${currentDate.month}/${currentDate.year} ';
     emit(const LoadingTasks(tasks: []));
     try {
       await Task.getAllTasks().then(
-            (value) {
+        (value) {
           tasks = value;
           emit(TaskLoaded(tasks: tasks));
         },

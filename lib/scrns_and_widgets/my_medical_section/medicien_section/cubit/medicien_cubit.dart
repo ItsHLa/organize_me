@@ -22,7 +22,7 @@ class MedicienCubit extends Cubit<MedicienState> {
       await Med.addMed(name, shotTime, interval).then((med) => meds.add(med));
 
       MedicineAlarm.showMedicineNotificationInterval(
-          interval: Duration(minutes: interval),
+          interval: Duration(hours: interval),
           id: 10,
           name: name,
           callback: callback,

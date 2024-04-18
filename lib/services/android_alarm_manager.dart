@@ -7,7 +7,8 @@ class MyAlarm {
     required dynamic Function(int) callback,
   }) async {
     var currentDay = DateTime.now();
-    await AndroidAlarmManager.periodic(const Duration(days: 1), id, callback,
+    await AndroidAlarmManager.periodic(const Duration(days: 2), id, callback,
+        exact: true,
         allowWhileIdle: true,
         wakeup: true,
         rescheduleOnReboot: true,
@@ -24,6 +25,7 @@ class MyAlarm {
     await AndroidAlarmManager.periodic(interval, id, callback,
         allowWhileIdle: true,
         wakeup: true,
+        exact: true,
         rescheduleOnReboot: true,
         startAt: DateTime(currentDay.year, currentDay.month, currentDay.day,
             startTime.hour, startTime.minute));
