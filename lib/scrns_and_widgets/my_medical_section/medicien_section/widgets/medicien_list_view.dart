@@ -24,7 +24,7 @@ class MedsListView extends StatelessWidget {
               isScrollControlled: true,
               context: context,
               builder: (newcontext) => BlocProvider.value(
-                value: BlocProvider.of<MedicienCubit>(context),
+                value: BlocProvider.of<MedicineCubit>(context),
                 child: EditMedsScreen(
                   medId: meds[index].id,
                 ),
@@ -32,7 +32,7 @@ class MedsListView extends StatelessWidget {
             );
           },
           onPressedDelete: () {
-            BlocProvider.of<MedicienCubit>(context).deleteMed(meds[index].id);
+            BlocProvider.of<MedicineCubit>(context).deleteMed(meds[index].id);
           },
         );
       },

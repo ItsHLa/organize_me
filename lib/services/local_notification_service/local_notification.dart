@@ -1,7 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 abstract class LocalNotificationService {
-  // putting the set up
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -17,39 +16,41 @@ abstract class LocalNotificationService {
         onDidReceiveBackgroundNotificationResponse: onTap);
   }
 
-  static showSimpleMedicineNotification({id, name}) {
-    AndroidNotificationDetails medicienAndroidNotificationDetails =
+  static showSimpleBillNotification({id, name}) {
+    AndroidNotificationDetails billAndroidNotificationDetails =
         const AndroidNotificationDetails(
-      'medicien_channel',
-      'Mediciens',
+      'Bill_channel',
+      'Bills',
       importance: Importance.max,
       priority: Priority.high,
     );
-    NotificationDetails medicienDetails =
-        NotificationDetails(android: medicienAndroidNotificationDetails);
+    NotificationDetails billDetails =
+        NotificationDetails(android: billAndroidNotificationDetails);
     LocalNotificationService.flutterLocalNotificationsPlugin.show(
       id,
-      'Organize Me',
-      'لا تنسى دواءك',
-      medicienDetails,
+      name,
+      'لا تنسى فواتيرك الشهرية',
+      billDetails,
     );
   }
 
-  static showSimpleMonthlyBillNotification({id}) {
-    AndroidNotificationDetails billsAndroidNotificationDetails =
+  static showSimpleMedicineNotification({id, name}) {
+    AndroidNotificationDetails medicineAndroidNotificationDetails =
         const AndroidNotificationDetails(
-      'bills_channel',
-      'bills',
+      'medicine_channel',
+      'Medicines',
+      // visibility: NotificationVisibility.public,
       importance: Importance.max,
       priority: Priority.high,
     );
-    NotificationDetails billsDetails =
-        NotificationDetails(android: billsAndroidNotificationDetails);
+    NotificationDetails medicineDetails =
+        NotificationDetails(android: medicineAndroidNotificationDetails);
+
     LocalNotificationService.flutterLocalNotificationsPlugin.show(
       id,
-      'Organize Me',
-      'لا تنسى دفع فواتيرك',
-      billsDetails,
+      name,
+      'لا تنسى اخذ دواءك',
+      medicineDetails,
     );
   }
 }

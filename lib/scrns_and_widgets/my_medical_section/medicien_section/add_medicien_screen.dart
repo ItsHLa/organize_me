@@ -23,7 +23,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MedicienCubit, MedicienState>(
+    return BlocListener<MedicineCubit, MedicineState>(
       listener: (context, state) {
         if (state is AddMedSuccses) {
           Navigator.of(context).pop();
@@ -59,7 +59,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
           onPressed: () {
             if (InputText.validateField(medKey)) {
               medKey.currentState?.save();
-              BlocProvider.of<MedicienCubit>(context).addMed(
+              BlocProvider.of<MedicineCubit>(context).addMed(
                 medicienName,
                 time!,
                 interval,

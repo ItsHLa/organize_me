@@ -19,7 +19,7 @@ class MedsPage extends StatelessWidget {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            builder: (newcontext) => BlocProvider<MedicienCubit>.value(
+            builder: (newcontext) => BlocProvider<MedicineCubit>.value(
               value: BlocProvider.of(context),
               child: const AddMedsScreen(),
             ),

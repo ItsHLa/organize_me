@@ -1,37 +1,47 @@
-import 'package:organize_me/services/local_notification_service/bills_notification.dart';
 import 'package:workmanager/workmanager.dart';
 
+import 'local_notification_service/local_notification.dart';
+
 class WorkManagerService {
-  void registerMyBillNotification() async {
+  static void registerMyTask(
+      {required String uniqueTaskName,
+      required String taskName,
+      required Duration frequency,
+      required Duration initialDelay,
+      required int id,
+      required String title,
+      ExistingWorkPolicy? existingWorkPolicy}) async {
     await Workmanager().registerPeriodicTask(
-      'BillsNotification',
-      'show Bills notification',
-      frequency: const Duration(days: 1),
+      uniqueTaskName,
+      taskName,
+      inputData: {'id': id, 'title': title},
+      initialDelay: initialDelay,
+      existingWorkPolicy: existingWorkPolicy,
+      frequency: frequency,
     );
   }
 
   // init work manager service
   Future<void> init() async {
-    await Workmanager().initialize(workManagerBillNotification,
-        // the function that we want to be called  on background
-        isInDebugMode: true);
-    registerMyBillNotification(); // calling register method to register tasks that we want to be called in background
+    await Workmanager().initialize(callDispatcher, isInDebugMode: true);
   }
 
-  void cancelTask(String id) {
-    // cancel the task by its uniqeName
-    Workmanager().cancelByUniqueName(id);
+  static void cancelTask(String uniqueName) {
+    Workmanager().cancelByUniqueName(uniqueName);
   }
 }
 
-// this function needs to be out of class (Top level) or inside it (static) and return Future<bool>
-@pragma('vm_entry_point') // this notation is required
-void workManagerBillNotification() {
+@pragma('vm_entry_point')
+void callDispatcher() {
   Workmanager().executeTask((taskName, inputData) {
-    // here we put the code that needs to be executed in the background
-    BillsNotification.showBillMonthlyNotification();
-    //  BillsNotification.showSimpleBill();
-    return Future.value(true); //the return type
+    switch (taskName) {
+      case 'show medicine notification':
+        LocalNotificationService.showSimpleMedicineNotification(
+            id: inputData!['id'], name: inputData['title']);
+        break;
+      case 'show bill notification':
+        break;
+    }
+    return Future.value(true);
   });
 }
-

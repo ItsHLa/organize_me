@@ -25,7 +25,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MedicienCubit, MedicienState>(
+    return BlocListener<MedicineCubit, MedicineState>(
       listener: (context, state) {
         if (state is AddMedSuccses) {
           Navigator.of(context).pop();
@@ -62,11 +62,11 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
           ),
           onPressed: () {
             medKey.currentState?.save();
-            BlocProvider.of<MedicienCubit>(context).editMed(
+            BlocProvider.of<MedicineCubit>(context).editMed(
                 id: widget.medId,
-                editedtimeOfshot: time!,
-                editedinterval: editedMedInterval,
-                editedname: editedMedName);
+                editedTimeOfShot: time!,
+                editedInterval: editedMedInterval,
+                editedName: editedMedName);
             debugPrint('Editing Medicine');
           },
         ),

@@ -51,8 +51,8 @@ class _HomePageState extends State<HomePage> {
     const MyBills(),
     BlocProvider(
         create: (context) => DocsNumCubit(), child: const MedsAndDocs()),
-    BlocProvider<MedicienCubit>(
-      create: (context) => MedicienCubit(),
+    BlocProvider<MedicineCubit>(
+      create: (context) => MedicineCubit(),
       child: const MedsPage(),
     )
   ];
