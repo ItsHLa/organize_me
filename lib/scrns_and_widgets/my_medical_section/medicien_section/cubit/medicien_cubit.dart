@@ -60,8 +60,7 @@ class MedicineCubit extends Cubit<MedicineState> {
           meds.singleWhere((med) => med.id == medId),
         ),
       );
-      // MedicienNotification.cancelMedicienNotification(medId);
-      // pass the id of med
+      // WorkManagerService.cancelTask('medicine $id notification ');
       emit(DeleteMedsSuccses(meds: meds));
     } catch (e) {
       emit(DeleteMedsFailed(meds: meds));
