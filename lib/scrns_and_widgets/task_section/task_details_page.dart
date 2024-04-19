@@ -16,28 +16,32 @@ class TaskDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<TaskCubit, TaskState>(
-        builder: (context, state) {
-          return CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                expandedHeight: 300,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Center(
-                    child: ListTile(
-                        leading: taskPending,
-                        title: Text(
-                          state.tasks[index].title,
-                          style: const TextStyle(fontSize: 20),
-                        )),
-                  ),
-                ),
-              ),
-              SliverList(
-                  delegate: SliverChildListDelegate.fixed([
+    return BlocListener<TaskCubit, TaskState>(
+      listener: (context, state) {
+        if (state is AddTaskSuccess) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            TextButton(onPressed: onPressedEdit, child: const Text('تعديل')),
+            TextButton(onPressed: onPressedDelete, child: const Text('حذف')),
+          ],
+        ),
+        body: BlocBuilder<TaskCubit, TaskState>(
+          builder: (context, state) {
+            return Column(
+              children: <Widget>[
                 Column(
                   children: [
+                    Center(
+                        child: ListTile(
+                            leading: taskPending,
+                            title: Text(
+                              state.tasks[index].title,
+                              style: const TextStyle(fontSize: 20),
+                            ))),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -68,10 +72,10 @@ class TaskDetails extends StatelessWidget {
                     )
                   ],
                 ),
-              ]))
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

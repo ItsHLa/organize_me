@@ -52,14 +52,13 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void editTask({
-    required int id,
-    required String title,
-    required String content,
-    required DateTime dateTime,
-    required TimeOfDay startTime,
-    required TimeOfDay endTime,
-    required BuildContext context}) async {
+  void editTask(
+      {required int id,
+      required String title,
+      required String content,
+      required DateTime dateTime,
+      required TimeOfDay startTime,
+      required TimeOfDay endTime}) async {
     try {
       await Task.editTask(id,
               newContent: content,

@@ -16,7 +16,7 @@ abstract class LocalNotificationService {
         onDidReceiveBackgroundNotificationResponse: onTap);
   }
 
-  static showSimpleBillNotification({id, name}) {
+  static showSimpleBillNotification({id, name}) async {
     AndroidNotificationDetails billAndroidNotificationDetails =
         const AndroidNotificationDetails(
       'Bill_channel',
@@ -26,7 +26,7 @@ abstract class LocalNotificationService {
     );
     NotificationDetails billDetails =
         NotificationDetails(android: billAndroidNotificationDetails);
-    LocalNotificationService.flutterLocalNotificationsPlugin.show(
+    await LocalNotificationService.flutterLocalNotificationsPlugin.show(
       id,
       name,
       'لا تنسى فواتيرك الشهرية',
@@ -34,7 +34,7 @@ abstract class LocalNotificationService {
     );
   }
 
-  static showSimpleMedicineNotification({id, name}) {
+  static showSimpleMedicineNotification({id, name}) async {
     AndroidNotificationDetails medicineAndroidNotificationDetails =
         const AndroidNotificationDetails(
       'medicine_channel',
@@ -46,7 +46,7 @@ abstract class LocalNotificationService {
     NotificationDetails medicineDetails =
         NotificationDetails(android: medicineAndroidNotificationDetails);
 
-    LocalNotificationService.flutterLocalNotificationsPlugin.show(
+    await LocalNotificationService.flutterLocalNotificationsPlugin.show(
       id,
       name,
       'لا تنسى اخذ دواءك',

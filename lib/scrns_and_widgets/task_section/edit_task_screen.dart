@@ -101,7 +101,6 @@ class _EditTaskState extends State<EditTask> {
                     onPressed: () {
                       taskKey.currentState!.save();
                       BlocProvider.of<TaskCubit>(context).editTask(
-                          context: context,
                           id: widget.task.id,
                           title: editedTaskTitle,
                           content: editedTaskContent,
