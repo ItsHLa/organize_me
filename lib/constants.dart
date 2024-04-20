@@ -13,9 +13,10 @@ const String taskChannelName = 'taskChannelName';
 const String medicineChannelName = 'medicineChannelName';
 const String billChannelName = 'billChannelName';
 
-const Icon taskComplete = Icon(Icons.task_alt_outlined);
-const Icon taskOngoing = Icon(Icons.pause_circle_outline_outlined);
-const Icon taskPending = Icon(Icons.restart_alt);
+const Icon taskComplete = Icon(Icons.task_alt_outlined, color: Colors.grey);
+const Icon taskOngoing =
+    Icon(Icons.pause_circle_outline_outlined, color: Colors.grey);
+const Icon taskPending = Icon(Icons.restart_alt, color: Colors.grey);
 
 const Icon darkModeOn = Icon(Icons.wb_sunny_outlined);
 const Icon darkModeOff = Icon(Icons.nightlight_outlined);

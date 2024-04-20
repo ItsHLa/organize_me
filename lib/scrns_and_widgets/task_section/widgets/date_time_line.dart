@@ -1,5 +1,6 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 
 class MyDateTimeLine extends StatefulWidget {
   const MyDateTimeLine({super.key, this.onDateChange, required this.focusDate});
@@ -18,6 +19,7 @@ class _MyDateTimeLineState extends State<MyDateTimeLine> {
   @override
   Widget build(BuildContext context) {
     return EasyInfiniteDateTimeLine(
+      activeColor: deepPurple,
       firstDate: DateTime(2024),
       lastDate: DateTime(3000),
       focusDate: widget.focusDate,
