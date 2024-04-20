@@ -38,6 +38,7 @@ void callDispatcher() {
             id: inputData!['id'], name: inputData['title']);
         break;
       case 'show bill notification':
+        AppNotification.showSimpleBillNotification();
         break;
     }
     return Future.value(true);

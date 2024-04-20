@@ -21,71 +21,62 @@ class ContactDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DocsNumCubit, DocsNumState>(
-        listener: (dialogcontext, state) {
-          if (state is DeleteDocsNumSuccess) {
-            Navigator.of(dialogcontext).pop();
-          }
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            actions: [
-              TextButton(
-                onPressed: onPressedEdit,
-                child: const Text('تعديل'),
-              ),
-              TextButton(
-                onPressed: onPressedDelete,
-                child: const Text('حذف'),
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          TextButton(
+            onPressed: onPressedEdit,
+            child: const Text('تعديل'),
           ),
-          body: Column(
-            children: [
-              const IconForm(
-                child: Icon(
-                  Icons.person_2_outlined,
-                  size: 40,
-                ),
-              ),
-              ListTile(
-                  title: BlocBuilder<DocsNumCubit, DocsNumState>(
-                    buildWhen: (previous, current) =>
-                        current is AddDocsNumSuccess,
-                    builder: (context, state) {
-                      return Text(
-                        state.docsNumber[idx].name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25),
-                      );
-                    },
-                  ),
-                  subtitle: const Text('دكتور',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18))),
-              ListTile(
-                title: BlocBuilder<DocsNumCubit, DocsNumState>(
-                  buildWhen: (previous, current) =>
-                      current is AddDocsNumSuccess,
-                  builder: (context, state) {
-                    return Text(
-                      state.docsNumber[idx].phone,
-                      style: const TextStyle(fontSize: 20),
-                    );
-                  },
-                ),
-                trailing: IconButton(
-                  onPressed: () {
-                    BlocProvider.of<DocsNumCubit>(context).call();
-                  },
-                  icon: const Icon(Icons.call),
-                  color: green,
-                ),
-              )
-            ],
+          TextButton(
+            onPressed: onPressedDelete,
+            child: const Text('حذف'),
           ),
-        ));
+        ],
+      ),
+      body: Column(
+        children: [
+          const IconForm(
+            child: Icon(
+              Icons.person_2_outlined,
+              size: 40,
+            ),
+          ),
+          ListTile(
+              title: BlocBuilder<DocsNumCubit, DocsNumState>(
+                buildWhen: (previous, current) => current is AddDocsNumSuccess,
+                builder: (context, state) {
+                  return Text(
+                    state.docsNumber[idx].name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 25),
+                  );
+                },
+              ),
+              subtitle: const Text('دكتور',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
+          ListTile(
+            title: BlocBuilder<DocsNumCubit, DocsNumState>(
+              buildWhen: (previous, current) => current is AddDocsNumSuccess,
+              builder: (context, state) {
+                return Text(
+                  state.docsNumber[idx].phone,
+                  style: const TextStyle(fontSize: 20),
+                );
+              },
+            ),
+            trailing: IconButton(
+              onPressed: () {
+                BlocProvider.of<DocsNumCubit>(context).call();
+              },
+              icon: const Icon(Icons.call),
+              color: green,
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

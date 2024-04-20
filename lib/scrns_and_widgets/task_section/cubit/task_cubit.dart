@@ -43,7 +43,6 @@ class TaskCubit extends Cubit<TaskState> {
 
   void deleteTask(int id, BuildContext context) async {
     try {
-      Navigator.of(context).pop();
       await Task.deleteTask(id).then(
         (_) {
           tasks.remove(tasks.singleWhere((task) => task.id == id));
@@ -77,15 +76,21 @@ class TaskCubit extends Cubit<TaskState> {
           tasks[i] = Task.fromMap(newTask);
         },
       );
+      print('done editing ');
+      //  var titleNotification  = tasks[id].title;
+      //  var contentNotification  = tasks[id].content;
+      print('got old data ');
       AppNotification.showTaskNotificationBeforeXMinutes(
           id: id,
-          title: tasks[id].title,
-          content: tasks[id].content,
+          title: 'task edited',
+          content: 'task edited',
           taskTime: startTime,
           dateTime: dateTime,
           min: 15);
+      print('done  ');
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
+      print('error');
       emit(AddTaskFailed('تعذر تعديل المهمة', tasks: tasks));
     }
   }

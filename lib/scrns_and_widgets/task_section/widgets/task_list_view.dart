@@ -22,20 +22,17 @@ class TaskListView extends StatelessWidget {
           date: tasks[index].startDate,
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (newcontext) => BlocProvider<TaskCubit>.value(
+                builder: (newContext) => BlocProvider<TaskCubit>.value(
                       value: BlocProvider.of(context),
                       child: TaskDetails(
                         index: index,
                         onPressedEdit: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (modalcontext) =>
-                                BlocProvider<TaskCubit>.value(
-                              value: BlocProvider.of(context),
-                              child: EditTask(task: tasks[index]),
-                            ),
-                          );
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (newcontext) =>
+                                  BlocProvider<TaskCubit>.value(
+                                    value: BlocProvider.of(context),
+                                    child: EditTask(task: tasks[index]),
+                                  )));
                         },
                         onPressedDelete: () {
                           BlocProvider.of<TaskCubit>(context)

@@ -18,7 +18,7 @@ class TaskDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<TaskCubit, TaskState>(
       listener: (context, state) {
-        if (state is AddTaskSuccess) {
+        if (state is DeleteTaskSuccess) {
           Navigator.of(context).pop();
         }
       },
@@ -81,29 +81,23 @@ class TaskDetails extends StatelessWidget {
   }
 }
 
-class FontStyleDetailsPage extends StatelessWidget {
-  const FontStyleDetailsPage({
-    super.key,
-    required this.title,
-    required this.text,
-  });
-
-  final String title;
+class DateTime extends StatelessWidget {
+  const DateTime({super.key, required this.text, required this.title});
 
   final String text;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-        const SizedBox(width: 10),
-        Text(
-          text,
-          style: const TextStyle(fontSize: 16),
-        ),
-      ],
+    return ListTile(
+      title: Text(title),
+      subtitle: Container(
+        padding: const EdgeInsets.all(7),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.black54)),
+        child: Text(text, style: const TextStyle(fontSize: 15)),
+      ),
     );
   }
 }
