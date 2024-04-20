@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
@@ -23,112 +24,115 @@ class _TaskDetailsState extends State<TaskDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<TaskCubit, TaskState>(
-      listener: (context, state) {
-        if (state is DeleteTaskSuccess) {
-          Navigator.of(context).pop();
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            TextButton(
-                onPressed: widget.onPressedEdit, child: const Text('تعديل')),
-            TextButton(
-                onPressed: widget.onPressedDelete, child: const Text('حذف')),
-          ],
-        ),
-        body: BlocBuilder<TaskCubit, TaskState>(
-          builder: (context, state) {
-            return Container(
-              margin: const EdgeInsets.all(9),
-              decoration: BoxDecoration(
-                color: Colors.deepPurple.shade400,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                children: <Widget>[
-                  Column(
-                    children: [
-                      Center(
-                          child: ListTile(
-                              leading: taskPending,
-                              title: Text(
-                                state.tasks[widget.index].title,
-                                style: const TextStyle(
-                                    fontSize: 20, color: Colors.black),
-                              ))),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            width: 170,
-                            child: TaskInfo(
-                                title: 'تاريخ البدء',
-                                text: state.tasks[widget.index].startDate),
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          TextButton(
+              onPressed: widget.onPressedEdit, child: const Text('تعديل')),
+          TextButton(
+              onPressed: widget.onPressedDelete, child: const Text('حذف')),
+        ],
+      ),
+      body: BlocBuilder<TaskCubit, TaskState>(
+        builder: (context, state) {
+          if (state is DeleteTaskSuccess) {
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              Navigator.of(context).pop();
+            });
+            return const SizedBox();
+          }
+          return Container(
+            margin: const EdgeInsets.all(9),
+            decoration: BoxDecoration(
+              color: Colors.deepPurple.shade400,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              children: <Widget>[
+                Column(
+                  children: [
+                    Center(
+                      child: ListTile(
+                        leading: taskPending,
+                        title: Text(
+                          state.tasks[widget.index].title,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
                           ),
-                          SizedBox(
-                            width: 170,
-                            child: TaskInfo(
-                                title: 'توقيت البدء',
-                                text: state.tasks[widget.index].startTime),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          width: 170,
+                          child: TaskInfo(
+                            title: 'تاريخ البدء',
+                            text: state.tasks[widget.index].startDate,
                           ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      ListTile(
-                          title: const Text(
-                            'الحالة',
-                            style: TextStyle(color: Colors.black),
+                        ),
+                        SizedBox(
+                          width: 170,
+                          child: TaskInfo(
+                            title: 'توقيت البدء',
+                            text: state.tasks[widget.index].startTime,
                           ),
-                          subtitle: DropdownMenu(
-                            textStyle: const TextStyle(color: Colors.black),
-                            inputDecorationTheme: InputDecorationTheme(
-                                activeIndicatorBorder:
-                                    const BorderSide(color: Colors.black),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                )),
-                            initialSelection: 'لم يتم البدء بالمهمة',
-                            onSelected: (value) {
-                              setState(() {
-                                status = value!;
-                              });
-                            },
-                            controller: TextEditingController(text: status),
-                            dropdownMenuEntries: const [
-                              DropdownMenuEntry(
-                                  label: 'المهمة اكتملت',
-                                  value: 'المهمة اكتملت'),
-                              DropdownMenuEntry(
-                                  label: 'لم يتم البدء بالمهمة',
-                                  value: 'لم يتم البدء بالمهمة'),
-                              DropdownMenuEntry(
-                                  label: 'المهمة قيد التنفيذ',
-                                  value: ' المهمة قيد التنفيذ'),
-                            ],
-                          )),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      TaskInfo(
-                        title: 'الوصف',
-                        text: state.tasks[widget.index].content,
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    ListTile(
+                        title: const Text(
+                          'الحالة',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        subtitle: DropdownMenu(
+                          textStyle: const TextStyle(color: Colors.black),
+                          inputDecorationTheme: InputDecorationTheme(
+                              activeIndicatorBorder:
+                                  const BorderSide(color: Colors.black),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              )),
+                          initialSelection: 'لم يتم البدء بالمهمة',
+                          onSelected: (value) {
+                            setState(() {
+                              status = value!;
+                            });
+                          },
+                          controller: TextEditingController(text: status),
+                          dropdownMenuEntries: const [
+                            DropdownMenuEntry(
+                                label: 'المهمة اكتملت', value: 'المهمة اكتملت'),
+                            DropdownMenuEntry(
+                                label: 'لم يتم البدء بالمهمة',
+                                value: 'لم يتم البدء بالمهمة'),
+                            DropdownMenuEntry(
+                                label: 'المهمة قيد التنفيذ',
+                                value: ' المهمة قيد التنفيذ'),
+                          ],
+                        )),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TaskInfo(
+                      title: 'الوصف',
+                      text: state.tasks[widget.index].content,
+                    )
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 }
-
 
 class TaskInfo extends StatelessWidget {
   const TaskInfo({super.key, required this.text, required this.title});

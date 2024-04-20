@@ -10,9 +10,8 @@ import 'package:organize_me/services/work_manager_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Future.wait([
-    LocalNotificationService.initi(),
-    WorkManagerService().init()]);
+  await Future.wait(
+      [LocalNotificationService.initi(), WorkManagerService().init()]);
   runApp(const MyApp());
 }
 
@@ -24,7 +23,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -52,9 +50,9 @@ class _OrganizeMeState extends State<OrganizeMe> {
   @override
   void initState() {
     DatabaseHelper.intialDb();
-    super.initState();
     TelephonyService.askForPermission();
     TelephonyService.listenForIncomingSms();
+    super.initState();
   }
 
   @override
@@ -68,7 +66,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
               darkTheme: ThemeData(brightness: Brightness.dark),
               theme: ThemeData(
                 brightness:
-                state is DarkModeOn ? Brightness.dark : Brightness.light,
+                    state is DarkModeOn ? Brightness.dark : Brightness.light,
               ),
               home: const HomePage());
         },

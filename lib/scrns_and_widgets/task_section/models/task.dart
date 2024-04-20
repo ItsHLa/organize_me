@@ -128,13 +128,13 @@ class Task {
     return task[0];
   }
 
-  static Future<List<Task>> getAllTasks() async {
+  static Future<List<Task>> getTasksByDate(String date) async {
     Database? mydb = await DatabaseHelper.db;
-    List<Map> tasksMap = await mydb!.rawQuery(
-      """
-        SELECT * FROM tasks
-      """,
-    );
+    List<Map> tasksMap = await mydb!.rawQuery("""
+        SELECT * FROM tasks WHERE start_date = ?;
+      """, [
+      date,
+    ]);
     List<Task> tasks = [];
     for (Map task in tasksMap) {
       tasks.add(fromMap(task));

@@ -18,7 +18,8 @@ class TaskCubit extends Cubit<TaskState> {
     String content,
     DateTime dateTime,
     TimeOfDay startTime,
-      TimeOfDay endTime,) async {
+    TimeOfDay endTime,
+  ) async {
     try {
       Map task = await Task.addTask(
         title,
@@ -85,17 +86,15 @@ class TaskCubit extends Cubit<TaskState> {
           min: 15);
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
-      print('error');
       emit(AddTaskFailed('تعذر تعديل المهمة', tasks: tasks));
     }
   }
 
   void loadTasks(DateTime currentDate) async {
-    //   String date =
-    //      '${currentDate.day}/${currentDate.month}/${currentDate.year} ';
+    String date = '${currentDate.day}/${currentDate.month}/${currentDate.year}';
     emit(const LoadingTasks(tasks: []));
     try {
-      await Task.getAllTasks().then(
+      await Task.getTasksByDate(date).then(
         (value) {
           tasks = value;
           emit(TaskLoaded(tasks: tasks));

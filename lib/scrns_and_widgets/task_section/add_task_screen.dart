@@ -82,9 +82,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     BlocProvider.of<TaskCubit>(context).addTask(
                       taskTitle,
                       taskContent,
-                      date!,
-                      start!,
-                      end!,
+                      date,
+                      start,
+                      end,
                     );
                   } else {
                     autoValidated = AutovalidateMode.always;
