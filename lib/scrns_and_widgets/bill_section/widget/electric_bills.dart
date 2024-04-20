@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
 
-import '../../icon_form.dart';
 import 'my_row.dart';
 
 class ElectricBills extends StatelessWidget {
@@ -14,14 +13,17 @@ class ElectricBills extends StatelessWidget {
           padding: EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Center(
-                child: IconForm(
-                  child: electricBill,
-                ),
-              ),
               ListTile(
                 title: Row(
-                  children: [Text('9/4/2024'), Spacer(), Text('0998898')],
+                  children: [
+                    electricBill,
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('9/4/2024'),
+                    Spacer(),
+                    Text('0998898')
+                  ],
                 ),
                 subtitle: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -15,9 +15,7 @@ class MyRow extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         const Text('  : '),
-        const SizedBox(
-          width: 20,
-        ),
+        const Spacer(),
         Text(value),
       ],
     );

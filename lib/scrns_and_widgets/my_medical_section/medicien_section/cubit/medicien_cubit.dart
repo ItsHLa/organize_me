@@ -7,7 +7,7 @@ part 'medicien_state.dart';
 
 class MedicineCubit extends Cubit<MedicineState> {
   List<Med> meds = [];
-  int id = 1;
+  int id = 0;
 
   MedicineCubit() : super(const MedInitial(meds: []));
 
@@ -19,10 +19,10 @@ class MedicineCubit extends Cubit<MedicineState> {
     try {
       String shotTime = '${timeOfShot.hour} : ${timeOfShot.minute}';
       await Med.addMed(name, shotTime, interval).then((med) => meds.add(med));
-
+      debugPrint(timeOfDayToDuration(timeOfShot).toString());
       WorkManagerService.registerMyTask(
-        uniqueTaskName: 'medicine $id notification ',
-        taskName: 'show medicine notification $id',
+        uniqueTaskName: 'medicine $id notification',
+        taskName: 'show medicine notification',
         frequency: Duration(hours: interval),
         title: name,
         id: id,
@@ -43,7 +43,7 @@ class MedicineCubit extends Cubit<MedicineState> {
     required int editedInterval,
   }) {
     try {
-      // String shotTime = '${editedtimeOfshot.hour} : ${editedtimeOfshot.minute}';
+      // String shotTime = '${editedTimeOfShot.hour} : ${editedTimeOfShot.minute}';
       // editing info .......
       //////
 
@@ -60,7 +60,7 @@ class MedicineCubit extends Cubit<MedicineState> {
           meds.singleWhere((med) => med.id == medId),
         ),
       );
-      // WorkManagerService.cancelTask('medicine $id notification ');
+      WorkManagerService.cancelTask('medicine $medId notification ');
       emit(DeleteMedsSuccses(meds: meds));
     } catch (e) {
       emit(DeleteMedsFailed(meds: meds));
