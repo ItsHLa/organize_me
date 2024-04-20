@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/scrns_and_widgets/icon_form.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
 
 class MedItem extends StatelessWidget {
@@ -33,9 +32,7 @@ class MedItem extends StatelessWidget {
               ),
               title: Row(
                 children: [
-                  const IconForm(
-                    child: Icon(Icons.medication),
-                  ),
+                  const Icon(Icons.medication),
                   const Spacer(),
                   Text(med.name),
                 ],

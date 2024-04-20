@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
       deepPurple,
     ),
     TabItem(Icons.phone, "اطباء", deepPurple),
-    TabItem(Icons.medication, "ادوية", deepPurple),
+    TabItem(Icons.medical_information_outlined, "ادوية", deepPurple),
   ]);
 
   int pageIndex = 0;
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'OrganizeMe',
+            'Hi , there!',
             style: TextStyle(color: deepPurple),
           ),
           actions: [
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
             const IconButton(
               onPressed: null,
               icon: Icon(
-                Icons.energy_savings_leaf_outlined,
+                Icons.dashboard_customize_outlined,
               ),
             )
           ],

@@ -29,7 +29,7 @@ class BillsListView extends StatelessWidget {
             case ' telecom ':
               return const ElectricBills();
             default:
-              return const TelecomBills();
+              return const WaterBills();
           }
         });
   }
