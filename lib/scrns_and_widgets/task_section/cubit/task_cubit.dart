@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/models/task.dart';
-import 'package:organize_me/services/local_notification_service/task_notification.dart';
+import 'package:organize_me/services/app_notification.dart';
+
+import '../../../services/local_notification.dart';
 
 part 'task_state.dart';
 
@@ -10,10 +13,11 @@ class TaskCubit extends Cubit<TaskState> {
 
   TaskCubit() : super(const TaskInitial(tasks: []));
 
-  void addTask(String title,
-      String content,
-      DateTime dateTime,
-      TimeOfDay startTime,
+  void addTask(
+    String title,
+    String content,
+    DateTime dateTime,
+    TimeOfDay startTime,
       TimeOfDay endTime,) async {
     try {
       Map task = await Task.addTask(
@@ -24,13 +28,13 @@ class TaskCubit extends Cubit<TaskState> {
         '${dateTime.day}/${dateTime.month}/${dateTime.year}',
       );
       tasks.add(Task.fromMap(task));
-      TaskNotification.showTaskNotificationBefore15minutes(
-        id: task['id'],
-        title: title,
-        content: content,
-        taskTime: startTime,
-        dateTime: dateTime,
-      );
+      AppNotification.showTaskNotificationBeforeXMinutes(
+          id: task['id'],
+          title: title,
+          content: content,
+          taskTime: startTime,
+          dateTime: dateTime,
+          min: 15);
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر اضافة المهمة', tasks: tasks));
@@ -41,11 +45,11 @@ class TaskCubit extends Cubit<TaskState> {
     try {
       Navigator.of(context).pop();
       await Task.deleteTask(id).then(
-            (_) {
+        (_) {
           tasks.remove(tasks.singleWhere((task) => task.id == id));
         },
       );
-      TaskNotification.cancelTaskNotification(id);
+      LocalNotificationService.cancelNotification(id: id, tag: taskTag);
       emit(DeleteTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(DeleteTaskFailed('تعذر حذف المهمة', tasks: tasks));
@@ -73,13 +77,13 @@ class TaskCubit extends Cubit<TaskState> {
           tasks[i] = Task.fromMap(newTask);
         },
       );
-      TaskNotification.showTaskNotificationBefore15minutes(
-        id: id,
-        title: tasks[id].title,
-        content: tasks[id].content,
-        taskTime: startTime,
-        dateTime: dateTime,
-      );
+      AppNotification.showTaskNotificationBeforeXMinutes(
+          id: id,
+          title: tasks[id].title,
+          content: tasks[id].content,
+          taskTime: startTime,
+          dateTime: dateTime,
+          min: 15);
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر تعديل المهمة', tasks: tasks));
@@ -87,8 +91,8 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   void loadTasks(DateTime currentDate) async {
-    String date =
-        '${currentDate.day}/${currentDate.month}/${currentDate.year} ';
+    //   String date =
+    //      '${currentDate.day}/${currentDate.month}/${currentDate.year} ';
     emit(const LoadingTasks(tasks: []));
     try {
       await Task.getAllTasks().then(

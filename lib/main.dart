@@ -4,7 +4,7 @@ import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
-import 'package:organize_me/services/local_notification_service/local_notification.dart';
+import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service.dart';
 

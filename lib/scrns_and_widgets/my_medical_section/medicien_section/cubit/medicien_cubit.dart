@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
 import 'package:organize_me/services/work_manager_service.dart';
+import 'package:workmanager/workmanager.dart';
 
 part 'medicien_state.dart';
 
@@ -46,7 +47,14 @@ class MedicineCubit extends Cubit<MedicineState> {
       // String shotTime = '${editedTimeOfShot.hour} : ${editedTimeOfShot.minute}';
       // editing info .......
       //////
-
+      WorkManagerService.registerMyTask(
+          uniqueTaskName: 'medicine $id notification',
+          taskName: 'show medicine notification',
+          frequency: Duration(hours: editedInterval),
+          title: editedName,
+          id: id,
+          initialDelay: timeOfDayToDuration(editedTimeOfShot),
+          existingWorkPolicy: ExistingWorkPolicy.update);
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
       emit(AddMedsFailed(meds: meds));

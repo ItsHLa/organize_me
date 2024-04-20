@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 
+// notifications constants
+const taskTag = 'taskTag';
+const medicineTag = 'medicineTag';
+const billTag = 'billTag';
+
+const String billChannel = 'bill_channel';
+const String medicineChannel = 'medicine_channel';
+const String taskChannel = 'task_channel';
+
+const String taskChannelName = 'taskChannelName';
+const String medicineChannelName = 'medicineChannelName';
+const String billChannelName = 'billChannelName';
+
 const Icon taskComplete = Icon(Icons.task_alt_outlined);
 const Icon taskOngoing = Icon(Icons.pause_circle_outline_outlined);
 const Icon taskPending = Icon(Icons.restart_alt);

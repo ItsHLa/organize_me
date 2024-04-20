@@ -1,16 +1,14 @@
+import 'package:organize_me/services/app_notification.dart';
 import 'package:workmanager/workmanager.dart';
 
-import 'local_notification_service/local_notification.dart';
-
 class WorkManagerService {
-  static void registerMyTask(
-      {required String uniqueTaskName,
-      required String taskName,
-      required Duration frequency,
-      required Duration initialDelay,
-      required int id,
-      required String title,
-      ExistingWorkPolicy? existingWorkPolicy}) async {
+  static void registerMyTask({required String uniqueTaskName,
+    required String taskName,
+    required Duration frequency,
+    required Duration initialDelay,
+    required int id,
+    required String title,
+    ExistingWorkPolicy? existingWorkPolicy}) async {
     await Workmanager().registerPeriodicTask(
       uniqueTaskName,
       taskName,
@@ -36,7 +34,7 @@ void callDispatcher() {
   Workmanager().executeTask((taskName, inputData) {
     switch (taskName) {
       case 'show medicine notification':
-        LocalNotificationService.showSimpleMedicineNotification(
+        AppNotification.showSimpleMedicineNotification(
             id: inputData!['id'], name: inputData['title']);
         break;
       case 'show bill notification':
