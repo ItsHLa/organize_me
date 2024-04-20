@@ -18,26 +18,18 @@ class InputDataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: 8.0,
-        left: 8,
-        right: 8,
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            child,
-            const SizedBox(
-              height: 10,
-            ),
-            MyButton(onPressed: onPressed, icon: icon, label: label),
-            const SizedBox(
-              height: 15,
-            ),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          child,
+          const SizedBox(
+            height: 10,
+          ),
+          MyButton(onPressed: onPressed, icon: icon, label: label),
+          const SizedBox(
+            height: 15,
+          ),
+        ],
       ),
     );
   }

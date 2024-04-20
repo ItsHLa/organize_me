@@ -29,7 +29,6 @@ class _EditTaskState extends State<EditTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
         body: BlocListener<TaskCubit, TaskState>(
             listener: (newcontext, state) {
               if (state is AddTaskSuccess) {
@@ -52,10 +51,10 @@ class _EditTaskState extends State<EditTask> {
                 },
                 date: TextEditingController(text: dateTime),
                 saveTitle: (value) {
-                  editedTaskTitle = value ?? '';
+                  editedTaskTitle = value ?? widget.task.title;
                 },
                 saveContent: (value) {
-                  editedTaskContent = value ?? '';
+                  editedTaskContent = value ?? widget.task.content;
                 },
                 saveStartTime: () async {
                   editedStart = (await showTimePicker(
