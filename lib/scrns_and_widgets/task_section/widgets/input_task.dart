@@ -30,7 +30,7 @@ class InputTask extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(
-          height: 30,
+          height: 40,
         ),
         InputText(hint: 'اسم المهمة', save: saveTitle),
         const SizedBox(

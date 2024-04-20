@@ -19,6 +19,12 @@ class InputDataPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: EdgeInsets.only(
+        top: 8.0,
+        left: 8,
+        right: 8,
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Column(
         children: [
           child,
