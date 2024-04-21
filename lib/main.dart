@@ -8,6 +8,8 @@ import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service.dart';
 
+import 'customize_app_cubit/customize_cubit.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait(
@@ -68,7 +70,10 @@ class _OrganizeMeState extends State<OrganizeMe> {
                 brightness:
                     state is DarkModeOn ? Brightness.dark : Brightness.light,
               ),
-              home: const HomePage());
+              home: BlocProvider<CustomizeCubit>(
+                create: (context) => CustomizeCubit(),
+                child: const HomePage(),
+              ));
         },
       ),
     );

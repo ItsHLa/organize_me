@@ -39,7 +39,7 @@ class TaskDetails extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.all(9),
             decoration: BoxDecoration(
-              color: Colors.deepPurple.shade400,
+              color: Colors.deepPurple.shade300,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Column(

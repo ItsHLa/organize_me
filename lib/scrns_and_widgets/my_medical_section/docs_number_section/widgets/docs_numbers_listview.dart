@@ -28,6 +28,7 @@ class DocsNumbersListView extends StatelessWidget {
                         onPressedDelete: () {
                           BlocProvider.of<DocsNumCubit>(context)
                               .deletePhoneNumber(contacts[index].id);
+                          Navigator.of(context).pop();
                         },
                         onPressedEdit: () {
                           showModalBottomSheet(

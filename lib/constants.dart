@@ -1,4 +1,14 @@
+import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/bills_view.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/doctors_numbers.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/meds_page.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 
 // notifications constants
 const taskTag = 'taskTag';
@@ -12,6 +22,43 @@ const String taskChannel = 'task_channel';
 const String taskChannelName = 'taskChannelName';
 const String medicineChannelName = 'medicineChannelName';
 const String billChannelName = 'billChannelName';
+
+// tab and pages of app
+TabItem taskTab = TabItem(
+  Icons.task_alt_outlined,
+  "مهام",
+  deepPurple,
+);
+TabItem notesTab = TabItem(
+  Icons.note_alt,
+  " مفكرة",
+  deepPurple,
+);
+TabItem billsTab = TabItem(
+  Icons.payments,
+  "فواتير",
+  deepPurple,
+);
+
+TabItem medsTab =
+    TabItem(Icons.medical_information_outlined, "ادوية", deepPurple);
+
+TabItem docsNumTab = TabItem(Icons.phone, "اطباء", deepPurple);
+
+Widget taskPage = BlocProvider<TaskCubit>(
+    create: (context) => TaskCubit(), child: const DayCalendar());
+
+Widget notesPage = const NoteView();
+
+Widget docsNumPage = BlocProvider(
+    create: (context) => DocsNumCubit(), child: const MedsAndDocs());
+
+Widget medsPage = BlocProvider<MedicineCubit>(
+  create: (context) => MedicineCubit(),
+  child: const MedsPage(),
+);
+
+Widget billsPage = const MyBills();
 
 const Icon taskComplete = Icon(Icons.task_alt_outlined, color: Colors.grey);
 const Icon taskOngoing =
