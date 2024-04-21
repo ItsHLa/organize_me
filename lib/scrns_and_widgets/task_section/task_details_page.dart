@@ -4,33 +4,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 
-class TaskDetails extends StatefulWidget {
+class TaskDetails extends StatelessWidget {
   const TaskDetails(
       {super.key,
       this.onPressedEdit,
       this.onPressedDelete,
-      required this.index});
+      required this.index,
+      required this.onSelected,
+      required this.initialSelection});
 
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
+  final void Function(String?)? onSelected;
+  final String? initialSelection;
   final int index;
-
-  @override
-  State<TaskDetails> createState() => _TaskDetailsState();
-}
-
-class _TaskDetailsState extends State<TaskDetails> {
-  String status = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          TextButton(
-              onPressed: widget.onPressedEdit, child: const Text('تعديل')),
-          TextButton(
-              onPressed: widget.onPressedDelete, child: const Text('حذف')),
+          TextButton(onPressed: onPressedEdit, child: const Text('تعديل')),
+          TextButton(onPressed: onPressedDelete, child: const Text('حذف')),
         ],
       ),
       body: BlocBuilder<TaskCubit, TaskState>(
@@ -55,7 +50,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                       child: ListTile(
                         leading: taskPending,
                         title: Text(
-                          state.tasks[widget.index].title,
+                          state.tasks[index].title,
                           style: const TextStyle(
                             fontSize: 20,
                             color: Colors.black,
@@ -70,14 +65,14 @@ class _TaskDetailsState extends State<TaskDetails> {
                           width: 170,
                           child: TaskInfo(
                             title: 'تاريخ البدء',
-                            text: state.tasks[widget.index].startDate,
+                            text: state.tasks[index].startDate,
                           ),
                         ),
                         SizedBox(
                           width: 170,
                           child: TaskInfo(
                             title: 'توقيت البدء',
-                            text: state.tasks[widget.index].startTime,
+                            text: state.tasks[index].startTime,
                           ),
                         ),
                       ],
@@ -99,12 +94,9 @@ class _TaskDetailsState extends State<TaskDetails> {
                                 borderRadius: BorderRadius.circular(16),
                               )),
                           initialSelection: 'لم يتم البدء بالمهمة',
-                          onSelected: (value) {
-                            setState(() {
-                              status = value!;
-                            });
-                          },
-                          controller: TextEditingController(text: status),
+                          onSelected: onSelected,
+                          controller:
+                              TextEditingController(text: initialSelection),
                           dropdownMenuEntries: const [
                             DropdownMenuEntry(
                                 label: 'المهمة اكتملت', value: 'المهمة اكتملت'),
@@ -121,7 +113,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                     ),
                     TaskInfo(
                       title: 'الوصف',
-                      text: state.tasks[widget.index].content,
+                      text: state.tasks[index].content,
                     )
                   ],
                 ),

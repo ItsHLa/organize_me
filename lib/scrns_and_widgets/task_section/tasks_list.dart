@@ -16,7 +16,7 @@ class _TasksState extends State<Tasks> {
 
   @override
   Widget build(BuildContext context) {
-   // BlocProvider.of<TaskCubit>(context).loadTasks();
+    BlocProvider.of<TaskCubit>(context).loadTasks(focusDate);
     return Column(
       children: [
         MyDateTimeLine(
@@ -24,7 +24,6 @@ class _TasksState extends State<Tasks> {
             setState(() {
               focusDate = selectedDate;
             });
-            BlocProvider.of<TaskCubit>(context).loadTasks(focusDate);
           },
           focusDate: focusDate,
         ),
