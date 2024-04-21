@@ -37,9 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   int pageIndex = 0;
   bool taskAndNotes = true;
-
   bool bills = true;
-
   bool numAndMeds = true;
 
   final CircularBottomNavigationController _navigationController =
@@ -71,41 +69,53 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => SimpleDialog(
-                        children: [
-                          SwitchListTile(
-                            title: const Text('مهام و مفكرة'),
-                            //  selected: taskAndNotes,
-                            value: taskAndNotes,
-                            onChanged: (value) {
-                              setState(() {
-                                taskAndNotes = value;
-                              });
-                            },
-                          ),
-                          SwitchListTile(
-                            title: const Text('فواتير'),
-                            value: bills,
-                            onChanged: (value) {
-                              bills = value;
-                            },
-                          ),
-                          SwitchListTile(
-                            title: const Text('ارقام الاطباء و ادويتي'),
-                            value: numAndMeds,
-                            onChanged: (value) {
-                              setState(() {
-                                numAndMeds = value;
-                              });
-                            },
-                          ),
-                        ],
+                      builder: (newcontext) =>
+                          BlocProvider<CustomizeCubit>.value(
+                        value: BlocProvider.of(context),
+                        child: SimpleDialog(
+                          children: [
+                            SwitchListTile(
+                              title: const Text('مهام و مفكرة'),
+                              //  selected: taskAndNotes,
+                              value: taskAndNotes,
+                              onChanged: (value) {
+                                setState(() {
+                                  taskAndNotes = value;
+                                });
+                              },
+                            ),
+                            SwitchListTile(
+                              title: const Text('فواتير'),
+                              value: bills,
+                              onChanged: (value) {
+                                bills = value;
+                              },
+                            ),
+                            SwitchListTile(
+                              title: const Text('ارقام الاطباء و ادويتي'),
+                              value: numAndMeds,
+                              onChanged: (value) {
+                                setState(() {
+                                  numAndMeds = value;
+                                });
+                              },
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  BlocProvider.of<CustomizeCubit>(context)
+                                      .customize(
+                                          tasksAndNotes: taskAndNotes,
+                                          bills: bills,
+                                          docsAndNumber: numAndMeds);
+                                  if (state is Customize) {
+                                    Navigator.of(newcontext).pop();
+                                  }
+                                },
+                                child: const Text(' موافق'))
+                          ],
+                        ),
                       ),
                     );
-                    BlocProvider.of<CustomizeCubit>(context).customize(
-                        tasksAndNotes: taskAndNotes,
-                        bills: bills,
-                        docsAndNumber: numAndMeds);
                   },
                   icon: const Icon(
                     Icons.dashboard_customize_outlined,
