@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/water_bill.dart';
 import 'package:telephony/telephony.dart';
 
 class TelephonyService {
@@ -44,29 +47,13 @@ void onBackgroundMessage(SmsMessage message) async {
 
 void compareBill({required String smsMessage}) {
   if (waterRegex.hasMatch(smsMessage)) {
-    Match? match = waterRegex.firstMatch(smsMessage);
-    if (match != null) {
-      for (String k in telecomRegexGroups.keys) {
-        debugPrint('$k: ${match.group(telecomRegexGroups[k]!)}');
-      }
-    }
-  }
-
-  if (telecomRegex.hasMatch(smsMessage)) {
-    Match? match = telecomRegex.firstMatch(smsMessage);
-    if (match != null) {
-      for (String k in telecomRegexGroups.keys) {
-        debugPrint('$k: ${match.group(telecomRegexGroups[k]!)}');
-      }
-    }
-  }
-
-  if (electricRegex.hasMatch(smsMessage)) {
-    Match? match = electricRegex.firstMatch(smsMessage);
-    if (match != null) {
-      for (String k in telecomRegexGroups.keys) {
-        debugPrint('$k: ${match.group(telecomRegexGroups[k]!)}');
-      }
-    }
+    Match match = waterRegex.firstMatch(smsMessage)!;
+    WaterBill.addWaBill(match);
+  } else if (telecomRegex.hasMatch(smsMessage)) {
+    Match match = telecomRegex.firstMatch(smsMessage)!;
+    TelecomBill.addTelBill(match);
+  } else if (electricRegex.hasMatch(smsMessage)) {
+    Match match = electricRegex.firstMatch(smsMessage)!;
+    ElectricBill.addElBill(match);
   }
 }

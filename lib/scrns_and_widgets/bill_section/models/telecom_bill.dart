@@ -1,3 +1,4 @@
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -31,14 +32,26 @@ class TelecomBill {
   }
 
   static Future<Map> addTelBill(
-    double paymentAmount,
-    double commissionAmount,
-    String invoiceNumber,
-    String date,
-    String phoneNumberEmail,
-    String operationNumber,
+    Match match,
   ) async {
     Database? mydb = await DatabaseHelper.db;
+
+    double paymentAmount =
+        double.parse(match.group(telecomRegexGroups['payment amount']!)!);
+
+    double commissionAmount =
+        double.parse(match.group(telecomRegexGroups['commission amount']!)!);
+
+    String operationNumber =
+        match.group(telecomRegexGroups['operation number']!)!;
+
+    String phoneNumberEmail =
+        match.group(telecomRegexGroups['phone number/email']!)!;
+
+    String invoiceNumber = match.group(telecomRegexGroups['invoice number']!)!;
+
+    String date = match.group(telecomRegexGroups['date']!)!;
+
     int billId = await mydb!.rawInsert(
       """
         INSERT OR IGNORE INTO telecom_bills(
