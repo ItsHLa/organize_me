@@ -44,14 +44,29 @@ void onBackgroundMessage(SmsMessage message) async {
 
 void compareBill({required String smsMessage}) {
   if (waterRegex.hasMatch(smsMessage)) {
-    debugPrint('${waterRegexGroups}');
+    Match? match = waterRegex.firstMatch(smsMessage);
+    if (match != null) {
+      for (String k in telecomRegexGroups.keys) {
+        debugPrint('$k: ${match.group(telecomRegexGroups[k]!)}');
+      }
+    }
   }
 
   if (telecomRegex.hasMatch(smsMessage)) {
-    debugPrint('${telecomRegexGroups}');
+    Match? match = telecomRegex.firstMatch(smsMessage);
+    if (match != null) {
+      for (String k in telecomRegexGroups.keys) {
+        debugPrint('$k: ${match.group(telecomRegexGroups[k]!)}');
+      }
+    }
   }
 
   if (electricRegex.hasMatch(smsMessage)) {
-    debugPrint('${electricRegexGroups}');
+    Match? match = electricRegex.firstMatch(smsMessage);
+    if (match != null) {
+      for (String k in telecomRegexGroups.keys) {
+        debugPrint('$k: ${match.group(telecomRegexGroups[k]!)}');
+      }
+    }
   }
 }
