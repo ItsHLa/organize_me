@@ -39,7 +39,7 @@ class TaskDetails extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.all(9),
             decoration: BoxDecoration(
-              color: Colors.deepPurple.shade300,
+              color: softPurple,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Column(
@@ -91,6 +91,7 @@ class TaskDetails extends StatelessWidget {
                               activeIndicatorBorder:
                                   const BorderSide(color: Colors.black),
                               border: OutlineInputBorder(
+                                borderSide: BorderSide(color: black),
                                 borderRadius: BorderRadius.circular(16),
                               )),
                           initialSelection: 'لم يتم البدء بالمهمة',
@@ -99,11 +100,15 @@ class TaskDetails extends StatelessWidget {
                               TextEditingController(text: initialSelection),
                           dropdownMenuEntries: const [
                             DropdownMenuEntry(
-                                label: 'المهمة اكتملت', value: 'المهمة اكتملت'),
+                                leadingIcon: taskComplete,
+                                label: 'المهمة اكتملت',
+                                value: 'المهمة اكتملت'),
                             DropdownMenuEntry(
+                                leadingIcon: taskPending,
                                 label: 'لم يتم البدء بالمهمة',
                                 value: 'لم يتم البدء بالمهمة'),
                             DropdownMenuEntry(
+                                leadingIcon: taskOngoing,
                                 label: 'المهمة قيد التنفيذ',
                                 value: ' المهمة قيد التنفيذ'),
                           ],
@@ -141,7 +146,7 @@ class TaskInfo extends StatelessWidget {
           padding: const EdgeInsets.all(7),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.grey)),
+              border: Border.all(color: black)),
           child: Text(text,
               style: const TextStyle(fontSize: 15, color: Colors.black)),
         ),

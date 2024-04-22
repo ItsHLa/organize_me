@@ -26,7 +26,7 @@ class MedsListView extends StatelessWidget {
               builder: (newcontext) => BlocProvider.value(
                 value: BlocProvider.of<MedicineCubit>(context),
                 child: EditMedsScreen(
-                  medId: meds[index].id,
+                  med: meds[index],
                 ),
               ),
             );

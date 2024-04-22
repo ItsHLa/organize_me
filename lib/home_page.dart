@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                             SwitchListTile(
                               title: const Text('مهام و مفكرة'),
                               //  selected: taskAndNotes,
-                              value: taskAndNotes,
+                              value: state.taskNotes,
                               onChanged: (value) {
                                 setState(() {
                                   taskAndNotes = value;
@@ -86,14 +86,14 @@ class _HomePageState extends State<HomePage> {
                             ),
                             SwitchListTile(
                               title: const Text('فواتير'),
-                              value: bills,
+                              value: state.bill,
                               onChanged: (value) {
                                 bills = value;
                               },
                             ),
                             SwitchListTile(
                               title: const Text('ارقام الاطباء و ادويتي'),
-                              value: numAndMeds,
+                              value: state.numMeds,
                               onChanged: (value) {
                                 setState(() {
                                   numAndMeds = value;

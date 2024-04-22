@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 import 'package:telephony/telephony.dart';
 
 class TelephonyService {
@@ -10,21 +11,14 @@ class TelephonyService {
     return await telephony.requestPhoneAndSmsPermissions;
   }
 
-  static getInboxSms() async {
-    List sms = await telephony.getInboxSms();
-    for (int i = 0; i < sms.length; i++) {
-      if (sms[i].address == 'SyriatelSEP') {
-        debugPrint(sms[i].body);
-      }
-    }
-  }
-
   static void listenForIncomingSms() {
     telephony.listenIncomingSms(
-      listenInBackground: false,
+      onBackgroundMessage: onBackgroundMessage,
+      listenInBackground: true,
       onNewMessage: (SmsMessage message) {
         if (message.address == 'SyriatelSEP') {
           debugPrint(message.body);
+          compareBill(smsMessage: message.body!);
         }
         debugPrint('message that is not a bill');
         debugPrint(message.address);
@@ -38,5 +32,26 @@ class TelephonyService {
 
 void onBackgroundMessage(SmsMessage message) async {
 // same code  for listener ...
-  debugPrint("Received SMS on background: ${message.body}");
+
+  if (message.address == 'SyriatelSEP') {
+    debugPrint(message.body);
+    compareBill(smsMessage: message.body!);
+  }
+  debugPrint('message that is not a bill');
+  debugPrint(message.address);
+  debugPrint(message.body);
+}
+
+void compareBill({required String smsMessage}) {
+  if (waterRegex.hasMatch(smsMessage)) {
+    debugPrint('${waterRegexGroups}');
+  }
+
+  if (telecomRegex.hasMatch(smsMessage)) {
+    debugPrint('${telecomRegexGroups}');
+  }
+
+  if (electricRegex.hasMatch(smsMessage)) {
+    debugPrint('${electricRegexGroups}');
+  }
 }

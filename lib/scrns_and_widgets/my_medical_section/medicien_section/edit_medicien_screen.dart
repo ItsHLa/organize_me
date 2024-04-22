@@ -4,11 +4,12 @@ import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_sectio
 
 import '../../add_data_page.dart';
 import 'cubit/medicien_cubit.dart';
+import 'models/med.dart';
 
 class EditMedsScreen extends StatefulWidget {
-  const EditMedsScreen({super.key, required this.medId});
+  const EditMedsScreen({super.key, required this.med});
 
-  final int medId;
+  final Med med;
 
   @override
   State<EditMedsScreen> createState() => _EditMedsScreenState();
@@ -32,7 +33,6 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
         }
       },
       child: Form(
-        autovalidateMode: autoValidate,
         key: medKey,
         child: InputDataPage(
           icon: Icons.add,
@@ -41,12 +41,13 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
             shotTime: TextEditingController(text: editedShotTime),
             saveMedName: (value) {
               setState(() {
-                editedMedName = value ?? '';
+                editedMedName = value ?? widget.med.name;
               });
             },
             saveMedInterval: (value) {
               setState(() {
-                editedMedInterval = int.parse(value!.isNotEmpty ? value : '0');
+                editedMedInterval = int.parse(
+                    value!.isNotEmpty ? value : widget.med.interval.toString());
               });
             },
             saveMedShotTime: () async {
@@ -63,7 +64,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
           onPressed: () {
             medKey.currentState?.save();
             BlocProvider.of<MedicineCubit>(context).editMed(
-                id: widget.medId,
+                id: widget.med.id,
                 editedTimeOfShot: time!,
                 editedInterval: editedMedInterval,
                 editedName: editedMedName);

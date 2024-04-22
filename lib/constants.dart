@@ -63,7 +63,7 @@ Widget billsPage = const MyBills();
 const Icon taskComplete = Icon(Icons.task_alt_outlined, color: Colors.grey);
 const Icon taskOngoing =
     Icon(Icons.pause_circle_outline_outlined, color: Colors.grey);
-const Icon taskPending = Icon(Icons.restart_alt, color: Colors.grey);
+const Icon taskPending = Icon(Icons.not_started_outlined, color: Colors.grey);
 
 const Icon darkModeOn = Icon(Icons.wb_sunny_outlined);
 const Icon darkModeOff = Icon(Icons.nightlight_outlined);
@@ -80,7 +80,10 @@ const Icon telecomBill = Icon(
   color: Color.fromRGBO(109, 124, 65, 1),
 );
 
-const Color deepPurple = Colors.deepPurple;
+const Color deepPurple = Color(0xFF7469B6);
+const Color softPurple = Color(0xFF8E7AB5);
+const Color black = Color(0xFF222831);
+const Color darktheme = Color(0xFF222831);
 
 // const Color appcolor = Color.fromRGBO(109, 128, 160,1);
 const Color blue = Color.fromRGBO(7, 144, 166, 1);

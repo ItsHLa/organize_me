@@ -1,8 +1,23 @@
 part of 'customize_cubit.dart';
 
 @immutable
-sealed class CustomizeState {}
+sealed class CustomizeState {
+  final bool taskNotes;
 
-final class CustomizeInitial extends CustomizeState {}
+  final bool bill;
 
-final class Customize extends CustomizeState {}
+  final bool numMeds;
+
+  const CustomizeState(
+      {required this.taskNotes, required this.bill, required this.numMeds});
+}
+
+final class CustomizeInitial extends CustomizeState {
+  CustomizeInitial(
+      {required super.taskNotes, required super.bill, required super.numMeds});
+}
+
+final class Customize extends CustomizeState {
+  Customize(
+      {required super.taskNotes, required super.bill, required super.numMeds});
+}

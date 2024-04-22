@@ -45,8 +45,9 @@ class MedicineCubit extends Cubit<MedicineState> {
   }) {
     try {
       // String shotTime = '${editedTimeOfShot.hour} : ${editedTimeOfShot.minute}';
-      // editing info .......
-      //////
+      print(editedName);
+      print(editedInterval);
+      print(editedTimeOfShot);
       WorkManagerService.registerMyTask(
           uniqueTaskName: 'medicine $id notification',
           taskName: 'show medicine notification',
@@ -79,10 +80,11 @@ class MedicineCubit extends Cubit<MedicineState> {
     emit(LoadMeds(meds: meds));
     try {
       await Med.getAllMeds().then(
-        (meds) {
-          emit(MedsLoaded(meds: meds));
+        (value) {
+          meds = value;
         },
       );
+      emit(MedsLoaded(meds: meds));
     } catch (e) {
       emit(MedsLoaded(meds: meds));
     }

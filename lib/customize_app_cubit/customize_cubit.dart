@@ -8,7 +8,11 @@ import '../constants.dart';
 part 'customize_state.dart';
 
 class CustomizeCubit extends Cubit<CustomizeState> {
-  CustomizeCubit() : super(CustomizeInitial());
+  CustomizeCubit()
+      : super(CustomizeInitial(taskNotes: true, bill: true, numMeds: true));
+  bool taskNotes = true;
+  bool bill = true;
+  bool numMeds = true;
 
   //List pages = [];
   List<TabItem> tabsItem = [taskTab, notesTab, billsTab, docsNumTab, medsTab];
@@ -36,6 +40,7 @@ class CustomizeCubit extends Cubit<CustomizeState> {
   }
 
   void taskAndNotes({required bool tasksAndNotes}) {
+    taskNotes = tasksAndNotes;
     if (!tasksAndNotes) {
       removeFromList(element: taskPage, list: pages);
       removeFromList(element: notesPage, list: pages);
@@ -49,7 +54,8 @@ class CustomizeCubit extends Cubit<CustomizeState> {
     }
   }
 
-  void bill({required bool bills}) {
+  void billPage({required bool bills}) {
+    bill = bills;
     if (!bills) {
       removeFromList(element: billsPage, list: pages);
       removeFromList(element: billsTab, list: tabsItem);
@@ -59,7 +65,8 @@ class CustomizeCubit extends Cubit<CustomizeState> {
     }
   }
 
-  void docsAndMeds({required bool docsAndNumber}) {
+  void docsAndMedsPage({required bool docsAndNumber}) {
+    numMeds = docsAndNumber;
     if (!docsAndNumber) {
       removeFromList(element: docsNumPage, list: pages);
       removeFromList(element: docsNumTab, list: tabsItem);
@@ -78,8 +85,8 @@ class CustomizeCubit extends Cubit<CustomizeState> {
       required bool bills,
       required bool docsAndNumber}) {
     taskAndNotes(tasksAndNotes: tasksAndNotes);
-    bill(bills: bills);
-    docsAndMeds(docsAndNumber: docsAndNumber);
-    emit(Customize());
+    billPage(bills: bills);
+    docsAndMedsPage(docsAndNumber: docsAndNumber);
+    emit(Customize(taskNotes: taskNotes, bill: bill, numMeds: numMeds));
   }
 }
