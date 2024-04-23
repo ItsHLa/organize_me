@@ -9,10 +9,29 @@ part 'customize_state.dart';
 
 class CustomizeCubit extends Cubit<CustomizeState> {
   CustomizeCubit()
-      : super(CustomizeInitial(taskNotes: true, bill: true, numMeds: true));
+      : super(const CustomizeInitial(
+            taskNotes: true, bill: true, numMeds: true, darkMode: true));
   bool taskNotes = true;
   bool bill = true;
   bool numMeds = true;
+  bool darkMode = false;
+
+  void darkModeIsOn() {
+    darkMode = !darkMode;
+    if (darkMode) {
+      emit(CustomizeDarkModeOn(
+          darkMode: darkMode,
+          taskNotes: taskNotes,
+          bill: bill,
+          numMeds: numMeds));
+    } else {
+      emit(CustomizeDarkModeOff(
+          darkMode: darkMode,
+          taskNotes: taskNotes,
+          bill: bill,
+          numMeds: numMeds));
+    }
+  }
 
   //List pages = [];
   List<TabItem> tabsItem = [taskTab, notesTab, billsTab, docsNumTab, medsTab];
@@ -87,6 +106,10 @@ class CustomizeCubit extends Cubit<CustomizeState> {
     taskAndNotes(tasksAndNotes: tasksAndNotes);
     billPage(bills: bills);
     docsAndMedsPage(docsAndNumber: docsAndNumber);
-    emit(Customize(taskNotes: taskNotes, bill: bill, numMeds: numMeds));
+    emit(CustomizeBottomNavigationBar(
+        taskNotes: taskNotes,
+        bill: bill,
+        numMeds: numMeds,
+        darkMode: darkMode));
   }
 }

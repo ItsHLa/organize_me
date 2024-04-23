@@ -83,7 +83,7 @@ const Icon telecomBill = Icon(
 const Color deepPurple = Color(0xFF7469B6);
 const Color softPurple = Color(0xFF8E7AB5);
 const Color black = Color(0xFF222831);
-const Color darktheme = Color(0xFF222831);
+const Color darkTheme = Color(0xFF121212);
 
 // const Color appcolor = Color.fromRGBO(109, 128, 160,1);
 const Color blue = Color.fromRGBO(7, 144, 166, 1);

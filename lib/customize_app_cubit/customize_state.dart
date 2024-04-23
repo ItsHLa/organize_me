@@ -8,16 +8,48 @@ sealed class CustomizeState {
 
   final bool numMeds;
 
-  const CustomizeState(
-      {required this.taskNotes, required this.bill, required this.numMeds});
+  final bool darkMode;
+
+  const CustomizeState({
+    required this.taskNotes,
+    required this.bill,
+    required this.numMeds,
+    required this.darkMode,
+  });
 }
 
 final class CustomizeInitial extends CustomizeState {
-  CustomizeInitial(
-      {required super.taskNotes, required super.bill, required super.numMeds});
+  const CustomizeInitial({
+    required super.taskNotes,
+    required super.bill,
+    required super.numMeds,
+    required super.darkMode,
+  });
 }
 
-final class Customize extends CustomizeState {
-  Customize(
-      {required super.taskNotes, required super.bill, required super.numMeds});
+final class CustomizeBottomNavigationBar extends CustomizeState {
+  const CustomizeBottomNavigationBar({
+    required super.taskNotes,
+    required super.bill,
+    required super.numMeds,
+    required super.darkMode,
+  });
+}
+
+final class CustomizeDarkModeOn extends CustomizeState {
+  const CustomizeDarkModeOn({
+    required super.taskNotes,
+    required super.bill,
+    required super.numMeds,
+    required super.darkMode,
+  });
+}
+
+final class CustomizeDarkModeOff extends CustomizeState {
+  const CustomizeDarkModeOff({
+    required super.taskNotes,
+    required super.bill,
+    required super.numMeds,
+    required super.darkMode,
+  });
 }

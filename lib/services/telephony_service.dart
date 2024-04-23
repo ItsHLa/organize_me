@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
@@ -23,9 +22,6 @@ class TelephonyService {
           debugPrint(message.body);
           compareBill(smsMessage: message.body!);
         }
-        debugPrint('message that is not a bill');
-        debugPrint(message.address);
-        debugPrint(message.body);
 
         // we will pass the body of message here based on contact address
       },

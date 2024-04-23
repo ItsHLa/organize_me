@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'constants.dart';
 import 'customize_app_cubit/customize_cubit.dart';
-import 'dark_mode_cubit/dark_mode_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,13 +54,13 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: deepPurple),
               ),
               actions: [
-                BlocBuilder<DarkModeCubit, DarkModeState>(
+                BlocBuilder<CustomizeCubit, CustomizeState>(
                   builder: (context, state) {
                     return IconButton(
                       onPressed: () {
-                        BlocProvider.of<DarkModeCubit>(context).darkModeIsOn();
+                        BlocProvider.of<CustomizeCubit>(context).darkModeIsOn();
                       },
-                      icon: state.icon,
+                      icon: state.darkMode! ? darkModeOn : darkModeOff,
                     );
                   },
                 ),
@@ -70,14 +69,14 @@ class _HomePageState extends State<HomePage> {
                     showDialog(
                       context: context,
                       builder: (newcontext) =>
-                          BlocProvider<CustomizeCubit>.value(
+                      BlocProvider<CustomizeCubit>.value(
                         value: BlocProvider.of(context),
                         child: SimpleDialog(
                           children: [
                             SwitchListTile(
                               title: const Text('مهام و مفكرة'),
                               //  selected: taskAndNotes,
-                              value: state.taskNotes,
+                              value: state.taskNotes!,
                               onChanged: (value) {
                                 setState(() {
                                   taskAndNotes = value;
@@ -86,14 +85,14 @@ class _HomePageState extends State<HomePage> {
                             ),
                             SwitchListTile(
                               title: const Text('فواتير'),
-                              value: state.bill,
+                              value: state.bill!,
                               onChanged: (value) {
                                 bills = value;
                               },
                             ),
                             SwitchListTile(
                               title: const Text('ارقام الاطباء و ادويتي'),
-                              value: state.numMeds,
+                              value: state.numMeds!,
                               onChanged: (value) {
                                 setState(() {
                                   numAndMeds = value;
@@ -107,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                                           tasksAndNotes: taskAndNotes,
                                           bills: bills,
                                           docsAndNumber: numAndMeds);
-                                  if (state is Customize) {
+                                  if (state is CustomizeBottomNavigationBar) {
                                     Navigator.of(newcontext).pop();
                                   }
                                 },
@@ -125,7 +124,7 @@ class _HomePageState extends State<HomePage> {
             ),
             bottomNavigationBar: CircularBottomNavigation(
               barBackgroundColor:
-                  state is DarkModeOn ? Colors.black87 : Colors.white,
+                  state is CustomizeDarkModeOn ? black : Colors.white,
               circleSize: 40,
               iconsSize: 20,
               controller: _navigationController,

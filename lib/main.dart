@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
@@ -59,21 +58,19 @@ class _OrganizeMeState extends State<OrganizeMe> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<DarkModeCubit>(
-      create: (context) => DarkModeCubit(),
-      child: BlocBuilder<DarkModeCubit, DarkModeState>(
+    return BlocProvider<CustomizeCubit>(
+      create: (context) => CustomizeCubit(),
+      child: BlocBuilder<CustomizeCubit, CustomizeState>(
         builder: (context, state) {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
               darkTheme: ThemeData(brightness: Brightness.dark),
               theme: ThemeData(
-                brightness:
-                    state is DarkModeOn ? Brightness.dark : Brightness.light,
+                brightness: state is CustomizeDarkModeOn
+                    ? Brightness.dark
+                    : Brightness.light,
               ),
-              home: BlocProvider<CustomizeCubit>(
-                create: (context) => CustomizeCubit(),
-                child: const HomePage(),
-              ));
+              home: const HomePage());
         },
       ),
     );
