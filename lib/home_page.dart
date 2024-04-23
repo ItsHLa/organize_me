@@ -1,7 +1,7 @@
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
-import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/settings.dart';
 
 import 'constants.dart';
 import 'customize_app_cubit/customize_cubit.dart';
@@ -14,25 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<TabItem> tabItems = List.of([
-    TabItem(
-      Icons.task_alt_outlined,
-      "مهام",
-      deepPurple,
-    ),
-    TabItem(
-      Icons.note_alt,
-      " مفكرة",
-      deepPurple,
-    ),
-    TabItem(
-      Icons.payments,
-      "فواتير",
-      deepPurple,
-    ),
-    TabItem(Icons.phone, "اطباء", deepPurple),
-    TabItem(Icons.medical_information_outlined, "ادوية", deepPurple),
-  ]);
 
   int pageIndex = 0;
   bool taskAndNotes = true;
@@ -48,83 +29,26 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<CustomizeCubit, CustomizeState>(
       builder: (context, state) {
         return Scaffold(
+            endDrawer: Settings(),
+            //drawer: Settings(),
             appBar: AppBar(
               title: const Text(
                 'Hi , there!',
                 style: TextStyle(color: deepPurple),
               ),
               actions: [
-                BlocBuilder<CustomizeCubit, CustomizeState>(
-                  builder: (context, state) {
-                    return IconButton(
+                Builder(builder: (context) {
+                  return IconButton(
                       onPressed: () {
-                        BlocProvider.of<CustomizeCubit>(context).darkModeIsOn();
+                        Scaffold.of(context).openEndDrawer();
                       },
-                      icon: state.darkMode! ? darkModeOn : darkModeOff,
-                    );
-                  },
-                ),
-                IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (newcontext) =>
-                      BlocProvider<CustomizeCubit>.value(
-                        value: BlocProvider.of(context),
-                        child: SimpleDialog(
-                          children: [
-                            SwitchListTile(
-                              title: const Text('مهام و مفكرة'),
-                              //  selected: taskAndNotes,
-                              value: state.taskNotes!,
-                              onChanged: (value) {
-                                setState(() {
-                                  taskAndNotes = value;
-                                });
-                              },
-                            ),
-                            SwitchListTile(
-                              title: const Text('فواتير'),
-                              value: state.bill!,
-                              onChanged: (value) {
-                                bills = value;
-                              },
-                            ),
-                            SwitchListTile(
-                              title: const Text('ارقام الاطباء و ادويتي'),
-                              value: state.numMeds!,
-                              onChanged: (value) {
-                                setState(() {
-                                  numAndMeds = value;
-                                });
-                              },
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  BlocProvider.of<CustomizeCubit>(context)
-                                      .customize(
-                                          tasksAndNotes: taskAndNotes,
-                                          bills: bills,
-                                          docsAndNumber: numAndMeds);
-                                  if (state is CustomizeBottomNavigationBar) {
-                                    Navigator.of(newcontext).pop();
-                                  }
-                                },
-                                child: const Text(' موافق'))
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.dashboard_customize_outlined,
-                  ),
-                )
+                      icon: const Icon(Icons.settings));
+                }),
               ],
             ),
             bottomNavigationBar: CircularBottomNavigation(
               barBackgroundColor:
-                  state is CustomizeDarkModeOn ? black : Colors.white,
+              state is CustomizeDarkModeOn ? black : Colors.white,
               circleSize: 40,
               iconsSize: 20,
               controller: _navigationController,

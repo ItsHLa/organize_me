@@ -7,6 +7,7 @@ import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_sec
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/meds_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
+import 'package:organize_me/scrns_and_widgets/settings.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 
@@ -44,7 +45,9 @@ TabItem medsTab =
     TabItem(Icons.medical_information_outlined, "ادوية", deepPurple);
 
 TabItem docsNumTab = TabItem(Icons.phone, "اطباء", deepPurple);
+TabItem settingsTab = TabItem(Icons.settings, "الاعدادات", deepPurple);
 
+Widget settings = const Settings();
 Widget taskPage = BlocProvider<TaskCubit>(
     create: (context) => TaskCubit(), child: const DayCalendar());
 

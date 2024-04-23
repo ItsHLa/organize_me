@@ -58,58 +58,77 @@ class CustomizeCubit extends Cubit<CustomizeState> {
     }
   }
 
-  void taskAndNotes({required bool tasksAndNotes}) {
-    taskNotes = tasksAndNotes;
-    if (!tasksAndNotes) {
-      removeFromList(element: taskPage, list: pages);
-      removeFromList(element: notesPage, list: pages);
-      removeFromList(element: taskTab, list: tabsItem);
-      removeFromList(element: notesTab, list: tabsItem);
-    } else if (tasksAndNotes) {
+  void taskAndNotes() {
+    taskNotes = !taskNotes;
+    if (taskNotes) {
       addToList(element: taskPage, list: pages);
       addToList(element: notesPage, list: pages);
       addToList(element: taskTab, list: tabsItem);
       addToList(element: notesTab, list: tabsItem);
+    } else {
+      removeFromList(element: taskPage, list: pages);
+      removeFromList(element: notesPage, list: pages);
+      removeFromList(element: taskTab, list: tabsItem);
+      removeFromList(element: notesTab, list: tabsItem);
     }
   }
 
-  void billPage({required bool bills}) {
-    bill = bills;
-    if (!bills) {
-      removeFromList(element: billsPage, list: pages);
-      removeFromList(element: billsTab, list: tabsItem);
-    } else if (bills && !pages.contains(billsPage)) {
+  void billPage() {
+    bill = !bill;
+    if (bill) {
       addToList(element: billsPage, list: pages);
       addToList(element: billsTab, list: tabsItem);
+    } else {
+      removeFromList(element: billsPage, list: pages);
+      removeFromList(element: billsTab, list: tabsItem);
     }
   }
 
-  void docsAndMedsPage({required bool docsAndNumber}) {
-    numMeds = docsAndNumber;
-    if (!docsAndNumber) {
-      removeFromList(element: docsNumPage, list: pages);
-      removeFromList(element: docsNumTab, list: tabsItem);
-      removeFromList(element: medsPage, list: pages);
-      removeFromList(element: medsTab, list: tabsItem);
-    } else if (docsAndNumber) {
+  void docsAndMedsPage() {
+    numMeds = !numMeds;
+    if (numMeds) {
       addToList(element: docsNumPage, list: pages);
       addToList(element: docsNumTab, list: tabsItem);
       addToList(element: medsPage, list: pages);
       addToList(element: medsTab, list: tabsItem);
+    } else if (numMeds) {
+      removeFromList(element: docsNumPage, list: pages);
+      removeFromList(element: docsNumTab, list: tabsItem);
+      removeFromList(element: medsPage, list: pages);
+      removeFromList(element: medsTab, list: tabsItem);
     }
   }
 
-  void customize(
-      {required bool tasksAndNotes,
-      required bool bills,
-      required bool docsAndNumber}) {
-    taskAndNotes(tasksAndNotes: tasksAndNotes);
-    billPage(bills: bills);
-    docsAndMedsPage(docsAndNumber: docsAndNumber);
-    emit(CustomizeBottomNavigationBar(
-        taskNotes: taskNotes,
-        bill: bill,
-        numMeds: numMeds,
-        darkMode: darkMode));
+  void customizeTasks() {
+    try {
+      taskAndNotes();
+      emit(CustomizeBottomNavigationBar(
+          darkMode: darkMode,
+          numMeds: numMeds,
+          taskNotes: taskNotes,
+          bill: bill));
+    } catch (e) {}
+  }
+
+  void customizeBills() {
+    try {
+      billPage();
+      emit(CustomizeBottomNavigationBar(
+          darkMode: darkMode,
+          numMeds: numMeds,
+          taskNotes: taskNotes,
+          bill: bill));
+    } catch (e) {}
+  }
+
+  void customizeDocs() {
+    try {
+      docsAndMedsPage();
+      emit(CustomizeBottomNavigationBar(
+          darkMode: darkMode,
+          numMeds: numMeds,
+          taskNotes: taskNotes,
+          bill: bill));
+    } catch (e) {}
   }
 }

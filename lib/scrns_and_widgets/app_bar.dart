@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
+import 'package:organize_me/customize_app_cubit/customize_cubit.dart';
 
 import '../constants.dart';
 
@@ -15,13 +15,13 @@ class MyAppBar extends StatelessWidget {
         style: TextStyle(color: deepPurple),
       ),
       actions: [
-        BlocBuilder<DarkModeCubit, DarkModeState>(
+        BlocBuilder<CustomizeCubit, CustomizeState>(
           builder: (context, state) {
             return IconButton(
               onPressed: () {
-                BlocProvider.of<DarkModeCubit>(context).darkModeIsOn();
+                BlocProvider.of<CustomizeCubit>(context).darkModeIsOn();
               },
-              icon: state.icon,
+              icon: state.darkMode ? darkModeOn : darkModeOff,
             );
           },
         ),
