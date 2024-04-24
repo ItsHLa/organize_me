@@ -9,11 +9,11 @@ class TaskDataPageForm extends StatelessWidget {
       this.saveTitle,
       this.saveContent,
       this.saveStartTime,
-      this.saveEndTime,
+      this.saveRemindMeBefore,
       this.saveDate,
       required this.date,
       required this.start,
-      required this.end,
+      //   required this.end,
       required this.icon,
       required this.label,
       this.onPressed});
@@ -21,11 +21,12 @@ class TaskDataPageForm extends StatelessWidget {
   final void Function(String?)? saveTitle;
   final void Function(String?)? saveContent;
   final void Function()? saveStartTime;
-  final void Function()? saveEndTime;
+  final void Function(String?)? saveRemindMeBefore;
   final void Function()? saveDate;
   final TextEditingController date;
   final TextEditingController start;
-  final TextEditingController end;
+
+  // final TextEditingController end;
   final IconData icon;
   final String label;
   final void Function()? onPressed;
@@ -45,12 +46,11 @@ class TaskDataPageForm extends StatelessWidget {
             InputTask(
               date: date,
               start: start,
-              saveEndTime: saveEndTime,
+              saveRemindMeBefore: saveRemindMeBefore,
               saveStartTime: saveStartTime,
               saveContent: saveContent,
               saveTitle: saveTitle,
               key: key,
-              end: end,
               saveDate: saveDate,
             ),
             MyButton(onPressed: onPressed, icon: icon, label: label)

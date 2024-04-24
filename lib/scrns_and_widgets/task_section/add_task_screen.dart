@@ -19,14 +19,15 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   DateTime date = DateTime.now();
   String dateTime = '';
   String startTime = '';
-  String endTime = '';
+  String remindMeBefore = '';
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: BlocListener<TaskCubit, TaskState>(
+    return Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+        child: BlocListener<TaskCubit, TaskState>(
             listener: (newcontext, state) {
               if (state is AddTaskSuccess) {
                 Navigator.of(newcontext).pop();
@@ -41,7 +42,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         context: context,
                         firstDate: DateTime(2024),
                         lastDate: DateTime(3000),
-                      )) ??
+                      initialDate: DateTime.now())) ??
                       DateTime.now();
                   setState(() {
                     dateTime = '${date.day}/${date.month}/${date.year}';
@@ -64,18 +65,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     startTime = '${start.hour}:${start.minute}';
                   });
                 },
-                saveEndTime: () async {
-                  end = (await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                      )) ??
-                      TimeOfDay.now();
+                saveRemindMeBefore: (value) {
                   setState(() {
-                    endTime = '${end.hour}:${end.minute}';
+                    remindMeBefore = value!;
                   });
                 },
                 start: TextEditingController(text: startTime),
-                end: TextEditingController(text: endTime),
                 onPressed: () {
                   if (taskKey.currentState!.validate()) {
                     taskKey.currentState!.save();

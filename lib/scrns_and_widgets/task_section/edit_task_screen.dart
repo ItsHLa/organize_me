@@ -20,7 +20,7 @@ class _EditTaskState extends State<EditTask> {
   TimeOfDay editedStart = TimeOfDay.now();
   TimeOfDay editedEnd = TimeOfDay.now();
   String editedStartTime = '';
-  String editedEndTime = '';
+  String editedRemindMeBefore = '';
   DateTime date = DateTime.now();
   String dateTime = '';
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
@@ -67,18 +67,13 @@ class _EditTaskState extends State<EditTask> {
                         '${editedStart.hour}:${editedStart.minute}';
                   });
                 },
-                saveEndTime: () async {
-                  editedEnd = (await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                      )) ??
-                      TimeOfDay.now();
+                saveRemindMeBefore: (value) {
                   setState(() {
-                    editedEndTime = '${editedEnd.hour}:${editedEnd.minute}';
+                    editedRemindMeBefore = value!;
                   });
                 },
                 start: TextEditingController(text: editedStartTime),
-                end: TextEditingController(text: editedEndTime),
+                //end: TextEditingController(text: editedEndTime),
                 onPressed: () {
                   taskKey.currentState?.save();
                   BlocProvider.of<TaskCubit>(context).editTask(
