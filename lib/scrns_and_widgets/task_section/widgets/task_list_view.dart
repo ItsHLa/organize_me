@@ -50,6 +50,7 @@ class _TaskListViewState extends State<TaskListView> {
                         onPressedDelete: () {
                           BlocProvider.of<TaskCubit>(context)
                               .deleteTask(widget.tasks[index].id, context);
+                          Navigator.of(context).pop();
                         },
                         initialSelection: status,
                       ),

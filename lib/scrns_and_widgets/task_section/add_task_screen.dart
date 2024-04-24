@@ -19,7 +19,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   DateTime date = DateTime.now();
   String dateTime = '';
   String startTime = '';
-  String remindMeBefore = '';
+  int remindMeBefore = 0;
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
 
@@ -39,10 +39,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               child: TaskDataPageForm(
                 saveDate: () async {
                   date = (await showDatePicker(
-                        context: context,
-                        firstDate: DateTime(2024),
-                        lastDate: DateTime(3000),
-                      initialDate: DateTime.now())) ??
+                          context: context,
+                          firstDate: DateTime(2024),
+                          lastDate: DateTime(3000),
+                          initialEntryMode: DatePickerEntryMode.input,
+                          errorFormatText: 'خطأ في الصيغة',
+                          errorInvalidText:
+                              'لا يمكن ان يكون الوقت قبل الوقت الحالي',
+                          initialDate: DateTime.now())) ??
                       DateTime.now();
                   setState(() {
                     dateTime = '${date.day}/${date.month}/${date.year}';
@@ -57,9 +61,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 },
                 saveStartTime: () async {
                   start = (await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                      )) ??
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                          errorInvalidText:
+                              'لا يمكن ان يكون اليوم قبل اليوم الحالي')) ??
                       TimeOfDay.now();
                   setState(() {
                     startTime = '${start.hour}:${start.minute}';
@@ -67,7 +72,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 },
                 saveRemindMeBefore: (value) {
                   setState(() {
-                    remindMeBefore = value!;
+                    remindMeBefore = int.parse(value!);
                   });
                 },
                 start: TextEditingController(text: startTime),
@@ -80,6 +85,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       date,
                       start,
                       end,
+                      remindMeBefore,
                     );
                   } else {
                     autoValidated = AutovalidateMode.always;

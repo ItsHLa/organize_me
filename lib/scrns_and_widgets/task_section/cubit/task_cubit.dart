@@ -19,6 +19,7 @@ class TaskCubit extends Cubit<TaskState> {
     DateTime dateTime,
     TimeOfDay startTime,
     TimeOfDay endTime,
+    int remindMeBefore,
   ) async {
     try {
       Map task = await Task.addTask(
@@ -35,7 +36,7 @@ class TaskCubit extends Cubit<TaskState> {
           content: content,
           taskTime: startTime,
           dateTime: dateTime,
-          min: 15);
+          min: remindMeBefore);
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر اضافة المهمة', tasks: tasks));
@@ -62,7 +63,8 @@ class TaskCubit extends Cubit<TaskState> {
       required String content,
       required DateTime dateTime,
       required TimeOfDay startTime,
-      required TimeOfDay endTime}) async {
+      required TimeOfDay endTime,
+      required int remindMeBefore}) async {
     try {
       await Task.editTask(id,
               newContent: content,
@@ -83,7 +85,7 @@ class TaskCubit extends Cubit<TaskState> {
           content: content,
           taskTime: startTime,
           dateTime: dateTime,
-          min: 15);
+          min: remindMeBefore);
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر تعديل المهمة', tasks: tasks));

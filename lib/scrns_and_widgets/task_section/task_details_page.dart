@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
@@ -30,12 +29,6 @@ class TaskDetails extends StatelessWidget {
       ),
       body: BlocBuilder<TaskCubit, TaskState>(
         builder: (context, state) {
-          if (state is DeleteTaskSuccess) {
-            SchedulerBinding.instance.addPostFrameCallback((_) {
-              Navigator.of(context).pop();
-            });
-            return const SizedBox();
-          }
           return Container(
             margin: const EdgeInsets.all(9),
             decoration: BoxDecoration(

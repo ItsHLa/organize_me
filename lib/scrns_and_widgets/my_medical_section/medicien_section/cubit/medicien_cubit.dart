@@ -4,6 +4,8 @@ import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_sectio
 import 'package:organize_me/services/work_manager_service.dart';
 import 'package:workmanager/workmanager.dart';
 
+import '../../../functionality.dart';
+
 part 'medicien_state.dart';
 
 class MedicineCubit extends Cubit<MedicineState> {
@@ -91,20 +93,3 @@ class MedicineCubit extends Cubit<MedicineState> {
   }
 }
 
-Duration timeOfDayToDuration(TimeOfDay timeOfDay) {
-  // Create a DateTime object with today's date and the time from TimeOfDay
-  DateTime now = DateTime.now();
-  DateTime dateTime =
-      DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
-
-  // Calculate the difference between now and the specified time
-  Duration duration = dateTime.difference(now);
-
-  // Handle the case when the specified time is before the current time
-  if (duration.isNegative) {
-    // Add a day to make the duration positive
-    duration += const Duration(days: 1);
-  }
-
-  return duration;
-}

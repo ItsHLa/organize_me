@@ -20,7 +20,7 @@ class _EditTaskState extends State<EditTask> {
   TimeOfDay editedStart = TimeOfDay.now();
   TimeOfDay editedEnd = TimeOfDay.now();
   String editedStartTime = '';
-  String editedRemindMeBefore = '';
+  int editedRemindMeBefore = 0;
   DateTime date = DateTime.now();
   String dateTime = '';
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
@@ -69,7 +69,7 @@ class _EditTaskState extends State<EditTask> {
                 },
                 saveRemindMeBefore: (value) {
                   setState(() {
-                    editedRemindMeBefore = value!;
+                    editedRemindMeBefore = int.parse(value!);
                   });
                 },
                 start: TextEditingController(text: editedStartTime),
@@ -77,6 +77,7 @@ class _EditTaskState extends State<EditTask> {
                 onPressed: () {
                   taskKey.currentState?.save();
                   BlocProvider.of<TaskCubit>(context).editTask(
+                      remindMeBefore: editedRemindMeBefore,
                       id: widget.task.id,
                       title: editedTaskTitle,
                       content: editedTaskContent,

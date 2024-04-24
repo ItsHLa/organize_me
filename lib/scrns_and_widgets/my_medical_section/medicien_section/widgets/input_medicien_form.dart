@@ -63,6 +63,12 @@ class MedsInput extends StatelessWidget {
           labelText: 'موعد اخذ الدواء',
           onTap: saveMedShotTime,
           controller: shotTime,
+          validator: (value) {
+            if (value?.isEmpty ?? true) {
+              return 'هذا الحقل لا يمكن ان يكون فارغ';
+            }
+            return null;
+          },
         ),
         const SizedBox(
           height: 6,
