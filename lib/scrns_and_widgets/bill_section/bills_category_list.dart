@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
 
 import 'widget/bili_category_item.dart';
 
@@ -14,20 +16,29 @@ class BillsList extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(5),
           scrollDirection: Axis.horizontal,
-          children: const [
+          children: [
             BillItem(
+              onTap: () {
+                BlocProvider.of<BillCubit>(context).loadElectric();
+              },
               billTitle: 'فواتير الكهرباء',
             ),
-            SizedBox(
+            const SizedBox(
               width: 3,
             ),
             BillItem(
+              onTap: () {
+                BlocProvider.of<BillCubit>(context).loadWater();
+              },
               billTitle: 'فواتير المياه',
             ),
-            SizedBox(
+            const SizedBox(
               width: 3,
             ),
             BillItem(
+              onTap: () {
+                BlocProvider.of<BillCubit>(context).loadTelecom();
+              },
               billTitle: 'فواتير الاتصالات',
             )
           ],

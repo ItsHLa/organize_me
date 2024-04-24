@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
 
-import 'bills_listview.dart';
+import 'bill_listview_category.dart';
 
 class BillView extends StatelessWidget {
   const BillView({super.key});
@@ -12,7 +12,9 @@ class BillView extends StatelessWidget {
     return BlocBuilder<BillCubit, BillState>(
       builder: (context, state) {
         if (state is BillLoaded) {
-          return const BillsListView();
+          return BillsListView(
+            typeOfBill: state.typeOfBill,
+          );
         }
         if (state is LoadingBill) {
           return const Center(

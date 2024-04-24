@@ -6,12 +6,9 @@ import 'electric_bills.dart';
 import 'water_bill_item.dart';
 
 class BillsListView extends StatelessWidget {
-  const BillsListView({
-    super.key,
-    //   required this.typeOfBill
-  });
+  const BillsListView({super.key, required this.typeOfBill});
 
-  final String typeOfBill = 'telecom';
+  final String typeOfBill;
 
 //  final List Bills ;
 
@@ -24,12 +21,12 @@ class BillsListView extends StatelessWidget {
           switch (typeOfBill) {
             case 'water':
               return const WaterBills();
-            case 'electric ':
-              return const TelecomBills();
-            case ' telecom ':
+            case 'electric':
               return const ElectricBills();
+            case 'telecom':
+              return const TelecomBills();
             default:
-              return const WaterBills();
+              return Container();
           }
         });
   }
