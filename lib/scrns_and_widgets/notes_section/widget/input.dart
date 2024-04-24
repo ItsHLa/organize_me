@@ -68,7 +68,7 @@ class _InputState extends State<Input> {
                   formKey.currentState!.save();
                   if (widget.action == 'اضافة الملاحظة') {
                     if (newTitle.isEmpty || newContent.isEmpty) {
-                      ValidateInput.validateField(formKey);
+                      validateField(formKey);
                       return;
                     }
                     Map noteMap = await Note.addNote(
@@ -84,7 +84,7 @@ class _InputState extends State<Input> {
                     }
                   } else if (widget.action == 'تعديل الملاحظة') {
                     if (newTitle.isEmpty && newContent.isEmpty) {
-                      ValidateInput.validateField(formKey);
+                      validateField(formKey);
                       return;
                     }
                     Map noteMap = await Note.editNote(

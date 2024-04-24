@@ -34,7 +34,7 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
             icon: Icons.add_call,
             label: 'اضف جهة الاتصال',
             onPressed: () {
-              if (ValidateInput.validateField(numKey)) {
+              if (validateField(numKey)) {
                 numKey.currentState?.save();
                 BlocProvider.of<DocsNumCubit>(context).addPhoneNumber(
                   newName,

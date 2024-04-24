@@ -57,7 +57,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
             },
           ),
           onPressed: () {
-            if (ValidateInput.validateField(medKey)) {
+            if (validateField(medKey)) {
               medKey.currentState?.save();
               BlocProvider.of<MedicineCubit>(context).addMed(
                 medicienName,

@@ -47,13 +47,9 @@ class MedsInput extends StatelessWidget {
               return 'هذا الحقل لا يمكن ان يكون فارغ';
             }
 
-            int phoneNumber = int.parse(value!);
-            if (phoneNumber.isNegative) {
+            int interval = int.parse(value!);
+            if (interval.isNegative) {
               return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-            }
-
-            if (value!.length < 10) {
-              return 'هذا الحقل لا يمكن ان يكون اقل من 10 ارقام';
             } else {
               return null;
             }
