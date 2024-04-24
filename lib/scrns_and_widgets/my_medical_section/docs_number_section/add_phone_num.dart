@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/input_text.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/widgets/input_phone_num.dart';
 
 import '../../add_data_page.dart';
+import '../../functionality.dart';
 import 'cubit/docs_num_cubit.dart';
 
 class AddPhoneNum extends StatefulWidget {
@@ -34,7 +34,7 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
             icon: Icons.add_call,
             label: 'اضف جهة الاتصال',
             onPressed: () {
-              if (InputText.validateField(numKey)) {
+              if (ValidateInput.validateField(numKey)) {
                 numKey.currentState?.save();
                 BlocProvider.of<DocsNumCubit>(context).addPhoneNumber(
                   newName,

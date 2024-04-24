@@ -22,6 +22,13 @@ class InputPhoneNumber extends StatelessWidget {
         InputText(
           hint: 'الاسم',
           save: saveName,
+          validator: (value) {
+            if (value?.isEmpty ?? true) {
+              return 'هذا الحقل لا يمكن ان يكون فارغ';
+            } else {
+              return null;
+            }
+          },
         ),
         const SizedBox(
           height: 5,
@@ -30,6 +37,22 @@ class InputPhoneNumber extends StatelessWidget {
           keyboardType: TextInputType.phone,
           hint: 'الرقم',
           save: savePhoneNumber,
+          validator: (value) {
+            if (value?.isEmpty ?? true) {
+              return 'هذا الحقل لا يمكن ان يكون فارغ';
+            }
+
+            int phoneNumber = int.parse(value!);
+            if (phoneNumber.isNegative) {
+              return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
+            }
+
+            if (value!.length < 10) {
+              return 'هذا الحقل لا يمكن ان يكون اقل من 10 ارقام';
+            } else {
+              return null;
+            }
+          },
         ),
         const SizedBox(
           height: 5,

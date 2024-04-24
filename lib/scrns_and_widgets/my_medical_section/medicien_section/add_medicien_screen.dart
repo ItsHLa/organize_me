@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/input_text.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/widgets/input_medicien_form.dart';
 
 import '../../add_data_page.dart';
+import '../../functionality.dart';
 import 'cubit/medicien_cubit.dart';
 
 class AddMedsScreen extends StatefulWidget {
@@ -57,7 +57,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
             },
           ),
           onPressed: () {
-            if (InputText.validateField(medKey)) {
+            if (ValidateInput.validateField(medKey)) {
               medKey.currentState?.save();
               BlocProvider.of<MedicineCubit>(context).addMed(
                 medicienName,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
 
+import '../../functionality.dart';
 import '../../input_text.dart';
 import '../bloc/notes_bloc.dart';
 
@@ -67,7 +68,7 @@ class _InputState extends State<Input> {
                   formKey.currentState!.save();
                   if (widget.action == 'اضافة الملاحظة') {
                     if (newTitle.isEmpty || newContent.isEmpty) {
-                      InputText.validateField(formKey);
+                      ValidateInput.validateField(formKey);
                       return;
                     }
                     Map noteMap = await Note.addNote(
@@ -83,7 +84,7 @@ class _InputState extends State<Input> {
                     }
                   } else if (widget.action == 'تعديل الملاحظة') {
                     if (newTitle.isEmpty && newContent.isEmpty) {
-                      InputText.validateField(formKey);
+                      ValidateInput.validateField(formKey);
                       return;
                     }
                     Map noteMap = await Note.editNote(

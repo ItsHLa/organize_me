@@ -24,7 +24,17 @@ class MedsInput extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        InputText(hint: 'اسم الدواء', save: saveMedName),
+        InputText(
+          hint: 'اسم الدواء',
+          save: saveMedName,
+          validator: (value) {
+            if (value?.isEmpty ?? true) {
+              return 'هذا الحقل لا يمكن ان يكون فارغ';
+            } else {
+              return '';
+            }
+          },
+        ),
         const SizedBox(
           height: 6,
         ),
@@ -32,6 +42,22 @@ class MedsInput extends StatelessWidget {
           hint: 'عدد الساعات بين الجرعات',
           keyboardType: TextInputType.number,
           save: saveMedInterval,
+          validator: (value) {
+            if (value?.isEmpty ?? true) {
+              return 'هذا الحقل لا يمكن ان يكون فارغ';
+            }
+
+            int phoneNumber = int.parse(value!);
+            if (phoneNumber.isNegative) {
+              return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
+            }
+
+            if (value!.length < 10) {
+              return 'هذا الحقل لا يمكن ان يكون اقل من 10 ارقام';
+            } else {
+              return null;
+            }
+          },
         ),
         const SizedBox(
           height: 6,

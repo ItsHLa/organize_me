@@ -7,12 +7,14 @@ class MyDatePicker extends StatelessWidget {
     required this.onTap,
     required this.controller,
     this.icon,
+    this.validator,
   });
 
   final String labelText;
   final void Function()? onTap;
   final TextEditingController controller;
   final IconData? icon;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +22,7 @@ class MyDatePicker extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       height: 70,
       child: TextFormField(
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'هذا الحقل لا يمكن ان يكون فارغ';
-          }
-          return null;
-        },
+        validator: validator,
         controller: controller,
         readOnly: true,
         onTap: onTap,
