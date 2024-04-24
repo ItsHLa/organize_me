@@ -40,6 +40,9 @@ class _TaskListViewState extends State<TaskListView> {
                         index: index,
                         onPressedEdit: () {
                           showModalBottomSheet(
+                              isScrollControlled: true,
+                              isDismissible: true,
+                              showDragHandle: true,
                               context: context,
                               builder: (newcontext) =>
                                   BlocProvider<TaskCubit>.value(

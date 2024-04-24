@@ -68,13 +68,17 @@ class InputTask extends StatelessWidget {
               return 'هذا الحقل لا يمكن ان يكون فارغ';
             }
 
-            DateTime currentDate = DateTime.now();
+            DateTime currentDate = DateTime(
+                DateTime.now().year, DateTime.now().month, DateTime.now().day);
             List<String>? parts = value?.split('/');
+            print(parts);
             int year = int.parse(parts![2]);
             int month = int.parse(parts![1]);
             int day = int.parse(parts![0]);
             DateTime date = DateTime(year, month, day);
-            if (date.isBefore(currentDate)) {
+            print(date);
+            print(currentDate);
+            if (date.isBefore(currentDate.toUtc())) {
               return 'لا يمكن ان يكون اليوم قبل اليوم الحالي';
             }
           },

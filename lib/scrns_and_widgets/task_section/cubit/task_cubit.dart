@@ -37,6 +37,7 @@ class TaskCubit extends Cubit<TaskState> {
           taskTime: startTime,
           dateTime: dateTime,
           min: remindMeBefore);
+
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر اضافة المهمة', tasks: tasks));
@@ -45,12 +46,13 @@ class TaskCubit extends Cubit<TaskState> {
 
   void deleteTask(int id, BuildContext context) async {
     try {
+      LocalNotificationService.cancelNotification(id: id, tag: taskTag);
       await Task.deleteTask(id).then(
         (_) {
           tasks.remove(tasks.singleWhere((task) => task.id == id));
         },
       );
-      LocalNotificationService.cancelNotification(id: id, tag: taskTag);
+
       emit(DeleteTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(DeleteTaskFailed('تعذر حذف المهمة', tasks: tasks));
@@ -66,6 +68,13 @@ class TaskCubit extends Cubit<TaskState> {
       required TimeOfDay endTime,
       required int remindMeBefore}) async {
     try {
+      AppNotification.showTaskNotificationBeforeXMinutes(
+          id: id,
+          title: title,
+          content: content,
+          taskTime: startTime,
+          dateTime: dateTime,
+          min: remindMeBefore);
       await Task.editTask(id,
               newContent: content,
               newTitle: title,
@@ -79,13 +88,7 @@ class TaskCubit extends Cubit<TaskState> {
           tasks[i] = Task.fromMap(newTask);
         },
       );
-      AppNotification.showTaskNotificationBeforeXMinutes(
-          id: id,
-          title: title,
-          content: content,
-          taskTime: startTime,
-          dateTime: dateTime,
-          min: remindMeBefore);
+
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر تعديل المهمة', tasks: tasks));

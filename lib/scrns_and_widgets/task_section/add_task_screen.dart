@@ -32,6 +32,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               if (state is AddTaskSuccess) {
                 Navigator.of(newcontext).pop();
               }
+              if (state is AddTaskFailed) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(state.msg),
+                  duration: const Duration(minutes: 1),
+                ));
+              }
             },
             child: Form(
               key: taskKey,

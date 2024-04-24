@@ -28,8 +28,8 @@ class _EditTaskState extends State<EditTask> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: BlocListener<TaskCubit, TaskState>(
+    return Container(
+        child: BlocListener<TaskCubit, TaskState>(
             listener: (newcontext, state) {
               if (state is AddTaskSuccess) {
                 Navigator.of(newcontext).pop();
