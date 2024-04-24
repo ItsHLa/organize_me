@@ -18,11 +18,13 @@ class MyAppBar extends StatelessWidget {
         BlocBuilder<CustomizeCubit, CustomizeState>(
           builder: (context, state) {
             return IconButton(
-              onPressed: () {
-                BlocProvider.of<CustomizeCubit>(context).darkModeIsOn();
-              },
-              icon: state.darkMode ? darkModeOn : darkModeOff,
-            );
+                onPressed: () {
+                  BlocProvider.of<CustomizeCubit>(context).darkModeIsOn();
+                },
+                icon: //state.darkMode ?
+                    darkModeOn
+                //: darkModeOff,
+                );
           },
         ),
         const IconButton(

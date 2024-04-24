@@ -9,8 +9,8 @@ part 'customize_state.dart';
 
 class CustomizeCubit extends Cubit<CustomizeState> {
   CustomizeCubit()
-      : super(const CustomizeInitial(
-            taskNotes: true, bill: true, numMeds: true, darkMode: true));
+      : super(CustomizeInitial(
+            numMeds: true, taskNotes: true, bill: true, darkMode: false));
   bool taskNotes = true;
   bool bill = true;
   bool numMeds = true;
@@ -21,15 +21,15 @@ class CustomizeCubit extends Cubit<CustomizeState> {
     if (darkMode) {
       emit(CustomizeDarkModeOn(
           darkMode: darkMode,
+          numMeds: numMeds,
           taskNotes: taskNotes,
-          bill: bill,
-          numMeds: numMeds));
+          bill: bill));
     } else {
       emit(CustomizeDarkModeOff(
           darkMode: darkMode,
+          numMeds: numMeds,
           taskNotes: taskNotes,
-          bill: bill,
-          numMeds: numMeds));
+          bill: bill));
     }
   }
 

@@ -28,6 +28,7 @@ dependencies:
   circular_bottom_navigation: ^2.4.0
   easy_date_timeline: ^1.0.3
   permission_handler: ^11.3.1
+  shared_preferences: ^2.2.3
 
 
 

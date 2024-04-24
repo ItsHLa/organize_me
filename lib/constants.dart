@@ -2,6 +2,7 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/bills_view.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
@@ -61,7 +62,10 @@ Widget medsPage = BlocProvider<MedicineCubit>(
   child: const MedsPage(),
 );
 
-Widget billsPage = const MyBills();
+Widget billsPage = BlocProvider(
+  create: (context) => BillCubit(),
+  child: const MyBills(),
+);
 
 const Icon taskComplete = Icon(Icons.task_alt_outlined, color: Colors.grey);
 const Icon taskOngoing =
