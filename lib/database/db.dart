@@ -16,7 +16,7 @@ class DatabaseHelper {
   static intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'data.db');
-    //await databaseFactory.deleteDatabase(path);
+    await databaseFactory.deleteDatabase(path);
     Database mydb = await openDatabase(path,
         onCreate: _onCreate, version: 1, onUpgrade: _onUpgrade);
     return mydb;
@@ -47,7 +47,7 @@ class DatabaseHelper {
             creation_date TEXT,
             start_date TEXT, -- DD/MM/YYYY
             start_time TEXT, -- HH:MM
-            end_time TEXT, -- HH:MM
+            pre_alarm INTEGER,
             status TEXT DEFAULT 'pending',
             last_modified TEXT DEFAULT NULL
           );

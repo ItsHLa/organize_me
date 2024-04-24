@@ -18,9 +18,9 @@ class _EditTaskState extends State<EditTask> {
   String editedTaskTitle = '';
   String editedTaskContent = '';
   TimeOfDay editedStart = TimeOfDay.now();
-  TimeOfDay editedEnd = TimeOfDay.now();
+  int preAlarm = 0;
   String editedStartTime = '';
-  String editedEndTime = '';
+  int editedPreAlarm = 0;
   DateTime date = DateTime.now();
   String dateTime = '';
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
@@ -29,69 +29,63 @@ class _EditTaskState extends State<EditTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: BlocListener<TaskCubit, TaskState>(
-            listener: (newcontext, state) {
-              if (state is AddTaskSuccess) {
-                Navigator.of(newcontext).pop();
-              }
+      body: BlocListener<TaskCubit, TaskState>(
+        listener: (newcontext, state) {
+          if (state is AddTaskSuccess) {
+            Navigator.of(newcontext).pop();
+          }
+        },
+        child: Form(
+          key: taskKey,
+          child: TaskDataPageForm(
+            saveDate: () async {
+              date = (await showDatePicker(
+                    context: context,
+                    firstDate: DateTime(2024),
+                    lastDate: DateTime(3000),
+                  )) ??
+                  DateTime.now();
+              setState(() {
+                dateTime = '${date.day}/${date.month}/${date.year}';
+              });
             },
-            child: Form(
-              key: taskKey,
-              child: TaskDataPageForm(
-                saveDate: () async {
-                  date = (await showDatePicker(
-                        context: context,
-                        firstDate: DateTime(2024),
-                        lastDate: DateTime(3000),
-                      )) ??
-                      DateTime.now();
-                  setState(() {
-                    dateTime = '${date.day}/${date.month}/${date.year}';
-                  });
-                },
-                date: TextEditingController(text: dateTime),
-                saveTitle: (value) {
-                  editedTaskTitle = value ?? widget.task.title;
-                },
-                saveContent: (value) {
-                  editedTaskContent = value ?? widget.task.content;
-                },
-                saveStartTime: () async {
-                  editedStart = (await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                      )) ??
-                      TimeOfDay.now();
-                  setState(() {
-                    editedStartTime =
-                        '${editedStart.hour}:${editedStart.minute}';
-                  });
-                },
-                saveEndTime: () async {
-                  editedEnd = (await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                      )) ??
-                      TimeOfDay.now();
-                  setState(() {
-                    editedEndTime = '${editedEnd.hour}:${editedEnd.minute}';
-                  });
-                },
-                start: TextEditingController(text: editedStartTime),
-                end: TextEditingController(text: editedEndTime),
-                onPressed: () {
-                  taskKey.currentState?.save();
-                  BlocProvider.of<TaskCubit>(context).editTask(
-                      id: widget.task.id,
-                      title: editedTaskTitle,
-                      content: editedTaskContent,
-                      dateTime: date,
-                      startTime: editedStart,
-                      endTime: editedEnd);
-                },
-                icon: Icons.edit,
-                label: 'تعديل المهمة',
-              ),
-            )));
+            date: TextEditingController(text: dateTime),
+            saveTitle: (value) {
+              editedTaskTitle = value ?? widget.task.title;
+            },
+            saveContent: (value) {
+              editedTaskContent = value ?? widget.task.content;
+            },
+            savePreAlarm: (value) {
+              editedPreAlarm = (value ?? widget.task.content) as int;
+            },
+            saveStartTime: () async {
+              editedStart = (await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  )) ??
+                  TimeOfDay.now();
+              setState(() {
+                editedStartTime = '${editedStart.hour}:${editedStart.minute}';
+              });
+            },
+            start: TextEditingController(text: editedStartTime),
+            onPressed: () {
+              taskKey.currentState?.save();
+              BlocProvider.of<TaskCubit>(context).editTask(
+                id: widget.task.id,
+                title: editedTaskTitle,
+                content: editedTaskContent,
+                startDate: date,
+                startTime: editedStart,
+                preAlarm: preAlarm,
+              );
+            },
+            icon: Icons.edit,
+            label: 'تعديل المهمة',
+          ),
+        ),
+      ),
+    );
   }
 }

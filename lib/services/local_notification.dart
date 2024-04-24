@@ -93,11 +93,16 @@ abstract class LocalNotificationService {
         dateTime.day, taskTime.hour, taskTime.minute);
     if (scheduledTime.isAfter(currentTime)) {
       await LocalNotificationService.flutterLocalNotificationsPlugin
-          .zonedSchedule(id, title, content,
-              scheduledTime.subtract(Duration(minutes: min)), taskDetails,
-              payload: ' Title : $title , Content : $content',
-              uiLocalNotificationDateInterpretation:
-                  UILocalNotificationDateInterpretation.absoluteTime);
+          .zonedSchedule(
+        id,
+        title,
+        content,
+        scheduledTime.subtract(Duration(minutes: min)),
+        taskDetails,
+        payload: ' Title : $title , Content : $content',
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
     }
   }
 }

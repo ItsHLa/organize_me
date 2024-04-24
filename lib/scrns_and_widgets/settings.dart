@@ -53,12 +53,12 @@ class _SettingsState extends State<Settings> {
                   BlocProvider.of<CustomizeCubit>(context).darkModeIsOn();
                 },
               ),
-              Option(
+              const Option(
                 value: true,
                 title: 'تخزين احتياطي',
                 onChanged: null,
               ),
-              Option(
+              const Option(
                 value: true,
                 title: 'ذكرني بفواتيري',
                 onChanged: null,

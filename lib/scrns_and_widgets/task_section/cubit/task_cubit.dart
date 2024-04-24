@@ -13,20 +13,20 @@ class TaskCubit extends Cubit<TaskState> {
 
   TaskCubit() : super(const TaskInitial(tasks: []));
 
-  void addTask(
-    String title,
-    String content,
-    DateTime dateTime,
-    TimeOfDay startTime,
-    TimeOfDay endTime,
-  ) async {
+  void addTask({
+    required String title,
+    required String content,
+    required DateTime startDate,
+    required TimeOfDay startTime,
+    required int preAlarm,
+  }) async {
     try {
       Map task = await Task.addTask(
-        title,
-        content,
-        '${startTime.hour}:${startTime.minute}',
-        '${endTime.hour}:${endTime.minute}',
-        '${dateTime.day}/${dateTime.month}/${dateTime.year}',
+        title: title,
+        content: content,
+        preAlarm: preAlarm,
+        startTime: '${startTime.hour}:${startTime.minute}',
+        startDate: '${startDate.day}/${startDate.month}/${startDate.year}',
       );
       tasks.add(Task.fromMap(task));
       AppNotification.showTaskNotificationBeforeXMinutes(
@@ -34,8 +34,8 @@ class TaskCubit extends Cubit<TaskState> {
           title: title,
           content: content,
           taskTime: startTime,
-          dateTime: dateTime,
-          min: 15);
+          dateTime: startDate,
+          min: preAlarm);
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر اضافة المهمة', tasks: tasks));
@@ -56,21 +56,22 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void editTask(
-      {required int id,
-      required String title,
-      required String content,
-      required DateTime dateTime,
-      required TimeOfDay startTime,
-      required TimeOfDay endTime}) async {
+  void editTask({
+    required int id,
+    required String title,
+    required String content,
+    required DateTime startDate,
+    required int preAlarm,
+    required TimeOfDay startTime,
+  }) async {
     try {
       await Task.editTask(id,
               newContent: content,
               newTitle: title,
-              newEndTime: '${endTime.hour}:${endTime.minute}',
+              newPreAlarm: preAlarm,
               newStartTime: '${startTime.hour}:${startTime.minute}',
               newStartDate:
-                  '${dateTime.day}/${dateTime.month}/${dateTime.year}')
+                  '${startDate.day}/${startDate.month}/${startDate.year}')
           .then(
         (newTask) {
           int i = tasks.indexOf(tasks.singleWhere((task) => task.id == id));
@@ -82,8 +83,8 @@ class TaskCubit extends Cubit<TaskState> {
           title: title,
           content: content,
           taskTime: startTime,
-          dateTime: dateTime,
-          min: 15);
+          dateTime: startDate,
+          min: preAlarm);
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر تعديل المهمة', tasks: tasks));

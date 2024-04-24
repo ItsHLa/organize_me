@@ -8,7 +8,7 @@ class Task {
   final String creationDate;
   final String startDate;
   final String startTime;
-  final String endTime;
+  final int preAlarm;
   final String status;
 
   const Task({
@@ -16,7 +16,7 @@ class Task {
     required this.title,
     required this.content,
     required this.creationDate,
-    required this.endTime,
+    required this.preAlarm,
     required this.startTime,
     required this.status,
     required this.startDate,
@@ -27,20 +27,20 @@ class Task {
         id: taskMap['id'],
         content: taskMap['content'],
         creationDate: taskMap['creation_date'],
-        endTime: taskMap['end_time'],
+        preAlarm: taskMap['pre_alarm'],
         startTime: taskMap['start_time'],
         status: taskMap['status'],
         title: taskMap['title'],
         startDate: taskMap['start_date']);
   }
 
-  static Future<Map> addTask(
-    String title,
-    String content,
-    String startTime,
-    String endTime,
-    String startDate,
-  ) async {
+  static Future<Map> addTask({
+    required String title,
+    required String content,
+    required String startTime,
+    required int preAlarm,
+    required String startDate,
+  }) async {
     Database? mydb = await DatabaseHelper.db;
     String now = DateTime.now().toString();
     int taskId = await mydb!.rawInsert(
@@ -49,7 +49,7 @@ class Task {
                                     content,
                                     creation_date,
                                     start_time,
-                                    end_time,
+                                    pre_alarm,
                                     start_date)
 
                                     VALUES (?, ?, ?, ?, ?, ?);
@@ -59,7 +59,7 @@ class Task {
         content,
         now,
         startTime,
-        endTime,
+        preAlarm,
         startDate,
       ],
     );
@@ -71,7 +71,7 @@ class Task {
     String newContent = '',
     String newTitle = '',
     String newStartTime = '',
-    String newEndTime = '',
+    int newPreAlarm = 0,
     String newStartDate = '',
   }) async {
     Database? mydb = await DatabaseHelper.db;
@@ -81,16 +81,15 @@ class Task {
     String editTitle = newTitle.isNotEmpty ? "title = '$newTitle'," : "";
     String editStartTime =
         newStartTime.isNotEmpty ? "start_time = '$newStartTime'," : "";
-    String editEndTime =
-        newEndTime.isNotEmpty ? "end_time = '$newEndTime'," : "";
+    String editPreAlarm = newPreAlarm == 0 ? "pre_alarm = '$newPreAlarm'," : "";
     String editStartDate =
-        newStartDate.isNotEmpty ? "end_time = '$newStartDate'," : "";
+        newStartDate.isNotEmpty ? "start_date = '$newStartDate'," : "";
     await mydb!.rawUpdate(
       """
         UPDATE tasks SET $editContent
                          $editTitle
                          $editStartTime
-                         $editEndTime
+                         $editPreAlarm
                          $editStartDate
                          last_modified = ? WHERE id = ?;
       """,

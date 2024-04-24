@@ -6,7 +6,7 @@ class TaskItem extends StatelessWidget {
     super.key,
     required this.taskTitle,
     required this.taskStartTime,
-    required this.taskEndTime,
+    required this.taskPreAlarm,
     this.onPressedEdit,
     this.onPressedDelete,
     this.onTap,
@@ -15,7 +15,7 @@ class TaskItem extends StatelessWidget {
 
   final String taskTitle;
   final String taskStartTime;
-  final String taskEndTime;
+  final int taskPreAlarm;
   final String date;
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
@@ -27,7 +27,7 @@ class TaskItem extends StatelessWidget {
       leading: taskPending,
       onTap: onTap,
       title: Text(taskTitle),
-      subtitle: Text('''$taskStartTime - $taskEndTime \n $date '''),
+      subtitle: Text('''$taskStartTime - $taskPreAlarm \n $date '''),
     );
   }
 }

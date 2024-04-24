@@ -9,7 +9,7 @@ part 'customize_state.dart';
 
 class CustomizeCubit extends Cubit<CustomizeState> {
   CustomizeCubit()
-      : super(CustomizeInitial(
+      : super(const CustomizeInitial(
             numMeds: true, taskNotes: true, bill: true, darkMode: false));
   bool taskNotes = true;
   bool bill = true;
@@ -107,7 +107,9 @@ class CustomizeCubit extends Cubit<CustomizeState> {
           numMeds: numMeds,
           taskNotes: taskNotes,
           bill: bill));
-    } catch (e) {}
+    } catch (e) {
+      return;
+    }
   }
 
   void customizeBills() {
@@ -118,7 +120,9 @@ class CustomizeCubit extends Cubit<CustomizeState> {
           numMeds: numMeds,
           taskNotes: taskNotes,
           bill: bill));
-    } catch (e) {}
+    } catch (e) {
+      return;
+    }
   }
 
   void customizeDocs() {
@@ -129,6 +133,8 @@ class CustomizeCubit extends Cubit<CustomizeState> {
           numMeds: numMeds,
           taskNotes: taskNotes,
           bill: bill));
-    } catch (e) {}
+    } catch (e) {
+      return;
+    }
   }
 }

@@ -91,7 +91,7 @@ class TaskDetails extends StatelessWidget {
                               activeIndicatorBorder:
                                   const BorderSide(color: Colors.black),
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(color: black),
+                                borderSide: const BorderSide(color: black),
                                 borderRadius: BorderRadius.circular(16),
                               )),
                           initialSelection: 'لم يتم البدء بالمهمة',
