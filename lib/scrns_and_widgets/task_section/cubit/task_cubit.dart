@@ -60,30 +60,42 @@ class TaskCubit extends Cubit<TaskState> {
     required int id,
     required String title,
     required String content,
-    required DateTime startDate,
+    required DateTime? startDate,
     required int preAlarm,
-    required TimeOfDay startTime,
+    required TimeOfDay? startTime,
   }) async {
     try {
-      await Task.editTask(id,
-              newContent: content,
-              newTitle: title,
-              newPreAlarm: preAlarm,
-              newStartTime: '${startTime.hour}:${startTime.minute}',
-              newStartDate:
-                  '${startDate.day}/${startDate.month}/${startDate.year}')
-          .then(
-        (newTask) {
-          int i = tasks.indexOf(tasks.singleWhere((task) => task.id == id));
-          tasks[i] = Task.fromMap(newTask);
-        },
+      String newStartTime =
+          startTime != null ? '${startTime.hour}:${startTime.minute}' : '';
+      String newStartDate = startDate != null
+          ? '${startDate.day}/${startDate.month}/${startDate.year}'
+          : '';
+      Map newTaskMap = await Task.editTask(
+        id,
+        newContent: content,
+        newTitle: title,
+        newPreAlarm: preAlarm,
+        newStartTime: newStartTime,
+        newStartDate: newStartDate,
+      );
+      int i = tasks.indexOf(tasks.singleWhere((task) => task.id == id));
+      Task newTask = Task.fromMap(newTaskMap);
+      tasks[i] = newTask;
+      TimeOfDay taskStartTime = TimeOfDay(
+        hour: int.parse(newTask.startTime.split(':')[0]),
+        minute: int.parse(newTask.startTime.split(':')[1]),
+      );
+      DateTime taskStartDate = DateTime(
+        int.parse(newTask.startDate.split('/')[2]),
+        int.parse(newTask.startDate.split('/')[1]),
+        int.parse(newTask.startDate.split('/')[0]),
       );
       AppNotification.showTaskNotificationBeforeXMinutes(
           id: id,
-          title: title,
-          content: content,
-          taskTime: startTime,
-          dateTime: startDate,
+          title: newTask.title,
+          content: newTask.content,
+          taskTime: startTime ?? taskStartTime,
+          dateTime: taskStartDate,
           min: preAlarm);
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {

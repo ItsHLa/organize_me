@@ -5,13 +5,14 @@ import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails(
-      {super.key,
-      this.onPressedEdit,
-      this.onPressedDelete,
-      required this.index,
-      required this.onSelected,
-      required this.initialSelection});
+  const TaskDetails({
+    super.key,
+    this.onPressedEdit,
+    this.onPressedDelete,
+    required this.index,
+    required this.onSelected,
+    required this.initialSelection,
+  });
 
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
@@ -81,38 +82,49 @@ class TaskDetails extends StatelessWidget {
                       height: 5,
                     ),
                     ListTile(
-                        title: const Text(
-                          'الحالة',
-                          style: TextStyle(color: Colors.black),
+                      trailing: Text(
+                        'التنبيه قبل (بالدقائق)\n${state.tasks[index].preAlarm}',
+                        textAlign: TextAlign.center,
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 14),
+                      ),
+                      title: const Text(
+                        'الحالة',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      subtitle: DropdownMenu(
+                        textStyle: const TextStyle(color: Colors.black),
+                        inputDecorationTheme: InputDecorationTheme(
+                          activeIndicatorBorder:
+                              const BorderSide(color: Colors.black),
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(color: black),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
                         ),
-                        subtitle: DropdownMenu(
-                          textStyle: const TextStyle(color: Colors.black),
-                          inputDecorationTheme: InputDecorationTheme(
-                              activeIndicatorBorder:
-                                  const BorderSide(color: Colors.black),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: black),
-                                borderRadius: BorderRadius.circular(16),
-                              )),
-                          initialSelection: 'لم يتم البدء بالمهمة',
-                          onSelected: onSelected,
-                          controller:
-                              TextEditingController(text: initialSelection),
-                          dropdownMenuEntries: const [
-                            DropdownMenuEntry(
-                                leadingIcon: taskComplete,
-                                label: 'المهمة اكتملت',
-                                value: 'المهمة اكتملت'),
-                            DropdownMenuEntry(
-                                leadingIcon: taskPending,
-                                label: 'لم يتم البدء بالمهمة',
-                                value: 'لم يتم البدء بالمهمة'),
-                            DropdownMenuEntry(
-                                leadingIcon: taskOngoing,
-                                label: 'المهمة قيد التنفيذ',
-                                value: ' المهمة قيد التنفيذ'),
-                          ],
-                        )),
+                        initialSelection: 'لم يتم البدء بالمهمة',
+                        onSelected: onSelected,
+                        controller:
+                            TextEditingController(text: initialSelection),
+                        dropdownMenuEntries: const [
+                          DropdownMenuEntry(
+                            leadingIcon: taskComplete,
+                            label: 'المهمة اكتملت',
+                            value: 'المهمة اكتملت',
+                          ),
+                          DropdownMenuEntry(
+                            leadingIcon: taskPending,
+                            label: 'لم يتم البدء بالمهمة',
+                            value: 'لم يتم البدء بالمهمة',
+                          ),
+                          DropdownMenuEntry(
+                            leadingIcon: taskOngoing,
+                            label: 'المهمة قيد التنفيذ',
+                            value: ' المهمة قيد التنفيذ',
+                          ),
+                        ],
+                      ),
+                    ),
                     const SizedBox(
                       height: 5,
                     ),

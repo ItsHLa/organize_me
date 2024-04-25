@@ -27,7 +27,7 @@ class TaskItem extends StatelessWidget {
       leading: taskPending,
       onTap: onTap,
       title: Text(taskTitle),
-      subtitle: Text('''$taskStartTime - $taskPreAlarm \n $date '''),
+      subtitle: Text("$taskStartTime - $taskPreAlarm \n $date "),
     );
   }
 }

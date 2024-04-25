@@ -98,7 +98,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               } else if ((date.year == dateNow.year &&
                       date.month == dateNow.month &&
                       date.day == dateNow.day) &&
-                  difInMinutes < preAlarm) {
+                  difInMinutes <= preAlarm) {
                 showDialog(
                   context: context,
                   builder: (context) {

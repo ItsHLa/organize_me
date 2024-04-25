@@ -17,11 +17,10 @@ class EditTask extends StatefulWidget {
 class _EditTaskState extends State<EditTask> {
   String editedTaskTitle = '';
   String editedTaskContent = '';
-  TimeOfDay editedStart = TimeOfDay.now();
-  int preAlarm = 0;
+  TimeOfDay? editedStart;
   String editedStartTime = '';
   int editedPreAlarm = 0;
-  DateTime date = DateTime.now();
+  DateTime? date;
   String dateTime = '';
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
@@ -38,18 +37,6 @@ class _EditTaskState extends State<EditTask> {
         child: Form(
           key: taskKey,
           child: TaskDataPageForm(
-            saveDate: () async {
-              date = (await showDatePicker(
-                    context: context,
-                    firstDate: DateTime(2024),
-                    lastDate: DateTime(3000),
-                  )) ??
-                  DateTime.now();
-              setState(() {
-                dateTime = '${date.day}/${date.month}/${date.year}';
-              });
-            },
-            date: TextEditingController(text: dateTime),
             saveTitle: (value) {
               editedTaskTitle = value ?? widget.task.title;
             },
@@ -57,28 +44,97 @@ class _EditTaskState extends State<EditTask> {
               editedTaskContent = value ?? widget.task.content;
             },
             savePreAlarm: (value) {
-              editedPreAlarm = (value ?? widget.task.content) as int;
+              editedPreAlarm = int.parse(value!.isNotEmpty ? value : '0');
             },
             saveStartTime: () async {
               editedStart = (await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  )) ??
-                  TimeOfDay.now();
+                context: context,
+                initialTime: TimeOfDay.now(),
+              ));
               setState(() {
-                editedStartTime = '${editedStart.hour}:${editedStart.minute}';
+                editedStartTime = editedStart != null
+                    ? '${editedStart!.hour}:${editedStart!.minute}'
+                    : '';
               });
             },
             start: TextEditingController(text: editedStartTime),
+            saveDate: () async {
+              date = (await showDatePicker(
+                context: context,
+                firstDate: DateTime(2024),
+                lastDate: DateTime(3000),
+              ));
+              setState(() {
+                dateTime = date != null
+                    ? '${date!.day}/${date!.month}/${date!.year}'
+                    : '';
+              });
+            },
+            date: TextEditingController(text: dateTime),
             onPressed: () {
               taskKey.currentState?.save();
+              DateTime dateNow = DateTime.now();
+              TimeOfDay timeNow = TimeOfDay.now();
+              int? difInMinutes;
+              if (editedStart != null) {
+                difInMinutes = ((editedStart!.hour - timeNow.hour) * 60 +
+                    (editedStart!.minute - timeNow.minute));
+              }
+              if (date?.isAfter(dateNow) ??
+                  false ||
+                      (editedStart != null &&
+                          ((timeNow.hour > editedStart!.hour) ||
+                              (timeNow.hour == editedStart!.hour &&
+                                  timeNow.minute > editedStart!.minute)))) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const SimpleDialog(
+                      children: [
+                        Text(
+                          "!وقت البداية يجب أن يكون في المستقبل",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                return;
+              } else if ((date != null &&
+                      (date!.year == dateNow.year &&
+                          date!.month == dateNow.month &&
+                          date!.day == dateNow.day)) &&
+                  (difInMinutes != null && difInMinutes <= editedPreAlarm)) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return SimpleDialog(
+                      children: [
+                        Text(
+                          "لن نتمكن من تنبيهك للقيام بمهمة بعد $difInMinutes دقيقة/دقائق قبل $editedPreAlarm دقيقة/دقائق",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                return;
+              }
               BlocProvider.of<TaskCubit>(context).editTask(
                 id: widget.task.id,
                 title: editedTaskTitle,
                 content: editedTaskContent,
                 startDate: date,
                 startTime: editedStart,
-                preAlarm: preAlarm,
+                preAlarm: editedPreAlarm,
               );
             },
             icon: Icons.edit,

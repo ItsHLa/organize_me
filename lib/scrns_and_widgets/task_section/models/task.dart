@@ -68,11 +68,11 @@ class Task {
 
   static Future<Map> editTask(
     int taskId, {
-    String newContent = '',
-    String newTitle = '',
-    String newStartTime = '',
-    int newPreAlarm = 0,
-    String newStartDate = '',
+    required String newContent,
+    required String newTitle,
+    required String newStartTime,
+    required int newPreAlarm,
+    required String newStartDate,
   }) async {
     Database? mydb = await DatabaseHelper.db;
     String lastModified = DateTime.now().toString();
@@ -81,7 +81,7 @@ class Task {
     String editTitle = newTitle.isNotEmpty ? "title = '$newTitle'," : "";
     String editStartTime =
         newStartTime.isNotEmpty ? "start_time = '$newStartTime'," : "";
-    String editPreAlarm = newPreAlarm == 0 ? "pre_alarm = '$newPreAlarm'," : "";
+    String editPreAlarm = newPreAlarm != 0 ? "pre_alarm = $newPreAlarm," : "";
     String editStartDate =
         newStartDate.isNotEmpty ? "start_date = '$newStartDate'," : "";
     await mydb!.rawUpdate(
