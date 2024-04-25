@@ -4,21 +4,23 @@ import 'package:organize_me/scrns_and_widgets/my_button.dart';
 import 'input_task.dart';
 
 class TaskDataPageForm extends StatelessWidget {
-  const TaskDataPageForm({super.key,
-    this.saveTitle,
-    this.saveContent,
-    this.saveStartTime,
-    this.saveDate,
-    this.savePreAlarm,
-    required this.date,
-    required this.start,
-    required this.icon,
-    required this.label,
-    required this.onPressed,
-    this.taskTitleValidator,
-    this.contentValidator,
-    this.datValidator,
-    this.startTimeValidator, this.preAlarmValidator});
+  const TaskDataPageForm(
+      {super.key,
+      this.saveTitle,
+      this.saveContent,
+      this.saveStartTime,
+      this.saveDate,
+      this.savePreAlarm,
+      required this.date,
+      required this.start,
+      required this.icon,
+      required this.label,
+      required this.onPressed,
+      this.taskTitleValidator,
+      this.contentValidator,
+      this.datValidator,
+      this.startTimeValidator,
+      this.preAlarmValidator});
 
   final void Function(String?)? saveTitle;
   final void Function(String?)? saveContent;
@@ -64,7 +66,11 @@ class TaskDataPageForm extends StatelessWidget {
               key: key,
               saveDate: saveDate,
             ),
-            MyButton(onPressed: onPressed, icon: icon, label: label)
+            MyButton(
+              onPressed: onPressed,
+              icon: icon,
+              label: label,
+            )
           ],
         ),
       ],

@@ -37,9 +37,35 @@ class _EditTaskState extends State<EditTask> {
         child: Form(
           key: taskKey,
           child: TaskDataPageForm(
-            preAlarmValidator: ValidateInputData.checkEditedInterval,
             datValidator: ValidateInputData.checkEditedDateTime,
             startTimeValidator: ValidateInputData.checkEditedStartTime,
+            preAlarmValidator: (String? value) {
+              if (value?.isEmpty ?? true) {
+                return 'هذا الحقل لا يمكن ان يكون فارغ';
+              }
+              TimeOfDay timeNow = TimeOfDay.now();
+              DateTime fullDateNow = DateTime.now();
+              DateTime dateNow = DateTime(
+                fullDateNow.year,
+                fullDateNow.month,
+                fullDateNow.day,
+              );
+              int diffInMinutes = 0;
+              if (editedStart != null) {
+                diffInMinutes = ((editedStart!.hour - timeNow.hour) * 60) +
+                    (editedStart!.minute - timeNow.minute);
+              }
+              if (editedPreAlarm.isNegative) {
+                return 'هذا الحقل لا يمكن أن يحوي أعداد سالبة';
+              } else if ((value?.length ?? 0) > 10) {
+                return 'هذا الحقل لا يمكن أن يكون أكبر من 10 أرقام';
+              } else if ((date?.isAtSameMomentAs(dateNow) ?? false) &&
+                  editedPreAlarm >= diffInMinutes) {
+                return 'هذا الحقل يجب أن يكون أصغر من فرق الوقت بين الآن ووقت البدء';
+              } else {
+                return null;
+              }
+            },
             saveDate: () async {
               date = (await showDatePicker(
                 context: context,

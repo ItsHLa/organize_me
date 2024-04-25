@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 
 String validateIfTimeBeforeCurrentTime(String? value) {
   if (value?.isEmpty ?? true) {
@@ -44,7 +43,7 @@ class ValidateInputData {
     }
   }
 
-  static String? checkIfNull(value) {
+  static String? checkIfNull(String? value) {
     if (value?.isEmpty ?? true) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';
     } else {
@@ -52,64 +51,52 @@ class ValidateInputData {
     }
   }
 
-  static String? checkPhoneNumber(value) {
+  static String? checkPhoneNumber(String? value) {
     if (value?.isEmpty ?? true) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';
     }
-
     int phoneNumber = int.parse(value!);
     if (phoneNumber.isNegative) {
       return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-    }
-
-    if (value!.length < 10) {
+    } else if (value.length < 10) {
       return 'هذا الحقل لا يمكن ان يكون اقل من 10 ارقام';
-    }
-
-    if (value!.length > 10) {
+    } else if (value.length > 10) {
       return 'هذا الحقل لا يمكن ان يكون اكبر من 10 ارقام';
     } else {
       return null;
     }
   }
 
-  static String? checkEditedPhoneNumber(value) {
+  static String? checkEditedPhoneNumber(String? value) {
     int phoneNumber = int.parse(value!);
     if (phoneNumber.isNegative) {
       return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-    }
-
-    if (value!.length < 10) {
-      return 'هذا الحقل لا يمكن ان يكون اقل من 10 ارقام';
+    } else if (value.length < 10) {
+      return 'هذا الحقل لا يمكن ان يكون أقل من 10 ارقام';
     } else {
       return null;
     }
   }
 
-  static String? checkInterval(value) {
+  static String? checkInterval(String? value) {
     if (value?.isEmpty ?? true) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';
     }
-
     int interval = int.parse(value!);
     if (interval.isNegative) {
-      return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-    }
-
-    if (value!.length > 10) {
-      return 'هذا الحقل لا يمكن ان يكون اكبر من 10 ارقام';
+      return 'هذا الحقل لا يمكن أن يحوي أعداد سالبة';
+    } else if (value.length > 10) {
+      return 'هذا الحقل لا يمكن أن يكون أكبر من 10 أرقام';
     } else {
       return null;
     }
   }
 
-  static String? checkEditedInterval(value) {
+  static String? checkEditedInterval(String? value) {
     int interval = int.parse(value!);
     if (interval.isNegative) {
       return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-    }
-
-    if (value!.length > 10) {
+    } else if (value.length > 10) {
       return 'هذا الحقل لا يمكن ان يكون اكبر من 10 ارقام';
     } else {
       return null;
@@ -139,13 +126,18 @@ class ValidateInputData {
     }
   }
 
-  static String? checkEditedStartTime(value) {
+  static String? checkEditedStartTime(String? value) {
     List<String>? parts = value?.split(':');
     int hour = int.parse(parts![0]);
     int minute = int.parse(parts[1]);
     DateTime currentTime = DateTime.now();
-    DateTime scheduledTime = DateTime(DateTime.now().year, DateTime.now().month,
-        DateTime.now().day, hour, minute);
+    DateTime scheduledTime = DateTime(
+      currentTime.year,
+      currentTime.month,
+      currentTime.day,
+      hour,
+      minute,
+    );
     Duration difference = scheduledTime.difference(currentTime);
     if (difference.isNegative) {
       return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
@@ -154,13 +146,16 @@ class ValidateInputData {
     }
   }
 
-  static String? checkDateTime(value) {
+  static String? checkDateTime(String? value) {
     if (value?.isEmpty ?? true) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';
     }
-
-    DateTime currentDate =
-        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    DateTime now = DateTime.now();
+    DateTime currentDate = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    );
     List<String>? parts = value?.split('/');
     int year = int.parse(parts![2]);
     int month = int.parse(parts[1]);
@@ -173,9 +168,13 @@ class ValidateInputData {
     }
   }
 
-  static String? checkEditedDateTime(value) {
-    DateTime currentDate =
-        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  static String? checkEditedDateTime(String? value) {
+    DateTime now = DateTime.now();
+    DateTime currentDate = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    );
     List<String>? parts = value?.split('/');
     int year = int.parse(parts![2]);
     int month = int.parse(parts[1]);

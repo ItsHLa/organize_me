@@ -25,19 +25,21 @@ class AppNotification extends LocalNotificationService {
     LocalNotificationService.showSimpleBillNotification(id: 3, body: body);
   }
 
-  static void showTaskNotificationBeforeXMinutes(
-      {required int id,
-      required DateTime dateTime,
-      required TimeOfDay taskTime,
-      required String title,
-      required String content,
-      required int min}) {
+  static void showTaskNotificationBeforeXMinutes({
+    required int id,
+    required DateTime dateTime,
+    required TimeOfDay taskTime,
+    required String title,
+    required String content,
+    required int min,
+  }) {
     LocalNotificationService.showTaskNotification(
-        id: id,
-        dateTime: dateTime,
-        taskTime: taskTime,
-        title: title,
-        content: content,
-        min: min);
+      id: id,
+      dateTime: dateTime,
+      taskTime: taskTime,
+      title: title,
+      content: content,
+      min: min,
+    );
   }
 }

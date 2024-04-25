@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails(
-      {super.key,
-      this.onPressedEdit,
-      this.onPressedDelete,
-      required this.index,
-      required this.onSelected,
-      required this.initialSelection});
+  const TaskDetails({
+    super.key,
+    this.onPressedEdit,
+    this.onPressedDelete,
+    required this.index,
+    required this.onSelected,
+    required this.initialSelection,
+  });
 
   final void Function()? onPressedEdit;
   final void Function()? onPressedDelete;
@@ -29,6 +31,14 @@ class TaskDetails extends StatelessWidget {
       ),
       body: BlocBuilder<TaskCubit, TaskState>(
         builder: (context, state) {
+          if (state is DeleteTaskSuccess &&
+              BlocProvider.of<TaskCubit>(context).lastActionDelete) {
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              Navigator.of(context).pop();
+            });
+            BlocProvider.of<TaskCubit>(context).lastActionDelete = false;
+            return Container();
+          }
           return Container(
             margin: const EdgeInsets.all(9),
             decoration: BoxDecoration(

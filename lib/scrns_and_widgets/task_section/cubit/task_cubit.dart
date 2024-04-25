@@ -10,6 +10,7 @@ part 'task_state.dart';
 
 class TaskCubit extends Cubit<TaskState> {
   List<Task> tasks = [];
+  bool lastActionDelete = false;
 
   TaskCubit() : super(const TaskInitial(tasks: []));
 
@@ -30,19 +31,20 @@ class TaskCubit extends Cubit<TaskState> {
       );
       tasks.add(Task.fromMap(task));
       AppNotification.showTaskNotificationBeforeXMinutes(
-          id: task['id'],
-          title: title,
-          content: content,
-          taskTime: startTime,
-          dateTime: startDate,
-          min: preAlarm);
+        id: task['id'],
+        title: title,
+        content: content,
+        taskTime: startTime,
+        dateTime: startDate,
+        min: preAlarm,
+      );
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {
       emit(AddTaskFailed('تعذر اضافة المهمة', tasks: tasks));
     }
   }
 
-  void deleteTask(int id, BuildContext context) async {
+  void deleteTask(int id) async {
     try {
       LocalNotificationService.cancelNotification(id: id, tag: taskTag);
       await Task.deleteTask(id).then(

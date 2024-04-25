@@ -67,13 +67,14 @@ abstract class LocalNotificationService {
     );
   }
 
-  static void showTaskNotification(
-      {required int id,
-      required DateTime dateTime,
-      required TimeOfDay taskTime,
-      required String title,
-      required String content,
-      required int min}) async {
+  static void showTaskNotification({
+    required int id,
+    required DateTime dateTime,
+    required TimeOfDay taskTime,
+    required String title,
+    required String content,
+    required int min,
+  }) async {
     AndroidNotificationDetails androidTaskSettings =
         const AndroidNotificationDetails(
       taskChannel,
@@ -88,16 +89,26 @@ abstract class LocalNotificationService {
     String currentTimeZone = await FlutterTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
     var currentTime = tz.TZDateTime.now(tz.local);
-
-    var scheduledTime = tz.TZDateTime(tz.local, dateTime.year, dateTime.month,
-        dateTime.day, taskTime.hour, taskTime.minute);
+    var scheduledTime = tz.TZDateTime(
+      tz.local,
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+      taskTime.hour,
+      taskTime.minute,
+    );
     if (scheduledTime.isAfter(currentTime)) {
       await LocalNotificationService.flutterLocalNotificationsPlugin
-          .zonedSchedule(id, title, content,
-              scheduledTime.subtract(Duration(minutes: min)), taskDetails,
-              payload: ' Title : $title , Content : $content',
-              uiLocalNotificationDateInterpretation:
-                  UILocalNotificationDateInterpretation.absoluteTime);
+          .zonedSchedule(
+        id,
+        title,
+        content,
+        scheduledTime.subtract(Duration(minutes: min)),
+        taskDetails,
+        payload: ' Title : $title , Content : $content',
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
     }
   }
 }
