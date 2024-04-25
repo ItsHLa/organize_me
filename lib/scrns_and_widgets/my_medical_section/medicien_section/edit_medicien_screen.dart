@@ -38,6 +38,18 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
           icon: Icons.add,
           label: 'تعديل الدواء',
           child: MedsInput(
+            medIntervalValidator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'هذا الحقل لا يمكن ان يكون فارغ';
+              }
+
+              int interval = int.parse(value!);
+              if (interval.isNegative) {
+                return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
+              } else {
+                return null;
+              }
+            },
             shotTime: TextEditingController(text: editedShotTime),
             saveMedName: (value) {
               setState(() {
@@ -57,7 +69,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
               );
               setState(() {
                 editedShotTime =
-                    '${time?.hour.toString()}:${time?.minute.toString()}';
+                '${time?.hour.toString()}:${time?.minute.toString()}';
               });
             },
           ),

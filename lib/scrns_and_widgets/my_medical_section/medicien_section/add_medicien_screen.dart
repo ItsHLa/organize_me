@@ -36,6 +36,31 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
           icon: Icons.add,
           label: 'اضافة الدواء',
           child: MedsInput(
+            medIntervalValidator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'هذا الحقل لا يمكن ان يكون فارغ';
+              }
+
+              int interval = int.parse(value!);
+              if (interval.isNegative) {
+                return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
+              } else {
+                return null;
+              }
+            },
+            medNameValidator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'هذا الحقل لا يمكن ان يكون فارغ';
+              } else {
+                return '';
+              }
+            },
+            medShotTimeValidator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'هذا الحقل لا يمكن ان يكون فارغ';
+              }
+              return null;
+            },
             shotTime: TextEditingController(text: shotTime),
             saveMedName: (value) {
               setState(() {
@@ -52,7 +77,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
                   context: context, initialTime: TimeOfDay.now());
               setState(() {
                 shotTime =
-                    '${time?.hour.toString()}:${time?.minute.toString()}';
+                '${time?.hour.toString()}:${time?.minute.toString()}';
               });
             },
           ),
