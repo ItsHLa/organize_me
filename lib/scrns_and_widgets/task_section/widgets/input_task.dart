@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/scrns_and_widgets/functionality.dart';
 
 import '../../date_time_picker.dart';
 import '../../input_text.dart';
@@ -71,22 +72,7 @@ class InputTask extends StatelessWidget {
           labelText: 'وقت البدء',
           onTap: saveStartTime,
           controller: start,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            }
-
-            List<String>? parts = value?.split(':');
-            int hour = int.parse(parts![0]);
-            int minute = int.parse(parts![1]);
-            DateTime currentTime = DateTime.now();
-            DateTime scheduledTime = DateTime(DateTime.now().year,
-                DateTime.now().month, DateTime.now().day, hour, minute);
-            Duration difference = scheduledTime.difference(currentTime);
-            if (difference.isNegative) {
-              return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
-            }
-          },
+          validator: ValidateInputData.checkStartTime,
         ),
         const SizedBox(
           height: 5,

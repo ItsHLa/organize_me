@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 String validateIfTimeBeforeCurrentTime(String? value) {
   if (value?.isEmpty ?? true) {
@@ -115,17 +116,21 @@ class ValidateInputData {
     }
   }
 
-  static String? checkStartTime(value) {
+  static String? checkStartTime(String? value) {
     if (value?.isEmpty ?? true) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';
     }
-
     List<String>? parts = value?.split(':');
     int hour = int.parse(parts![0]);
     int minute = int.parse(parts[1]);
     DateTime currentTime = DateTime.now();
-    DateTime scheduledTime = DateTime(DateTime.now().year, DateTime.now().month,
-        DateTime.now().day, hour, minute);
+    DateTime scheduledTime = DateTime(
+      currentTime.year,
+      currentTime.month,
+      currentTime.day,
+      hour,
+      minute,
+    );
     Duration difference = scheduledTime.difference(currentTime);
     if (difference.isNegative) {
       return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
