@@ -9,19 +9,29 @@ class InputTask extends StatelessWidget {
     required this.saveTitle,
     required this.saveContent,
     required this.saveStartTime,
+    required this.savePreAlarm,
     required this.start,
     required this.date,
     this.saveDate,
-    this.saveRemindMeBefore,
+    this.taskTitleValidator,
+    this.contentValidator,
+    this.datValidator,
+    this.startTimeValidator,
+    this.preAlarmValidator,
   });
 
   final void Function(String?)? saveTitle;
   final void Function(String?)? saveContent;
+  final void Function(String?)? savePreAlarm;
   final void Function()? saveStartTime;
-  final void Function(String?)? saveRemindMeBefore;
   final void Function()? saveDate;
   final TextEditingController date;
   final TextEditingController start;
+  final String? Function(String?)? taskTitleValidator;
+  final String? Function(String?)? contentValidator;
+  final String? Function(String?)? datValidator;
+  final String? Function(String?)? startTimeValidator;
+  final String? Function(String?)? preAlarmValidator;
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +43,7 @@ class InputTask extends StatelessWidget {
         InputText(
           hint: 'اسم المهمة',
           save: saveTitle,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            } else {
-              return null;
-            }
-          },
+          validator: taskTitleValidator,
         ),
         const SizedBox(
           height: 5,
@@ -47,13 +51,7 @@ class InputTask extends StatelessWidget {
         InputText(
           hint: 'وصف المهمة',
           save: saveContent,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            } else {
-              return null;
-            }
-          },
+          validator: contentValidator,
         ),
         const SizedBox(
           height: 5,
@@ -63,25 +61,7 @@ class InputTask extends StatelessWidget {
           labelText: ' تاريخ المهمة',
           onTap: saveDate,
           controller: date,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            }
-
-            DateTime currentDate = DateTime(
-                DateTime.now().year, DateTime.now().month, DateTime.now().day);
-            List<String>? parts = value?.split('/');
-            print(parts);
-            int year = int.parse(parts![2]);
-            int month = int.parse(parts![1]);
-            int day = int.parse(parts![0]);
-            DateTime date = DateTime(year, month, day);
-            print(date);
-            print(currentDate);
-            if (date.isBefore(currentDate.toUtc())) {
-              return 'لا يمكن ان يكون اليوم قبل اليوم الحالي';
-            }
-          },
+          validator: datValidator,
         ),
         const SizedBox(
           height: 5,
@@ -91,22 +71,7 @@ class InputTask extends StatelessWidget {
           labelText: 'وقت البدء',
           onTap: saveStartTime,
           controller: start,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            }
-
-            List<String>? parts = value?.split(':');
-            int hour = int.parse(parts![0]);
-            int minute = int.parse(parts![1]);
-            DateTime currentTime = DateTime.now();
-            DateTime scheduledTime = DateTime(DateTime.now().year,
-                DateTime.now().month, DateTime.now().day, hour, minute);
-            Duration difference = scheduledTime.difference(currentTime);
-            if (difference.isNegative) {
-              return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
-            }
-          },
+          validator: startTimeValidator,
         ),
         const SizedBox(
           height: 5,
@@ -114,19 +79,8 @@ class InputTask extends StatelessWidget {
         InputText(
           keyboardType: TextInputType.number,
           hint: 'ذكرني قبل دقائق',
-          save: saveRemindMeBefore,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            }
-
-            int interval = int.parse(value!);
-            if (interval.isNegative) {
-              return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-            } else {
-              return null;
-            }
-          },
+          save: savePreAlarm,
+          validator: preAlarmValidator,
         ),
         const SizedBox(
           height: 5,

@@ -15,11 +15,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   String taskContent = '';
 
   TimeOfDay start = TimeOfDay.now();
-  TimeOfDay end = TimeOfDay.now();
   DateTime date = DateTime.now();
   String dateTime = '';
   String startTime = '';
-  int remindMeBefore = 0;
+  int preAlarm = 0;
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
 
@@ -43,6 +42,68 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               key: taskKey,
               autovalidateMode: autoValidated,
               child: TaskDataPageForm(
+                contentValidator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'هذا الحقل لا يمكن ان يكون فارغ';
+                  } else {
+                    return null;
+                  }
+                },
+                taskTitleValidator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'هذا الحقل لا يمكن ان يكون فارغ';
+                  } else {
+                    return null;
+                  }
+                },
+                datValidator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'هذا الحقل لا يمكن ان يكون فارغ';
+                  }
+
+                  DateTime currentDate = DateTime(DateTime.now().year,
+                      DateTime.now().month, DateTime.now().day);
+                  List<String>? parts = value?.split('/');
+                  int year = int.parse(parts![2]);
+                  int month = int.parse(parts[1]);
+                  int day = int.parse(parts[0]);
+                  DateTime date = DateTime(year, month, day);
+                  if (date.isBefore(currentDate.toUtc())) {
+                    return 'لا يمكن ان يكون اليوم قبل اليوم الحالي';
+                  } else {
+                    return null;
+                  }
+                },
+                startTimeValidator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'هذا الحقل لا يمكن ان يكون فارغ';
+                  }
+
+                  List<String>? parts = value?.split(':');
+                  int hour = int.parse(parts![0]);
+                  int minute = int.parse(parts[1]);
+                  DateTime currentTime = DateTime.now();
+                  DateTime scheduledTime = DateTime(DateTime.now().year,
+                      DateTime.now().month, DateTime.now().day, hour, minute);
+                  Duration difference = scheduledTime.difference(currentTime);
+                  if (difference.isNegative) {
+                    return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
+                  } else {
+                    return null;
+                  }
+                },
+                preAlarmValidator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'هذا الحقل لا يمكن ان يكون فارغ';
+                  }
+
+                  int interval = int.parse(value!);
+                  if (interval.isNegative) {
+                    return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
+                  } else {
+                    return null;
+                  }
+                },
                 saveDate: () async {
                   date = (await showDatePicker(
                           context: context,
@@ -67,18 +128,18 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 },
                 saveStartTime: () async {
                   start = (await showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                          errorInvalidText:
-                              'لا يمكن ان يكون اليوم قبل اليوم الحالي')) ??
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                      errorInvalidText:
+                      'لا يمكن ان يكون اليوم قبل اليوم الحالي')) ??
                       TimeOfDay.now();
                   setState(() {
                     startTime = '${start.hour}:${start.minute}';
                   });
                 },
-                saveRemindMeBefore: (value) {
+                savePreAlarm: (value) {
                   setState(() {
-                    remindMeBefore = int.parse(value!);
+                    preAlarm = int.parse(value!);
                   });
                 },
                 start: TextEditingController(text: startTime),
@@ -86,12 +147,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   if (taskKey.currentState!.validate()) {
                     taskKey.currentState!.save();
                     BlocProvider.of<TaskCubit>(context).addTask(
-                      taskTitle,
-                      taskContent,
-                      date,
-                      start,
-                      end,
-                      remindMeBefore,
+                      content: taskContent,
+                      title: taskTitle,
+                      startDate: date,
+                      preAlarm: preAlarm,
+                      startTime: start,
                     );
                   } else {
                     autoValidated = AutovalidateMode.always;
