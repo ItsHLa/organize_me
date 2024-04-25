@@ -80,6 +80,8 @@ class ValidateInputData {
 
     if (value!.length < 10) {
       return 'هذا الحقل لا يمكن ان يكون اقل من 10 ارقام';
+    } else {
+      return null;
     }
   }
 
