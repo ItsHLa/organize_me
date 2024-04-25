@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/functionality.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/widgets/input_medicien_form.dart';
 
 import '../../add_data_page.dart';
@@ -38,6 +39,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
           icon: Icons.add,
           label: 'تعديل الدواء',
           child: MedsInput(
+            medIntervalValidator: ValidateInputData.checkEditedInterval,
             shotTime: TextEditingController(text: editedShotTime),
             saveMedName: (value) {
               setState(() {
@@ -57,7 +59,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
               );
               setState(() {
                 editedShotTime =
-                    '${time?.hour.toString()}:${time?.minute.toString()}';
+                '${time?.hour.toString()}:${time?.minute.toString()}';
               });
             },
           ),

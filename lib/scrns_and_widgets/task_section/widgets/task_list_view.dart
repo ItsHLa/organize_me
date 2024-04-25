@@ -31,37 +31,44 @@ class _TaskListViewState extends State<TaskListView> {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (newContext) => BlocProvider<TaskCubit>.value(
                       value: BlocProvider.of(context),
-                      child: TaskDetails(
-                        onSelected: (value) {
-                          setState(() {
-                            status = value!;
-                          });
+                      child: BlocListener<TaskCubit, TaskState>(
+                        listener: (context, state) {
+                          if (state is DeleteTaskSuccess) {
+                            Navigator.of(context).pop();
+                          }
                         },
-                        index: index,
-                        onPressedEdit: () {
-                          showModalBottomSheet(
-                              isScrollControlled: true,
-                              isDismissible: true,
-                              showDragHandle: true,
-                              context: context,
-                              builder: (newcontext) =>
-                                  BlocProvider<TaskCubit>.value(
-                                    value: BlocProvider.of(context),
-                                    child: EditTask(task: widget.tasks[index]),
-                                  ));
-                        },
-                        onPressedDelete: () {
-                          BlocProvider.of<TaskCubit>(context)
-                              .deleteTask(widget.tasks[index].id, context);
-                          Navigator.of(context).pop();
-                        },
-                        initialSelection: status,
+                        child: TaskDetails(
+                          onSelected: (value) {
+                            setState(() {
+                              status = value!;
+                            });
+                          },
+                          index: index,
+                          onPressedEdit: () {
+                            showModalBottomSheet(
+                                isScrollControlled: true,
+                                isDismissible: true,
+                                showDragHandle: true,
+                                context: context,
+                                builder: (newcontext) =>
+                                    BlocProvider<TaskCubit>.value(
+                                      value: BlocProvider.of(context),
+                                      child:
+                                          EditTask(task: widget.tasks[index]),
+                                    ));
+                          },
+                          onPressedDelete: () {
+                            BlocProvider.of<TaskCubit>(context)
+                                .deleteTask(widget.tasks[index].id, context);
+                          },
+                          initialSelection: status,
+                        ),
                       ),
                     )));
           },
           taskStartTime: widget.tasks[index].startTime,
-          taskEndTime: widget.tasks[index].endTime,
           taskTitle: widget.tasks[index].title,
+          taskPreAlarm: widget.tasks[index].preAlarm,
         );
       },
     );

@@ -10,12 +10,18 @@ class MedsInput extends StatelessWidget {
     required this.saveMedInterval,
     required this.saveMedShotTime,
     required this.shotTime,
+    this.medNameValidator,
+    this.medIntervalValidator,
+    this.medShotTimeValidator,
   });
 
   final void Function(String?)? saveMedName;
   final void Function(String?)? saveMedInterval;
   final void Function()? saveMedShotTime;
   final TextEditingController shotTime;
+  final String? Function(String?)? medNameValidator;
+  final String? Function(String?)? medIntervalValidator;
+  final String? Function(String?)? medShotTimeValidator;
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +33,7 @@ class MedsInput extends StatelessWidget {
         InputText(
           hint: 'اسم الدواء',
           save: saveMedName,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            } else {
-              return '';
-            }
-          },
+          validator: medNameValidator,
         ),
         const SizedBox(
           height: 6,
@@ -42,18 +42,7 @@ class MedsInput extends StatelessWidget {
           hint: 'عدد الساعات بين الجرعات',
           keyboardType: TextInputType.number,
           save: saveMedInterval,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            }
-
-            int interval = int.parse(value!);
-            if (interval.isNegative) {
-              return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-            } else {
-              return null;
-            }
-          },
+          validator: medIntervalValidator,
         ),
         const SizedBox(
           height: 6,
@@ -63,12 +52,7 @@ class MedsInput extends StatelessWidget {
           labelText: 'موعد اخذ الدواء',
           onTap: saveMedShotTime,
           controller: shotTime,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            }
-            return null;
-          },
+          validator: medShotTimeValidator,
         ),
         const SizedBox(
           height: 6,

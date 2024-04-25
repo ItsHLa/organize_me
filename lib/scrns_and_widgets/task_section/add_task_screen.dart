@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/functionality.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/add_edit_page_form.dart';
 
@@ -15,11 +16,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   String taskContent = '';
 
   TimeOfDay start = TimeOfDay.now();
-  TimeOfDay end = TimeOfDay.now();
   DateTime date = DateTime.now();
   String dateTime = '';
   String startTime = '';
-  int remindMeBefore = 0;
+  int preAlarm = 0;
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
 
@@ -43,6 +43,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               key: taskKey,
               autovalidateMode: autoValidated,
               child: TaskDataPageForm(
+                contentValidator: ValidateInputData.checkIfNull,
+                taskTitleValidator: ValidateInputData.checkIfNull,
+                datValidator: ValidateInputData.checkDateTime,
+                startTimeValidator: ValidateInputData.checkStartTime,
+                preAlarmValidator: ValidateInputData.checkInterval,
                 saveDate: () async {
                   date = (await showDatePicker(
                           context: context,
@@ -67,31 +72,30 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 },
                 saveStartTime: () async {
                   start = (await showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                          errorInvalidText:
-                              'لا يمكن ان يكون اليوم قبل اليوم الحالي')) ??
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                      errorInvalidText:
+                      'لا يمكن ان يكون اليوم قبل اليوم الحالي')) ??
                       TimeOfDay.now();
                   setState(() {
                     startTime = '${start.hour}:${start.minute}';
                   });
                 },
-                saveRemindMeBefore: (value) {
+                savePreAlarm: (value) {
                   setState(() {
-                    remindMeBefore = int.parse(value!);
+                    preAlarm = int.parse(value!);
                   });
                 },
                 start: TextEditingController(text: startTime),
                 onPressed: () {
-                  if (taskKey.currentState!.validate()) {
+                  if (ValidateInputData.validateField(taskKey)) {
                     taskKey.currentState!.save();
                     BlocProvider.of<TaskCubit>(context).addTask(
-                      taskTitle,
-                      taskContent,
-                      date,
-                      start,
-                      end,
-                      remindMeBefore,
+                      content: taskContent,
+                      title: taskTitle,
+                      startDate: date,
+                      preAlarm: preAlarm,
+                      startTime: start,
                     );
                   } else {
                     autoValidated = AutovalidateMode.always;

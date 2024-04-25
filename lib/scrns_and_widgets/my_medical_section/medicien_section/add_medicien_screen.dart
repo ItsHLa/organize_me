@@ -36,6 +36,9 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
           icon: Icons.add,
           label: 'اضافة الدواء',
           child: MedsInput(
+            medIntervalValidator: ValidateInputData.checkInterval,
+            medNameValidator: ValidateInputData.checkIfNull,
+            medShotTimeValidator: ValidateInputData.checkIfNull,
             shotTime: TextEditingController(text: shotTime),
             saveMedName: (value) {
               setState(() {
@@ -52,12 +55,12 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
                   context: context, initialTime: TimeOfDay.now());
               setState(() {
                 shotTime =
-                    '${time?.hour.toString()}:${time?.minute.toString()}';
+                '${time?.hour.toString()}:${time?.minute.toString()}';
               });
             },
           ),
           onPressed: () {
-            if (validateField(medKey)) {
+            if (ValidateInputData.validateField(medKey)) {
               medKey.currentState?.save();
               BlocProvider.of<MedicineCubit>(context).addMed(
                 medicienName,

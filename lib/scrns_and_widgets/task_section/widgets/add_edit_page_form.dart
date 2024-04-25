@@ -4,29 +4,35 @@ import 'package:organize_me/scrns_and_widgets/my_button.dart';
 import 'input_task.dart';
 
 class TaskDataPageForm extends StatelessWidget {
-  const TaskDataPageForm(
-      {super.key,
-      this.saveTitle,
-      this.saveContent,
-      this.saveStartTime,
-      this.saveRemindMeBefore,
-      this.saveDate,
-      required this.date,
-      required this.start,
-      //   required this.end,
-      required this.icon,
-      required this.label,
-      this.onPressed});
+  const TaskDataPageForm({super.key,
+    this.saveTitle,
+    this.saveContent,
+    this.saveStartTime,
+    this.saveDate,
+    this.savePreAlarm,
+    required this.date,
+    required this.start,
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+    this.taskTitleValidator,
+    this.contentValidator,
+    this.datValidator,
+    this.startTimeValidator, this.preAlarmValidator});
 
   final void Function(String?)? saveTitle;
   final void Function(String?)? saveContent;
+  final void Function(String?)? savePreAlarm;
   final void Function()? saveStartTime;
-  final void Function(String?)? saveRemindMeBefore;
+
   final void Function()? saveDate;
   final TextEditingController date;
   final TextEditingController start;
-
-  // final TextEditingController end;
+  final String? Function(String?)? taskTitleValidator;
+  final String? Function(String?)? contentValidator;
+  final String? Function(String?)? datValidator;
+  final String? Function(String?)? startTimeValidator;
+  final String? Function(String?)? preAlarmValidator;
   final IconData icon;
   final String label;
   final void Function()? onPressed;
@@ -44,9 +50,14 @@ class TaskDataPageForm extends StatelessWidget {
         Column(
           children: [
             InputTask(
+              taskTitleValidator: taskTitleValidator,
+              contentValidator: contentValidator,
+              startTimeValidator: startTimeValidator,
+              datValidator: datValidator,
+              preAlarmValidator: preAlarmValidator,
               date: date,
               start: start,
-              saveRemindMeBefore: saveRemindMeBefore,
+              savePreAlarm: savePreAlarm,
               saveStartTime: saveStartTime,
               saveContent: saveContent,
               saveTitle: saveTitle,

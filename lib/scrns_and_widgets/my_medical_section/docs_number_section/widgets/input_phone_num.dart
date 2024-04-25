@@ -5,12 +5,19 @@ class InputPhoneNumber extends StatelessWidget {
   const InputPhoneNumber({
     super.key,
     required this.saveName,
-    this.savePhoneNumber,
+    required this.savePhoneNumber,
+    required this.saveSpecialist,
+    this.nameValidator,
+    this.specialistValidator,
+    this.phoneNumberValidator,
   });
 
   final Function(String?)? saveName;
-
+  final Function(String?)? saveSpecialist;
   final Function(String?)? savePhoneNumber;
+  final String? Function(String?)? nameValidator;
+  final String? Function(String?)? specialistValidator;
+  final String? Function(String?)? phoneNumberValidator;
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +29,7 @@ class InputPhoneNumber extends StatelessWidget {
         InputText(
           hint: 'الاسم',
           save: saveName,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            } else {
-              return null;
-            }
-          },
+          validator: nameValidator,
         ),
         const SizedBox(
           height: 5,
@@ -37,22 +38,7 @@ class InputPhoneNumber extends StatelessWidget {
           keyboardType: TextInputType.phone,
           hint: 'الرقم',
           save: savePhoneNumber,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'هذا الحقل لا يمكن ان يكون فارغ';
-            }
-
-            int phoneNumber = int.parse(value!);
-            if (phoneNumber.isNegative) {
-              return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-            }
-
-            if (value.length < 10) {
-              return 'هذا الحقل لا يمكن ان يكون اقل من 10 ارقام';
-            } else {
-              return null;
-            }
-          },
+          validator: phoneNumberValidator,
         ),
         const SizedBox(
           height: 5,
