@@ -36,31 +36,9 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
           icon: Icons.add,
           label: 'اضافة الدواء',
           child: MedsInput(
-            medIntervalValidator: (value) {
-              if (value?.isEmpty ?? true) {
-                return 'هذا الحقل لا يمكن ان يكون فارغ';
-              }
-
-              int interval = int.parse(value!);
-              if (interval.isNegative) {
-                return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-              } else {
-                return null;
-              }
-            },
-            medNameValidator: (value) {
-              if (value?.isEmpty ?? true) {
-                return 'هذا الحقل لا يمكن ان يكون فارغ';
-              } else {
-                return '';
-              }
-            },
-            medShotTimeValidator: (value) {
-              if (value?.isEmpty ?? true) {
-                return 'هذا الحقل لا يمكن ان يكون فارغ';
-              }
-              return null;
-            },
+            medIntervalValidator: ValidateInputData.checkInterval,
+            medNameValidator: ValidateInputData.checkIfNull,
+            medShotTimeValidator: ValidateInputData.checkIfNull,
             shotTime: TextEditingController(text: shotTime),
             saveMedName: (value) {
               setState(() {
@@ -82,7 +60,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
             },
           ),
           onPressed: () {
-            if (validateField(medKey)) {
+            if (ValidateInputData.validateField(medKey)) {
               medKey.currentState?.save();
               BlocProvider.of<MedicineCubit>(context).addMed(
                 medicienName,

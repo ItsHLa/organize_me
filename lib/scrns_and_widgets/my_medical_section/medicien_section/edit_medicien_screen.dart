@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/functionality.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/widgets/input_medicien_form.dart';
 
 import '../../add_data_page.dart';
@@ -38,18 +39,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
           icon: Icons.add,
           label: 'تعديل الدواء',
           child: MedsInput(
-            medIntervalValidator: (value) {
-              if (value?.isEmpty ?? true) {
-                return 'هذا الحقل لا يمكن ان يكون فارغ';
-              }
-
-              int interval = int.parse(value!);
-              if (interval.isNegative) {
-                return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-              } else {
-                return null;
-              }
-            },
+            medIntervalValidator: ValidateInputData.checkEditedInterval,
             shotTime: TextEditingController(text: editedShotTime),
             saveMedName: (value) {
               setState(() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/functionality.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/widgets/input_phone_num.dart';
 
 import '../../add_data_page.dart';
@@ -44,6 +45,8 @@ class _EditPhoneNumber extends State<EditPhoneNumber> {
               );
             },
             child: InputPhoneNumber(
+              saveSpecialist: null,
+              phoneNumberValidator: ValidateInputData.checkEditedPhoneNumber,
               saveName: (value) {
                 editedName = value ?? '';
               },

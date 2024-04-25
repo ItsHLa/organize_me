@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/functionality.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/add_edit_page_form.dart';
 
@@ -42,68 +43,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               key: taskKey,
               autovalidateMode: autoValidated,
               child: TaskDataPageForm(
-                contentValidator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'هذا الحقل لا يمكن ان يكون فارغ';
-                  } else {
-                    return null;
-                  }
-                },
-                taskTitleValidator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'هذا الحقل لا يمكن ان يكون فارغ';
-                  } else {
-                    return null;
-                  }
-                },
-                datValidator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'هذا الحقل لا يمكن ان يكون فارغ';
-                  }
-
-                  DateTime currentDate = DateTime(DateTime.now().year,
-                      DateTime.now().month, DateTime.now().day);
-                  List<String>? parts = value?.split('/');
-                  int year = int.parse(parts![2]);
-                  int month = int.parse(parts[1]);
-                  int day = int.parse(parts[0]);
-                  DateTime date = DateTime(year, month, day);
-                  if (date.isBefore(currentDate.toUtc())) {
-                    return 'لا يمكن ان يكون اليوم قبل اليوم الحالي';
-                  } else {
-                    return null;
-                  }
-                },
-                startTimeValidator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'هذا الحقل لا يمكن ان يكون فارغ';
-                  }
-
-                  List<String>? parts = value?.split(':');
-                  int hour = int.parse(parts![0]);
-                  int minute = int.parse(parts[1]);
-                  DateTime currentTime = DateTime.now();
-                  DateTime scheduledTime = DateTime(DateTime.now().year,
-                      DateTime.now().month, DateTime.now().day, hour, minute);
-                  Duration difference = scheduledTime.difference(currentTime);
-                  if (difference.isNegative) {
-                    return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
-                  } else {
-                    return null;
-                  }
-                },
-                preAlarmValidator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'هذا الحقل لا يمكن ان يكون فارغ';
-                  }
-
-                  int interval = int.parse(value!);
-                  if (interval.isNegative) {
-                    return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
-                  } else {
-                    return null;
-                  }
-                },
+                contentValidator: ValidateInputData.checkIfNull,
+                taskTitleValidator: ValidateInputData.checkIfNull,
+                datValidator: ValidateInputData.checkDateTime,
+                startTimeValidator: ValidateInputData.checkStartTime,
+                preAlarmValidator: ValidateInputData.checkInterval,
                 saveDate: () async {
                   date = (await showDatePicker(
                           context: context,
@@ -144,7 +88,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 },
                 start: TextEditingController(text: startTime),
                 onPressed: () {
-                  if (taskKey.currentState!.validate()) {
+                  if (ValidateInputData.validateField(taskKey)) {
                     taskKey.currentState!.save();
                     BlocProvider.of<TaskCubit>(context).addTask(
                       content: taskContent,
