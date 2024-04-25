@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 part 'bill_state.dart';
 
 class BillCubit extends Cubit<BillState> {

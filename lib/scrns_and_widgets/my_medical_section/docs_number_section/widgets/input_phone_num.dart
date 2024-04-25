@@ -47,7 +47,7 @@ class InputPhoneNumber extends StatelessWidget {
               return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
             }
 
-            if (value!.length < 10) {
+            if (value.length < 10) {
               return 'هذا الحقل لا يمكن ان يكون اقل من 10 ارقام';
             } else {
               return null;

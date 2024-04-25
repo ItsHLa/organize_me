@@ -73,14 +73,15 @@ class InputTask extends StatelessWidget {
             List<String>? parts = value?.split('/');
             print(parts);
             int year = int.parse(parts![2]);
-            int month = int.parse(parts![1]);
-            int day = int.parse(parts![0]);
+            int month = int.parse(parts[1]);
+            int day = int.parse(parts[0]);
             DateTime date = DateTime(year, month, day);
             print(date);
             print(currentDate);
             if (date.isBefore(currentDate.toUtc())) {
               return 'لا يمكن ان يكون اليوم قبل اليوم الحالي';
             }
+            return null;
           },
         ),
         const SizedBox(
@@ -98,7 +99,7 @@ class InputTask extends StatelessWidget {
 
             List<String>? parts = value?.split(':');
             int hour = int.parse(parts![0]);
-            int minute = int.parse(parts![1]);
+            int minute = int.parse(parts[1]);
             DateTime currentTime = DateTime.now();
             DateTime scheduledTime = DateTime(DateTime.now().year,
                 DateTime.now().month, DateTime.now().day, hour, minute);
@@ -106,6 +107,7 @@ class InputTask extends StatelessWidget {
             if (difference.isNegative) {
               return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
             }
+            return null;
           },
         ),
         const SizedBox(

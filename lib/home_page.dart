@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<CustomizeCubit, CustomizeState>(
       builder: (context, state) {
         return Scaffold(
-            endDrawer: Settings(),
+            endDrawer: const Settings(),
             //drawer: Settings(),
             appBar: AppBar(
               title: const Text(

@@ -7,7 +7,7 @@ sealed class CustomizeState {
   final bool numMeds;
   final bool darkMode;
 
-  CustomizeState(
+  const CustomizeState(
       {required this.taskNotes,
       required this.bill,
       required this.numMeds,
@@ -15,7 +15,7 @@ sealed class CustomizeState {
 }
 
 final class CustomizeInitial extends CustomizeState {
-  CustomizeInitial(
+  const CustomizeInitial(
       {required super.taskNotes,
       required super.bill,
       required super.numMeds,
@@ -23,7 +23,7 @@ final class CustomizeInitial extends CustomizeState {
 }
 
 final class CustomizeBottomNavigationBar extends CustomizeState {
-  CustomizeBottomNavigationBar(
+  const CustomizeBottomNavigationBar(
       {required super.darkMode,
       required super.taskNotes,
       required super.bill,
@@ -33,7 +33,7 @@ final class CustomizeBottomNavigationBar extends CustomizeState {
 final class CustomizeBottomNavigationBarFailed extends CustomizeState {
   final String msg;
 
-  CustomizeBottomNavigationBarFailed(
+  const CustomizeBottomNavigationBarFailed(
       {required this.msg,
       required super.taskNotes,
       required super.bill,
@@ -42,7 +42,7 @@ final class CustomizeBottomNavigationBarFailed extends CustomizeState {
 }
 
 final class CustomizeDarkModeOn extends CustomizeState {
-  CustomizeDarkModeOn({
+  const CustomizeDarkModeOn({
     required super.taskNotes,
     required super.bill,
     required super.numMeds,
@@ -51,7 +51,7 @@ final class CustomizeDarkModeOn extends CustomizeState {
 }
 
 final class CustomizeDarkModeOff extends CustomizeState {
-  CustomizeDarkModeOff({
+  const CustomizeDarkModeOff({
     required super.taskNotes,
     required super.bill,
     required super.numMeds,

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
 
-import '../../icon_Form.dart';
+import '../../icon_form.dart';
 import 'models/doctors_contacts.dart';
 
 class ContactDetails extends StatelessWidget {
