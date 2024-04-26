@@ -41,22 +41,28 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
             medShotTimeValidator: ValidateInputData.checkIfNull,
             shotTime: TextEditingController(text: shotTime),
             saveMedName: (value) {
-              setState(() {
-                medicienName = value!;
-              });
+              setState(
+                () {
+                  medicienName = value!;
+                },
+              );
             },
             saveMedInterval: (value) {
-              setState(() {
-                interval = int.parse(value!);
-              });
+              setState(
+                () {
+                  interval = int.parse(value!);
+                },
+              );
             },
             saveMedShotTime: () async {
               time = await showTimePicker(
                   context: context, initialTime: TimeOfDay.now());
-              setState(() {
-                shotTime =
-                '${time?.hour.toString()}:${time?.minute.toString()}';
-              });
+              setState(
+                () {
+                  shotTime =
+                      '${time?.hour.toString()}:${time?.minute.toString()}';
+                },
+              );
             },
           ),
           onPressed: () {

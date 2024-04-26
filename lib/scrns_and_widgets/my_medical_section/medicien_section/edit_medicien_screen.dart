@@ -42,34 +42,42 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
             medIntervalValidator: ValidateInputData.checkEditedInterval,
             shotTime: TextEditingController(text: editedShotTime),
             saveMedName: (value) {
-              setState(() {
-                editedMedName = value ?? widget.med.name;
-              });
+              setState(
+                () {
+                  editedMedName = value ?? widget.med.name;
+                },
+              );
             },
             saveMedInterval: (value) {
-              setState(() {
-                editedMedInterval = int.parse(
-                    value!.isNotEmpty ? value : widget.med.interval.toString());
-              });
+              setState(
+                () {
+                  editedMedInterval = int.parse(value!.isNotEmpty
+                      ? value
+                      : widget.med.interval.toString());
+                },
+              );
             },
             saveMedShotTime: () async {
               time = await showTimePicker(
                 context: context,
                 initialTime: TimeOfDay.now(),
               );
-              setState(() {
-                editedShotTime =
-                '${time?.hour.toString()}:${time?.minute.toString()}';
-              });
+              setState(
+                () {
+                  editedShotTime =
+                      '${time?.hour.toString()}:${time?.minute.toString()}';
+                },
+              );
             },
           ),
           onPressed: () {
             medKey.currentState?.save();
             BlocProvider.of<MedicineCubit>(context).editMed(
-                id: widget.med.id,
-                editedTimeOfShot: time!,
-                editedInterval: editedMedInterval,
-                editedName: editedMedName);
+              id: widget.med.id,
+              editedTimeOfShot: time!,
+              editedInterval: editedMedInterval,
+              editedName: editedMedName,
+            );
             debugPrint('Editing Medicine');
           },
         ),

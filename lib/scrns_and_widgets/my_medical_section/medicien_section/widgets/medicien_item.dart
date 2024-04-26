@@ -20,23 +20,24 @@ class MedItem extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-              subtitle: Container(
-                padding: const EdgeInsets.all(5),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text('${med.interval} عدد الساعات بين الجرعات'),
-                    Text('${med.shotTime} موعد أخذ الدواء ')
-                  ],
-                ),
-              ),
-              title: Row(
+            subtitle: Container(
+              padding: const EdgeInsets.all(5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Icon(Icons.medication),
-                  const Spacer(),
-                  Text(med.name),
+                  Text('${med.interval} عدد الساعات بين الجرعات'),
+                  Text('${med.shotTime} موعد أخذ الدواء ')
                 ],
-              )),
+              ),
+            ),
+            title: Row(
+              children: [
+                const Icon(Icons.medication),
+                const Spacer(),
+                Text(med.name),
+              ],
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
