@@ -1,4 +1,7 @@
+import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
+
+import '../constants.dart';
 
 String validateIfTimeBeforeCurrentTime(String? value) {
   if (value?.isEmpty ?? true) {
@@ -6,6 +9,44 @@ String validateIfTimeBeforeCurrentTime(String? value) {
   } else {
     return '';
   }
+}
+
+List getPages(bool taskNotes, bool bills, bool medsAndDocs) {
+  List pages = [];
+  if (taskNotes) {
+    pages.add(taskPage);
+    pages.add(notesPage);
+  }
+
+  if (bills) {
+    pages.add(billsPage);
+  }
+
+  if (medsAndDocs) {
+    pages.add(docsNumPage);
+    pages.add(medsPage);
+  }
+
+  return pages;
+}
+
+List<TabItem> getTabs(bool taskNotes, bool bills, bool medsAndDocs) {
+  List<TabItem> tabs = [];
+  if (taskNotes) {
+    tabs.add(taskTab);
+    tabs.add(notesTab);
+  }
+
+  if (bills) {
+    tabs.add(billsTab);
+  }
+
+  if (medsAndDocs) {
+    tabs.add(docsNumTab);
+    tabs.add(medsTab);
+  }
+
+  return tabs;
 }
 
 Duration differenceBetweenTimes(TimeOfDay timeOfDay) {
@@ -20,7 +61,7 @@ Duration timeOfDayToDuration(TimeOfDay timeOfDay) {
   // Create a DateTime object with today's date and the time from TimeOfDay
   DateTime now = DateTime.now();
   DateTime dateTime =
-      DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+  DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
 
   // Calculate the difference between now and the specified time
   Duration duration = dateTime.difference(now);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
 
-import '../../functionality.dart';
+import '../../../services/functionality.dart';
 import '../../input_text.dart';
 import '../bloc/notes_bloc.dart';
 

@@ -12,14 +12,14 @@ class MyAppBar extends StatelessWidget {
     return AppBar(
       title: const Text(
         'OrganizeMe',
-        style: TextStyle(color: deepPurple),
+        style: TextStyle(color: darkBlue),
       ),
       actions: [
         BlocBuilder<CustomizeCubit, CustomizeState>(
           builder: (context, state) {
             return IconButton(
                 onPressed: () {
-                  BlocProvider.of<CustomizeCubit>(context).darkModeIsOn();
+                  // BlocProvider.of<CustomizeCubit>(context).darkModeIsOn();
                 },
                 icon: //state.darkMode ?
                     darkModeOn

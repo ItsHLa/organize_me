@@ -2,139 +2,149 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
+import '../services/functionality.dart';
 
 part 'customize_state.dart';
 
 class CustomizeCubit extends Cubit<CustomizeState> {
   CustomizeCubit()
-      : super(const CustomizeInitial(
-            numMeds: true, taskNotes: true, bill: true, darkMode: false));
-  bool taskNotes = true;
-  bool bill = true;
-  bool numMeds = true;
-  bool darkMode = false;
+      : super(CustomizeInitial(
+            numMeds: true,
+            bill: true,
+            darkMode: false,
+            taskNotes: true,
+            pages: getPages(true, true, true),
+            tabs: getTabs(true, true, true)));
 
-  void darkModeIsOn() {
-    darkMode = !darkMode;
-    if (darkMode) {
-      emit(CustomizeDarkModeOn(
-          darkMode: darkMode,
-          numMeds: numMeds,
-          taskNotes: taskNotes,
-          bill: bill));
+  void getAllCustomization() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var taskNNotes = prefs.getBool(taskNotesKey)!;
+    var bill = prefs.getBool(billsKey)!;
+    var medsNDocs = prefs.getBool(medsAndDocsKey)!;
+    List oldPages = getPages(taskNNotes, bill, medsNDocs);
+    List<TabItem> oldTabs = getTabs(taskNNotes, bill, medsNDocs);
+    emit(Customize(
+      pages: oldPages,
+      tabs: oldTabs,
+      darkMode: prefs.getBool('darkMode')!,
+      taskNotes: taskNNotes,
+      bill: bill,
+      numMeds: medsNDocs,
+    ));
+  }
+
+  void darkModeIsOn(bool darKMode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('darkMode', darKMode);
+    var taskNNotes = prefs.getBool(taskNotesKey)!;
+    var bill = prefs.getBool(billsKey)!;
+    var medsNDocs = prefs.getBool(medsAndDocsKey)!;
+    List pages = getPages(taskNNotes, bill, medsNDocs);
+    List<TabItem> tabs = getTabs(taskNNotes, bill, medsNDocs);
+
+    emit(Customize(
+        tabs: tabs,
+        pages: pages,
+        darkMode: darKMode,
+        taskNotes: taskNNotes,
+        bill: bill,
+        numMeds: medsNDocs));
+  }
+
+  void taskAndNotes(bool taskNotesOption) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var taskNNotes = prefs.getBool(taskNotesKey)!;
+    var bill = prefs.getBool(billsKey)!;
+    var medsNDocs = prefs.getBool(medsAndDocsKey)!;
+    List oldPages = getPages(taskNNotes, bill, medsNDocs);
+    List<TabItem> oldTabs = getTabs(taskNNotes, bill, medsNDocs);
+    if (bill || medsNDocs) {
+      prefs.setBool(taskNotesKey, taskNotesOption);
+      List pages = getPages(taskNotesOption, bill, medsNDocs);
+      List<TabItem> tabs = getTabs(
+        taskNotesOption,
+        bill,
+        medsNDocs,
+      );
+      emit(Customize(
+          pages: pages,
+          tabs: tabs,
+          darkMode: prefs.getBool('darkMode')!,
+          taskNotes: taskNotesOption,
+          bill: bill,
+          numMeds: medsNDocs));
     } else {
-      emit(CustomizeDarkModeOff(
-          darkMode: darkMode,
-          numMeds: numMeds,
-          taskNotes: taskNotes,
-          bill: bill));
+      emit(CustomizeFailed(
+          msg: 'عذرا لا يمكن تعديل',
+          pages: oldPages,
+          tabs: oldTabs,
+          darkMode: prefs.getBool('darkMode')!,
+          taskNotes: taskNNotes,
+          bill: bill,
+          numMeds: medsNDocs));
     }
   }
 
-  //List pages = [];
-  List<TabItem> tabsItem = [taskTab, notesTab, billsTab, docsNumTab, medsTab];
-
-  List pages = [taskPage, notesPage, billsPage, docsNumPage, medsPage];
-
-  List getPages() {
-    return pages;
-  }
-
-  List<TabItem> getTabs() {
-    return tabsItem;
-  }
-
-  void addToList({required dynamic element, required List list}) {
-    if (!list.contains(element)) {
-      list.add(element);
-    }
-  }
-
-  void removeFromList({required dynamic element, required List list}) {
-    if (list.contains(element)) {
-      list.remove(element);
-    }
-  }
-
-  void taskAndNotes() {
-    taskNotes = !taskNotes;
-    if (taskNotes) {
-      addToList(element: taskPage, list: pages);
-      addToList(element: notesPage, list: pages);
-      addToList(element: taskTab, list: tabsItem);
-      addToList(element: notesTab, list: tabsItem);
+  void billPage(bool billOption) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var taskNNotes = prefs.getBool(taskNotesKey)!;
+    var bill = prefs.getBool(billsKey)!;
+    var medsNDocs = prefs.getBool(medsAndDocsKey)!;
+    List oldPages = getPages(taskNNotes, bill, medsNDocs);
+    List<TabItem> oldTabs = getTabs(taskNNotes, bill, medsNDocs);
+    if (taskNNotes || medsNDocs) {
+      prefs.setBool(billsKey, billOption);
+      List pages = getPages(taskNNotes, billOption, medsNDocs);
+      List<TabItem> tabs = getTabs(taskNNotes, billOption, medsNDocs);
+      emit(Customize(
+          tabs: tabs,
+          pages: pages,
+          darkMode: prefs.getBool('darkMode')!,
+          taskNotes: taskNNotes,
+          bill: billOption,
+          numMeds: medsNDocs));
     } else {
-      removeFromList(element: taskPage, list: pages);
-      removeFromList(element: notesPage, list: pages);
-      removeFromList(element: taskTab, list: tabsItem);
-      removeFromList(element: notesTab, list: tabsItem);
+      emit(CustomizeFailed(
+          msg: 'عذرا لا يمكن تعديل',
+          tabs: oldTabs,
+          darkMode: prefs.getBool('darkMode')!,
+          taskNotes: taskNNotes,
+          bill: bill,
+          numMeds: medsNDocs,
+          pages: oldPages));
     }
   }
 
-  void billPage() {
-    bill = !bill;
-    if (bill) {
-      addToList(element: billsPage, list: pages);
-      addToList(element: billsTab, list: tabsItem);
+  void docsAndMedsPage(bool numMedsOption) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var taskNNotes = prefs.getBool(taskNotesKey)!;
+    var bill = prefs.getBool(billsKey)!;
+    var medsNDocs = prefs.getBool(medsAndDocsKey)!;
+    List oldPages = getPages(taskNNotes, bill, medsNDocs);
+    List<TabItem> oldTabs = getTabs(taskNNotes, bill, medsNDocs);
+    if (taskNNotes || bill) {
+      prefs.setBool(medsAndDocsKey, numMedsOption);
+      List pages = getPages(taskNNotes, bill, numMedsOption);
+      List<TabItem> tabs = getTabs(taskNNotes, bill, numMedsOption);
+      emit(Customize(
+          pages: pages,
+          tabs: tabs,
+          darkMode: prefs.getBool('darkMode')!,
+          taskNotes: taskNNotes,
+          bill: bill,
+          numMeds: numMedsOption));
     } else {
-      removeFromList(element: billsPage, list: pages);
-      removeFromList(element: billsTab, list: tabsItem);
-    }
-  }
-
-  void docsAndMedsPage() {
-    numMeds = !numMeds;
-    if (numMeds) {
-      addToList(element: docsNumPage, list: pages);
-      addToList(element: docsNumTab, list: tabsItem);
-      addToList(element: medsPage, list: pages);
-      addToList(element: medsTab, list: tabsItem);
-    } else if (numMeds) {
-      removeFromList(element: docsNumPage, list: pages);
-      removeFromList(element: docsNumTab, list: tabsItem);
-      removeFromList(element: medsPage, list: pages);
-      removeFromList(element: medsTab, list: tabsItem);
-    }
-  }
-
-  void customizeTasks() {
-    try {
-      taskAndNotes();
-      emit(CustomizeBottomNavigationBar(
-          darkMode: darkMode,
-          numMeds: numMeds,
-          taskNotes: taskNotes,
-          bill: bill));
-    } catch (e) {
-      return;
-    }
-  }
-
-  void customizeBills() {
-    try {
-      billPage();
-      emit(CustomizeBottomNavigationBar(
-          darkMode: darkMode,
-          numMeds: numMeds,
-          taskNotes: taskNotes,
-          bill: bill));
-    } catch (e) {
-      return;
-    }
-  }
-
-  void customizeDocs() {
-    try {
-      docsAndMedsPage();
-      emit(CustomizeBottomNavigationBar(
-          darkMode: darkMode,
-          numMeds: numMeds,
-          taskNotes: taskNotes,
-          bill: bill));
-    } catch (e) {
-      return;
+      emit(CustomizeFailed(
+          msg: 'عذرا لا يمكن تعديل',
+          pages: oldPages,
+          tabs: oldTabs,
+          darkMode: prefs.getBool('darkMode')!,
+          taskNotes: taskNNotes,
+          bill: bill,
+          numMeds: medsNDocs));
     }
   }
 }

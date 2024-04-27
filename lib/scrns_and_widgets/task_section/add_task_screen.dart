@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/functionality.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/add_edit_page_form.dart';
+import 'package:organize_me/services/functionality.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
@@ -127,6 +127,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               taskKey.currentState!.save();
               if (ValidateInputData.validateField(taskKey)) {
                 BlocProvider.of<TaskCubit>(context).addTask(
+                  status: '',
                   content: taskContent,
                   title: taskTitle,
                   startDate: date!,

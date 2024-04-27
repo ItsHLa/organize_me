@@ -95,7 +95,7 @@ class _AlterDialogCustomState extends State<AlterDialogCustom> {
       content: const Text(
         'هل انت متأكد من حذف هذه المهمة ؟',
         textAlign: TextAlign.center,
-        style: TextStyle(color: deepPurple),
+        style: TextStyle(color: darkBlue),
       ),
       actionsAlignment: MainAxisAlignment.center,
       contentPadding: const EdgeInsets.all(30),

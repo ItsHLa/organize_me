@@ -15,15 +15,7 @@ class NoteView extends StatefulWidget {
 }
 
 class _NoteViewState extends State<NoteView> {
-  // void _getAllNotes() async {
-  //   BlocProvider.of<NotesBloc>(context).notes = await Note.getAllNotes();
-  // }
 
-  // @override
-  // void initState() {
-  //   _getAllNotes();
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {

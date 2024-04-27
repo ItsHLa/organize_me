@@ -16,6 +16,7 @@ class TaskCubit extends Cubit<TaskState> {
 
   void addTask({
     required String title,
+    required String status,
     required String content,
     required DateTime startDate,
     required TimeOfDay startTime,
@@ -63,6 +64,7 @@ class TaskCubit extends Cubit<TaskState> {
     required int id,
     required String title,
     required String content,
+    required String status,
     required DateTime? startDate,
     required int preAlarm,
     required TimeOfDay? startTime,
@@ -107,17 +109,17 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   void loadTasks(DateTime currentDate) async {
-    String date = '${currentDate.day}/${currentDate.month}/${currentDate.year}';
     emit(const LoadingTasks(tasks: []));
+    String date = '${currentDate.day}/${currentDate.month}/${currentDate.year}';
     try {
       await Task.getTasksByDate(date).then(
         (value) {
           tasks = value;
-          emit(TaskLoaded(tasks: tasks));
         },
       );
+      emit(TaskLoaded(tasks: tasks));
     } catch (e) {
-      emit(LoadingTasks(tasks: tasks));
+      //emit(const LoadingTasks(tasks: []));
     }
   }
 }
