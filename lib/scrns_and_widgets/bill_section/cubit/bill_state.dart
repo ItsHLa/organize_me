@@ -1,20 +1,31 @@
 part of 'bill_cubit.dart';
 
 @immutable
-sealed class BillState {}
+sealed class BillState {
+  final String typeOfBill;
+  final List bills;
 
-final class BillInitial extends BillState {}
+  BillState({
+    required this.bills,
+    required this.typeOfBill,
+  });
+}
 
-final class LoadingBill extends BillState {}
+final class BillInitial extends BillState {
+  BillInitial({required super.bills, required super.typeOfBill});
+}
+
+final class LoadingBill extends BillState {
+  LoadingBill({required super.bills, required super.typeOfBill});
+}
 
 final class BillLoaded extends BillState {
-  final String typeOfBill;
-
-  BillLoaded({required this.typeOfBill});
+  BillLoaded({required super.typeOfBill, required super.bills});
 }
 
 final class LoadingBillFailed extends BillState {
   final String msg;
 
-  LoadingBillFailed({required this.msg});
+  LoadingBillFailed(
+      {required this.msg, required super.bills, required super.typeOfBill});
 }

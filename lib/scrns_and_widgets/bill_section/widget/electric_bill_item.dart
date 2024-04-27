@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_row.dart';
 
-class WaterBills extends StatelessWidget {
-  const WaterBills(
+import 'my_row.dart';
+
+class ElectricBills extends StatelessWidget {
+  const ElectricBills(
       {super.key,
       required this.date,
-      required this.barcode,
       required this.numberOfProcess,
-      required this.numberOfCounter,
+      required this.numberOfBill,
+      required this.numberOfPartici,
       required this.payment});
 
   final String date;
 
-  final String barcode;
   final String numberOfProcess;
-  final String numberOfCounter;
+  final String numberOfBill;
+  final String numberOfPartici;
   final String payment;
 
   @override
@@ -28,7 +29,7 @@ class WaterBills extends StatelessWidget {
               ListTile(
                 title: Row(
                   children: [
-                    waterBill,
+                    electricBill,
                     const SizedBox(
                       width: 10,
                     ),
@@ -40,9 +41,9 @@ class WaterBills extends StatelessWidget {
                 subtitle: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    MyRow(title: 'رقم الباركود', value: barcode),
-                    MyRow(title: 'رقم العداد  ', value: numberOfCounter),
-                    MyRow(title: 'المبلغ         ', value: payment),
+                    MyRow(title: 'رقم الفوترة     ', value: numberOfBill),
+                    MyRow(title: 'رقم الاشتراك  ', value: numberOfPartici),
+                    MyRow(title: 'المبلغ             ', value: payment),
                   ],
                 ),
               ),
