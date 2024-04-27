@@ -114,6 +114,8 @@ class ValidateInputData {
       return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
     } else if (value.length < 10) {
       return 'هذا الحقل لا يمكن ان يكون أقل من 10 ارقام';
+    } else if (value.length > 10) {
+      return 'هذا الحقل لا يمكن ان يكون اكبر من 10 ارقام';
     } else {
       return null;
     }
@@ -171,16 +173,14 @@ class ValidateInputData {
     List<String>? parts = value?.split(':');
     int hour = int.parse(parts![0]);
     int minute = int.parse(parts[1]);
-    DateTime currentTime = DateTime.now();
-    DateTime scheduledTime = DateTime(
-      currentTime.year,
-      currentTime.month,
-      currentTime.day,
-      hour,
-      minute,
+    TimeOfDay currentTime = TimeOfDay.now();
+    TimeOfDay scheduledTime = TimeOfDay(
+      hour: hour,
+      minute: minute,
     );
-    Duration difference = scheduledTime.difference(currentTime);
-    if (difference.isNegative) {
+    if (scheduledTime.hour < currentTime.hour ||
+        (scheduledTime.hour == currentTime.hour &&
+            scheduledTime.minute < currentTime.minute)) {
       return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
     } else {
       return null;

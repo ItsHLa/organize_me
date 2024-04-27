@@ -18,33 +18,38 @@ class TelecomBills extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              ListTile(
-                title: Row(
-                  children: [
-                    telecomBill,
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(date),
-                    const Spacer(),
-                    Text(numberOfProcess)
-                  ],
-                ),
-                subtitle: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MyRow(title: 'رقم الهاتف الثابت ', value: phoneNumber),
-                    MyRow(title: 'المبلغ                   ', value: payment),
-                  ],
-                ),
+    return Stack(
+      children: [
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: ListTile(
+              title: Row(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(date),
+                  const Spacer(),
+                  Text(numberOfProcess)
+                ],
               ),
-            ],
-          )),
+              subtitle: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  MyRow(title: 'رقم الهاتف الثابت ', value: phoneNumber),
+                  MyRow(title: 'المبلغ                   ', value: payment),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: -4,
+          right: -4,
+          child: telecomBill,
+        ),
+      ],
     );
   }
 }

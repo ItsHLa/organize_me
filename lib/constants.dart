@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/bills_view.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
@@ -81,18 +82,21 @@ const Icon taskPending = Icon(Icons.not_started_outlined, color: Colors.grey);
 const Icon darkModeOn = Icon(Icons.wb_sunny_outlined);
 const Icon darkModeOff = Icon(Icons.nightlight_outlined);
 /////////////////////////////////BillIcons////////////////////////////////////////////////
-const Icon waterBill = Icon(
+Widget waterBill = const IconForm(
+    child: Icon(
   Icons.water_drop,
   color: Color.fromRGBO(7, 144, 166, 1),
-);
-const Icon electricBill = Icon(
+));
+Widget electricBill = const IconForm(
+    child: Icon(
   Icons.electric_bolt,
   color: Color.fromRGBO(219, 200, 109, 1),
-);
-const Icon telecomBill = Icon(
+));
+Widget telecomBill = const IconForm(
+    child: Icon(
   Icons.call_end,
   color: Color.fromRGBO(109, 124, 65, 1),
-);
+));
 
 ///////////////////////////Colors //////////////////////////////////////////////
 const Color darkBlue = Color(0xFF003C43);

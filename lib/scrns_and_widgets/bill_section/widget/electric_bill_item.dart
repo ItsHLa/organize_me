@@ -21,34 +21,39 @@ class ElectricBills extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              ListTile(
-                title: Row(
-                  children: [
-                    electricBill,
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(date),
-                    const Spacer(),
-                    Text(numberOfProcess)
-                  ],
-                ),
-                subtitle: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MyRow(title: 'رقم الفوترة     ', value: numberOfBill),
-                    MyRow(title: 'رقم الاشتراك  ', value: numberOfPartici),
-                    MyRow(title: 'المبلغ             ', value: payment),
-                  ],
-                ),
+    return Stack(
+      children: [
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: ListTile(
+              title: Row(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(date),
+                  const Spacer(),
+                  Text(numberOfProcess)
+                ],
               ),
-            ],
-          )),
+              subtitle: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  MyRow(title: 'رقم الفوترة     ', value: numberOfBill),
+                  MyRow(title: 'رقم الاشتراك  ', value: numberOfPartici),
+                  MyRow(title: 'المبلغ             ', value: payment),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: -4,
+          right: -4,
+          child: electricBill,
+        )
+      ],
     );
   }
 }
