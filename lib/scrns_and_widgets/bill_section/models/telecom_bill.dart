@@ -1,8 +1,9 @@
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
 import 'package:sqflite/sqflite.dart';
 
-class TelecomBill {
+class TelecomBill extends Bill {
   int id;
   double paymentAmount;
   double commissionAmount;
