@@ -63,15 +63,16 @@ class _OrganizeMeState extends State<OrganizeMe> {
       child: BlocBuilder<CustomizeCubit, CustomizeState>(
         builder: (context, state) {
           return MaterialApp(
-              themeMode: ThemeMode.system,
-              debugShowCheckedModeBanner: false,
-              darkTheme: ThemeData(brightness: Brightness.dark),
-              theme: ThemeData(
-                brightness: state is CustomizeDarkModeOn
-                    ? Brightness.dark
-                    : Brightness.light,
-              ),
-              home: const HomePage());
+            themeMode: ThemeMode.system,
+            debugShowCheckedModeBanner: false,
+            darkTheme: ThemeData(brightness: Brightness.dark),
+            theme: ThemeData(
+              brightness: state is CustomizeDarkModeOn
+                  ? Brightness.dark
+                  : Brightness.light,
+            ),
+            home: const HomePage(),
+          );
         },
       ),
     );

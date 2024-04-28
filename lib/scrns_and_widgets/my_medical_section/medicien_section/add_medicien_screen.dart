@@ -55,12 +55,13 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
               );
             },
             saveMedShotTime: () async {
-              time = await showTimePicker(
-                  context: context, initialTime: TimeOfDay.now());
+              time = (await showTimePicker(
+                  context: context, initialTime: TimeOfDay.now()));
               setState(
                 () {
-                  shotTime =
-                      '${time?.hour.toString()}:${time?.minute.toString()}';
+                  shotTime = time != null
+                      ? '${time?.hour.toString()}:${time?.minute.toString()}'
+                      : '';
                 },
               );
             },
