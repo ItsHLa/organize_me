@@ -5,7 +5,9 @@ import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'constants.dart';
 import 'customize_app_cubit/customize_cubit.dart';
 
 void main() async {
@@ -49,11 +51,22 @@ class OrganizeMe extends StatefulWidget {
 }
 
 class _OrganizeMeState extends State<OrganizeMe> {
+  void initCustomize() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool(
+        taskNotesKey, preferences.getBool(taskNotesKey) ?? true);
+    preferences.setBool(billsKey, preferences.getBool(billsKey) ?? true);
+    preferences.setBool(
+        medsAndDocsKey, preferences.getBool(medsAndDocsKey) ?? true);
+    preferences.setBool('darkMode', preferences.getBool('darkMode') ?? false);
+  }
+
   @override
   void initState() {
     DatabaseHelper.intialDb();
     TelephonyService.askForPermission();
     TelephonyService.listenForIncomingSms();
+    initCustomize();
     super.initState();
   }
 
@@ -64,9 +77,9 @@ class _OrganizeMeState extends State<OrganizeMe> {
       child: BlocBuilder<CustomizeCubit, CustomizeState>(
         builder: (context, state) {
           return MaterialApp(
-              themeMode: ThemeMode.system,
+            //themeMode: ThemeMode.system,
               debugShowCheckedModeBanner: false,
-              darkTheme: ThemeData(brightness: Brightness.dark),
+              // darkTheme: ThemeData(brightness: Brightness.dark),
               theme: ThemeData(
                 brightness: state.darkMode ? Brightness.dark : Brightness.light,
               ),

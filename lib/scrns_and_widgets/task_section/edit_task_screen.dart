@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/services/functionality.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/add_edit_page_form.dart';
+import 'package:organize_me/services/functionality.dart';
 
 import 'cubit/task_cubit.dart';
 import 'models/task.dart';
@@ -103,7 +103,6 @@ class _EditTaskState extends State<EditTask> {
             onPressed: () {
               taskKey.currentState?.save();
               BlocProvider.of<TaskCubit>(context).editTask(
-                status: '',
                 preAlarm: editedPreAlarm,
                 id: widget.task.id,
                 title: editedTaskTitle,

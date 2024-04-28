@@ -74,10 +74,9 @@ String billsKey = 'bill';
 String medsAndDocsKey = 'numMeds';
 
 ////////////////////////////////////////TaskIcons///////////////////////////////////////////////////
-const Icon taskComplete = Icon(Icons.task_alt_outlined, color: Colors.grey);
-const Icon taskOngoing =
-    Icon(Icons.pause_circle_outline_outlined, color: Colors.grey);
-const Icon taskPending = Icon(Icons.not_started_outlined, color: Colors.grey);
+const Icon taskComplete = Icon(Icons.task_alt_outlined, color: grey);
+const Icon taskOngoing = Icon(Icons.pause_circle_outline_outlined, color: grey);
+const Icon taskPending = Icon(Icons.not_started_outlined, color: grey);
 /////////////////////////////////////////////darkModeIcons///////////////////////////////////////////
 const Icon darkModeOn = Icon(Icons.wb_sunny_outlined);
 const Icon darkModeOff = Icon(Icons.nightlight_outlined);
@@ -99,9 +98,10 @@ Widget telecomBill = const IconForm(
 ));
 
 ///////////////////////////Colors //////////////////////////////////////////////
-const Color darkBlue = Color(0xFF003C43);
-const Color softDarkBlue = Color(0xFF135D66);
-const Color verySoftDarkBlue = Color(0xFF77B0AA);
+const Color grey = Color(0xFFc9c0c7);
+const Color darkBlue = Color(0xFF1475cb);
+const Color softDarkBlue = Color(0xFF5591d6);
+const Color verySoftDarkBlue = Color(0xFF20abb9);
 const Color black = Color(0xFF222831);
 const Color darkTheme = Color(0xFF121212);
 const Color blue = Color.fromRGBO(7, 144, 166, 1);

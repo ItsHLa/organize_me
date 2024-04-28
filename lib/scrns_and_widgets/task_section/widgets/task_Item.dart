@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/constants.dart';
 
 class TaskItem extends StatelessWidget {
   const TaskItem({
@@ -7,27 +6,68 @@ class TaskItem extends StatelessWidget {
     required this.taskTitle,
     required this.taskStartTime,
     required this.taskPreAlarm,
-    this.onPressedEdit,
-    this.onPressedDelete,
-    this.onTap,
+    required this.onTap,
     required this.date,
+    required this.onStatusIconPressed,
+    required this.statusIcon,
+    this.onCancelIconPressed,
+    required this.cancelIcon,
   });
 
   final String taskTitle;
   final String taskStartTime;
   final int taskPreAlarm;
   final String date;
-  final void Function()? onPressedEdit;
-  final void Function()? onPressedDelete;
+  final void Function()? onStatusIconPressed;
+  final void Function()? onCancelIconPressed;
+  final Widget cancelIcon;
+  final Widget statusIcon;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: taskPending,
-      onTap: onTap,
-      title: Text(taskTitle),
-      subtitle: Text("$taskStartTime - $taskPreAlarm \n $date "),
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: ListTile(
+                onTap: onTap,
+                title: Text(taskTitle),
+                subtitle: Text("$taskStartTime - $taskPreAlarm \n $date "),
+              ),
+            ),
+            MyStatusButton(
+              onPressed: onStatusIconPressed,
+              icon: statusIcon,
+            ),
+            MyStatusButton(
+              onPressed: onCancelIconPressed,
+              icon: cancelIcon,
+            )
+          ],
+        ),
+        const Divider()
+      ],
+    );
+  }
+}
+
+class MyStatusButton extends StatelessWidget {
+  const MyStatusButton({
+    super.key,
+    this.onPressed,
+    required this.icon,
+  });
+
+  final void Function()? onPressed;
+  final Widget icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: icon,
     );
   }
 }

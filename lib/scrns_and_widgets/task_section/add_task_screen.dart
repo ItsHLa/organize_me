@@ -49,32 +49,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             taskTitleValidator: ValidateInputData.checkIfNull,
             datValidator: ValidateInputData.checkDateTime,
             startTimeValidator: ValidateInputData.checkStartTime,
-            preAlarmValidator: (String? value) {
-              if (value?.isEmpty ?? true) {
-                return 'هذا الحقل لا يمكن ان يكون فارغ';
-              }
-              TimeOfDay timeNow = TimeOfDay.now();
-              DateTime fullDateNow = DateTime.now();
-              DateTime dateNow = DateTime(
-                fullDateNow.year,
-                fullDateNow.month,
-                fullDateNow.day,
-              );
-              int diffInMinutes = start != null
-                  ? ((start!.hour - timeNow.hour) * 60) +
-                      (start!.minute - timeNow.minute)
-                  : 0;
-
-              if (preAlarm.isNegative) {
-                return 'هذا الحقل لا يمكن أن يحوي أعداد سالبة';
-              } else if ((value?.length ?? 0) > 10) {
-                return 'هذا الحقل لا يمكن أن يكون أكبر من 10 أرقام';
-              } else if ((date?.isAtSameMomentAs(dateNow) ?? false) &&
-                  preAlarm >= diffInMinutes) {
-                return 'هذا الحقل يجب أن يكون أصغر من فرق الوقت بين الآن ووقت البدء';
-              } else {
-                return null;
-              }
+            preAlarmValidator: (value) {
+              return ValidateInputData.checkTaskInterval(
+                  value, start, preAlarm, date);
             },
             saveDate: () async {
               date = await showDatePicker(
@@ -127,7 +104,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               taskKey.currentState!.save();
               if (ValidateInputData.validateField(taskKey)) {
                 BlocProvider.of<TaskCubit>(context).addTask(
-                  status: '',
                   content: taskContent,
                   title: taskTitle,
                   startDate: date!,

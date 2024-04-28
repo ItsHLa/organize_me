@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class MyFab extends StatelessWidget {
   const MyFab({
     super.key,
@@ -13,6 +15,7 @@ class MyFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      backgroundColor: softDarkBlue,
       shape: const StadiumBorder(),
       onPressed: onPressed,
       child: Icon(icon),

@@ -16,7 +16,6 @@ class TaskCubit extends Cubit<TaskState> {
 
   void addTask({
     required String title,
-    required String status,
     required String content,
     required DateTime startDate,
     required TimeOfDay startTime,
@@ -29,7 +28,7 @@ class TaskCubit extends Cubit<TaskState> {
         preAlarm: preAlarm,
         startTime: '${startTime.hour}:${startTime.minute}',
         startDate: '${startDate.day}/${startDate.month}/${startDate.year}',
-      );
+        status: 'متوقف');
       tasks.add(Task.fromMap(task));
       AppNotification.showTaskNotificationBeforeXMinutes(
         id: task['id'],
@@ -64,7 +63,6 @@ class TaskCubit extends Cubit<TaskState> {
     required int id,
     required String title,
     required String content,
-    required String status,
     required DateTime? startDate,
     required int preAlarm,
     required TimeOfDay? startTime,
@@ -119,7 +117,19 @@ class TaskCubit extends Cubit<TaskState> {
       );
       emit(TaskLoaded(tasks: tasks));
     } catch (e) {
-      //emit(const LoadingTasks(tasks: []));
+      print('error');
+      emit(const LoadingTasks(tasks: []));
     }
+  }
+
+  void editStatus({
+    required int id,
+    required String status,
+  }) async {
+    Map newTaskMap = await Task.editTaskStatus(id, newStatus: status);
+    int i = tasks.indexOf(tasks.singleWhere((task) => task.id == id));
+    Task newTask = Task.fromMap(newTaskMap);
+    tasks[i] = newTask;
+    emit(AddTaskSuccess(tasks: tasks));
   }
 }

@@ -29,7 +29,7 @@ class CustomizeCubit extends Cubit<CustomizeState> {
     emit(Customize(
       pages: oldPages,
       tabs: oldTabs,
-      darkMode: prefs.getBool('darkMode')!,
+      darkMode: prefs.getBool('darkMode') ?? false,
       taskNotes: taskNNotes,
       bill: bill,
       numMeds: medsNDocs,
