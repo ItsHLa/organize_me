@@ -42,7 +42,7 @@ class TaskDetails extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.all(9),
             decoration: BoxDecoration(
-              color: softPurple,
+              color: softDarkBlue,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Column(
@@ -97,7 +97,7 @@ class TaskDetails extends StatelessWidget {
                                 borderSide: const BorderSide(color: black),
                                 borderRadius: BorderRadius.circular(16),
                               )),
-                          initialSelection: 'لم يتم البدء بالمهمة',
+                          initialSelection: state.tasks[index].status,
                           onSelected: onSelected,
                           controller:
                               TextEditingController(text: initialSelection),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/widgets/input_medicien_form.dart';
 
+import '../../../services/functionality.dart';
 import '../../add_data_page.dart';
-import '../../functionality.dart';
 import 'cubit/medicien_cubit.dart';
 
 class AddMedsScreen extends StatefulWidget {

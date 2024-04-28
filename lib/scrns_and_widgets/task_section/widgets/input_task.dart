@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/scrns_and_widgets/functionality.dart';
 
+import '../../../services/functionality.dart';
 import '../../date_time_picker.dart';
 import '../../input_text.dart';
 

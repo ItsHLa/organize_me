@@ -16,25 +16,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   int pageIndex = 0;
-  bool taskAndNotes = true;
-  bool bills = true;
-  bool numAndMeds = true;
 
   final CircularBottomNavigationController _navigationController =
       CircularBottomNavigationController(0);
 
   @override
   Widget build(BuildContext context) {
-    List pages = BlocProvider.of<CustomizeCubit>(context).getPages();
+    BlocProvider.of<CustomizeCubit>(context).getAllCustomization();
     return BlocBuilder<CustomizeCubit, CustomizeState>(
       builder: (context, state) {
         return Scaffold(
             endDrawer: const Settings(),
-            //drawer: Settings(),
             appBar: AppBar(
               title: const Text(
                 'Hi , there!',
-                style: TextStyle(color: deepPurple),
+                style: TextStyle(color: darkBlue),
               ),
               actions: [
                 Builder(builder: (context) {
@@ -47,13 +43,11 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             bottomNavigationBar: CircularBottomNavigation(
-              barBackgroundColor:
-              state is CustomizeDarkModeOn ? black : Colors.white,
+              barBackgroundColor: state.darkMode ? black : Colors.white,
               circleSize: 40,
               iconsSize: 20,
               controller: _navigationController,
-              BlocProvider.of<CustomizeCubit>(context).getTabs(),
-              //selectedPos: pageIndex,
+              state.tabs,
               selectedCallback: (idx) {
                 setState(() {
                   pageIndex = idx!;
@@ -61,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                 });
               },
             ),
-            body: pages[pageIndex]);
+            body: state.pages[pageIndex]);
       },
     );
   }

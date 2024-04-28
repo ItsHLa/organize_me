@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_row.dart';
 
-class TelecomBills extends StatelessWidget {
-  const TelecomBills(
+import 'my_row.dart';
+
+class ElectricBills extends StatelessWidget {
+  const ElectricBills(
       {super.key,
       required this.date,
       required this.numberOfProcess,
-      required this.phoneNumber,
+      required this.numberOfBill,
+      required this.numberOfPartici,
       required this.payment});
 
   final String date;
 
   final String numberOfProcess;
-  final String phoneNumber;
+  final String numberOfBill;
+  final String numberOfPartici;
   final String payment;
 
   @override
@@ -22,7 +25,7 @@ class TelecomBills extends StatelessWidget {
       children: [
         Card(
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(3.0),
             child: ListTile(
               title: Row(
                 children: [
@@ -37,8 +40,9 @@ class TelecomBills extends StatelessWidget {
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  MyRow(title: 'رقم الهاتف الثابت ', value: phoneNumber),
-                  MyRow(title: 'المبلغ                   ', value: payment),
+                  MyRow(title: 'رقم الفوترة     ', value: numberOfBill),
+                  MyRow(title: 'رقم الاشتراك  ', value: numberOfPartici),
+                  MyRow(title: 'المبلغ             ', value: payment),
                 ],
               ),
             ),
@@ -47,8 +51,8 @@ class TelecomBills extends StatelessWidget {
         Positioned(
           top: -4,
           right: -4,
-          child: telecomBill,
-        ),
+          child: electricBill,
+        )
       ],
     );
   }

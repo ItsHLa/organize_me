@@ -4,7 +4,7 @@ import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_sectio
 import 'package:organize_me/services/work_manager_service.dart';
 import 'package:workmanager/workmanager.dart';
 
-import '../../../functionality.dart';
+import '../../../../services/functionality.dart';
 
 part 'medicien_state.dart';
 

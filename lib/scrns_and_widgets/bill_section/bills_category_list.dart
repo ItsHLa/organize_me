@@ -10,8 +10,7 @@ class BillsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      //IconButton(onPressed: (){}, icon: Icon(Icons.me)),
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       Expanded(
         child: ListView(
           padding: const EdgeInsets.all(5),

@@ -7,11 +7,12 @@ class IconForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          color: Colors.white54, borderRadius: BorderRadius.circular(20)),
-      child: child,
+    return Card(
+      shape: const StadiumBorder(side: BorderSide(color: Colors.white54)),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: child,
+      ),
     );
   }
 }

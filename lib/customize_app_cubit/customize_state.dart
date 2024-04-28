@@ -6,12 +6,17 @@ sealed class CustomizeState {
   final bool bill;
   final bool numMeds;
   final bool darkMode;
+  final List pages;
+  final List<TabItem> tabs;
 
-  const CustomizeState(
-      {required this.taskNotes,
-      required this.bill,
-      required this.numMeds,
-      required this.darkMode});
+  const CustomizeState({
+    required this.pages,
+    required this.tabs,
+    required this.taskNotes,
+    required this.bill,
+    required this.numMeds,
+    required this.darkMode,
+  });
 }
 
 final class CustomizeInitial extends CustomizeState {
@@ -19,42 +24,30 @@ final class CustomizeInitial extends CustomizeState {
       {required super.taskNotes,
       required super.bill,
       required super.numMeds,
-      required super.darkMode});
+      required super.darkMode,
+      required super.pages,
+      required super.tabs});
 }
 
-final class CustomizeBottomNavigationBar extends CustomizeState {
-  const CustomizeBottomNavigationBar(
+final class Customize extends CustomizeState {
+  const Customize(
       {required super.darkMode,
       required super.taskNotes,
       required super.bill,
-      required super.numMeds});
+      required super.numMeds,
+      required super.pages,
+      required super.tabs});
 }
 
-final class CustomizeBottomNavigationBarFailed extends CustomizeState {
+final class CustomizeFailed extends CustomizeState {
   final String msg;
 
-  const CustomizeBottomNavigationBarFailed(
-      {required this.msg,
+  const CustomizeFailed(
+      {required super.darkMode,
+      required this.msg,
       required super.taskNotes,
       required super.bill,
       required super.numMeds,
-      required super.darkMode});
-}
-
-final class CustomizeDarkModeOn extends CustomizeState {
-  const CustomizeDarkModeOn({
-    required super.taskNotes,
-    required super.bill,
-    required super.numMeds,
-    required super.darkMode,
-  });
-}
-
-final class CustomizeDarkModeOff extends CustomizeState {
-  const CustomizeDarkModeOff({
-    required super.taskNotes,
-    required super.bill,
-    required super.numMeds,
-    required super.darkMode,
-  });
+      required super.pages,
+      required super.tabs});
 }

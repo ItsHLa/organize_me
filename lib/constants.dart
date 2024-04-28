@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/bills_view.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
@@ -12,7 +13,7 @@ import 'package:organize_me/scrns_and_widgets/settings.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 
-// notifications constants
+/////////////////////////////////////// notifications constants//////////////////////////////
 const taskTag = 'taskTag';
 const medicineTag = 'medicineTag';
 const billTag = 'billTag';
@@ -25,29 +26,29 @@ const String taskChannelName = 'taskChannelName';
 const String medicineChannelName = 'medicineChannelName';
 const String billChannelName = 'billChannelName';
 
-// tab and pages of app
+/////////////////////////tabs//////////////////////////////
 TabItem taskTab = TabItem(
   Icons.task_alt_outlined,
   "مهام",
-  deepPurple,
+  darkBlue,
 );
 TabItem notesTab = TabItem(
   Icons.note_alt,
   " مفكرة",
-  deepPurple,
+  darkBlue,
 );
 TabItem billsTab = TabItem(
   Icons.payments,
   "فواتير",
-  deepPurple,
+  darkBlue,
 );
 
 TabItem medsTab =
-    TabItem(Icons.medical_information_outlined, "ادوية", deepPurple);
+    TabItem(Icons.medical_information_outlined, "ادوية", darkBlue);
 
-TabItem docsNumTab = TabItem(Icons.phone, "اطباء", deepPurple);
-TabItem settingsTab = TabItem(Icons.settings, "الاعدادات", deepPurple);
-
+TabItem docsNumTab = TabItem(Icons.phone, "اطباء", darkBlue);
+TabItem settingsTab = TabItem(Icons.settings, "الاعدادات", darkBlue);
+/////////////////////////////////////pages//////////////////////////////////////////
 Widget settings = const Settings();
 Widget taskPage = BlocProvider<TaskCubit>(
     create: (context) => TaskCubit(), child: const DayCalendar());
@@ -66,38 +67,49 @@ Widget billsPage = BlocProvider(
   create: (context) => BillCubit(),
   child: const MyBills(),
 );
+//////////////////////////////customize constants///////////////////////////////////
 
+String taskNotesKey = 'taskNotes';
+String billsKey = 'bill';
+String medsAndDocsKey = 'numMeds';
+
+////////////////////////////////////////TaskIcons///////////////////////////////////////////////////
 const Icon taskComplete = Icon(Icons.task_alt_outlined, color: Colors.grey);
 const Icon taskOngoing =
     Icon(Icons.pause_circle_outline_outlined, color: Colors.grey);
 const Icon taskPending = Icon(Icons.not_started_outlined, color: Colors.grey);
-
+/////////////////////////////////////////////darkModeIcons///////////////////////////////////////////
 const Icon darkModeOn = Icon(Icons.wb_sunny_outlined);
 const Icon darkModeOff = Icon(Icons.nightlight_outlined);
-const Icon waterBill = Icon(
+/////////////////////////////////BillIcons////////////////////////////////////////////////
+Widget waterBill = const IconForm(
+    child: Icon(
   Icons.water_drop,
   color: Color.fromRGBO(7, 144, 166, 1),
-);
-const Icon electricBill = Icon(
+));
+Widget electricBill = const IconForm(
+    child: Icon(
   Icons.electric_bolt,
   color: Color.fromRGBO(219, 200, 109, 1),
-);
-const Icon telecomBill = Icon(
+));
+Widget telecomBill = const IconForm(
+    child: Icon(
   Icons.call_end,
   color: Color.fromRGBO(109, 124, 65, 1),
-);
+));
 
-const Color deepPurple = Color(0xFF7469B6);
-const Color softPurple = Color(0xFF8E7AB5);
+///////////////////////////Colors //////////////////////////////////////////////
+const Color darkBlue = Color(0xFF003C43);
+const Color softDarkBlue = Color(0xFF135D66);
+const Color verySoftDarkBlue = Color(0xFF77B0AA);
 const Color black = Color(0xFF222831);
 const Color darkTheme = Color(0xFF121212);
-
-// const Color appcolor = Color.fromRGBO(109, 128, 160,1);
 const Color blue = Color.fromRGBO(7, 144, 166, 1);
 const Color red = Color.fromRGBO(194, 100, 101, 1);
 const Color yellow = Color.fromRGBO(219, 200, 109, 1);
 const Color green = Color.fromRGBO(109, 124, 65, 1);
 
+//////////////////////////////////Regex//////////////////////////////////////////
 RegExp electricRegex = RegExp(
     r'\D+(\d+\.?\d*)\D+الكهرباء\D+(\d+\.?\d*)\D+(\d+)\D+(\d{2}/\d{2}/\d{4} \d{2}:\d{2})\D+: ([\u0621-\u064A]+)\D+(\d+)\D+(\d+)\D+(s\d+)');
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/widgets/input_phone_num.dart';
 
+import '../../../services/functionality.dart';
 import '../../add_data_page.dart';
-import '../../functionality.dart';
 import 'cubit/docs_num_cubit.dart';
 
 class AddPhoneNum extends StatefulWidget {

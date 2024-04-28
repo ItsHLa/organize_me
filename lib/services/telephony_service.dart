@@ -22,8 +22,6 @@ class TelephonyService {
           debugPrint(message.body);
           compareBill(smsMessage: message.body!);
         }
-
-        // we will pass the body of message here based on contact address
       },
     );
   }
