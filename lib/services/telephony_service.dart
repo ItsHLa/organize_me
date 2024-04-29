@@ -13,6 +13,7 @@ class TelephonyService {
     return await telephony.requestPhoneAndSmsPermissions;
   }
 
+
   static void listenForIncomingSms() {
     telephony.listenIncomingSms(
       onBackgroundMessage: onBackgroundMessage,

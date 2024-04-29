@@ -4,11 +4,15 @@ import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/water_bill.dart';
+import 'package:path/path.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'bill_state.dart';
 
 class BillCubit extends Cubit<BillState> {
   BillCubit() : super(const BillInitial(bills: [], typeOfBill: 'water'));
+
+  void payFromSyriatelCash() async {}
 
   void loadWater() async {
     List<WaterBill> bills = [];

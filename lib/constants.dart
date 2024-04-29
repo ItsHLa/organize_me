@@ -13,6 +13,9 @@ import 'package:organize_me/scrns_and_widgets/settings.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 
+const String altibbiURL =
+    'https://altibbi.com/%D8%A7%D9%84%D8%AF%D9%84%D9%8A%D9%84-%D8%A7%D9%84%D8%B7%D8%A8%D9%8A/%D8%B3%D9%88%D8%B1%D9%8A%D8%A7';
+
 /////////////////////////////////////// notifications constants//////////////////////////////
 const taskTag = 'taskTag';
 const medicineTag = 'medicineTag';
