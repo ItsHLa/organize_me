@@ -28,9 +28,9 @@ class _HomePageState extends State<HomePage> {
         return Scaffold(
             endDrawer: const Settings(),
             appBar: AppBar(
-              title: const Text(
+              title: Text(
                 'Hi , there!',
-                style: TextStyle(color: darkBlue),
+                style: TextStyle(color: deepPurple),
               ),
               actions: [
                 Builder(builder: (context) {

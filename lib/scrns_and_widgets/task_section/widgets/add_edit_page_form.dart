@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organize_me/scrns_and_widgets/my_button.dart';
+import 'package:organize_me/scrns_and_widgets/add_data_page.dart';
 
 import 'input_task.dart';
 
@@ -41,39 +41,24 @@ class TaskDataPageForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.only(
-        top: 8.0,
-        left: 8,
-        right: 8,
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      children: [
-        Column(
-          children: [
-            InputTask(
-              taskTitleValidator: taskTitleValidator,
-              contentValidator: contentValidator,
-              startTimeValidator: startTimeValidator,
-              datValidator: datValidator,
-              preAlarmValidator: preAlarmValidator,
-              date: date,
-              start: start,
-              savePreAlarm: savePreAlarm,
-              saveStartTime: saveStartTime,
-              saveContent: saveContent,
-              saveTitle: saveTitle,
-              key: key,
-              saveDate: saveDate,
-            ),
-            MyButton(
-              onPressed: onPressed,
-              icon: icon,
-              label: label,
-            )
-          ],
-        ),
-      ],
-    );
+    return InputDataPage(
+        onPressed: onPressed,
+        icon: icon,
+        label: label,
+        child: InputTask(
+          taskTitleValidator: taskTitleValidator,
+          contentValidator: contentValidator,
+          startTimeValidator: startTimeValidator,
+          datValidator: datValidator,
+          preAlarmValidator: preAlarmValidator,
+          date: date,
+          start: start,
+          savePreAlarm: savePreAlarm,
+          saveStartTime: saveStartTime,
+          saveContent: saveContent,
+          saveTitle: saveTitle,
+          key: key,
+          saveDate: saveDate,
+        ));
   }
 }

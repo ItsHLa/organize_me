@@ -10,9 +10,9 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text(
+      title: Text(
         'OrganizeMe',
-        style: TextStyle(color: darkBlue),
+        style: TextStyle(color: deepPurple),
       ),
       actions: [
         BlocBuilder<CustomizeCubit, CustomizeState>(

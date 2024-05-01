@@ -12,14 +12,17 @@ class AddTaskScreen extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
-  String taskTitle = '';
-  String taskContent = '';
+  String? taskTitle;
+
+  String? taskContent;
 
   TimeOfDay? start;
   DateTime? date;
   String dateTime = '';
+
   String startTime = '';
-  int preAlarm = 0;
+  int? preAlarm;
+
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
 
@@ -48,10 +51,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             contentValidator: ValidateInputData.checkIfNull,
             taskTitleValidator: ValidateInputData.checkIfNull,
             datValidator: ValidateInputData.checkDateTime,
-            startTimeValidator: ValidateInputData.checkStartTime,
+            startTimeValidator: (value) {
+              return ValidateInputData.checkStartTime(value, dateTime);
+            },
             preAlarmValidator: (value) {
               return ValidateInputData.checkTaskInterval(
-                  value, start, preAlarm, date);
+                  value, startTime, dateTime);
             },
             saveDate: () async {
               date = await showDatePicker(
@@ -95,19 +100,19 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             savePreAlarm: (value) {
               setState(
                 () {
-                  preAlarm = int.parse(value!);
+                  preAlarm = int.parse(value ?? '0');
                 },
               );
             },
             start: TextEditingController(text: startTime),
             onPressed: () {
-              taskKey.currentState!.save();
               if (ValidateInputData.validateField(taskKey)) {
+                taskKey.currentState!.save();
                 BlocProvider.of<TaskCubit>(context).addTask(
-                  content: taskContent,
-                  title: taskTitle,
+                  content: taskContent!,
+                  title: taskTitle!,
                   startDate: date!,
-                  preAlarm: preAlarm,
+                  preAlarm: preAlarm!,
                   startTime: start!,
                 );
               } else {

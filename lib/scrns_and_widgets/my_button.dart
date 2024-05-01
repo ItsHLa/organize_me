@@ -18,7 +18,7 @@ class MyButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
           padding: const EdgeInsets.all(8),
-          backgroundColor: darkBlue),
+          backgroundColor: deepPurple),
       onPressed: onPressed,
       icon: Icon(icon, color: Colors.white),
       label: Text(

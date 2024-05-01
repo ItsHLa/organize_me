@@ -15,10 +15,13 @@ class MyFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: softDarkBlue,
+      backgroundColor: softPurple,
       shape: const StadiumBorder(),
       onPressed: onPressed,
-      child: Icon(icon),
+      child: Icon(
+        icon,
+        color: black,
+      ),
     );
   }
 }

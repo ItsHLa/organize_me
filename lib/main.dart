@@ -5,6 +5,7 @@ import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
+import 'package:organize_me/services/work_manager_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
@@ -14,8 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait([
     LocalNotificationService.initi(),
-    //  WorkManagerService().init()
-  ]);
+    WorkManagerService().init()]);
   runApp(const MyApp());
 }
 

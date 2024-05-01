@@ -55,26 +55,24 @@ class _TaskListViewState extends State<TaskListView> {
                 }
               },
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (newContext) => BlocProvider<TaskCubit>.value(
-                      value: BlocProvider.of(context),
-                      child: TaskDetails(
-                        task: widget.tasks[index],
-                        onPressedEdit: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            isDismissible: true,
-                            showDragHandle: true,
-                            context: context,
-                            builder: (newcontext) =>
-                                BlocProvider<TaskCubit>.value(
-                              value: BlocProvider.of(context),
-                              child: EditTask(task: widget.tasks[index]),
-                            ),
-                          );
-                        },
-                      ),
+                showModalBottomSheet(
+                  context: context,
+                  builder: (newcontext) => BlocProvider<TaskCubit>.value(
+                    value: BlocProvider.of(context),
+                    child: TaskDetails(
+                      index: index,
+                      onPressedEdit: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          isDismissible: true,
+                          context: context,
+                          builder: (newcontext) =>
+                              BlocProvider<TaskCubit>.value(
+                            value: BlocProvider.of(context),
+                            child: EditTask(task: widget.tasks[index]),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 );
