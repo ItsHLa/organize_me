@@ -33,8 +33,9 @@ class TelecomBill extends Bill {
   }
 
   static Future<Map> addTelBill(
-    Match match,
-  ) async {
+    Match match, {
+    required String provider,
+  }) async {
     Database? mydb = await DatabaseHelper.db;
 
     double paymentAmount =
@@ -58,19 +59,23 @@ class TelecomBill extends Bill {
         INSERT OR IGNORE INTO telecom_bills(
           payment_amount,
           commission_amount,
-          invoice_number,
           date,
-          phone_number_email,
-          operation_number
-        ) VALUES (?, ?, ?, ?, ?, ?);
+          provider,
+          operation_number,
+
+          invoice_number,
+          phone_number_email
+
+        ) VALUES (?, ?, ?, ?, ?, ?, ?);
       """,
       [
         paymentAmount,
         commissionAmount,
-        invoiceNumber,
         date,
-        phoneNumberEmail,
+        provider,
         operationNumber,
+        invoiceNumber,
+        phoneNumberEmail,
       ],
     );
     return (await geOneTelBill(billId));

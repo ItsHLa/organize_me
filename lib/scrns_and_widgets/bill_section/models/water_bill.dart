@@ -39,8 +39,9 @@ class WaterBill extends Bill {
   }
 
   static Future<Map> addWaBill(
-    Match match,
-  ) async {
+    Match match, {
+    required String provider,
+  }) async {
     Database? mydb = await DatabaseHelper.db;
 
     double paymentAmount =
@@ -68,22 +69,27 @@ class WaterBill extends Bill {
           payment_amount,
           commission_amount,
           date,
+          provider,
+          operation_number,
+
           gov,
+
           receipt_number,
           barcode_number,
-          counter_number,
-          operation_number
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+          counter_number
+
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
       """,
       [
         paymentAmount,
         commissionAmount,
         date,
+        provider,
+        operationNumber,
         gov,
         receiptNumber,
         barcodeNumber,
         counterNumber,
-        operationNumber,
       ],
     );
     return (await geOneWaBill(billId));

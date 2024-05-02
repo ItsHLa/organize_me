@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/docs_numbers_list.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'add_phone_num.dart';
 import 'altibbi.dart';
@@ -20,7 +18,7 @@ class MedsAndDocs extends StatelessWidget {
         icon: Icons.menu,
         children: [
           SpeedDialChild(
-            shape: StadiumBorder(),
+            shape: const StadiumBorder(),
             child: const Icon(Icons.add_call),
             onTap: () async {
               showModalBottomSheet(
@@ -84,7 +82,7 @@ class MyFabButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
-      shape: StadiumBorder(),
+      shape: const StadiumBorder(),
       label: Icon(icon),
       onPress: onPress,
       children: children,

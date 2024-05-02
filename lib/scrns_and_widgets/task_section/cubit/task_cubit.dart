@@ -23,12 +23,12 @@ class TaskCubit extends Cubit<TaskState> {
   }) async {
     try {
       Map task = await Task.addTask(
-        title: title,
-        content: content,
-        preAlarm: preAlarm,
-        startTime: '${startTime.hour}:${startTime.minute}',
-        startDate: '${startDate.day}/${startDate.month}/${startDate.year}',
-        status: 'متوقف');
+          title: title,
+          content: content,
+          preAlarm: preAlarm,
+          startTime: '${startTime.hour}:${startTime.minute}',
+          startDate: '${startDate.day}/${startDate.month}/${startDate.year}',
+          status: 'متوقف');
       tasks.add(Task.fromMap(task));
       AppNotification.showTaskNotificationBeforeXMinutes(
         id: task['id'],
@@ -117,7 +117,7 @@ class TaskCubit extends Cubit<TaskState> {
       );
       emit(TaskLoaded(tasks: tasks));
     } catch (e) {
-      print('error');
+      debugPrint('error');
       emit(const LoadingTasks(tasks: []));
     }
   }

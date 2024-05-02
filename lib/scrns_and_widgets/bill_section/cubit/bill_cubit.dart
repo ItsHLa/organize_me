@@ -14,7 +14,7 @@ class BillCubit extends Cubit<BillState> {
 
   void loadBills(String typeOfBill) async {
     dynamic bill;
-    emit(LoadingBill(bills: [], typeOfBill: typeOfBill));
+    emit(LoadingBill(bills: const [], typeOfBill: typeOfBill));
     try {
       switch (typeOfBill) {
         case 'water':
@@ -26,7 +26,7 @@ class BillCubit extends Cubit<BillState> {
       }
       emit(BillLoaded(typeOfBill: typeOfBill, bills: bill));
     } catch (e) {
-      emit(LoadingBill(bills: [], typeOfBill: typeOfBill));
+      emit(LoadingBill(bills: const [], typeOfBill: typeOfBill));
     }
   }
 

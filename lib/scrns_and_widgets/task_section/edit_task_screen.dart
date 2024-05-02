@@ -116,7 +116,7 @@ class _AddTaskScreenState extends State<EditTask> {
               if (ValidateInputData.validateField(taskKey)) {
                 taskKey.currentState?.save();
                 BlocProvider.of<TaskCubit>(context).editTask(
-                  preAlarm: int.parse(editedPreAlarm!),
+                  preAlarm: int.parse(editedPreAlarm),
                   id: widget.task.id,
                   title: editedTaskTitle!,
                   content: editedTaskContent!,

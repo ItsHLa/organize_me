@@ -185,8 +185,8 @@ class ValidateInputData {
         fullDateNow.month,
         fullDateNow.day,
       );
-      DateTime date = convertStringToDateTime(editedDate!);
-      TimeOfDay start = convertStringToTimeDay(editedStart!);
+      DateTime date = convertStringToDateTime(editedDate);
+      TimeOfDay start = convertStringToTimeDay(editedStart);
       int diffInMinutes =
           ((start.hour - timeNow.hour) * 60) + (start.minute - timeNow.minute);
       int preAlarm = int.parse(value);
@@ -247,7 +247,7 @@ class ValidateInputData {
       DateTime currentTime =
           DateTime(now.year, now.month, now.day, current.hour, current.minute);
       DateTime selectDate = convertStringToDateTime(selectedDate);
-      TimeOfDay selectTime = convertStringToTimeDay(value!);
+      TimeOfDay selectTime = convertStringToTimeDay(value);
       DateTime scheduledTime = DateTime(
         selectDate.year,
         selectDate.month,

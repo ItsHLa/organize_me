@@ -38,7 +38,10 @@ class ElectricBill extends Bill {
     );
   }
 
-  static Future<Map> addElBill(Match match) async {
+  static Future<Map> addElBill(
+    Match match, {
+    required String provider,
+  }) async {
     Database? mydb = await DatabaseHelper.db;
 
     double paymentAmount =
@@ -67,21 +70,26 @@ class ElectricBill extends Bill {
           payment_amount,
           commission_amount,
           date,
+          provider,
+          subscription_number,
+
           gov,
+
           billing_number,
           invoice_number,
-          operation_number,
-          subscription_number
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+          operation_number
+
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
       """,
       [
         paymentAmount,
         commissionAmount,
         date,
+        provider,
+        operationNumber,
         gov,
         billingNumber,
         invoiceNumber,
-        operationNumber,
         subscriptionNumber,
       ],
     );
