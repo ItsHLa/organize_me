@@ -29,6 +29,9 @@ dependencies:
   easy_date_timeline: ^1.0.3
   permission_handler: ^11.3.1
   shared_preferences: ^2.2.3
+  flutter_speed_dial: ^7.0.0
+  webview_flutter: ^4.7.0
+  fl_chart: ^0.67.0
 
 
 

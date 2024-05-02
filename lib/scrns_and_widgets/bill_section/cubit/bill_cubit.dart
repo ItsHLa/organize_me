@@ -10,84 +10,41 @@ part 'bill_state.dart';
 class BillCubit extends Cubit<BillState> {
   BillCubit() : super(const BillInitial(bills: [], typeOfBill: 'water'));
 
-  void loadWater() async {
+  void payFromSyriatelCash() async {}
+
+  void loadBills(String typeOfBill) async {
+    dynamic bill;
+    emit(LoadingBill(bills: [], typeOfBill: typeOfBill));
+    try {
+      switch (typeOfBill) {
+        case 'water':
+          bill = await loadWater();
+        case 'electric':
+          bill = await loadElectric();
+        case 'telecom':
+          bill = await loadTelecom();
+      }
+      emit(BillLoaded(typeOfBill: typeOfBill, bills: bill));
+    } catch (e) {
+      emit(LoadingBill(bills: [], typeOfBill: typeOfBill));
+    }
+  }
+
+  Future<List<WaterBill>> loadWater() async {
     List<WaterBill> bills = [];
     await WaterBill.getAllWaBills().then((waBills) => bills = waBills);
-    emit(
-      LoadingBill(
-        bills: bills,
-        typeOfBill: 'water',
-      ),
-    );
-    try {
-      emit(
-        BillLoaded(
-          typeOfBill: 'water',
-          bills: bills,
-        ),
-      );
-    } catch (e) {
-      emit(
-        LoadingBillFailed(
-          msg: 'حصل خطأ اثناء تحميل فواتيرك',
-          bills: bills,
-          typeOfBill: 'water',
-        ),
-      );
-    }
+    return bills;
   }
 
-  void loadElectric() async {
+  Future<List<ElectricBill>> loadElectric() async {
     List<ElectricBill> bills = [];
     await ElectricBill.getAllElBills().then((elBills) => bills = elBills);
-    emit(
-      LoadingBill(
-        bills: bills,
-        typeOfBill: 'electric',
-      ),
-    );
-    try {
-      emit(
-        BillLoaded(
-          typeOfBill: 'electric',
-          bills: bills,
-        ),
-      );
-    } catch (e) {
-      emit(
-        LoadingBillFailed(
-          msg: 'حصل خطأ اثناء تحميل فواتيرك',
-          typeOfBill: 'electric',
-          bills: bills,
-        ),
-      );
-    }
+    return bills;
   }
 
-  void loadTelecom() async {
+  Future<List<TelecomBill>> loadTelecom() async {
     List<TelecomBill> bills = [];
     await TelecomBill.getAllTelBills().then((telBills) => bills = telBills);
-    emit(
-      LoadingBill(
-        typeOfBill: 'telecom',
-        bills: bills,
-      ),
-    );
-    try {
-      emit(
-        BillLoaded(
-          typeOfBill: 'telecom',
-          bills: bills,
-        ),
-      );
-    } catch (e) {
-      emit(
-        LoadingBillFailed(
-          msg: 'حصل خطأ اثناء تحميل فواتيرك',
-          typeOfBill: 'telecom',
-          bills: bills,
-        ),
-      );
-    }
+    return bills;
   }
 }

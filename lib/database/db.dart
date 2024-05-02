@@ -48,7 +48,7 @@ class DatabaseHelper {
             start_date TEXT, -- DD/MM/YYYY
             start_time TEXT, -- HH:MM
             pre_alarm INTEGER,
-            status TEXT DEFAULT 'pending',
+            status TEXT DEFAULT 'متوقف',
             last_modified TEXT DEFAULT NULL
           );
       ''',

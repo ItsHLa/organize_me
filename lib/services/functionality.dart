@@ -3,12 +3,21 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
-String validateIfTimeBeforeCurrentTime(String? value) {
-  if (value?.isEmpty ?? true) {
-    return 'هذا الحقل لا يمكن ان يكون فارغ';
-  } else {
-    return '';
-  }
+DateTime convertStringToDateTime(String value) {
+  List<String>? parts = value.split('/');
+  int year = int.parse(parts[2]);
+  int month = int.parse(parts[1]);
+  int day = int.parse(parts[0]);
+  DateTime date = DateTime(year, month, day);
+  return date;
+}
+
+TimeOfDay convertStringToTimeDay(String value) {
+  List<String>? parts = value.split(':');
+  int hour = int.parse(parts[0]);
+  int minute = int.parse(parts[1]);
+  TimeOfDay timeOfDay = TimeOfDay(hour: hour, minute: minute);
+  return timeOfDay;
 }
 
 List getPages(bool taskNotes, bool bills, bool medsAndDocs) {
@@ -135,6 +144,63 @@ class ValidateInputData {
     }
   }
 
+  static checkTaskInterval(String? value, String? startTime, String? dateTime) {
+    if (value!.isEmpty) {
+      return 'هذا الحقل لا يمكن ان يكون فارغ';
+    } else if (startTime!.isEmpty || dateTime!.isEmpty) {
+      return 'لا يمكن ان يكون اليوم او وقت البدء فارغ';
+    } else if (value.isNotEmpty) {
+      TimeOfDay timeNow = TimeOfDay.now();
+      DateTime fullDateNow = DateTime.now();
+      DateTime dateNow = DateTime(
+        fullDateNow.year,
+        fullDateNow.month,
+        fullDateNow.day,
+      );
+      DateTime date = convertStringToDateTime(dateTime);
+      TimeOfDay start = convertStringToTimeDay(startTime);
+      int diffInMinutes =
+          ((start.hour - timeNow.hour) * 60) + (start.minute - timeNow.minute);
+      int preAlarm = int.parse(value);
+      if ((value.length) > 10) {
+        return 'هذا الحقل لا يمكن أن يكون أكبر من 10 أرقام';
+      } else if ((date.isAtSameMomentAs(dateNow)) &&
+          preAlarm >= diffInMinutes) {
+        return 'هذا الحقل يجب أن يكون أصغر من فرق الوقت بين الآن و وقت البدء';
+      }
+    } else {
+      return null;
+    }
+  }
+
+  static checkEditedTaskInterval(
+      String? value, String? editedStart, String? editedDate) {
+    if (value!.isNotEmpty &&
+        editedStart!.isNotEmpty &&
+        editedDate!.isNotEmpty) {
+      TimeOfDay timeNow = TimeOfDay.now();
+      DateTime fullDateNow = DateTime.now();
+      DateTime dateNow = DateTime(
+        fullDateNow.year,
+        fullDateNow.month,
+        fullDateNow.day,
+      );
+      DateTime date = convertStringToDateTime(editedDate!);
+      TimeOfDay start = convertStringToTimeDay(editedStart!);
+      int diffInMinutes =
+          ((start.hour - timeNow.hour) * 60) + (start.minute - timeNow.minute);
+      int preAlarm = int.parse(value);
+      if ((value.length) > 10) {
+        return 'هذا الحقل لا يمكن أن يكون أكبر من 10 أرقام';
+      } else if ((date.isAtSameMomentAs(dateNow)) &&
+          preAlarm >= diffInMinutes) {
+        return 'هذا الحقل يجب أن يكون أصغر من فرق الوقت بين الآن و وقت البدء';
+      }
+    } else {
+      return null;
+    }
+  }
+
   static String? checkEditedInterval(String? value) {
     int interval = int.parse(value!);
     if (interval.isNegative) {
@@ -146,85 +212,97 @@ class ValidateInputData {
     }
   }
 
-  static String? checkStartTime(String? value) {
-    if (value?.isEmpty ?? true) {
+  static String? checkStartTime(String? value, String? selectedDate) {
+    if (value!.isEmpty) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';
-    }
-    List<String>? parts = value?.split(':');
-    int hour = int.parse(parts![0]);
-    int minute = int.parse(parts[1]);
-    DateTime currentTime = DateTime.now();
-    DateTime scheduledTime = DateTime(
-      currentTime.year,
-      currentTime.month,
-      currentTime.day,
-      hour,
-      minute,
-    );
-    Duration difference = scheduledTime.difference(currentTime);
-    if (difference.isNegative) {
-      return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
+    } else if (selectedDate!.isEmpty) {
+      return ' لا يمكن اليوم ان يكون فارغ';
+    } else if (selectedDate.isNotEmpty) {
+      TimeOfDay current = TimeOfDay.now();
+      DateTime now = DateTime.now();
+      DateTime currentTime =
+          DateTime(now.year, now.month, now.day, current.hour, current.minute);
+      DateTime selectDate = convertStringToDateTime(selectedDate);
+      TimeOfDay selectTime = convertStringToTimeDay(value);
+      DateTime scheduledTime = DateTime(
+        selectDate.year,
+        selectDate.month,
+        selectDate.day,
+        selectTime.hour,
+        selectTime.minute,
+      );
+      if (scheduledTime.isBefore(currentTime)) {
+        return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
+      }
     } else {
       return null;
     }
+    return null;
   }
 
-  static String? checkEditedStartTime(String? value) {
-    List<String>? parts = value?.split(':');
-    int hour = int.parse(parts![0]);
-    int minute = int.parse(parts[1]);
-    TimeOfDay currentTime = TimeOfDay.now();
-    TimeOfDay scheduledTime = TimeOfDay(
-      hour: hour,
-      minute: minute,
-    );
-    if (scheduledTime.hour < currentTime.hour ||
-        (scheduledTime.hour == currentTime.hour &&
-            scheduledTime.minute < currentTime.minute)) {
-      return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
+  static String? checkEditedStartTime(String? value, String? selectedDate) {
+    if (selectedDate!.isNotEmpty && value!.isNotEmpty) {
+      TimeOfDay current = TimeOfDay.now();
+      DateTime now = DateTime.now();
+      DateTime currentTime =
+          DateTime(now.year, now.month, now.day, current.hour, current.minute);
+      DateTime selectDate = convertStringToDateTime(selectedDate);
+      TimeOfDay selectTime = convertStringToTimeDay(value!);
+      DateTime scheduledTime = DateTime(
+        selectDate.year,
+        selectDate.month,
+        selectDate.day,
+        selectTime.hour,
+        selectTime.minute,
+      );
+      if (scheduledTime.isBefore(currentTime)) {
+        return 'لا يمكن ان يكون الوقت المختار اقل من الوقت الحالي';
+      }
     } else {
       return null;
     }
+    return null;
   }
 
   static String? checkDateTime(String? value) {
     if (value?.isEmpty ?? true) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';
-    }
-    DateTime now = DateTime.now();
-    DateTime currentDate = DateTime(
-      now.year,
-      now.month,
-      now.day,
-    );
-    List<String>? parts = value?.split('/');
-    int year = int.parse(parts![2]);
-    int month = int.parse(parts[1]);
-    int day = int.parse(parts[0]);
-    DateTime date = DateTime(year, month, day);
-    if (date.isBefore(currentDate.toUtc())) {
-      return 'لا يمكن ان يكون اليوم قبل اليوم الحالي';
+    } else if (value!.isNotEmpty) {
+      DateTime now = DateTime.now();
+      DateTime currentDate = DateTime(
+        now.year,
+        now.month,
+        now.day,
+      );
+      DateTime date = convertStringToDateTime(value);
+      if (date.isBefore(currentDate.toUtc())) {
+        return 'لا يمكن ان يكون اليوم قبل اليوم الحالي';
+      }
     } else {
       return null;
     }
+    return null;
   }
 
   static String? checkEditedDateTime(String? value) {
-    DateTime now = DateTime.now();
-    DateTime currentDate = DateTime(
-      now.year,
-      now.month,
-      now.day,
-    );
-    List<String>? parts = value?.split('/');
-    int year = int.parse(parts![2]);
-    int month = int.parse(parts[1]);
-    int day = int.parse(parts[0]);
-    DateTime date = DateTime(year, month, day);
-    if (date.isBefore(currentDate.toUtc())) {
-      return 'لا يمكن ان يكون اليوم قبل اليوم الحالي';
+    if (value!.isNotEmpty) {
+      DateTime now = DateTime.now();
+      DateTime currentDate = DateTime(
+        now.year,
+        now.month,
+        now.day,
+      );
+      List<String>? parts = value.split('/');
+      int year = int.parse(parts[2]);
+      int month = int.parse(parts[1]);
+      int day = int.parse(parts[0]);
+      DateTime date = DateTime(year, month, day);
+      if (date.isBefore(currentDate.toUtc())) {
+        return 'لا يمكن ان يكون اليوم قبل اليوم الحالي';
+      }
     } else {
       return null;
     }
+    return null;
   }
 }

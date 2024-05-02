@@ -40,6 +40,7 @@ class Task {
     required String startTime,
     required int preAlarm,
     required String startDate,
+    required String status,
   }) async {
     Database? mydb = await DatabaseHelper.db;
     String now = DateTime.now().toString();
@@ -50,9 +51,10 @@ class Task {
                                     creation_date,
                                     start_time,
                                     pre_alarm,
+                                    status,
                                     start_date)
 
-                                    VALUES (?, ?, ?, ?, ?, ?);
+                                    VALUES (?, ?, ?, ?, ?, ?,?);
       """,
       [
         title,
@@ -60,6 +62,7 @@ class Task {
         now,
         startTime,
         preAlarm,
+        status,
         startDate,
       ],
     );
@@ -91,6 +94,27 @@ class Task {
                          $editStartTime
                          $editPreAlarm
                          $editStartDate
+                         last_modified = ? WHERE id = ?;
+      """,
+      [
+        lastModified,
+        taskId,
+      ],
+    );
+    return await geOneTask(taskId);
+  }
+
+  static Future<Map> editTaskStatus(
+    int taskId, {
+    required String newStatus,
+  }) async {
+    Database? mydb = await DatabaseHelper.db;
+    String lastModified = DateTime.now().toString();
+    String editStatus = newStatus.isNotEmpty ? "status = '$newStatus'," : "";
+    await mydb!.rawUpdate(
+      """
+        UPDATE tasks SET 
+                         $editStatus
                          last_modified = ? WHERE id = ?;
       """,
       [

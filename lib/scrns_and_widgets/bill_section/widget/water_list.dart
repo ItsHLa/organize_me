@@ -1,37 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/my_list_view.dart';
 
+import '../models/water_bill.dart';
 import 'water_bill_item.dart';
 
 class WaterList extends StatelessWidget {
   const WaterList({
     super.key,
-    required this.date,
-    required this.barcode,
-    required this.numberOfProcess,
-    required this.numberOfCounter,
-    required this.payment,
+    required this.bill,
   });
 
-  final String date;
-
-  final String barcode;
-  final String numberOfProcess;
-  final String numberOfCounter;
-  final String payment;
+  final List<WaterBill> bill;
 
   @override
   Widget build(BuildContext context) {
     return MyListView(
-        dataList: const [],
-        itemCount: 100,
+        dataList: bill,
+        itemCount: bill.length,
         itemBuilder: (context, index) {
-          return const WaterBills(
-            date: '',
-            numberOfProcess: '',
-            payment: '',
-            barcode: '',
-            numberOfCounter: '',
+          WaterBill current = bill[index];
+          return WaterBills(
+            date: current.date,
+            numberOfProcess: current.operationNumber,
+            payment: current.commissionAmount.toString(),
+            barcode: current.barcodeNumber,
+            numberOfCounter: current.counterNumber,
           );
         });
   }

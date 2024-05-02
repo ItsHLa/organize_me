@@ -13,6 +13,9 @@ import 'package:organize_me/scrns_and_widgets/settings.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 
+const String altibbiURL =
+    'https://altibbi.com/%D8%A7%D9%84%D8%AF%D9%84%D9%8A%D9%84-%D8%A7%D9%84%D8%B7%D8%A8%D9%8A/%D8%B3%D9%88%D8%B1%D9%8A%D8%A7';
+
 /////////////////////////////////////// notifications constants//////////////////////////////
 const taskTag = 'taskTag';
 const medicineTag = 'medicineTag';
@@ -30,24 +33,24 @@ const String billChannelName = 'billChannelName';
 TabItem taskTab = TabItem(
   Icons.task_alt_outlined,
   "مهام",
-  darkBlue,
+  deepPurple,
 );
 TabItem notesTab = TabItem(
   Icons.note_alt,
   " مفكرة",
-  darkBlue,
+  deepPurple,
 );
 TabItem billsTab = TabItem(
   Icons.payments,
   "فواتير",
-  darkBlue,
+  deepPurple,
 );
 
 TabItem medsTab =
-    TabItem(Icons.medical_information_outlined, "ادوية", darkBlue);
+    TabItem(Icons.medical_information_outlined, "ادوية", deepPurple);
 
-TabItem docsNumTab = TabItem(Icons.phone, "اطباء", darkBlue);
-TabItem settingsTab = TabItem(Icons.settings, "الاعدادات", darkBlue);
+TabItem docsNumTab = TabItem(Icons.phone, "اطباء", deepPurple);
+TabItem settingsTab = TabItem(Icons.settings, "الاعدادات", deepPurple);
 /////////////////////////////////////pages//////////////////////////////////////////
 Widget settings = const Settings();
 Widget taskPage = BlocProvider<TaskCubit>(
@@ -74,10 +77,21 @@ String billsKey = 'bill';
 String medsAndDocsKey = 'numMeds';
 
 ////////////////////////////////////////TaskIcons///////////////////////////////////////////////////
-const Icon taskComplete = Icon(Icons.task_alt_outlined, color: Colors.grey);
-const Icon taskOngoing =
-    Icon(Icons.pause_circle_outline_outlined, color: Colors.grey);
-const Icon taskPending = Icon(Icons.not_started_outlined, color: Colors.grey);
+const Icon taskComplete = Icon(
+  Icons.task_alt_outlined,
+  color: black,
+  size: 30,
+);
+const Icon taskOngoing = Icon(
+  Icons.pause_circle_outline_outlined,
+  color: black,
+  size: 30,
+);
+const Icon taskPending = Icon(
+  Icons.not_started_outlined,
+  color: black,
+  size: 30,
+);
 /////////////////////////////////////////////darkModeIcons///////////////////////////////////////////
 const Icon darkModeOn = Icon(Icons.wb_sunny_outlined);
 const Icon darkModeOff = Icon(Icons.nightlight_outlined);
@@ -99,9 +113,10 @@ Widget telecomBill = const IconForm(
 ));
 
 ///////////////////////////Colors //////////////////////////////////////////////
-const Color darkBlue = Color(0xFF003C43);
-const Color softDarkBlue = Color(0xFF135D66);
-const Color verySoftDarkBlue = Color(0xFF77B0AA);
+const Color grey = Color(0xFFc9c0c7);
+Color deepPurple = Colors.deepPurple.shade400;
+Color softPurple = Colors.deepPurple.shade300;
+const Color verySoftDarkBlue = Color(0xFF20abb9);
 const Color black = Color(0xFF222831);
 const Color darkTheme = Color(0xFF121212);
 const Color blue = Color.fromRGBO(7, 144, 166, 1);

@@ -92,10 +92,10 @@ class _AlterDialogCustomState extends State<AlterDialogCustom> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: const Text(
+      content: Text(
         'هل انت متأكد من حذف هذه المهمة ؟',
         textAlign: TextAlign.center,
-        style: TextStyle(color: darkBlue),
+        style: TextStyle(color: deepPurple),
       ),
       actionsAlignment: MainAxisAlignment.center,
       contentPadding: const EdgeInsets.all(30),

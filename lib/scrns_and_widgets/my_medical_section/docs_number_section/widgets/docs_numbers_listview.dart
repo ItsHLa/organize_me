@@ -50,7 +50,7 @@ class DocsNumbersListView extends StatelessWidget {
           docsName: contacts[index].name,
           phoneNumber: contacts[index].phone,
           onPressedCall: () {
-            BlocProvider.of<DocsNumCubit>(context).call();
+            BlocProvider.of<DocsNumCubit>(context).call(contacts[index].phone);
           },
         );
       },

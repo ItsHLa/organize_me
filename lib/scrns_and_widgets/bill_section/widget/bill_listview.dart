@@ -14,6 +14,7 @@ class BillView extends StatelessWidget {
         if (state is BillLoaded) {
           return BillsListView(
             typeOfBill: state.typeOfBill,
+            bill: state.bills,
           );
         }
         if (state is LoadingBill) {

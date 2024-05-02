@@ -5,35 +5,25 @@ import 'package:organize_me/scrns_and_widgets/bill_section/widget/water_list.dar
 import 'electronic_bill_list.dart';
 
 class BillsListView extends StatelessWidget {
-  const BillsListView({super.key, required this.typeOfBill});
+  const BillsListView({super.key, required this.typeOfBill, this.bill});
 
   final String typeOfBill;
+  final dynamic bill;
 
   @override
   Widget build(BuildContext context) {
-          switch (typeOfBill) {
-            case 'water':
-              return const WaterList(
-                date: '',
-                barcode: '',
-                payment: '',
-                numberOfProcess: '',
-          numberOfCounter: '',
+    switch (typeOfBill) {
+      case 'water':
+        return WaterList(
+          bill: bill,
         );
       case 'electric':
-        return const ElectricList(
-          date: '',
-          barcode: '',
-          payment: '',
-          numberOfProcess: '',
-          numberOfPartici: '',
+        return ElectricList(
+          bill: bill,
         );
       case 'telecom':
-        return const TelecomList(
-          payment: '',
-          numberOfProcess: '',
-          date: '',
-          phoneNumber: '',
+        return TelecomList(
+          bill: bill,
         );
       default:
         return Container();

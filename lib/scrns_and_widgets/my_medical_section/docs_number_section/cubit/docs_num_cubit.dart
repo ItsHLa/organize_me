@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/doctors_contacts.dart';
 
@@ -65,7 +66,8 @@ class DocsNumCubit extends Cubit<DocsNumState> {
     }
   }
 
-  void call() {
-    // we will use uel_lancher here
+  void call(String phoneNumber) async {
+    Uri syriatelCash = Uri(scheme: 'tel', path: phoneNumber);
+    await launchUrl(syriatelCash);
   }
 }

@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../constants.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const SimpleDialog(
-      contentPadding: EdgeInsets.all(20),
+    return SimpleDialog(
+      contentPadding: const EdgeInsets.all(20),
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
             'هل تريد دفع فواتيرك الآن ؟',
             textAlign: TextAlign.center,
           ),
         ),
-        PaymentButton(
+        const PaymentButton(
           name: 'دفع من تطبيق أقرب إليك',
           logic: null,
         ),
         PaymentButton(
           name: 'دفع عن طريق سيرياتيل كاش',
-          logic: null,
+          logic: () async {
+            Uri syriatelCash = Uri(scheme: 'tel', path: '*3040#');
+            await launchUrl(syriatelCash);
+          },
         ),
       ],
     );
@@ -35,8 +41,12 @@ class PaymentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(backgroundColor: softPurple),
       onPressed: logic,
-      child: Text(name),
+      child: Text(
+        name,
+        style: const TextStyle(color: Colors.white),
+      ),
     );
   }
 }

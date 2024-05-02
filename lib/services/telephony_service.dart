@@ -13,15 +13,16 @@ class TelephonyService {
     return await telephony.requestPhoneAndSmsPermissions;
   }
 
+
   static void listenForIncomingSms() {
     telephony.listenIncomingSms(
       onBackgroundMessage: onBackgroundMessage,
       listenInBackground: true,
       onNewMessage: (SmsMessage message) {
-        if (message.address == 'SyriatelSEP') {
-          debugPrint(message.body);
-          compareBill(smsMessage: message.body!);
-        }
+        //  if (message.address == 'SyriatelSEP') {
+        //  debugPrint(message.body);
+        compareBill(smsMessage: message.body!);
+        // }
       },
     );
   }
@@ -30,13 +31,13 @@ class TelephonyService {
 void onBackgroundMessage(SmsMessage message) async {
 // same code  for listener ...
 
-  if (message.address == 'SyriatelSEP') {
-    debugPrint(message.body);
-    compareBill(smsMessage: message.body!);
-  }
-  debugPrint('message that is not a bill');
-  debugPrint(message.address);
+  // if (message.address == 'SyriatelSEP') {
   debugPrint(message.body);
+  compareBill(smsMessage: message.body!);
+  // }
+  // debugPrint('message that is not a bill');
+  // debugPrint(message.address);
+  // debugPrint(message.body);
 }
 
 void compareBill({required String smsMessage}) {
