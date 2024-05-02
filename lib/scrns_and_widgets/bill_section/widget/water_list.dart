@@ -21,10 +21,10 @@ class WaterList extends StatelessWidget {
           WaterBill current = bill[index];
           return WaterBills(
             date: current.date,
-            numberOfProcess: current.operationNumber,
-            payment: current.commissionAmount.toString(),
-            barcode: current.barcodeNumber,
-            numberOfCounter: current.counterNumber,
+            operationNumber: current.operationNumber,
+            paymentAmount: current.paymentAmount.toString(),
+            barcodeNumber: current.barcodeNumber,
+            counterNumber: current.counterNumber,
           );
         });
   }

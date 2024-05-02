@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/telecom_list.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/water_list.dart';
 
-import 'electronic_bill_list.dart';
+import 'electric_bill_list.dart';
 
 class BillsListView extends StatelessWidget {
   const BillsListView({super.key, required this.typeOfBill, this.bill});

@@ -3,20 +3,21 @@ import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_row.dart';
 
 class WaterBills extends StatelessWidget {
-  const WaterBills(
-      {super.key,
-      required this.date,
-      required this.barcode,
-      required this.numberOfProcess,
-      required this.numberOfCounter,
-      required this.payment});
+  const WaterBills({
+    super.key,
+    required this.date,
+    required this.barcodeNumber,
+    required this.operationNumber,
+    required this.counterNumber,
+    required this.paymentAmount,
+  });
 
   final String date;
 
-  final String barcode;
-  final String numberOfProcess;
-  final String numberOfCounter;
-  final String payment;
+  final String barcodeNumber;
+  final String operationNumber;
+  final String counterNumber;
+  final String paymentAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +34,15 @@ class WaterBills extends StatelessWidget {
                   ),
                   Text(date),
                   const Spacer(),
-                  Text(numberOfProcess)
+                  Text(operationNumber)
                 ],
               ),
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  MyRow(title: 'رقم الباركود', value: barcode),
-                  MyRow(title: 'رقم العداد  ', value: numberOfCounter),
-                  MyRow(title: 'المبلغ         ', value: payment),
+                  MyRow(title: 'رقم الباركود', value: barcodeNumber),
+                  MyRow(title: 'رقم العداد  ', value: counterNumber),
+                  MyRow(title: 'المبلغ         ', value: paymentAmount),
                 ],
               ),
             ),

@@ -4,20 +4,21 @@ import 'package:organize_me/constants.dart';
 import 'my_row.dart';
 
 class ElectricBills extends StatelessWidget {
-  const ElectricBills(
-      {super.key,
-      required this.date,
-      required this.numberOfProcess,
-      required this.numberOfBill,
-      required this.numberOfPartici,
-      required this.payment});
+  const ElectricBills({
+    super.key,
+    required this.date,
+    required this.operationNumber,
+    required this.billingNumber,
+    required this.subscriptionNumber,
+    required this.paymentAmount,
+  });
 
   final String date;
 
-  final String numberOfProcess;
-  final String numberOfBill;
-  final String numberOfPartici;
-  final String payment;
+  final String operationNumber;
+  final String billingNumber;
+  final String subscriptionNumber;
+  final String paymentAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +35,15 @@ class ElectricBills extends StatelessWidget {
                   ),
                   Text(date),
                   const Spacer(),
-                  Text(numberOfProcess)
+                  Text(operationNumber)
                 ],
               ),
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  MyRow(title: 'رقم الفوترة     ', value: numberOfBill),
-                  MyRow(title: 'رقم الاشتراك  ', value: numberOfPartici),
-                  MyRow(title: 'المبلغ             ', value: payment),
+                  MyRow(title: 'رقم الفوترة     ', value: billingNumber),
+                  MyRow(title: 'رقم الاشتراك  ', value: subscriptionNumber),
+                  MyRow(title: 'المبلغ             ', value: paymentAmount),
                 ],
               ),
             ),

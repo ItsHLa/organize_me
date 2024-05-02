@@ -3,18 +3,19 @@ import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_row.dart';
 
 class TelecomBills extends StatelessWidget {
-  const TelecomBills(
-      {super.key,
-      required this.date,
-      required this.numberOfProcess,
-      required this.phoneNumber,
-      required this.payment});
+  const TelecomBills({
+    super.key,
+    required this.date,
+    required this.operationNumber,
+    required this.phoneNumber,
+    required this.paymentAmount,
+  });
 
   final String date;
 
-  final String numberOfProcess;
+  final String operationNumber;
   final String phoneNumber;
-  final String payment;
+  final String paymentAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +32,15 @@ class TelecomBills extends StatelessWidget {
                   ),
                   Text(date),
                   const Spacer(),
-                  Text(numberOfProcess)
+                  Text(operationNumber)
                 ],
               ),
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MyRow(title: 'رقم الهاتف الثابت ', value: phoneNumber),
-                  MyRow(title: 'المبلغ                   ', value: payment),
+                  MyRow(
+                      title: 'المبلغ                   ', value: paymentAmount),
                 ],
               ),
             ),

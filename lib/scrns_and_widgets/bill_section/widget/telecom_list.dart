@@ -15,16 +15,17 @@ class TelecomList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyListView(
-        dataList: bill,
-        itemCount: bill.length,
-        itemBuilder: (context, index) {
-          TelecomBill currentBill = bill[index];
-          return TelecomBills(
-            payment: currentBill.commissionAmount.toString(),
-            numberOfProcess: currentBill.operationNumber,
-            date: currentBill.date,
-            phoneNumber: currentBill.phoneNumberEmail,
-          );
-        });
+      dataList: bill,
+      itemCount: bill.length,
+      itemBuilder: (context, index) {
+        TelecomBill currentBill = bill[index];
+        return TelecomBills(
+          paymentAmount: currentBill.paymentAmount.toString(),
+          operationNumber: currentBill.operationNumber,
+          date: currentBill.date,
+          phoneNumber: currentBill.phoneNumberEmail,
+        );
+      },
+    );
   }
 }
