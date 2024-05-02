@@ -16,7 +16,7 @@ class DatabaseHelper {
   static intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'data.db');
-    //await databaseFactory.deleteDatabase(path);
+    await databaseFactory.deleteDatabase(path);
     Database mydb = await openDatabase(path,
         onCreate: _onCreate, version: 1, onUpgrade: _onUpgrade);
     return mydb;
@@ -66,13 +66,17 @@ class DatabaseHelper {
       '''
           CREATE TABLE IF NOT EXISTS electric_bills (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+
             payment_amount REAL,
             commission_amount REAL,
             date TEXT,
+            provider TEXT,
+            operation_number TEXT,
+
             gov TEXT,
+
             billing_number TEXT,
             invoice_number TEXT,
-            operation_number TEXT,
             subscription_number TEXT
           );
       ''',
@@ -81,14 +85,19 @@ class DatabaseHelper {
       '''
           CREATE TABLE IF NOT EXISTS water_bills (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+
             payment_amount REAL,
             commission_amount REAL,
             date TEXT,
+            provider TEXT,
+            operation_number TEXT,
+
             gov TEXT,
+
             receipt_number TEXT,
             barcode_number TEXT,
-            counter_number TEXT,
-            operation_number TEXT
+            counter_number TEXT
+
           );
       ''',
     );
@@ -96,12 +105,15 @@ class DatabaseHelper {
       '''
           CREATE TABLE IF NOT EXISTS telecom_bills (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+
             payment_amount REAL,
             commission_amount REAL,
-            invoice_number TEXT,
             date TEXT,
-            phone_number_email TEXT,
-            operation_number TEXT
+            provider TEXT,
+            operation_number TEXT,
+
+            invoice_number TEXT,
+            phone_number_email TEXT
           );
       ''',
     );
