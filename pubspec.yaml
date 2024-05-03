@@ -30,7 +30,7 @@ dependencies:
   fl_chart: ^0.67.0
   requests: ^4.7.0
   webview_flutter: ^4.7.0
-  month_year_picker: ^0.3.0+1
+  simple_month_year_picker: ^1.0.5
 
 
 
