@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
             appBar: AppBar(
               title: Text(
                 'Organize Me',
-                style: TextStyle(color: deepPurple),
+                style: TextStyle(color: appColorTheme),
               ),
               actions: [
                 Builder(builder: (context) {
@@ -39,6 +39,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(
+              selectedItemColor: appColorTheme,
               onTap: (value) {
                 setState(() {
                   pageIndex = value;

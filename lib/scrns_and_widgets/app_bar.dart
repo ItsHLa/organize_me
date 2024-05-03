@@ -12,7 +12,7 @@ class MyAppBar extends StatelessWidget {
     return AppBar(
       title: Text(
         'OrganizeMe',
-        style: TextStyle(color: deepPurple),
+        style: TextStyle(color: appColorTheme),
       ),
       actions: [
         BlocBuilder<CustomizeCubit, CustomizeState>(

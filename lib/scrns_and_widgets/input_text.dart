@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 
 class InputText extends StatelessWidget {
   const InputText({
@@ -30,15 +31,15 @@ class InputText extends StatelessWidget {
         hintText: hint,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.black12),
+          borderSide: BorderSide(color: appColorTheme),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.black12),
+          borderSide: BorderSide(color: appColorTheme),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.black12),
+          borderSide: BorderSide(color: appColorTheme),
         ),
       ),
     );

@@ -59,15 +59,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   value, startTime, dateTime);
             },
             saveDate: () async {
-              date = await showDatePicker(
-                context: context,
-                firstDate: DateTime(2024),
-                lastDate: DateTime(3000),
-                initialEntryMode: DatePickerEntryMode.input,
-                errorFormatText: 'خطأ في الصيغة',
-                errorInvalidText: 'لا يمكن ان يكون الوقت قبل الوقت الحالي',
-                initialDate: DateTime.now(),
-              );
+              date = await showDate(context);
               setState(
                 () {
                   if (date != null) {
@@ -84,11 +76,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               taskContent = value ?? '';
             },
             saveStartTime: () async {
-              start = await showTimePicker(
-                context: context,
-                initialTime: TimeOfDay.now(),
-                errorInvalidText: 'لا يمكن ان يكون اليوم قبل اليوم الحالي',
-              );
+              start = await showTime(context);
               setState(
                 () {
                   if (start != null) {

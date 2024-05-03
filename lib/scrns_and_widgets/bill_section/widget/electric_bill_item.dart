@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
 
-import 'my_row.dart';
+import 'electri_bill_detail.dart';
 
 class ElectricBills extends StatelessWidget {
   const ElectricBills({
@@ -11,14 +11,19 @@ class ElectricBills extends StatelessWidget {
     required this.billingNumber,
     required this.subscriptionNumber,
     required this.paymentAmount,
+    required this.commissionAmount,
+    required this.invoiceNumber,
+    required this.gov,
   });
 
+  final String paymentAmount;
+  final String commissionAmount;
+  final String invoiceNumber;
   final String date;
-
-  final String operationNumber;
+  final String gov;
   final String billingNumber;
   final String subscriptionNumber;
-  final String paymentAmount;
+  final String operationNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -28,24 +33,23 @@ class ElectricBills extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(3.0),
             child: ListTile(
-              title: Row(
-                children: [
-                  const SizedBox(
-                    width: 10,
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => ElectricBillDetail(
+                    date: date,
+                    paymentAmount: paymentAmount,
+                    operationNumber: operationNumber,
+                    billingNumber: billingNumber,
+                    subscriptionNumber: subscriptionNumber,
+                    commissionAmount: commissionAmount,
+                    invoiceNumber: invoiceNumber,
+                    gov: gov,
                   ),
-                  Text(date),
-                  const Spacer(),
-                  Text(operationNumber)
-                ],
-              ),
-              subtitle: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  MyRow(title: 'رقم الفوترة     ', value: billingNumber),
-                  MyRow(title: 'رقم الاشتراك  ', value: subscriptionNumber),
-                  MyRow(title: 'المبلغ             ', value: paymentAmount),
-                ],
-              ),
+                );
+              },
+              subtitle: Text(date),
+              title: Text('رقم الفاتورة : $billingNumber'),
             ),
           ),
         ),

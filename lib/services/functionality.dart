@@ -285,3 +285,70 @@ class ValidateInputData {
     return null;
   }
 }
+
+Future<TimeOfDay?> showTime(BuildContext context) async {
+  return await showTimePicker(
+      context: context,
+      errorInvalidText: 'لا يمكن ان يكون اليوم قبل اليوم الحالي',
+      initialEntryMode: TimePickerEntryMode.input,
+      builder: (context, child) {
+        return Theme(
+            data: Theme.of(context).copyWith(
+              textSelectionTheme: TextSelectionThemeData(
+                  selectionColor: Colors.white54,
+                  cursorColor: appColorTheme,
+                  selectionHandleColor: appColorTheme),
+              inputDecorationTheme: InputDecorationTheme(
+                  focusColor: appColorTheme,
+                  activeIndicatorBorder: BorderSide(color: appColorTheme),
+                  hintStyle: TextStyle(color: appColorTheme),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(color: appColorTheme))),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  foregroundColor: appColorTheme, // button text color
+                ),
+              ),
+            ),
+            child: child!);
+      },
+      initialTime: TimeOfDay.now());
+}
+
+Future<DateTime?> showDate(BuildContext context) async {
+  return await showDatePicker(
+    builder: (context, child) {
+      return Theme(
+          data: Theme.of(context).copyWith(
+            textSelectionTheme: TextSelectionThemeData(
+                selectionColor: Colors.white54,
+                cursorColor: appColorTheme,
+                selectionHandleColor: appColorTheme),
+            inputDecorationTheme: InputDecorationTheme(
+                focusColor: appColorTheme,
+                activeIndicatorBorder: BorderSide(color: appColorTheme),
+                hintStyle: TextStyle(color: appColorTheme),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: appColorTheme))),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: appColorTheme, // button text color
+              ),
+            ),
+          ),
+          child: child!);
+    },
+    confirmText: 'موافق',
+    cancelText: 'الغاء',
+    currentDate: DateTime.now(),
+    context: context,
+    firstDate: DateTime(2024),
+    lastDate: DateTime(3000),
+    initialEntryMode: DatePickerEntryMode.input,
+    errorFormatText: 'خطأ في الصيغة',
+    errorInvalidText: 'لا يمكن ان يكون الوقت قبل الوقت الحالي',
+    initialDate: DateTime.now(),
+  );
+}

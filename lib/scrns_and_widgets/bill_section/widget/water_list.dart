@@ -15,6 +15,7 @@ class WaterList extends StatelessWidget {
   Widget build(BuildContext context) {
     BlocProvider.of<BillCubit>(context).loadWater();
     return Scaffold(
+      appBar: AppBar(),
       body: BlocBuilder<BillCubit, BillState>(
         builder: (context, state) {
           if (state is LoadingBill) {
@@ -26,6 +27,9 @@ class WaterList extends StatelessWidget {
                 itemBuilder: (context, index) {
                   WaterBill current = state.bill[index];
                   return WaterBills(
+                      gov: current.gov,
+                      commissionAmount: current.commissionAmount.toString(),
+                      receiptNumber: current.receiptNumber,
                       date: current.date,
                       operationNumber: current.operationNumber,
                       paymentAmount: current.commissionAmount.toString(),
@@ -33,7 +37,12 @@ class WaterList extends StatelessWidget {
                       counterNumber: current.counterNumber);
                 });
           }
-          return const Center(child: Text('لايوجد فواتير لغرضها'));
+          return const Center(
+            child: Text(
+              'لا يوجد فواتير لعرضها',
+              style: TextStyle(fontSize: 20),
+            ),
+          );
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 
 class MyDatePicker extends StatelessWidget {
   const MyDatePicker({
@@ -18,8 +19,8 @@ class MyDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+    return SizedBox(
+      // padding: const EdgeInsets.symmetric(horizontal: 1),
       height: 70,
       child: TextFormField(
         validator: validator,
@@ -27,19 +28,22 @@ class MyDatePicker extends StatelessWidget {
         readOnly: true,
         onTap: onTap,
         decoration: InputDecoration(
-          suffixIcon: Icon(icon),
+          suffixIcon: Icon(
+            icon,
+            color: appColorTheme,
+          ),
           label: Text(labelText),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: Colors.black12),
+            borderSide: BorderSide(color: appColorTheme),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: Colors.black12),
+            borderSide: BorderSide(color: appColorTheme),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: Colors.black12),
+            borderSide: BorderSide(color: appColorTheme),
           ),
         ),
       ),

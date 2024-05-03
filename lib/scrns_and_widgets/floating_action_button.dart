@@ -18,7 +18,7 @@ class MyFab extends StatelessWidget {
     return SpeedDial(
       icon: Icons.menu_outlined,
       children: children,
-      backgroundColor: softPurple,
+      backgroundColor: appColorTheme,
       shape: const CircleBorder(),
     );
   }

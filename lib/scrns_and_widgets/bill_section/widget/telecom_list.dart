@@ -16,6 +16,7 @@ class TelecomList extends StatelessWidget {
   Widget build(BuildContext context) {
     BlocProvider.of<BillCubit>(context).loadTelecom();
     return Scaffold(
+      appBar: AppBar(),
       body: BlocBuilder<BillCubit, BillState>(
         builder: (context, state) {
           if (state is LoadingBill) {
@@ -34,12 +35,13 @@ class TelecomList extends StatelessWidget {
                     commissionAmount: currentBill.commissionAmount.toString(),
                   );
                 });
-          } else {
-            return const Text(
-              'لا يوجد فواتير لغرضها',
-              style: TextStyle(fontSize: 20),
-            );
           }
+          return const Center(
+            child: Text(
+              'لا يوجد فواتير لعرضها',
+              style: TextStyle(fontSize: 20),
+            ),
+          );
         },
       ),
     );
