@@ -40,7 +40,7 @@ class TelecomBills extends StatelessWidget {
                     );
                   },
                   title: Text(date),
-                  subtitle: Text(operationNumber),
+                  subtitle: Text(invoiceNumber),
                 ))),
         Positioned(
           top: -4,
