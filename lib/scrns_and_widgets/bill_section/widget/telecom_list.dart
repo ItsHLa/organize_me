@@ -28,6 +28,7 @@ class TelecomList extends StatelessWidget {
                 itemBuilder: (context, index) {
                   TelecomBill currentBill = state.bill[index];
                   return TelecomBills(
+                    invoiceNumber: currentBill.invoiceNumber,
                     paymentAmount: '${currentBill.paymentAmount}',
                     operationNumber: currentBill.operationNumber,
                     date: currentBill.date,

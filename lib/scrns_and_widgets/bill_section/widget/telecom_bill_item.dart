@@ -9,24 +9,26 @@ class TelecomBills extends StatelessWidget {
       required this.operationNumber,
       required this.phoneNumberEmail,
       required this.paymentAmount,
-      required this.commissionAmount});
+      required this.commissionAmount,
+      required this.invoiceNumber});
 
-  final String date;
-  final String operationNumber;
-  final String phoneNumberEmail;
   final String paymentAmount;
   final String commissionAmount;
+  final String invoiceNumber;
+  final String date;
+  final String phoneNumberEmail;
+  final String operationNumber;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Card(
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: ListTile(
-                onTap: () {
-                  showModalBottomSheet(
+            child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: ListTile(
+                  onTap: () {
+                    showModalBottomSheet(
                     context: context,
                       builder: (context) => TelecomBillDetail(
                         date: date,

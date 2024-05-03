@@ -28,6 +28,8 @@ class TelecomBillDetail extends StatelessWidget {
             const Divider(),
             MyRow(title: ' التاريخ', value: date),
             const Divider(),
+            MyRow(title: 'رقم الفاتورة', value: operationNumber),
+            const Divider(),
             MyRow(title: 'رقم الهاتف الثابت ', value: phoneNumberEmail),
             const Divider(),
             MyRow(title: 'المبلغ                   ', value: paymentAmount),
