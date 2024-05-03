@@ -17,7 +17,7 @@ class BillCubit extends Cubit<BillState> {
   void loadWater() async {
     emit(LoadingBill(bills: bills));
     try {
-      await WaterBill.getAllWaBills().then((waBills) => bills = waBills);
+      await WaterBill.getAllBills().then((waBills) => bills = waBills);
       emit(BillLoaded(bills: bills));
     } catch (e) {
       emit(LoadingBill(bills: bills));
@@ -27,7 +27,7 @@ class BillCubit extends Cubit<BillState> {
   void loadElectric() async {
     emit(LoadingBill(bills: bills));
     try {
-      await ElectricBill.getAllElBills().then((elBills) => bills = elBills);
+      await ElectricBill.getAllBills().then((elBills) => bills = elBills);
     } catch (e) {
       emit(LoadingBill(bills: bills));
     }
@@ -37,7 +37,7 @@ class BillCubit extends Cubit<BillState> {
   void loadTelecom() async {
     emit(LoadingBill(bills: bills));
     try {
-      await TelecomBill.getAllTelBills().then((telBills) => bills = telBills);
+      await TelecomBill.getAllBills().then((telBills) => bills = telBills);
     } catch (e) {
       emit(LoadingBill(bills: bills));
     }

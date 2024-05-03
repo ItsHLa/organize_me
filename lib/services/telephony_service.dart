@@ -42,12 +42,12 @@ void compareBill({required SmsMessage smsMessage}) {
   String body = smsMessage.body!;
   if (waterRegex.hasMatch(body)) {
     Match match = waterRegex.firstMatch(body)!;
-    WaterBill.addWaBill(match, provider: smsMessage.address!);
+    WaterBill.addBill(match, provider: smsMessage.address!);
   } else if (telecomRegex.hasMatch(body)) {
     Match match = telecomRegex.firstMatch(body)!;
-    TelecomBill.addTelBill(match, provider: smsMessage.address!);
+    TelecomBill.addBill(match, provider: smsMessage.address!);
   } else if (electricRegex.hasMatch(body)) {
     Match match = electricRegex.firstMatch(body)!;
-    ElectricBill.addElBill(match, provider: smsMessage.address!);
+    ElectricBill.addBill(match, provider: smsMessage.address!);
   }
 }

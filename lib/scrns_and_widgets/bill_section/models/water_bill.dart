@@ -4,10 +4,12 @@ import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
 import 'package:sqflite/sqflite.dart';
 
 class WaterBill extends Bill {
+  static const String tableName = 'water_bills';
   int id;
   double paymentAmount;
   double commissionAmount;
   String date;
+  String time;
   String gov;
   String receiptNumber;
   String barcodeNumber;
@@ -19,6 +21,7 @@ class WaterBill extends Bill {
     required this.receiptNumber,
     required this.commissionAmount,
     required this.date,
+    required this.time,
     required this.gov,
     required this.barcodeNumber,
     required this.operationNumber,
@@ -30,6 +33,7 @@ class WaterBill extends Bill {
       paymentAmount: elBillMap['payment_amount'],
       commissionAmount: elBillMap['commission_amount'],
       date: elBillMap['date'],
+      time: elBillMap['time'],
       gov: elBillMap['gov'],
       receiptNumber: elBillMap['receipt_number'],
       barcodeNumber: elBillMap['barcode_number'],
@@ -38,37 +42,47 @@ class WaterBill extends Bill {
     );
   }
 
-  static Future<Map> addWaBill(
+  static Map _extractMatches(Match match) {
+    Map matchesMap = {};
+    matchesMap['paymentAmount'] =
+        double.parse(match.group(waterRegexGroups['payment amount']!)!);
+
+    matchesMap['commissionAmount'] =
+        double.parse(match.group(waterRegexGroups['commission amount']!)!);
+
+    matchesMap['operationNumber'] =
+        match.group(waterRegexGroups['operation number']!)!;
+
+    matchesMap['receiptNumber'] =
+        match.group(waterRegexGroups['receipt number']!)!;
+
+    matchesMap['barcodeNumber'] =
+        match.group(waterRegexGroups['barcode number']!)!;
+
+    matchesMap['counterNumber'] =
+        match.group(waterRegexGroups['counter number']!)!;
+
+    String dateTime = match.group(waterRegexGroups['date']!)!;
+    matchesMap['date'] = dateTime.split(' ')[0];
+    matchesMap['time'] = dateTime.split(' ')[1];
+
+    matchesMap['gov'] = match.group(waterRegexGroups['gov']!)!;
+    return matchesMap;
+  }
+
+  static Future<Map> addBill(
     Match match, {
     required String provider,
   }) async {
     Database? mydb = await DatabaseHelper.db;
-
-    double paymentAmount =
-        double.parse(match.group(waterRegexGroups['payment amount']!)!);
-
-    double commissionAmount =
-        double.parse(match.group(waterRegexGroups['commission amount']!)!);
-
-    String operationNumber =
-        match.group(waterRegexGroups['operation number']!)!;
-
-    String receiptNumber = match.group(waterRegexGroups['receipt number']!)!;
-
-    String barcodeNumber = match.group(waterRegexGroups['barcode number']!)!;
-
-    String counterNumber = match.group(waterRegexGroups['counter number']!)!;
-
-    String date = match.group(waterRegexGroups['date']!)!;
-
-    String gov = match.group(waterRegexGroups['gov']!)!;
-
+    Map matchesMap = _extractMatches(match);
     int billId = await mydb!.rawInsert(
       """
-        INSERT OR IGNORE INTO water_bills(
+        INSERT OR IGNORE INTO $tableName(
           payment_amount,
           commission_amount,
           date,
+          time,
           provider,
           operation_number,
 
@@ -78,56 +92,33 @@ class WaterBill extends Bill {
           barcode_number,
           counter_number
 
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
       """,
       [
-        paymentAmount,
-        commissionAmount,
-        date,
+        matchesMap['paymentAmount'],
+        matchesMap['commissionAmount'],
+        matchesMap['date'],
+        matchesMap['time'],
         provider,
-        operationNumber,
-        gov,
-        receiptNumber,
-        barcodeNumber,
-        counterNumber,
+        matchesMap['operationNumber'],
+        matchesMap['gov'],
+        matchesMap['receiptNumber'],
+        matchesMap['barcodeNumber'],
+        matchesMap['counterNumber'],
       ],
     );
-    return (await geOneWaBill(billId));
+    return (await geOneBill(billId));
   }
 
-  // static Future<Map> editWaBill(
-  //   int billId,
-  // ) async {
-  //   Database? mydb = await DatabaseHelper.db;
-  //   // String editName = newName.isNotEmpty ? "name = '$newName'" : "";
-  //   await mydb!.rawUpdate(
-  //     """
-  //       UPDATE water_bills SET    WHERE id = ?;
-  //     """,
-  //     [
-  //       billId,
-  //     ],
-  //   );
-  //   return geOneWaBill(billId);
-  // }
-
-  static deleteWaBill(int billId) async {
-    Database? mydb = await DatabaseHelper.db;
-    await mydb!.rawDelete(
-      """
-        DELETE FROM water_bills WHERE id = ?;
-      """,
-      [
-        billId,
-      ],
-    );
+  static deleteBill(int billId) async {
+    await Bill.deleteBill(tableName, billId);
   }
 
-  static Future<Map> geOneWaBill(int billId) async {
+  static Future<Map> geOneBill(int billId) async {
     Database? mydb = await DatabaseHelper.db;
     List<Map> bill = await mydb!.rawQuery(
       """
-        SELECT * FROM water_bills WHERE id = ?
+        SELECT * FROM $tableName WHERE id = ?
       """,
       [
         billId,
@@ -137,11 +128,11 @@ class WaterBill extends Bill {
     return bill[0];
   }
 
-  static Future<List<WaterBill>> getAllWaBills() async {
+  static Future<List<WaterBill>> getAllBills() async {
     Database? mydb = await DatabaseHelper.db;
     List<Map> waBillsMap = await mydb!.rawQuery(
       """
-        SELECT * FROM water_bills;
+        SELECT * FROM $tableName;
       """,
     );
     List<WaterBill> bills = [];
@@ -149,5 +140,9 @@ class WaterBill extends Bill {
       bills.add(WaterBill.fromMap(bill));
     }
     return bills;
+  }
+
+  static Future<double> calculatePayments(int year, int month) async {
+    return await Bill.calculatePayments(tableName, year, month);
   }
 }

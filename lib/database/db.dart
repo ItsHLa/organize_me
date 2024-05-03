@@ -16,7 +16,7 @@ class DatabaseHelper {
   static intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'data.db');
-    // await databaseFactory.deleteDatabase(path);
+    await databaseFactory.deleteDatabase(path);
     Database mydb = await openDatabase(
       path,
       onCreate: _onCreate,
@@ -73,7 +73,8 @@ class DatabaseHelper {
 
             payment_amount REAL,
             commission_amount REAL,
-            date TEXT,
+            date TEXT, -- DD/MM/YYYY
+            time TEXT, -- HH:MM
             provider TEXT,
             operation_number TEXT,
 
@@ -92,7 +93,8 @@ class DatabaseHelper {
 
             payment_amount REAL,
             commission_amount REAL,
-            date TEXT,
+            date TEXT, -- DD/MM/YYYY
+            time TEXT, -- HH:MM
             provider TEXT,
             operation_number TEXT,
 
@@ -112,7 +114,8 @@ class DatabaseHelper {
 
             payment_amount REAL,
             commission_amount REAL,
-            date TEXT,
+            date TEXT, -- DD/MM/YYYY
+            time TEXT, -- HH:MM
             provider TEXT,
             operation_number TEXT,
 

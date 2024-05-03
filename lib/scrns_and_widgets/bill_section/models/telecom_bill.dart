@@ -4,11 +4,13 @@ import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
 import 'package:sqflite/sqflite.dart';
 
 class TelecomBill extends Bill {
+  static const tableName = 'telecom_bills';
   int id;
   double paymentAmount;
   double commissionAmount;
   String invoiceNumber;
   String date;
+  String time;
   String phoneNumberEmail;
   String operationNumber;
   TelecomBill({
@@ -16,6 +18,7 @@ class TelecomBill extends Bill {
     required this.paymentAmount,
     required this.commissionAmount,
     required this.date,
+    required this.time,
     required this.phoneNumberEmail,
     required this.invoiceNumber,
     required this.operationNumber,
@@ -25,6 +28,7 @@ class TelecomBill extends Bill {
       id: elBillMap['id'],
       commissionAmount: elBillMap['commission_amount'],
       date: elBillMap['date'],
+      time: elBillMap['time'],
       phoneNumberEmail: elBillMap['phone_number_email'],
       invoiceNumber: elBillMap['invoice_number'],
       operationNumber: elBillMap['operation_number'],
@@ -32,88 +36,73 @@ class TelecomBill extends Bill {
     );
   }
 
-  static Future<Map> addTelBill(
+  static Map _extractMatches(Match match) {
+    Map matchesMap = {};
+    matchesMap['paymentAmount'] =
+        double.parse(match.group(telecomRegexGroups['payment amount']!)!);
+
+    matchesMap['commissionAmount'] =
+        double.parse(match.group(telecomRegexGroups['commission amount']!)!);
+
+    matchesMap['operationNumber'] =
+        match.group(telecomRegexGroups['operation number']!)!;
+
+    matchesMap['phoneNumberEmail'] =
+        match.group(telecomRegexGroups['phone number/email']!)!;
+
+    matchesMap['invoiceNumber'] =
+        match.group(telecomRegexGroups['invoice number']!)!;
+
+    String dateTime = match.group(telecomRegexGroups['date']!)!;
+    matchesMap['date'] = dateTime.split(' ')[0];
+    matchesMap['time'] = dateTime.split(' ')[1];
+    return matchesMap;
+  }
+
+  static Future<Map> addBill(
     Match match, {
     required String provider,
   }) async {
     Database? mydb = await DatabaseHelper.db;
-
-    double paymentAmount =
-        double.parse(match.group(telecomRegexGroups['payment amount']!)!);
-
-    double commissionAmount =
-        double.parse(match.group(telecomRegexGroups['commission amount']!)!);
-
-    String operationNumber =
-        match.group(telecomRegexGroups['operation number']!)!;
-
-    String phoneNumberEmail =
-        match.group(telecomRegexGroups['phone number/email']!)!;
-
-    String invoiceNumber = match.group(telecomRegexGroups['invoice number']!)!;
-
-    String date = match.group(telecomRegexGroups['date']!)!;
-
+    Map matchesMap = _extractMatches(match);
     int billId = await mydb!.rawInsert(
       """
-        INSERT OR IGNORE INTO telecom_bills(
+        INSERT OR IGNORE INTO $tableName(
           payment_amount,
           commission_amount,
           date,
+          time,
           provider,
           operation_number,
 
           invoice_number,
           phone_number_email
 
-        ) VALUES (?, ?, ?, ?, ?, ?, ?);
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
       """,
       [
-        paymentAmount,
-        commissionAmount,
-        date,
+        matchesMap['paymentAmount'],
+        matchesMap['commissionAmount'],
+        matchesMap['date'],
+        matchesMap['time'],
         provider,
-        operationNumber,
-        invoiceNumber,
-        phoneNumberEmail,
+        matchesMap['operationNumber'],
+        matchesMap['invoiceNumber'],
+        matchesMap['phoneNumberEmail'],
       ],
     );
-    return (await geOneTelBill(billId));
+    return (await geOneBill(billId));
   }
 
-  // static Future<Map> editTelBill(
-  //   int billId,
-  // ) async {
-  //   Database? mydb = await DatabaseHelper.db;
-  //   // String editName = newName.isNotEmpty ? "name = '$newName'" : "";
-  //   await mydb!.rawUpdate(
-  //     """
-  //       UPDATE telecom_bills SET    WHERE id = ?;
-  //     """,
-  //     [
-  //       billId,
-  //     ],
-  //   );
-  //   return geOneTelBill(billId);
-  // }
-
-  static deleteTelBill(int billId) async {
-    Database? mydb = await DatabaseHelper.db;
-    await mydb!.rawDelete(
-      """
-        DELETE FROM telecom_bills WHERE id = ?;
-      """,
-      [
-        billId,
-      ],
-    );
+  static deleteBill(int billId) async {
+    await Bill.deleteBill(tableName, billId);
   }
 
-  static Future<Map> geOneTelBill(int billId) async {
+  static Future<Map> geOneBill(int billId) async {
     Database? mydb = await DatabaseHelper.db;
     List<Map> bill = await mydb!.rawQuery(
       """
-        SELECT * FROM telecom_bills WHERE id = ?
+        SELECT * FROM $tableName WHERE id = ?
       """,
       [
         billId,
@@ -123,11 +112,11 @@ class TelecomBill extends Bill {
     return bill[0];
   }
 
-  static Future<List<TelecomBill>> getAllTelBills() async {
+  static Future<List<TelecomBill>> getAllBills() async {
     Database? mydb = await DatabaseHelper.db;
     List<Map> telBillsMap = await mydb!.rawQuery(
       """
-        SELECT * FROM telecom_bills;
+        SELECT * FROM $tableName;
       """,
     );
     List<TelecomBill> bills = [];
@@ -135,5 +124,9 @@ class TelecomBill extends Bill {
       bills.add(TelecomBill.fromMap(bill));
     }
     return bills;
+  }
+
+  static Future<double> calculatePayments(int year, int month) async {
+    return await Bill.calculatePayments(tableName, year, month);
   }
 }

@@ -4,11 +4,13 @@ import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ElectricBill extends Bill {
+  static const String tableName = 'electric_bills';
   int id;
   double paymentAmount;
   double commissionAmount;
   String invoiceNumber;
   String date;
+  String time;
   String gov;
   String billingNumber;
   String subscriptionNumber;
@@ -19,6 +21,7 @@ class ElectricBill extends Bill {
     required this.billingNumber,
     required this.commissionAmount,
     required this.date,
+    required this.time,
     required this.gov,
     required this.invoiceNumber,
     required this.operationNumber,
@@ -30,6 +33,7 @@ class ElectricBill extends Bill {
       billingNumber: elBillMap['billing_number'],
       commissionAmount: elBillMap['commission_amount'],
       date: elBillMap['date'],
+      time: elBillMap['time'],
       gov: elBillMap['gov'],
       invoiceNumber: elBillMap['invoice_number'],
       operationNumber: elBillMap['operation_number'],
@@ -38,38 +42,49 @@ class ElectricBill extends Bill {
     );
   }
 
-  static Future<Map> addElBill(
+  static Map _extractMatches(Match match) {
+    Map matchesMap = {};
+    matchesMap['paymentAmount'] =
+        double.parse(match.group(electricRegexGroups['payment amount']!)!);
+
+    matchesMap['commissionAmount'] =
+        double.parse(match.group(electricRegexGroups['commission amount']!)!);
+
+    matchesMap['operationNumber'] =
+        match.group(electricRegexGroups['operation number']!)!;
+
+    matchesMap['subscriptionNumber'] =
+        match.group(electricRegexGroups['subscription number']!)!;
+
+    matchesMap['billingNumber'] =
+        match.group(electricRegexGroups['billing number']!)!;
+
+    matchesMap['invoiceNumber'] =
+        match.group(electricRegexGroups['invoice number']!)!;
+
+    String dateTime = match.group(electricRegexGroups['date']!)!;
+    matchesMap['date'] = dateTime.split(' ')[0];
+    matchesMap['time'] = dateTime.split(' ')[1];
+
+    matchesMap['gov'] = match.group(electricRegexGroups['gov']!)!;
+    return matchesMap;
+  }
+
+  static Future<Map> addBill(
     Match match, {
     required String provider,
   }) async {
     Database? mydb = await DatabaseHelper.db;
 
-    double paymentAmount =
-        double.parse(match.group(electricRegexGroups['payment amount']!)!);
-
-    double commissionAmount =
-        double.parse(match.group(electricRegexGroups['commission amount']!)!);
-
-    String operationNumber =
-        match.group(electricRegexGroups['operation number']!)!;
-
-    String subscriptionNumber =
-        match.group(electricRegexGroups['subscription number']!)!;
-
-    String billingNumber = match.group(electricRegexGroups['billing number']!)!;
-
-    String invoiceNumber = match.group(electricRegexGroups['invoice number']!)!;
-
-    String date = match.group(electricRegexGroups['date']!)!;
-
-    String gov = match.group(electricRegexGroups['gov']!)!;
+    Map matchesMap = _extractMatches(match);
 
     int billId = await mydb!.rawInsert(
       """
-        INSERT OR IGNORE INTO electric_bills(
+        INSERT OR IGNORE INTO $tableName(
           payment_amount,
           commission_amount,
           date,
+          time,
           provider,
           subscription_number,
 
@@ -79,56 +94,33 @@ class ElectricBill extends Bill {
           invoice_number,
           operation_number
 
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        ) VALUES (?, ?, ?, ?, ?, ?, ?,s ?, ?, ?);
       """,
       [
-        paymentAmount,
-        commissionAmount,
-        date,
+        matchesMap['paymentAmount'],
+        matchesMap['commissionAmount'],
+        matchesMap['date'],
+        matchesMap['time'],
         provider,
-        operationNumber,
-        gov,
-        billingNumber,
-        invoiceNumber,
-        subscriptionNumber,
+        matchesMap['operationNumber'],
+        matchesMap['gov'],
+        matchesMap['billingNumber'],
+        matchesMap['invoiceNumber'],
+        matchesMap['subscriptionNumber'],
       ],
     );
-    return (await geOneElBill(billId));
+    return (await geOneBill(billId));
   }
 
-  // static Future<Map> editElBill(
-  //   int billId,
-  // ) async {
-  //   Database? mydb = await DatabaseHelper.db;
-  //   // String editName = newName.isNotEmpty ? "name = '$newName'" : "";
-  //   await mydb!.rawUpdate(
-  //     """
-  //       UPDATE electric_bills SET    WHERE id = ?;
-  //     """,
-  //     [
-  //       billId,
-  //     ],
-  //   );
-  //   return geOneElBill(billId);
-  // }
-
-  static deleteElBill(int billId) async {
-    Database? mydb = await DatabaseHelper.db;
-    await mydb!.rawDelete(
-      """
-        DELETE FROM electric_bills WHERE id = ?;
-      """,
-      [
-        billId,
-      ],
-    );
+  static deleteBill(int billId) async {
+    await Bill.deleteBill(tableName, billId);
   }
 
-  static Future<Map> geOneElBill(int billId) async {
+  static Future<Map> geOneBill(int billId) async {
     Database? mydb = await DatabaseHelper.db;
     List<Map> bill = await mydb!.rawQuery(
       """
-        SELECT * FROM electric_bills WHERE id = ?
+        SELECT * FROM $tableName WHERE id = ?
       """,
       [
         billId,
@@ -138,11 +130,11 @@ class ElectricBill extends Bill {
     return bill[0];
   }
 
-  static Future<List<ElectricBill>> getAllElBills() async {
+  static Future<List<ElectricBill>> getAllBills() async {
     Database? mydb = await DatabaseHelper.db;
     List<Map> elBillsMap = await mydb!.rawQuery(
       """
-        SELECT * FROM electric_bills;
+        SELECT * FROM $tableName;
       """,
     );
     List<ElectricBill> bills = [];
@@ -152,5 +144,7 @@ class ElectricBill extends Bill {
     return bills;
   }
 
-  // TODO search filter methods...
+  static Future<double> calculatePayments(int year, int month) async {
+    return await Bill.calculatePayments(tableName, year, month);
+  }
 }
