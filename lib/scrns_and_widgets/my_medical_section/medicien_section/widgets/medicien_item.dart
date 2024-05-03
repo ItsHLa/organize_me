@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
 
+import '../../../../constants.dart';
+
 class MedItem extends StatelessWidget {
   const MedItem({
     super.key,
@@ -17,35 +19,34 @@ class MedItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          ListTile(
-            subtitle: Container(
-              padding: const EdgeInsets.all(5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text('${med.interval} عدد الساعات بين الجرعات'),
-                  Text('${med.shotTime} موعد أخذ الدواء ')
-                ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: ListTile(
+                //Icon(Icons.medication),
+                subtitle: Text(
+                    'موعد اخذ الدواء : ${med.shotTime} \n يؤخذ كل ${med.interval} ساعة'),
+                title: Text(med.name),
+                leading: const Icon(
+                  Icons.medication,
+                  color: blue,
+                ),
               ),
             ),
-            title: Row(
+            Column(
               children: [
-                const Icon(Icons.medication),
-                const Spacer(),
-                Text(med.name),
+                IconButton(
+                    onPressed: onPressedEdit,
+                    icon: const Icon(Icons.edit_outlined)),
+                IconButton(
+                    onPressed: onPressedDelete,
+                    icon: const Icon(Icons.cancel_outlined))
               ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(onPressed: onPressedEdit, child: const Text('تعديل')),
-              TextButton(onPressed: onPressedDelete, child: const Text('حذف')),
-            ],
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

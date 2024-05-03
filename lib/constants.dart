@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/bills_view.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/icon_form.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/meds_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
@@ -32,8 +34,8 @@ Widget taskPage = BlocProvider(
 
 Widget notesPage = const NoteView();
 
-//Widget docsNumPage = BlocProvider(
-//  create: (context) => DocsNumCubit(), child: const MedsAndDocs());
+Widget docsNumPage = BlocProvider(
+    create: (context) => DocsNumCubit(), child: const MedsAndDocs());
 
 Widget medsPage = BlocProvider<MedicineCubit>(
   create: (context) => MedicineCubit(),
