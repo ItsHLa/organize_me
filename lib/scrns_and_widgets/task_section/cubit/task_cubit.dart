@@ -118,8 +118,6 @@ class TaskCubit extends Cubit<TaskState> {
       );
       emit(TaskLoaded(tasks: tasks));
     } catch (e) {
-      print(e.toString());
-      print('error');
       emit(const LoadingTasks(tasks: []));
     }
   }

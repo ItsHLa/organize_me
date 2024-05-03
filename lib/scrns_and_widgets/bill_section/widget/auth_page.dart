@@ -47,9 +47,7 @@ class Auth extends StatelessWidget {
           Container(
             decoration: BoxDecoration(color: softPurple),
             child: ElevatedButton(
-              onPressed: () {
-                print('hello');
-              },
+              onPressed: () {},
               child: const Text('اوافق'),
             ),
           ),

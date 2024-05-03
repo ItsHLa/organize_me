@@ -74,13 +74,6 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
             },
           ),
           onPressed: () {
-            print('time');
-            print(time.toString());
-            print('editedMedInterval');
-            print(editedMedInterval);
-            print('editedMedName');
-            print(editedMedName);
-
             medKey.currentState?.save();
             BlocProvider.of<MedicineCubit>(context).editMed(
               id: widget.med.id,
