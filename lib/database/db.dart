@@ -16,9 +16,13 @@ class DatabaseHelper {
   static intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'data.db');
-    await databaseFactory.deleteDatabase(path);
-    Database mydb = await openDatabase(path,
-        onCreate: _onCreate, version: 1, onUpgrade: _onUpgrade);
+    // await databaseFactory.deleteDatabase(path);
+    Database mydb = await openDatabase(
+      path,
+      onCreate: _onCreate,
+      version: 1,
+      onUpgrade: _onUpgrade,
+    );
     return mydb;
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/telecom_bill_item.dart';
 import 'package:organize_me/scrns_and_widgets/my_list_view.dart';
 
@@ -11,7 +12,6 @@ class TelecomList extends StatelessWidget {
     super.key,
   });
 
-
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<BillCubit>(context).loadTelecom();
@@ -20,25 +20,23 @@ class TelecomList extends StatelessWidget {
         builder: (context, state) {
           if (state is LoadingBill) {
             return const CircularProgressIndicator();
-          } else if (state is BillLoaded) {
+          } else if (state is BillLoaded && state.bills.isNotEmpty) {
             return MyListView(
-                dataList: state.bill,
-                itemCount: state.bill.length,
-                itemBuilder: (context, index) {
-                  TelecomBill currentBill = state.bill[index];
-                  return TelecomBills(
-                    paymentAmount: '${currentBill.paymentAmount}',
-                    operationNumber: currentBill.operationNumber,
-                    date: currentBill.date,
-                    phoneNumberEmail: currentBill.phoneNumberEmail,
-                    commissionAmount: currentBill.commissionAmount.toString(),
-                  );
-                });
-          } else {
-            return const Text(
-              'لا يوجد فواتير لغرضها',
-              style: TextStyle(fontSize: 20),
+              dataList: state.bills,
+              itemCount: state.bills.length,
+              itemBuilder: (context, index) {
+                TelecomBill currentBill = state.bills[index] as TelecomBill;
+                return TelecomBills(
+                  paymentAmount: '${currentBill.paymentAmount}',
+                  operationNumber: currentBill.operationNumber,
+                  date: currentBill.date,
+                  phoneNumberEmail: currentBill.phoneNumberEmail,
+                  commissionAmount: currentBill.commissionAmount.toString(),
+                );
+              },
             );
+          } else {
+            return noBillsToShow;
           }
         },
       ),

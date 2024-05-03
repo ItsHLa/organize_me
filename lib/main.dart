@@ -78,7 +78,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
         builder: (context, state) {
           return MaterialApp(
               locale: const Locale('ar '),
-              localizationsDelegates: [
+              localizationsDelegates: const [
                 // MonthYearPickerLocalizations.delegate,
               ],
               //themeMode: ThemeMode.system,

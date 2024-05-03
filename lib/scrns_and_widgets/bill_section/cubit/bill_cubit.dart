@@ -8,30 +8,39 @@ import '../models/bill.dart';
 part 'bill_state.dart';
 
 class BillCubit extends Cubit<BillState> {
-  BillCubit() : super(BillInitial(bill: const []));
+  List<Bill> bills = [];
+
+  BillCubit() : super(const BillInitial(bills: []));
 
   void payFromSyriatelCash() async {}
-  List<Bill> bill = [];
 
   void loadWater() async {
-    emit(LoadingBill(bill: const []));
+    emit(LoadingBill(bills: bills));
     try {
-      await WaterBill.getAllWaBills().then((waBills) => bill = waBills);
-      emit(BillLoaded(bill: bill));
+      await WaterBill.getAllWaBills().then((waBills) => bills = waBills);
+      emit(BillLoaded(bills: bills));
     } catch (e) {
-      emit(LoadingBill(bill: const []));
+      emit(LoadingBill(bills: bills));
     }
   }
 
   void loadElectric() async {
-    await ElectricBill.getAllElBills().then((elBills) => bill = elBills);
-    print(bill);
-    emit(BillLoaded(bill: bill));
+    emit(LoadingBill(bills: bills));
+    try {
+      await ElectricBill.getAllElBills().then((elBills) => bills = elBills);
+    } catch (e) {
+      emit(LoadingBill(bills: bills));
+    }
+    emit(BillLoaded(bills: bills));
   }
 
   void loadTelecom() async {
-    print(bill);
-    await TelecomBill.getAllTelBills().then((telBills) => bill = telBills);
-    emit(BillLoaded(bill: bill));
+    emit(LoadingBill(bills: bills));
+    try {
+      await TelecomBill.getAllTelBills().then((telBills) => bills = telBills);
+    } catch (e) {
+      emit(LoadingBill(bills: bills));
+    }
+    emit(BillLoaded(bills: bills));
   }
 }

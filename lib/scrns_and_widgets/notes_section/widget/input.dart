@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
 
 import '../../../services/functionality.dart';
@@ -104,7 +105,7 @@ class _InputState extends State<Input> {
                 icon: Icon(widget.icon),
                 label: Text(
                   widget.action,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: deepPurple),
                 ),
               ),
               const SizedBox(height: 10),

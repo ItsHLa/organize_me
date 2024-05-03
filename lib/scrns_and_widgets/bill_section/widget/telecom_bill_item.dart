@@ -3,13 +3,14 @@ import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_row.dart';
 
 class TelecomBills extends StatelessWidget {
-  const TelecomBills(
-      {super.key,
-      required this.date,
-      required this.operationNumber,
-      required this.phoneNumberEmail,
-      required this.paymentAmount,
-      required this.commissionAmount});
+  const TelecomBills({
+    super.key,
+    required this.date,
+    required this.operationNumber,
+    required this.phoneNumberEmail,
+    required this.paymentAmount,
+    required this.commissionAmount,
+  });
 
   final String date;
   final String operationNumber;
@@ -25,20 +26,21 @@ class TelecomBills extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: ListTile(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => TelecomBillDetail(
-                      date: date,
-                      phoneNumberEmail: phoneNumberEmail,
-                      paymentAmount: paymentAmount,
-                      operationNumber: operationNumber,
-                      commissionAmount: commissionAmount,
-                    ),
-                  );
-                },
-                title: Text(date),
-                subtitle: Text(operationNumber)),
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => TelecomBillDetail(
+                    date: date,
+                    phoneNumberEmail: phoneNumberEmail,
+                    paymentAmount: paymentAmount,
+                    operationNumber: operationNumber,
+                    commissionAmount: commissionAmount,
+                  ),
+                );
+              },
+              title: Text(date),
+              subtitle: Text(operationNumber),
+            ),
           ),
         ),
         Positioned(
@@ -52,13 +54,14 @@ class TelecomBills extends StatelessWidget {
 }
 
 class TelecomBillDetail extends StatelessWidget {
-  const TelecomBillDetail(
-      {super.key,
-      required this.date,
-      required this.operationNumber,
-      required this.phoneNumberEmail,
-      required this.paymentAmount,
-      required this.commissionAmount});
+  const TelecomBillDetail({
+    super.key,
+    required this.date,
+    required this.operationNumber,
+    required this.phoneNumberEmail,
+    required this.paymentAmount,
+    required this.commissionAmount,
+  });
 
   final String date;
   final String operationNumber;
@@ -81,9 +84,7 @@ class TelecomBillDetail extends StatelessWidget {
             const Divider(),
             MyRow(title: 'المبلغ                   ', value: paymentAmount),
             const Divider(),
-            MyRow(
-                title: 'الدفع للفاتورة                 ',
-                value: commissionAmount),
+            MyRow(title: 'الدفع للفاتورة            ', value: commissionAmount),
           ],
         ),
       ),

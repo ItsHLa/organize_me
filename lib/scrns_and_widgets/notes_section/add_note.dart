@@ -8,7 +8,7 @@ class AddNoteScrn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Input(
-      title: 'اسم الملاحظة ',
+      title: 'عنوان الملاحظة ',
       content: 'الوصف',
       action: 'اضافة الملاحظة',
       icon: Icons.add_circle_outline,

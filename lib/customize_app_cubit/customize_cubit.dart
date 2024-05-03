@@ -20,9 +20,9 @@ class CustomizeCubit extends Cubit<CustomizeState> {
 
   void getAllCustomization() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var taskNNotes = prefs.getBool(taskNotesKey)!;
-    var bill = prefs.getBool(billsKey)!;
-    var medsNDocs = prefs.getBool(medsAndDocsKey)!;
+    var taskNNotes = prefs.getBool(taskNotesKey) ?? false;
+    var bill = prefs.getBool(billsKey) ?? false;
+    var medsNDocs = prefs.getBool(medsAndDocsKey) ?? false;
     List oldPages = getPages(taskNNotes, bill, medsNDocs);
     emit(Customize(
       pages: oldPages,

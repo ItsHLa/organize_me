@@ -19,24 +19,39 @@ class MonthlyChart extends StatelessWidget {
           height: 170,
           width: 170,
           child: PieChart(
-            PieChartData(centerSpaceRadius: 30, sections: [
-              PieChartSectionData(color: yellow, value: 50),
-              PieChartSectionData(color: blue, value: 20),
-              PieChartSectionData(color: green, value: 30),
-            ]),
+            PieChartData(
+              centerSpaceRadius: 30,
+              sections: [
+                PieChartSectionData(color: yellow, value: 50),
+                PieChartSectionData(color: blue, value: 20),
+                PieChartSectionData(color: green, value: 30),
+              ],
+            ),
             swapAnimationDuration: const Duration(milliseconds: 150),
             // Optional
             swapAnimationCurve: Curves.linear, // Optional
           ),
         ),
         const BillCategorySpending(
-            sum: 3500, color: yellow, value: 50, title: 'الكهرباء'),
+          sum: 3500,
+          color: yellow,
+          value: 50,
+          title: 'الكهرباء',
+        ),
         const Divider(),
         const BillCategorySpending(
-            sum: 3500, color: blue, value: 20, title: 'المياه'),
+          sum: 3500,
+          color: blue,
+          value: 20,
+          title: 'المياه',
+        ),
         const Divider(),
         const BillCategorySpending(
-            sum: 3500, color: green, value: 30, title: 'الاتصالات')
+          sum: 3500,
+          color: green,
+          value: 30,
+          title: 'الاتصالات',
+        )
       ],
     );
   }

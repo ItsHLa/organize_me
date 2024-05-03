@@ -64,7 +64,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
                 context: context,
                 initialTime: TimeOfDay.now(),
               );
-              time == null ? convertStringToTimeDay(widget.med.shotTime) : time;
+              time ?? convertStringToTimeDay(widget.med.shotTime);
               setState(
                 () {
                   editedShotTime =

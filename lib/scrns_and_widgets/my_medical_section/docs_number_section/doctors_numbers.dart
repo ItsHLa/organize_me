@@ -4,7 +4,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/docs_numbers_list.dart';
 
 import 'add_phone_num.dart';
-import 'altibbi.dart';
 import 'cubit/docs_num_cubit.dart';
 
 class MedsAndDocs extends StatelessWidget {

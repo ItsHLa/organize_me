@@ -7,7 +7,7 @@ class MedsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
 /*      floatingActionButton: MyFab(
         icon: Icons.medication,
@@ -22,7 +22,7 @@ class MedsPage extends StatelessWidget {
           );
         },
       ),*/
-      body: const Column(
+      body: Column(
         children: [MedsGrid()],
       ),
     );

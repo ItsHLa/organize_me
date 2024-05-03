@@ -136,3 +136,12 @@ Map<String, int> telecomRegexGroups = {
   'phone number/email': 5,
   'operation number': 6
 };
+
+Widget noBillsToShow = const Center(
+  child: Text(
+    'لا يوجد فواتير لعرضها',
+    style: TextStyle(
+      fontSize: 20,
+    ),
+  ),
+);

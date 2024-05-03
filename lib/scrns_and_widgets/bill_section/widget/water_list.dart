@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/my_list_view.dart';
 
 import '../cubit/bill_cubit.dart';
@@ -19,21 +20,23 @@ class WaterList extends StatelessWidget {
         builder: (context, state) {
           if (state is LoadingBill) {
             return const CircularProgressIndicator();
-          } else if (state is BillLoaded) {
+          } else if (state is BillLoaded && state.bills.isNotEmpty) {
             return MyListView(
-                dataList: state.bill,
-                itemCount: state.bill.length,
-                itemBuilder: (context, index) {
-                  WaterBill current = state.bill[index];
-                  return WaterBills(
-                      date: current.date,
-                      operationNumber: current.operationNumber,
-                      paymentAmount: current.commissionAmount.toString(),
-                      barcodeNumber: current.barcodeNumber,
-                      counterNumber: current.counterNumber);
-                });
+              dataList: state.bills,
+              itemCount: state.bills.length,
+              itemBuilder: (context, index) {
+                WaterBill current = state.bills[index] as WaterBill;
+                return WaterBills(
+                  date: current.date,
+                  operationNumber: current.operationNumber,
+                  paymentAmount: current.commissionAmount.toString(),
+                  barcodeNumber: current.barcodeNumber,
+                  counterNumber: current.counterNumber,
+                );
+              },
+            );
           }
-          return const Center(child: Text('لايوجد فواتير لغرضها'));
+          return noBillsToShow;
         },
       ),
     );
