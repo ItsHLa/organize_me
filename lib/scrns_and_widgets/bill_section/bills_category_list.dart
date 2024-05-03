@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+/*
+* import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
 
@@ -10,42 +10,46 @@ class BillsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.all(5),
-            scrollDirection: Axis.horizontal,
-            children: [
-              BillItem(
-                onTap: () {
-                  BlocProvider.of<BillCubit>(context).loadElectric();
-                },
-                billTitle: 'فواتير الكهرباء',
-              ),
-              const SizedBox(
-                width: 3,
-              ),
-              BillItem(
-                onTap: () {
-                  BlocProvider.of<BillCubit>(context).loadWater();
-                },
-                billTitle: 'فواتير المياه',
-              ),
-              const SizedBox(
-                width: 3,
-              ),
-              BillItem(
-                onTap: () {
-                  BlocProvider.of<BillCubit>(context).loadTelecom();
-                },
-                billTitle: 'فواتير الاتصالات',
-              )
-            ],
-          ),
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      BillItem(
+        onTap: () {
+          BlocProvider.of<BillCubit>(context).loadElectric();
+        },
+        billIcon:const Icon(
+          Icons.electric_bolt,
+          color: Color.fromRGBO(219, 200, 109, 1),
+        ), label: 'كهرباء',
+      ),
+      const SizedBox(
+        width: 3,
+      ),
+      BillItem(
+        label: 'مياه',
+        onTap: () {
+          BlocProvider.of<BillCubit>(context).loadWater();
+        },
+        billIcon:  const Icon(
+          Icons.water_drop,
+          color: Color.fromRGBO(7, 144, 166, 1),
+        )
+      ),
+      const SizedBox(
+        width: 3,
+      ),
+      BillItem(
+        label: 'اتصالات',
+        onTap: () {
+          BlocProvider.of<BillCubit>(context).loadTelecom();
+        },
+        billIcon: const Icon(
+          Icons.call_end,
+          color: Color.fromRGBO(109, 124, 65, 1),
         ),
-      ],
-    );
+      ),
+    ]);
   }
 }
+
+*
+*
+* */

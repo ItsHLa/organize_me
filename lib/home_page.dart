@@ -1,4 +1,3 @@
-import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/settings.dart';
@@ -17,9 +16,6 @@ class _HomePageState extends State<HomePage> {
 
   int pageIndex = 0;
 
-  final CircularBottomNavigationController _navigationController =
-      CircularBottomNavigationController(0);
-
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<CustomizeCubit>(context).getAllCustomization();
@@ -29,7 +25,7 @@ class _HomePageState extends State<HomePage> {
             endDrawer: const Settings(),
             appBar: AppBar(
               title: Text(
-                'Hi , there!',
+                'Organize Me',
                 style: TextStyle(color: deepPurple),
               ),
               actions: [
@@ -42,21 +38,26 @@ class _HomePageState extends State<HomePage> {
                 }),
               ],
             ),
-            bottomNavigationBar: CircularBottomNavigation(
-              barBackgroundColor: state.darkMode ? black : Colors.white,
-              circleSize: 40,
-              iconsSize: 20,
-              controller: _navigationController,
-              state.tabs,
-              selectedCallback: (idx) {
+            bottomNavigationBar: BottomNavigationBar(
+              onTap: (value) {
                 setState(() {
-                  pageIndex = idx!;
-                  _navigationController.value = idx;
+                  pageIndex = value;
                 });
               },
+              currentIndex: pageIndex,
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.task_alt_outlined), label: 'المهام'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.payments), label: 'الفواتير'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.medical_information_outlined),
+                    label: 'الادوية')
+              ],
             ),
             body: state.pages[pageIndex]);
       },
     );
   }
 }
+

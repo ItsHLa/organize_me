@@ -1,50 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/water_bill.dart';
 
+import '../models/bill.dart';
 part 'bill_state.dart';
 
 class BillCubit extends Cubit<BillState> {
-  BillCubit() : super(const BillInitial(bills: [], typeOfBill: 'water'));
+  BillCubit() : super(BillInitial(bill: const []));
 
   void payFromSyriatelCash() async {}
+  List<Bill> bill = [];
 
-  void loadBills(String typeOfBill) async {
-    dynamic bill;
-    emit(LoadingBill(bills: const [], typeOfBill: typeOfBill));
+  void loadWater() async {
+    emit(LoadingBill(bill: const []));
     try {
-      switch (typeOfBill) {
-        case 'water':
-          bill = await loadWater();
-        case 'electric':
-          bill = await loadElectric();
-        case 'telecom':
-          bill = await loadTelecom();
-      }
-      emit(BillLoaded(typeOfBill: typeOfBill, bills: bill));
+      await WaterBill.getAllWaBills().then((waBills) => bill = waBills);
+      emit(BillLoaded(bill: bill));
     } catch (e) {
-      emit(LoadingBill(bills: const [], typeOfBill: typeOfBill));
+      emit(LoadingBill(bill: const []));
     }
   }
 
-  Future<List<WaterBill>> loadWater() async {
-    List<WaterBill> bills = [];
-    await WaterBill.getAllWaBills().then((waBills) => bills = waBills);
-    return bills;
+  void loadElectric() async {
+    await ElectricBill.getAllElBills().then((elBills) => bill = elBills);
+    print(bill);
+    emit(BillLoaded(bill: bill));
   }
 
-  Future<List<ElectricBill>> loadElectric() async {
-    List<ElectricBill> bills = [];
-    await ElectricBill.getAllElBills().then((elBills) => bills = elBills);
-    return bills;
-  }
-
-  Future<List<TelecomBill>> loadTelecom() async {
-    List<TelecomBill> bills = [];
-    await TelecomBill.getAllTelBills().then((telBills) => bills = telBills);
-    return bills;
+  void loadTelecom() async {
+    print(bill);
+    await TelecomBill.getAllTelBills().then((telBills) => bill = telBills);
+    emit(BillLoaded(bill: bill));
   }
 }

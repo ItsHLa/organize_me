@@ -1,4 +1,3 @@
-import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -24,7 +23,7 @@ List getPages(bool taskNotes, bool bills, bool medsAndDocs) {
   List pages = [];
   if (taskNotes) {
     pages.add(taskPage);
-    pages.add(notesPage);
+   // pages.add(notesPage);
   }
 
   if (bills) {
@@ -32,30 +31,10 @@ List getPages(bool taskNotes, bool bills, bool medsAndDocs) {
   }
 
   if (medsAndDocs) {
-    pages.add(docsNumPage);
     pages.add(medsPage);
   }
 
   return pages;
-}
-
-List<TabItem> getTabs(bool taskNotes, bool bills, bool medsAndDocs) {
-  List<TabItem> tabs = [];
-  if (taskNotes) {
-    tabs.add(taskTab);
-    tabs.add(notesTab);
-  }
-
-  if (bills) {
-    tabs.add(billsTab);
-  }
-
-  if (medsAndDocs) {
-    tabs.add(docsNumTab);
-    tabs.add(medsTab);
-  }
-
-  return tabs;
 }
 
 Duration differenceBetweenTimes(TimeOfDay timeOfDay) {

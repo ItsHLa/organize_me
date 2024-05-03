@@ -33,19 +33,6 @@ class MedsAndDocs extends StatelessWidget {
           ),
           SpeedDialChild(
             shape: const StadiumBorder(),
-            child: const Icon(Icons.book),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const Altibbi(),
-              ));
-            },
-            /* onTap:() async {
-    final Uri _url = Uri.parse();
-    if (!await launchUrl(_url)) {
-    throw Exception('Could not launch $_url');}}*/
-          ),
-          SpeedDialChild(
-            shape: const StadiumBorder(),
             child: const Icon(Icons.contacts),
             onTap: () async {
               showModalBottomSheet(
@@ -89,3 +76,22 @@ class MyFabButtons extends StatelessWidget {
     );
   }
 }
+
+/*
+*
+* SpeedDialChild(
+            shape: const StadiumBorder(),
+            child: const Icon(Icons.book),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const Altibbi(),
+              ));
+            },
+            /* onTap:() async {
+    final Uri _url = Uri.parse();
+    if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');}}*/
+          ),
+*
+*
+* */

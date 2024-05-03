@@ -21,7 +21,9 @@ class _NoteListViewState extends State<NoteListView> {
       builder: (context, state) {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: ListView.builder(
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2),
             padding: EdgeInsets.zero,
             itemCount: widget.notes.length,
             itemBuilder: (context, index) {

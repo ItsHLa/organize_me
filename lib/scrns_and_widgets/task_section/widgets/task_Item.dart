@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
-
 class TaskItem extends StatelessWidget {
   const TaskItem({
     super.key,
@@ -69,7 +67,6 @@ class MyStatusButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       iconSize: 30,
-      color: black,
       onPressed: onPressed,
       icon: icon,
     );
