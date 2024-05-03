@@ -26,14 +26,14 @@ class Auth extends StatelessWidget {
       children: [
         const IconForm(
             child: Icon(
-          Icons.phone_android_outlined,
+          Icons.email_outlined,
           size: 50,
         )),
         const SizedBox(
           height: 15,
         ),
         const Text(
-          'هل تريد ربط فواتيرك برقم هاتفك ؟',
+          'هل تريد ربط فواتيرك بعنوان بريدك الالكتروني ؟',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
@@ -43,8 +43,18 @@ class Auth extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: InputText(
-            keyboardType: TextInputType.phone,
-            hint: 'الرقم',
+            hint: 'ايميل',
+            save: savePhoneNumber,
+            validator: phoneNumberValidator,
+          ),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InputText(
+            hint: 'كلمة السر',
             save: savePhoneNumber,
             validator: phoneNumberValidator,
           ),
