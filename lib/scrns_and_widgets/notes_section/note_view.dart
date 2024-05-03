@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/models/note.dart';
 
 import 'add_note.dart';
@@ -32,10 +32,13 @@ class _NoteViewState extends State<NoteView> {
         }
         List<Note> notes = BlocProvider.of<NotesBloc>(context).notes;
         return Scaffold(
+          appBar: AppBar(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.endContained,
-          floatingActionButton: MyFab(
-            icon: Icons.add,
+          floatingActionButton: FloatingActionButton(
+            shape: const CircleBorder(),
+            backgroundColor: softPurple,
+            child: const Icon(Icons.add),
             onPressed: () {
               showModalBottomSheet(
                 isScrollControlled: true,
@@ -50,24 +53,24 @@ class _NoteViewState extends State<NoteView> {
             children: [
               notes.isEmpty
                   ? (state is NotesLoadingCompleted
-                      ? const Expanded(
-                          child: Center(
-                            child: Text(
-                              "ليس لديك ملاحظات بعد",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        )
-                      : const Expanded(
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ))
+                  ? const Expanded(
+                child: Center(
+                  child: Text(
+                    "ليس لديك ملاحظات بعد",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              )
+                  : const Expanded(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ))
                   : Expanded(
-                      child: NoteListView(
-                        notes: notes,
-                      ),
-                    ),
+                child: NoteListView(
+                  notes: notes,
+                ),
+              ),
             ],
           ),
         );

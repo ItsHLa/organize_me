@@ -9,6 +9,7 @@ import '../full_note_scrn.dart';
 
 class NoteItem extends StatelessWidget {
   final Note note;
+
   const NoteItem({super.key, required this.note});
 
   @override
@@ -18,63 +19,33 @@ class NoteItem extends StatelessWidget {
         children: [
           ListTile(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => NotePage(
-                    note: note,
-                  ),
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => NotePage(
+                  note: note,
                 ),
               );
             },
-            title: Column(
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text(
-                        note.title,
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                    ),
-                    const Spacer(),
-                    IconButtonCustom(
-                      logic: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlterDialogCustom(
-                            noteId: note.id,
-                          ),
-                        );
-                      },
-                      icon: Icons.delete_outline,
-                    )
-                  ],
-                ),
-                const Divider()
-              ],
+            trailing: IconButtonCustom(
+              logic: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlterDialogCustom(
+                    noteId: note.id,
+                  ),
+                );
+              },
+              icon: Icons.cancel_outlined,
             ),
-            subtitle: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                note.content,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-              ),
+            subtitle: Text(
+              note.date,
+            ),
+            title: Text(
+              note.title,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          Row(
-            children: [
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10, right: 10),
-                child: Text(
-                  note.date,
-                  style: const TextStyle(fontSize: 12),
-                ),
-              )
-            ],
-          )
+          Text(note.content, overflow: TextOverflow.ellipsis),
         ],
       ),
     );
@@ -83,7 +54,9 @@ class NoteItem extends StatelessWidget {
 
 class AlterDialogCustom extends StatefulWidget {
   final int noteId;
+
   const AlterDialogCustom({super.key, required this.noteId});
+
   @override
   State<AlterDialogCustom> createState() => _AlterDialogCustomState();
 }

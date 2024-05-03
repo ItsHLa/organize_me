@@ -8,7 +8,7 @@ class MyButton extends StatelessWidget {
       required this.icon,
       required this.label});
 
-  final IconData icon;
+  final IconData? icon;
   final String label;
   final void Function()? onPressed;
 

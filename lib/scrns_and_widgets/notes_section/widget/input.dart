@@ -102,7 +102,10 @@ class _InputState extends State<Input> {
                   }
                 },
                 icon: Icon(widget.icon),
-                label: Text(widget.action),
+                label: Text(
+                  widget.action,
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
               const SizedBox(height: 10),
             ],

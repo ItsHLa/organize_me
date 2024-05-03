@@ -1,20 +1,14 @@
-import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/bills_view.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/icon_form.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/doctors_numbers.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/meds_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
 import 'package:organize_me/scrns_and_widgets/settings.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
-
-const String altibbiURL =
-    'https://altibbi.com/%D8%A7%D9%84%D8%AF%D9%84%D9%8A%D9%84-%D8%A7%D9%84%D8%B7%D8%A8%D9%8A/%D8%B3%D9%88%D8%B1%D9%8A%D8%A7';
 
 /////////////////////////////////////// notifications constants//////////////////////////////
 const taskTag = 'taskTag';
@@ -29,37 +23,17 @@ const String taskChannelName = 'taskChannelName';
 const String medicineChannelName = 'medicineChannelName';
 const String billChannelName = 'billChannelName';
 
-/////////////////////////tabs//////////////////////////////
-TabItem taskTab = TabItem(
-  Icons.task_alt_outlined,
-  "مهام",
-  deepPurple,
-);
-TabItem notesTab = TabItem(
-  Icons.note_alt,
-  " مفكرة",
-  deepPurple,
-);
-TabItem billsTab = TabItem(
-  Icons.payments,
-  "فواتير",
-  deepPurple,
-);
-
-TabItem medsTab =
-    TabItem(Icons.medical_information_outlined, "ادوية", deepPurple);
-
-TabItem docsNumTab = TabItem(Icons.phone, "اطباء", deepPurple);
-TabItem settingsTab = TabItem(Icons.settings, "الاعدادات", deepPurple);
 /////////////////////////////////////pages//////////////////////////////////////////
 Widget settings = const Settings();
-Widget taskPage = BlocProvider<TaskCubit>(
-    create: (context) => TaskCubit(), child: const DayCalendar());
+Widget taskPage = BlocProvider(
+  create: (context) => TaskCubit(),
+  child: const DayCalendar(),
+);
 
 Widget notesPage = const NoteView();
 
-Widget docsNumPage = BlocProvider(
-    create: (context) => DocsNumCubit(), child: const MedsAndDocs());
+//Widget docsNumPage = BlocProvider(
+//  create: (context) => DocsNumCubit(), child: const MedsAndDocs());
 
 Widget medsPage = BlocProvider<MedicineCubit>(
   create: (context) => MedicineCubit(),
@@ -77,19 +51,16 @@ String billsKey = 'bill';
 String medsAndDocsKey = 'numMeds';
 
 ////////////////////////////////////////TaskIcons///////////////////////////////////////////////////
-const Icon taskComplete = Icon(
+Icon taskComplete = const Icon(
   Icons.task_alt_outlined,
-  color: black,
   size: 30,
 );
-const Icon taskOngoing = Icon(
+Icon taskOngoing = const Icon(
   Icons.pause_circle_outline_outlined,
-  color: black,
   size: 30,
 );
-const Icon taskPending = Icon(
+Icon taskPending = const Icon(
   Icons.not_started_outlined,
-  color: black,
   size: 30,
 );
 /////////////////////////////////////////////darkModeIcons///////////////////////////////////////////
@@ -116,6 +87,7 @@ Widget telecomBill = const IconForm(
 const Color grey = Color(0xFFc9c0c7);
 Color deepPurple = Colors.deepPurple.shade400;
 Color softPurple = Colors.deepPurple.shade300;
+const white = Colors.white54;
 const Color verySoftDarkBlue = Color(0xFF20abb9);
 const Color black = Color(0xFF222831);
 const Color darkTheme = Color(0xFF121212);

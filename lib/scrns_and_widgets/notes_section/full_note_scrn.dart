@@ -9,6 +9,7 @@ import 'widget/input.dart';
 
 class NotePage extends StatelessWidget {
   final Note note;
+
   const NotePage({
     super.key,
     required this.note,
@@ -32,74 +33,62 @@ class NotePage extends StatelessWidget {
           // BlocProvider.of<NotesBloc>(context)
           //     .emit(NotesLoadingCompleted(notes: state.notes));
         }
-        return Scaffold(
-          appBar: AppBar(),
-          body: Container(
-            margin: const EdgeInsets.all(9.0),
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Row(
                   children: [
+                    Text(
+                      currNote.title,
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const Spacer(),
                     Row(
                       children: [
-                        Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.all(5),
-                          child: Text(
-                            currNote.title,
-                            style: const TextStyle(fontSize: 15),
-                          ),
+                        IconButtonCustom(
+                          icon: Icons.edit,
+                          logic: () {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (context) => Input(
+                                noteId: currNote.id,
+                                title: 'عنوان الملاحظة',
+                                content: 'الوصف',
+                                action: 'تعديل الملاحظة',
+                                icon: Icons.edit,
+                              ),
+                            );
+                          },
                         ),
-                        const Spacer(),
-                        Row(
-                          children: [
-                            IconButtonCustom(
-                              icon: Icons.edit,
-                              logic: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  isScrollControlled: true,
-                                  builder: (context) => Input(
-                                    noteId: currNote.id,
-                                    title: 'عنوان الملاحظة',
-                                    content: 'الوصف',
-                                    action: 'تعديل الملاحظة',
-                                    icon: Icons.edit,
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    const Divider(),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      alignment: Alignment.center,
-                      child: Text(
-                        currNote.content,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 8,
-                            right: 8,
-                          ),
-                          child: Text(
-                            currNote.date,
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                        )
                       ],
                     )
                   ],
                 ),
-              ),
+                const Divider(),
+                SingleChildScrollView(
+                  child: Text(
+                    currNote.content,
+                  ),
+                ),
+                Row(
+                  children: [
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 8,
+                        right: 8,
+                      ),
+                      child: Text(
+                        currNote.date,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
         );

@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
+/*
+*
+*
+* import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../../constants.dart';
 
 class Altibbi extends StatefulWidget {
   const Altibbi({super.key});
@@ -14,8 +16,7 @@ class _AltibbiState extends State<Altibbi> {
   @override
   Widget build(BuildContext context) {
     var params = const PlatformWebViewControllerCreationParams();
-
-    var controller = WebViewController.fromPlatformCreationParams(params)
+ var controller = WebViewController.fromPlatformCreationParams(params)
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
@@ -31,9 +32,14 @@ class _AltibbiState extends State<Altibbi> {
         ),
       )
       ..loadRequest(Uri.parse(altibbiURL));
+
     return Scaffold(
       appBar: AppBar(title: const Text('الطبي')),
-      body: WebViewWidget(controller: controller),
+     // body: WebViewWidget(controller: controller),
     );
   }
 }
+
+*
+*
+* */

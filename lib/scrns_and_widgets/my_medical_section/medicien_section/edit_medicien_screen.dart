@@ -17,7 +17,8 @@ class EditMedsScreen extends StatefulWidget {
 }
 
 class _EditMedsScreenState extends State<EditMedsScreen> {
-  String editedMedName = '';
+  String? editedMedName;
+
   int editedMedInterval = 0;
 
   String editedShotTime = '';
@@ -25,6 +26,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
 
   GlobalKey<FormState> medKey = GlobalKey();
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<MedicineCubit, MedicineState>(
@@ -44,7 +46,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
             saveMedName: (value) {
               setState(
                 () {
-                  editedMedName = value ?? widget.med.name;
+                  editedMedName = (value!.isEmpty ? widget.med.name : value);
                 },
               );
             },
@@ -62,6 +64,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
                 context: context,
                 initialTime: TimeOfDay.now(),
               );
+              time == null ? convertStringToTimeDay(widget.med.shotTime) : time;
               setState(
                 () {
                   editedShotTime =
@@ -71,12 +74,19 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
             },
           ),
           onPressed: () {
+            print('time');
+            print(time.toString());
+            print('editedMedInterval');
+            print(editedMedInterval);
+            print('editedMedName');
+            print(editedMedName);
+
             medKey.currentState?.save();
             BlocProvider.of<MedicineCubit>(context).editMed(
               id: widget.med.id,
               editedTimeOfShot: time!,
               editedInterval: editedMedInterval,
-              editedName: editedMedName,
+              editedName: editedMedName!,
             );
             debugPrint('Editing Medicine');
           },

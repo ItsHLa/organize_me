@@ -18,12 +18,15 @@ class PaymentPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        const PaymentButton(
-          name: 'دفع من تطبيق أقرب إليك',
-          logic: null,
+        PaymentButton(
+          name: 'دفع عن طريق MTN كاش',
+          logic: () async {
+            Uri mtnCash = Uri(scheme: 'tel', path: '*3040#');
+            await launchUrl(mtnCash);
+          },
         ),
         PaymentButton(
-          name: 'دفع عن طريق سيرياتيل كاش',
+          name: 'دفع عن طريق Syriatel كاش',
           logic: () async {
             Uri syriatelCash = Uri(scheme: 'tel', path: '*3040#');
             await launchUrl(syriatelCash);

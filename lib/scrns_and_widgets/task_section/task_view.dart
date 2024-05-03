@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
+import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/tasks_list.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/date_time_line.dart';
@@ -20,19 +22,30 @@ class _DayCalendarState extends State<DayCalendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: MyFab(
-        icon: Icons.add_task,
-        onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (newcontext) => BlocProvider<TaskCubit>.value(
-              value: BlocProvider.of(context),
-              child: const AddTaskScreen(),
-            ),
-          );
-        },
+        //   icon: ,
+        children: [
+          SpeedDialChild(
+              onTap: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (newcontext) => BlocProvider<TaskCubit>.value(
+                    value: BlocProvider.of(context),
+                    child: const AddTaskScreen(),
+                  ),
+                );
+              },
+              child: const Icon(Icons.add_task)),
+          SpeedDialChild(
+              child: const Icon(Icons.note_alt),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const NoteView(),
+                ));
+              })
+        ],
       ),
       body: Column(
         children: [
