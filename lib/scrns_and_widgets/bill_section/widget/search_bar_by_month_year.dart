@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simple_month_year_picker/simple_month_year_picker.dart';
 
 import '../../../constants.dart';
 import '../../../services/functionality.dart';
-import '../../date_time_picker.dart';
 
 class MySearchBar extends StatefulWidget {
   const MySearchBar({super.key});
@@ -29,7 +27,8 @@ class _MySearchBarState extends State<MySearchBar> {
               width: 290,
               child: Form(
                 key: key,
-                child: MyDatePicker(
+                child:
+                    Container() /*MyDatePicker(
                   labelText: '',
                   validator: (value) {
                     if (selectedDate != null &&
@@ -52,7 +51,8 @@ class _MySearchBarState extends State<MySearchBar> {
                     });
                   },
                   controller: TextEditingController(text: date),
-                ),
+                )*/
+                ,
               )),
           IconButton(
               onPressed: () {

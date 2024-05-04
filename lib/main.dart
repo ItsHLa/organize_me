@@ -78,8 +78,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
               debugShowCheckedModeBanner: false,
               darkTheme: ThemeData(brightness: Brightness.dark),
               theme: ThemeData(
-                brightness:
-                    state is DarkModeOn ? Brightness.dark : Brightness.light,
+                brightness: state.On ? Brightness.dark : Brightness.light,
               ),
               home: const Register());
         },

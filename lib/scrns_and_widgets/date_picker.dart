@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
 
 class MyDatePicker extends StatelessWidget {
-  const MyDatePicker({
-    super.key,
-    required this.labelText,
-    required this.onTap,
-    required this.controller,
-    this.icon,
-    this.validator,
-  });
+  const MyDatePicker(
+      {super.key,
+      required this.labelText,
+      required this.onTap,
+      required this.controller,
+      this.icon,
+      this.validator});
 
   final String labelText;
   final void Function()? onTap;
