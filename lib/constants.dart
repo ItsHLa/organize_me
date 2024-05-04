@@ -8,10 +8,10 @@ import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_sec
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/meds_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
-import 'package:organize_me/scrns_and_widgets/settings.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 import 'package:organize_me/scrns_and_widgets/user_info_page.dart';
+import 'package:organize_me/user_cubit/user_cubit.dart';
 
 /////////////////////////////////////// notifications constants//////////////////////////////
 const taskTag = 'taskTag';
@@ -27,7 +27,7 @@ const String medicineChannelName = 'medicineChannelName';
 const String billChannelName = 'billChannelName';
 
 /////////////////////////////////////pages//////////////////////////////////////////
-Widget settings = const Settings();
+//Widget settings = const Settings();
 Widget taskPage = BlocProvider(
   create: (context) => TaskCubit(),
   child: const DayCalendar(),
@@ -48,7 +48,10 @@ Widget billsPage = BlocProvider(
   child: const MyBills(),
 );
 
-Widget accountInfo = const AccountInfo();
+Widget accountInfo = BlocProvider(
+  create: (context) => UserCubit(),
+  child: const AccountInfo(),
+);
 //////////////////////////////customize constants///////////////////////////////////
 
 String taskNotesKey = 'taskNotes';

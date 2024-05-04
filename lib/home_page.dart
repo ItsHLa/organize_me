@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/settings.dart';
 
 import 'constants.dart';
-import 'customize_app_cubit/customize_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,9 +16,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<CustomizeCubit>(context).getAllCustomization();
     return Scaffold(
-        endDrawer: const Settings(),
+   //     endDrawer: const Settings(),
         appBar: AppBar(
           title: Text(
             'Organize Me',

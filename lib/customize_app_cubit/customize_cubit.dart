@@ -1,29 +1,26 @@
-import 'package:flutter/cupertino.dart';
+/*import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 import '../services/functionality.dart';
+import '../user.dart';
 
 part 'customize_state.dart';
 
 class CustomizeCubit extends Cubit<CustomizeState> {
   CustomizeCubit()
-      : super(CustomizeInitial(
-          numMeds: true,
-          bill: true,
+      : super(const CustomizeInitial(
+    email: '',
+          password: '',
+          userName: '',
           darkMode: false,
-          taskNotes: true,
-          pages: getPages(true, true, true),
         ));
 
   void getAllCustomization() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var taskNNotes = prefs.getBool(taskNotesKey)!;
-    var bill = prefs.getBool(billsKey)!;
-    var medsNDocs = prefs.getBool(medsAndDocsKey)!;
-    List oldPages = getPages(taskNNotes, bill, medsNDocs);
+   User.userInfo();
     emit(Customize(
       pages: oldPages,
       darkMode: prefs.getBool('darkMode') ?? false,
@@ -126,4 +123,4 @@ class CustomizeCubit extends Cubit<CustomizeState> {
           numMeds: medsNDocs));
     }
   }
-}
+}*/

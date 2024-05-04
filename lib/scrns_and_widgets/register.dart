@@ -128,11 +128,12 @@ class _RegisterState extends State<Register> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: appColorTheme,
                     shape: const StadiumBorder()),
-                onPressed: () {
+                onPressed: () async {
                   if (ValidateInputData.validateField(userKey)) {
                     userKey.currentState?.save();
                     print('hello $userName $email $password');
-                    User(userName: userName, email: email, password: password);
+                    await User.setUserInfo(
+                        userName: userName, email: email, password: password);
                     // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HomePage()));

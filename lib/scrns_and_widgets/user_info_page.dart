@@ -1,33 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:organize_me/user_cubit/user_cubit.dart';
 
-class AccountInfo extends StatefulWidget {
+class AccountInfo extends StatelessWidget {
   const AccountInfo({super.key});
 
   @override
-  State<AccountInfo> createState() => _AccountInfoState();
-}
-
-class _AccountInfoState extends State<AccountInfo> {
-  void initState() {
-    userInfo();
-  }
-
-  Map<String, String>? info;
-
-  Future<void> userInfo() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    Map<String, String> userInfo = {
-      'userName': preferences.getString('userName')!,
-      'email': preferences.getString('email')!,
-      'password': preferences.getString('password')!
-    };
-    info = userInfo;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    BlocProvider.of<UserCubit>(context).loadUserInfo();
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -44,15 +25,23 @@ class _AccountInfoState extends State<AccountInfo> {
             const SizedBox(
               height: 15,
             ),
-            ListTile(
-              title: Text('User Name'),
-              // subtitle: Text('HLa Nissani'),
+            BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                return ListTile(
+                  title: const Text('اسم المستخدم'),
+                  subtitle: Text(state.userName),
+                );
+              },
             ),
-            ListTile(
-              title: Text('Email'),
-              //  subtitle: Text(),
+            BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                return ListTile(
+                  title: const Text('عنوان البريد الالكتروني'),
+                  subtitle: Text(state.email),
+                );
+              },
             ),
-            ListTile(
+            const ListTile(
               title: Text('Password'),
             )
           ],

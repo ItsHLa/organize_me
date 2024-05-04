@@ -9,7 +9,6 @@ import 'package:organize_me/services/work_manager_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
-import 'customize_app_cubit/customize_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,24 +71,17 @@ class _OrganizeMeState extends State<OrganizeMe> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CustomizeCubit>(
-      create: (context) => CustomizeCubit(),
-      child: BlocBuilder<CustomizeCubit, CustomizeState>(
-        builder: (context, state) {
-          return MaterialApp(
-              locale: const Locale('ar '),
-              localizationsDelegates: [
-                // MonthYearPickerLocalizations.delegate,
-              ],
-              //themeMode: ThemeMode.system,
-              debugShowCheckedModeBanner: false,
-              // darkTheme: ThemeData(brightness: Brightness.dark),
-              theme: ThemeData(
-                brightness: state.darkMode ? Brightness.dark : Brightness.light,
-              ),
-              home: const Register());
-        },
-      ),
-    );
+    return MaterialApp(
+        locale: const Locale('ar '),
+        localizationsDelegates: [
+          // MonthYearPickerLocalizations.delegate,
+        ],
+        //themeMode: ThemeMode.system,
+        debugShowCheckedModeBanner: false,
+        // darkTheme: ThemeData(brightness: Brightness.dark),
+        theme: ThemeData(
+            // brightness: state.darkMode ? Brightness.dark : Brightness.light,
+            ),
+        home: const Register());
   }
 }
