@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'constants.dart';
+import 'dark_mode_cubit/dark_mode_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,17 +22,26 @@ class _HomePageState extends State<HomePage> {
    //     endDrawer: const Settings(),
         appBar: AppBar(
           title: Text(
-            'Organize Me',
+            'OrganizeMe',
             style: TextStyle(color: appColorTheme),
           ),
           actions: [
-            Builder(builder: (context) {
-              return IconButton(
+            BlocBuilder<DarkModeCubit, DarkModeState>(
+              builder: (context, state) {
+                return IconButton(
                   onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
+                    BlocProvider.of<DarkModeCubit>(context).darkModeIsOn();
                   },
-                  icon: const Icon(Icons.settings));
-            }),
+                  icon: state is DarkModeOn ? darkModeOn : darkModeOff,
+                );
+              },
+            ),
+            const IconButton(
+              onPressed: null,
+              icon: Icon(
+                Icons.energy_savings_leaf_outlined,
+              ),
+            )
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
