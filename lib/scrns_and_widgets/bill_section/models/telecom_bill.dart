@@ -136,4 +136,23 @@ class TelecomBill extends Bill {
     }
     return bills;
   }
+
+  factory TelecomBill.fromJson(Map<String, dynamic> json) => TelecomBill(
+      id: json["id"],
+      date: json["date"],
+      commissionAmount: json["commissionAmount"],
+      invoiceNumber: json["invoiceNumber"],
+      operationNumber: json["operationNumber"],
+      paymentAmount: json["paymentAmount"],
+      phoneNumberEmail: json['phoneNumberEmail']);
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "date": date,
+        "commissionAmount": commissionAmount,
+        "invoiceNumber": invoiceNumber,
+        "operationNumber": operationNumber,
+        "paymentAmount": paymentAmount,
+        "phoneNumberEmail": phoneNumberEmail
+      };
 }
