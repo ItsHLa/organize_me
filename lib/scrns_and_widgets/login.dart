@@ -1,51 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
+import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
+
+import 'input_text.dart';
 
 class Login extends StatelessWidget {
-  const Login({super.key});
+  const Login(
+      {super.key,
+      this.savePassword,
+      this.userNameValidator,
+      this.passwordValidator,
+      this.saveEmail,
+      this.saveUserName,
+      this.emailValidator});
+
+  final Function(String?)? savePassword;
+  final Function(String?)? saveEmail;
+  final Function(String?)? saveUserName;
+  final String? Function(String?)? userNameValidator;
+  final String? Function(String?)? passwordValidator;
+  final String? Function(String?)? emailValidator;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        child: const Column(
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Row(
-              children: [
-                Spacer(),
-                IconButton(
-                  onPressed: null,
-                  icon: Icon(Icons.nightlight_outlined),
-                )
-              ],
-            ),
-            // photo
-            SizedBox(
+            const IconForm(
+                child: Icon(
+              Icons.person_outlined,
+              size: 50,
+            )),
+            const SizedBox(
               height: 15,
             ),
-            Text(
-              'اهلا بك',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+            const Text(
+              ' سجل دخول',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InputText(
+                hint: 'ايميل',
+                save: saveEmail,
+                validator: emailValidator,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Text(
-              'كل امورك المهمة في مكان واحد ',
-              style: TextStyle(
-                fontWeight: FontWeight.normal,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InputText(
+                hint: 'كلمة السر',
+                save: savePassword,
+                validator: passwordValidator,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             ElevatedButton(
-              onPressed: null,
-              child: Text('البدء'),
-            )
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: appColorTheme, shape: const StadiumBorder()),
+              onPressed: () {
+                print('hello');
+              },
+              child: const Text(
+                'سجل دخول',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),

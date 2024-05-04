@@ -10,6 +10,7 @@ class InputText extends StatelessWidget {
     this.maxLength,
     this.keyboardType,
     this.validator,
+    this.labelText,
   });
 
   final String hint;
@@ -18,6 +19,7 @@ class InputText extends StatelessWidget {
   final int? maxLength;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
+  final String? labelText;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class InputText extends StatelessWidget {
       maxLength: maxLength,
       maxLines: lines,
       decoration: InputDecoration(
+        labelText: labelText,
         hintText: hint,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
@@ -39,7 +42,7 @@ class InputText extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: appColorTheme),
+          borderSide: const BorderSide(color: Colors.grey),
         ),
       ),
     );

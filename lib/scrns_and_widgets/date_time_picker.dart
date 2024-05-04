@@ -43,7 +43,7 @@ class MyDatePicker extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: appColorTheme),
+            borderSide: const BorderSide(color: Colors.grey),
           ),
         ),
       ),

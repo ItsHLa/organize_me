@@ -243,6 +243,28 @@ class ValidateInputData {
     return null;
   }
 
+  static String? validatePassword(String? value) {
+    if (value!.isEmpty) {
+      return 'لا يمكن لهذا الحقل ان يكون فارغ';
+    }
+    if (value.length < 6) {
+      return 'كلمة السر يجب ان تكون على الاقل 6 محارف';
+    }
+    return null;
+  }
+
+  static String? validateEmail(String? email) {
+    if (email!.isEmpty) {
+      return 'لا يمكن لهذا الحقل ان يكون فارغ';
+    }
+    if (!RegExp(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b',
+            caseSensitive: false)
+        .hasMatch(email)) {
+      return 'من فضلك ادخل عنوان بريد صالح';
+    }
+    return null;
+  }
+
   static String? checkDateTime(String? value) {
     if (value?.isEmpty ?? true) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';

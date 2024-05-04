@@ -11,6 +11,7 @@ import 'package:organize_me/scrns_and_widgets/notes_section/note_view.dart';
 import 'package:organize_me/scrns_and_widgets/settings.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
+import 'package:organize_me/scrns_and_widgets/user_info_page.dart';
 
 /////////////////////////////////////// notifications constants//////////////////////////////
 const taskTag = 'taskTag';
@@ -46,6 +47,8 @@ Widget billsPage = BlocProvider(
   create: (context) => BillCubit(),
   child: const MyBills(),
 );
+
+Widget accountInfo = const AccountInfo();
 //////////////////////////////customize constants///////////////////////////////////
 
 String taskNotesKey = 'taskNotes';

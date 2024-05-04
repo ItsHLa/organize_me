@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:organize_me/constants.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/auth_page.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/payment_widget.dart';
 import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 import 'package:organize_me/services/work_manager_service.dart';
@@ -54,14 +53,6 @@ class MyBills extends StatelessWidget {
                   );
                 },
                 child: const Icon(Icons.notifications_active_outlined)),
-            SpeedDialChild(
-                child: const Icon(Icons.settings_backup_restore_sharp),
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => const Auth(),
-                  );
-                })
           ],
         ),
         body: const MonthlyChart());
