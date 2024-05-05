@@ -1,11 +1,11 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'dark_mode_state.dart';
 
 class DarkModeCubit extends Cubit<DarkModeState> {
-  DarkModeCubit() : super(DarkModeInitial(false));
+  DarkModeCubit() : super(const DarkModeInitial(false));
 
   void darkModeIsOn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -8,31 +8,34 @@ class TelecomBill extends Bill {
   int id;
   double paymentAmount;
   double commissionAmount;
-  String invoiceNumber;
   String date;
   String time;
-  String phoneNumberEmail;
+  String provider;
   String operationNumber;
+  String phoneNumberEmail;
+  String invoiceNumber;
   TelecomBill({
     required this.id,
     required this.paymentAmount,
     required this.commissionAmount,
     required this.date,
     required this.time,
+    required this.provider,
+    required this.operationNumber,
     required this.phoneNumberEmail,
     required this.invoiceNumber,
-    required this.operationNumber,
   });
-  static TelecomBill fromMap(Map elBillMap) {
+  static TelecomBill fromMap(Map telBillMap) {
     return TelecomBill(
-      id: elBillMap['id'],
-      commissionAmount: elBillMap['commission_amount'],
-      date: elBillMap['date'],
-      time: elBillMap['time'],
-      phoneNumberEmail: elBillMap['phone_number_email'],
-      invoiceNumber: elBillMap['invoice_number'],
-      operationNumber: elBillMap['operation_number'],
-      paymentAmount: elBillMap['payment_amount'],
+      id: telBillMap['id'],
+      paymentAmount: telBillMap['payment_amount'],
+      commissionAmount: telBillMap['commission_amount'],
+      date: telBillMap['date'],
+      time: telBillMap['time'],
+      provider: telBillMap['provider'],
+      operationNumber: telBillMap['operation_number'],
+      phoneNumberEmail: telBillMap['phone_number_email'],
+      invoiceNumber: telBillMap['invoice_number'],
     );
   }
 
@@ -128,20 +131,24 @@ class TelecomBill extends Bill {
 
   factory TelecomBill.fromJson(Map<String, dynamic> json) => TelecomBill(
       id: json["id"],
-      date: json["date"],
-      commissionAmount: json["commissionAmount"],
-      invoiceNumber: json["invoiceNumber"],
-      operationNumber: json["operationNumber"],
       paymentAmount: json["paymentAmount"],
+      commissionAmount: json["commissionAmount"],
+      date: json["date"],
+      time: json["time"],
+      provider: json["provider"],
+      operationNumber: json["operationNumber"],
+      invoiceNumber: json["invoiceNumber"],
       phoneNumberEmail: json['phoneNumberEmail']);
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "date": date,
-        "commissionAmount": commissionAmount,
-        "invoiceNumber": invoiceNumber,
-        "operationNumber": operationNumber,
         "paymentAmount": paymentAmount,
-        "phoneNumberEmail": phoneNumberEmail
+        "commissionAmount": commissionAmount,
+        "date": date,
+        "time": time,
+        "provider": provider,
+        "operationNumber": operationNumber,
+        "phoneNumberEmail": phoneNumberEmail,
+        "invoiceNumber": invoiceNumber,
       };
 }

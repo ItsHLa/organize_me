@@ -2,15 +2,15 @@ part of 'dark_mode_cubit.dart';
 
 @immutable
 sealed class DarkModeState {
-  final bool On;
+  final bool on;
 
-  DarkModeState(this.On);
+  const DarkModeState(this.on);
 }
 
 final class DarkModeInitial extends DarkModeState {
-  DarkModeInitial(super.On);
+  const DarkModeInitial(super.on);
 }
 
 final class DarkModeOn extends DarkModeState {
-  DarkModeOn(super.On);
+  const DarkModeOn(super.on);
 }

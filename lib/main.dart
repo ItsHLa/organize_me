@@ -11,9 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Future.wait([
-    LocalNotificationService.initi(),
-    WorkManagerService().init()]);
+  await Future.wait(
+      [LocalNotificationService.initi(), WorkManagerService().init()]);
   runApp(const MyApp());
 }
 
@@ -78,7 +77,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
               debugShowCheckedModeBanner: false,
               darkTheme: ThemeData(brightness: Brightness.dark),
               theme: ThemeData(
-                brightness: state.On ? Brightness.dark : Brightness.light,
+                brightness: state.on ? Brightness.dark : Brightness.light,
               ),
               home: const Register());
         },

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/telecom_bill_item.dart';
 import 'package:organize_me/scrns_and_widgets/my_list_view.dart';
 
@@ -23,10 +22,10 @@ class TelecomList extends StatelessWidget {
             return const CircularProgressIndicator();
           } else if (state is BillLoaded && state.bills.isNotEmpty) {
             return MyListView(
-                dataList: state.bill,
-                itemCount: state.bill.length,
+                dataList: state.bills,
+                itemCount: state.bills.length,
                 itemBuilder: (context, index) {
-                  TelecomBill currentBill = state.bill[index];
+                  TelecomBill currentBill = state.bills[index] as TelecomBill;
                   return TelecomBills(
                     invoiceNumber: currentBill.invoiceNumber,
                     paymentAmount: '${currentBill.paymentAmount}',

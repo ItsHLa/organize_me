@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/my_list_view.dart';
 
 import '../cubit/bill_cubit.dart';
@@ -21,7 +20,7 @@ class ElectricList extends StatelessWidget {
             return const CircularProgressIndicator();
           } else if (state is BillLoaded && state.bills.isNotEmpty) {
             return MyListView(
-                dataList: [],
+                dataList: const [],
                 itemCount: 100,
                 itemBuilder: (context, index) {
                   // ElectricBills current = state.bill[index];

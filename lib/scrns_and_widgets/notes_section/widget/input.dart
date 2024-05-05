@@ -105,7 +105,7 @@ class _InputState extends State<Input> {
                 icon: Icon(widget.icon),
                 label: Text(
                   widget.action,
-                  style: TextStyle(color: deepPurple),
+                  style: TextStyle(color: softPurple),
                 ),
               ),
               const SizedBox(height: 10),

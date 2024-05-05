@@ -10,37 +10,38 @@ class WaterBill extends Bill {
   double commissionAmount;
   String date;
   String time;
+  String provider;
+  String operationNumber;
   String gov;
   String receiptNumber;
   String barcodeNumber;
   String counterNumber;
-  String operationNumber;
   WaterBill({
     required this.id,
     required this.paymentAmount,
-    required this.receiptNumber,
     required this.commissionAmount,
     required this.date,
     required this.time,
-    required this.gov,
-    required this.barcodeNumber,
+    required this.provider,
     required this.operationNumber,
+    required this.gov,
+    required this.receiptNumber,
+    required this.barcodeNumber,
     required this.counterNumber,
   });
-  static WaterBill fromMap(Map elBillMap) {
-    return WaterBill(
-      id: elBillMap['id'],
-      paymentAmount: elBillMap['payment_amount'],
-      commissionAmount: elBillMap['commission_amount'],
-      date: elBillMap['date'],
-      time: elBillMap['time'],
-      gov: elBillMap['gov'],
-      receiptNumber: elBillMap['receipt_number'],
-      barcodeNumber: elBillMap['barcode_number'],
-      counterNumber: elBillMap['counter_number'],
-      operationNumber: elBillMap['operation_number'],
-    );
-  }
+  static WaterBill fromMap(Map elBillMap) => WaterBill(
+        id: elBillMap['id'],
+        paymentAmount: elBillMap['payment_amount'],
+        commissionAmount: elBillMap['commission_amount'],
+        date: elBillMap['date'],
+        time: elBillMap['time'],
+        provider: elBillMap['provider'],
+        gov: elBillMap['gov'],
+        receiptNumber: elBillMap['receipt_number'],
+        barcodeNumber: elBillMap['barcode_number'],
+        counterNumber: elBillMap['counter_number'],
+        operationNumber: elBillMap['operation_number'],
+      );
 
   static Map _extractMatches(Match match) {
     Map matchesMap = {};
@@ -143,26 +144,30 @@ class WaterBill extends Bill {
   }
 
   factory WaterBill.fromJson(Map<String, dynamic> json) => WaterBill(
+        id: json["id"],
+        paymentAmount: json["paymentAmount"],
+        commissionAmount: json["commissionAmount"],
+        date: json["date"],
+        time: json["time"],
+        provider: json["provider"],
+        operationNumber: json["operationNumber"],
+        gov: json["gov"],
         receiptNumber: json["receiptNumber"],
         barcodeNumber: json["barcodeNumber"],
         counterNumber: json["counterNumber"],
-        id: json["id"],
-        date: json["date"],
-        commissionAmount: json["commissionAmount"],
-        gov: json["gov"],
-        operationNumber: json["operationNumber"],
-        paymentAmount: json["paymentAmount"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "date": date,
-        "commissionAmount": commissionAmount,
-        "gov": gov,
-        "operationNumber": operationNumber,
         "paymentAmount": paymentAmount,
+        "commissionAmount": commissionAmount,
+        "date": date,
+        "time": time,
+        "provider": provider,
+        "operationNumber": operationNumber,
+        "gov": gov,
+        "receiptNumber": receiptNumber,
         "counterNumber": counterNumber,
         "barcodeNumber": barcodeNumber,
-        "receiptNumber": receiptNumber
       };
 }

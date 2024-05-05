@@ -8,37 +8,40 @@ class ElectricBill extends Bill {
   int id;
   double paymentAmount;
   double commissionAmount;
-  String invoiceNumber;
   String date;
   String time;
+  String provider;
   String gov;
-  String billingNumber;
-  String subscriptionNumber;
   String operationNumber;
+  String billingNumber;
+  String invoiceNumber;
+  String subscriptionNumber;
   ElectricBill({
     required this.id,
     required this.paymentAmount,
-    required this.billingNumber,
     required this.commissionAmount,
     required this.date,
     required this.time,
-    required this.gov,
-    required this.invoiceNumber,
+    required this.provider,
     required this.operationNumber,
+    required this.gov,
+    required this.billingNumber,
+    required this.invoiceNumber,
     required this.subscriptionNumber,
   });
 
   static ElectricBill fromMap(Map elBillMap) {
     return ElectricBill(
       id: elBillMap['id'],
-      billingNumber: elBillMap['billing_number'],
+      paymentAmount: elBillMap['payment_amount'],
       commissionAmount: elBillMap['commission_amount'],
       date: elBillMap['date'],
       time: elBillMap['time'],
-      gov: elBillMap['gov'],
-      invoiceNumber: elBillMap['invoice_number'],
+      provider: elBillMap['provider'],
       operationNumber: elBillMap['operation_number'],
-      paymentAmount: elBillMap['payment_amount'],
+      gov: elBillMap['gov'],
+      billingNumber: elBillMap['billing_number'],
+      invoiceNumber: elBillMap['invoice_number'],
       subscriptionNumber: elBillMap['subscription_number'],
     );
   }
@@ -150,24 +153,28 @@ class ElectricBill extends Bill {
 
   factory ElectricBill.fromJson(Map<String, dynamic> json) => ElectricBill(
       id: json["id"],
-      date: json["date"],
-      billingNumber: json["billingNumber"],
-      commissionAmount: json["commissionAmount"],
-      gov: json["gov"],
-      invoiceNumber: json["invoiceNumber"],
-      operationNumber: json["operationNumber"],
       paymentAmount: json["paymentAmount"],
+      commissionAmount: json["commissionAmount"],
+      date: json["date"],
+      time: json["time"],
+      provider: json["provider"],
+      operationNumber: json["operationNumber"],
+      gov: json["gov"],
+      billingNumber: json["billingNumber"],
+      invoiceNumber: json["invoiceNumber"],
       subscriptionNumber: json["subscriptionNumber"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "date": date,
-        "billingNumber": billingNumber,
-        "commissionAmount": commissionAmount,
-        "gov": gov,
-        "invoiceNumber": invoiceNumber,
-        "operationNumber": operationNumber,
         "paymentAmount": paymentAmount,
-        "subscriptionNumber": subscriptionNumber
+        "commissionAmount": commissionAmount,
+        "date": date,
+        "time": time,
+        "provider": provider,
+        "operationNumber": operationNumber,
+        "gov": gov,
+        "billingNumber": billingNumber,
+        "invoiceNumber": invoiceNumber,
+        "subscriptionNumber": subscriptionNumber,
       };
 }

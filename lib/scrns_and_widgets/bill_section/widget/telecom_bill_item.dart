@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/tele_bill_datail.dart';
+
+import 'my_row.dart';
 
 class TelecomBills extends StatelessWidget {
   const TelecomBills(

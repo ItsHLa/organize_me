@@ -115,7 +115,6 @@ class _RegisterState extends State<Register> {
                       style: TextStyle(color: appColorTheme),
                     ),
                     onPressed: () {
-                      print('kjhkhk');
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const Login()));
                       // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
@@ -131,12 +130,16 @@ class _RegisterState extends State<Register> {
                 onPressed: () async {
                   if (ValidateInputData.validateField(userKey)) {
                     userKey.currentState?.save();
-                    print('hello $userName $email $password');
                     await User.setUserInfo(
                         userName: userName, email: email, password: password);
                     // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const HomePage()));
+                    if (context.mounted) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const HomePage(),
+                        ),
+                      );
+                    }
                   }
                 },
                 child: const Text(
