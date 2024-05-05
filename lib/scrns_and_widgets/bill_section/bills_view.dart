@@ -15,41 +15,45 @@ class MyBills extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: MyFab(
-          children: [
-            SpeedDialChild(
-              child: const Icon(
-                Icons.payments,
-              ),
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => const PaymentPage(),
-                );
-              },
+      floatingActionButton: MyFab(
+        children: [
+          SpeedDialChild(
+            child: const Icon(
+              Icons.payments,
             ),
-            SpeedDialChild(onTap: () {
-              // List<WaterBill> bill=await BlocProvider.of<BillCubit>(context).loadWater();
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => const PaymentPage(),
+              );
+            },
+          ),
+          SpeedDialChild(onTap: () {
+            // List<WaterBill> bill=await BlocProvider.of<BillCubit>(context).loadWater();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (newcontext) => BlocProvider.value(
+                  value: BlocProvider.of<BillCubit>(context),
+                  child: const WaterList(),
+                ),
+              ),
+            );
+          }),
+          SpeedDialChild(
+              child: const Icon(Icons.notifications_active_outlined)),
+          SpeedDialChild(
+            child: const Icon(Icons.settings_backup_restore_sharp),
+            onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (newcontext) => BlocProvider.value(
-                    value: BlocProvider.of<BillCubit>(context),
-                    child: const WaterList(),
-                  ),
+                  builder: (context) => const Auth(),
                 ),
               );
-            }),
-            SpeedDialChild(
-                child: const Icon(Icons.notifications_active_outlined)),
-            SpeedDialChild(
-                child: const Icon(Icons.settings_backup_restore_sharp),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Auth(),
-                  ));
-                })
-          ],
-        ),
-        body: const MonthlyChart());
+            },
+          )
+        ],
+      ),
+      body: const MonthlyChart(),
+    );
   }
 }

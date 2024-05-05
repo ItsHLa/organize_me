@@ -149,6 +149,7 @@ class _MySearchBarState extends State<MySearchBar> {
                         (selectedDate!.year > DateTime.now().year)) {
                       return 'لا يمكن السنة المختارة ان تكون اكبر من السنة الحالية';
                     }
+                    return null;
                   },
                   onTap: () async {
                     selectedDate =
@@ -160,18 +161,21 @@ class _MySearchBarState extends State<MySearchBar> {
                       yearTextStyle: const TextStyle(),
                       titleTextStyle: const TextStyle(fontSize: 20),
                     );
-                    setState(() {
-                      date = '${selectedDate?.year} / ${selectedDate?.month}';
-                    });
+                    setState(
+                      () {
+                        date = '${selectedDate?.year} / ${selectedDate?.month}';
+                      },
+                    );
                   },
                   controller: TextEditingController(text: date),
                 ),
               )),
           IconButton(
-              onPressed: () {
-                if (ValidateInputData.validateField(key)) {}
-              },
-              icon: const Icon(Icons.search_outlined))
+            onPressed: () {
+              if (ValidateInputData.validateField(key)) {}
+            },
+            icon: const Icon(Icons.search_outlined),
+          )
         ],
       ),
     );
