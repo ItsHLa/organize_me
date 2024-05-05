@@ -1,6 +1,14 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class User {
+  final String email;
+  final String password;
+  final String username;
+  const User({
+    required this.email,
+    required this.password,
+    required this.username,
+  });
   static Future<void> setUserInfo({
     required userName,
     required email,

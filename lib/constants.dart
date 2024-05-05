@@ -154,4 +154,4 @@ Widget noBillsToShow = const Center(
   ),
 );
 
-String base = "https://haidaraib.pythonanywhere.com";
+String baseUrl = "https://haidaraib.pythonanywhere.com";
