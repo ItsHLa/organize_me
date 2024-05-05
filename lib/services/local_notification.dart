@@ -67,8 +67,10 @@ abstract class LocalNotificationService {
     );
   }
 
-  static void medicineNotification(
-      {required int id, required String name}) async {
+  static void medicineNotification({
+    required int id,
+    required String name,
+  }) async {
     AndroidNotificationDetails androidNotificationDetails =
         const AndroidNotificationDetails(
       medicineChannel,

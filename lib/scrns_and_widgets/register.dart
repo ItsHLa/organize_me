@@ -3,6 +3,7 @@ import 'package:organize_me/constants.dart';
 import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 import 'package:organize_me/scrns_and_widgets/login.dart';
+import 'package:organize_me/services/api_calls.dart';
 
 import '../services/functionality.dart';
 import '../user.dart';
@@ -125,13 +126,24 @@ class _RegisterState extends State<Register> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: appColorTheme,
-                    shape: const StadiumBorder()),
+                  backgroundColor: appColorTheme,
+                  shape: const StadiumBorder(),
+                ),
                 onPressed: () async {
                   if (ValidateInputData.validateField(userKey)) {
                     userKey.currentState?.save();
                     await User.setUserInfo(
-                        userName: userName, email: email, password: password);
+                      userName: userName,
+                      email: email,
+                      password: password,
+                    );
+                    await addUser(
+                      User(
+                        email: email,
+                        password: password,
+                        username: userName,
+                      ),
+                    );
                     // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
                     if (context.mounted) {
                       Navigator.of(context).push(
