@@ -23,7 +23,7 @@ List getPages(bool taskNotes, bool bills, bool medsAndDocs) {
   List pages = [];
   if (taskNotes) {
     pages.add(taskPage);
-   // pages.add(notesPage);
+    // pages.add(notesPage);
   }
 
   if (bills) {
@@ -49,7 +49,7 @@ Duration timeOfDayToDuration(TimeOfDay timeOfDay) {
   // Create a DateTime object with today's date and the time from TimeOfDay
   DateTime now = DateTime.now();
   DateTime dateTime =
-  DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+      DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
 
   // Calculate the difference between now and the specified time
   Duration duration = dateTime.difference(now);
@@ -315,25 +315,31 @@ Future<TimeOfDay?> showTime(BuildContext context) async {
       initialEntryMode: TimePickerEntryMode.input,
       builder: (context, child) {
         return Theme(
-            data: Theme.of(context).copyWith(
-              textSelectionTheme: TextSelectionThemeData(
-                  selectionColor: Colors.white54,
-                  cursorColor: appColorTheme,
-                  selectionHandleColor: appColorTheme),
-              inputDecorationTheme: InputDecorationTheme(
-                  focusColor: appColorTheme,
-                  activeIndicatorBorder: BorderSide(color: appColorTheme),
-                  hintStyle: TextStyle(color: appColorTheme),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide(color: appColorTheme))),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                  foregroundColor: appColorTheme, // button text color
+          data: Theme.of(context).copyWith(
+            textSelectionTheme: TextSelectionThemeData(
+              selectionColor: Colors.white54,
+              cursorColor: appColorTheme,
+              selectionHandleColor: appColorTheme,
+            ),
+            inputDecorationTheme: InputDecorationTheme(
+              focusColor: appColorTheme,
+              activeIndicatorBorder: BorderSide(color: appColorTheme),
+              hintStyle: TextStyle(color: appColorTheme),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide(
+                  color: appColorTheme,
                 ),
               ),
             ),
-            child: child!);
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: appColorTheme, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
       },
       initialTime: TimeOfDay.now());
 }
@@ -342,25 +348,31 @@ Future<DateTime?> showDate(BuildContext context) async {
   return await showDatePicker(
     builder: (context, child) {
       return Theme(
-          data: Theme.of(context).copyWith(
-            textSelectionTheme: TextSelectionThemeData(
-                selectionColor: Colors.white54,
-                cursorColor: appColorTheme,
-                selectionHandleColor: appColorTheme),
-            inputDecorationTheme: InputDecorationTheme(
-                focusColor: appColorTheme,
-                activeIndicatorBorder: BorderSide(color: appColorTheme),
-                hintStyle: TextStyle(color: appColorTheme),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(color: appColorTheme))),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: appColorTheme, // button text color
+        data: Theme.of(context).copyWith(
+          textSelectionTheme: TextSelectionThemeData(
+            selectionColor: Colors.white54,
+            cursorColor: appColorTheme,
+            selectionHandleColor: appColorTheme,
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            focusColor: appColorTheme,
+            activeIndicatorBorder: BorderSide(color: appColorTheme),
+            hintStyle: TextStyle(color: appColorTheme),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(
+                color: appColorTheme,
               ),
             ),
           ),
-          child: child!);
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              foregroundColor: appColorTheme, // button text color
+            ),
+          ),
+        ),
+        child: child!,
+      );
     },
     confirmText: 'موافق',
     cancelText: 'الغاء',

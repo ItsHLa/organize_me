@@ -1,8 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class User {
-  static Future<void> setUserInfo(
-      {required userName, required email, required password}) async {
+  static Future<void> setUserInfo({
+    required userName,
+    required email,
+    required password,
+  }) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('userName', userName);
     preferences.setString('email', email);

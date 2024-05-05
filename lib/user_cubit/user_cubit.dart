@@ -10,6 +10,11 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> loadUserInfo() async {
     Map<String, String> info = await User.userInfo();
-    emit(UserInfoLoaded(userName: info['userName']!, email: info['email']!));
+    emit(
+      UserInfoLoaded(
+        userName: info['userName']!,
+        email: info['email']!,
+      ),
+    );
   }
 }
