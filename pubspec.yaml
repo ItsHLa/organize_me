@@ -29,6 +29,7 @@ dependencies:
   flutter_speed_dial: ^7.0.0
   fl_chart: ^0.67.0
   requests: ^4.7.0
+  http: ^1.2.1
   webview_flutter: ^4.7.0
   simple_month_year_picker: ^1.0.5
   dio: ^5.4.3+1

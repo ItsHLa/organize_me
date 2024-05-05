@@ -4,6 +4,7 @@ import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 import 'package:organize_me/scrns_and_widgets/login.dart';
 import 'package:organize_me/services/api_calls.dart';
+import 'package:http/http.dart';
 
 import '../services/functionality.dart';
 import '../user.dart';
@@ -137,13 +138,14 @@ class _RegisterState extends State<Register> {
                       email: email,
                       password: password,
                     );
-                    await addUser(
+                    Response r = await addUser(
                       User(
                         email: email,
                         password: password,
                         username: userName,
                       ),
                     );
+                    print(r);
                     // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
                     if (context.mounted) {
                       Navigator.of(context).push(
