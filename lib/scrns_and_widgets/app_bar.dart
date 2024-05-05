@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/customize_app_cubit/customize_cubit.dart';
+import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 
 import '../constants.dart';
 
@@ -12,19 +12,17 @@ class MyAppBar extends StatelessWidget {
     return AppBar(
       title: Text(
         'OrganizeMe',
-        style: TextStyle(color: deepPurple),
+        style: TextStyle(color: appColorTheme),
       ),
       actions: [
-        BlocBuilder<CustomizeCubit, CustomizeState>(
+        BlocBuilder<DarkModeCubit, DarkModeState>(
           builder: (context, state) {
             return IconButton(
-                onPressed: () {
-                  // BlocProvider.of<CustomizeCubit>(context).darkModeIsOn();
-                },
-                icon: //state.darkMode ?
-                    darkModeOn
-                //: darkModeOff,
-                );
+              onPressed: () {
+                BlocProvider.of<DarkModeCubit>(context).darkModeIsOn();
+              },
+              icon: state is DarkModeOn ? darkModeOn : darkModeOff,
+            );
           },
         ),
         const IconButton(
@@ -37,3 +35,19 @@ class MyAppBar extends StatelessWidget {
     );
   }
 }
+
+/*AppBar(
+          title: Text(
+            'Organize Me',
+            style: TextStyle(color: appColorTheme),
+          ),
+          actions: [
+            Builder(builder: (context) {
+              return IconButton(
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  icon: const Icon(Icons.settings));
+            }),
+          ],
+        )*/

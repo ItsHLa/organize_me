@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_row.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/widget/tele_bill_datail.dart';
 
 class TelecomBills extends StatelessWidget {
-  const TelecomBills({
-    super.key,
-    required this.date,
-    required this.operationNumber,
-    required this.phoneNumberEmail,
-    required this.paymentAmount,
-    required this.commissionAmount,
-  });
+  const TelecomBills(
+      {super.key,
+      required this.date,
+      required this.operationNumber,
+      required this.phoneNumberEmail,
+      required this.paymentAmount,
+      required this.commissionAmount,
+      required this.invoiceNumber});
 
-  final String date;
-  final String operationNumber;
-  final String phoneNumberEmail;
   final String paymentAmount;
   final String commissionAmount;
+  final String invoiceNumber;
+  final String date;
+  final String phoneNumberEmail;
+  final String operationNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +27,20 @@ class TelecomBills extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: ListTile(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) => TelecomBillDetail(
-                    date: date,
-                    phoneNumberEmail: phoneNumberEmail,
-                    paymentAmount: paymentAmount,
-                    operationNumber: operationNumber,
-                    commissionAmount: commissionAmount,
-                  ),
-                );
-              },
-              title: Text(date),
-              subtitle: Text(operationNumber),
-            ),
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => TelecomBillDetail(
+                      date: date,
+                      phoneNumberEmail: phoneNumberEmail,
+                      paymentAmount: paymentAmount,
+                      operationNumber: operationNumber,
+                      commissionAmount: commissionAmount,
+                    ),
+                  );
+                },
+                title: Text(date),
+                subtitle: Text(operationNumber)),
           ),
         ),
         Positioned(
@@ -54,14 +54,13 @@ class TelecomBills extends StatelessWidget {
 }
 
 class TelecomBillDetail extends StatelessWidget {
-  const TelecomBillDetail({
-    super.key,
-    required this.date,
-    required this.operationNumber,
-    required this.phoneNumberEmail,
-    required this.paymentAmount,
-    required this.commissionAmount,
-  });
+  const TelecomBillDetail(
+      {super.key,
+      required this.date,
+      required this.operationNumber,
+      required this.phoneNumberEmail,
+      required this.paymentAmount,
+      required this.commissionAmount});
 
   final String date;
   final String operationNumber;
@@ -84,7 +83,9 @@ class TelecomBillDetail extends StatelessWidget {
             const Divider(),
             MyRow(title: 'المبلغ                   ', value: paymentAmount),
             const Divider(),
-            MyRow(title: 'الدفع للفاتورة            ', value: commissionAmount),
+            MyRow(
+                title: 'الدفع للفاتورة                 ',
+                value: commissionAmount),
           ],
         ),
       ),

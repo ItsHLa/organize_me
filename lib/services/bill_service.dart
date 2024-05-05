@@ -1,0 +1,3 @@
+class BillApiService {
+  getAllBills() {}
+}

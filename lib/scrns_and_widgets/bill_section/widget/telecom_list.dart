@@ -16,28 +16,33 @@ class TelecomList extends StatelessWidget {
   Widget build(BuildContext context) {
     BlocProvider.of<BillCubit>(context).loadTelecom();
     return Scaffold(
+      appBar: AppBar(),
       body: BlocBuilder<BillCubit, BillState>(
         builder: (context, state) {
           if (state is LoadingBill) {
             return const CircularProgressIndicator();
           } else if (state is BillLoaded && state.bills.isNotEmpty) {
             return MyListView(
-              dataList: state.bills,
-              itemCount: state.bills.length,
-              itemBuilder: (context, index) {
-                TelecomBill currentBill = state.bills[index] as TelecomBill;
-                return TelecomBills(
-                  paymentAmount: '${currentBill.paymentAmount}',
-                  operationNumber: currentBill.operationNumber,
-                  date: currentBill.date,
-                  phoneNumberEmail: currentBill.phoneNumberEmail,
-                  commissionAmount: currentBill.commissionAmount.toString(),
-                );
-              },
-            );
-          } else {
-            return noBillsToShow;
+                dataList: state.bill,
+                itemCount: state.bill.length,
+                itemBuilder: (context, index) {
+                  TelecomBill currentBill = state.bill[index];
+                  return TelecomBills(
+                    invoiceNumber: currentBill.invoiceNumber,
+                    paymentAmount: '${currentBill.paymentAmount}',
+                    operationNumber: currentBill.operationNumber,
+                    date: currentBill.date,
+                    phoneNumberEmail: currentBill.phoneNumberEmail,
+                    commissionAmount: currentBill.commissionAmount.toString(),
+                  );
+                });
           }
+          return const Center(
+            child: Text(
+              'لا يوجد فواتير لعرضها',
+              style: TextStyle(fontSize: 20),
+            ),
+          );
         },
       ),
     );

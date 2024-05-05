@@ -243,6 +243,28 @@ class ValidateInputData {
     return null;
   }
 
+  static String? validatePassword(String? value) {
+    if (value!.isEmpty) {
+      return 'لا يمكن لهذا الحقل ان يكون فارغ';
+    }
+    if (value.length < 6) {
+      return 'كلمة السر يجب ان تكون على الاقل 6 محارف';
+    }
+    return null;
+  }
+
+  static String? validateEmail(String? email) {
+    if (email!.isEmpty) {
+      return 'لا يمكن لهذا الحقل ان يكون فارغ';
+    }
+    if (!RegExp(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b',
+            caseSensitive: false)
+        .hasMatch(email)) {
+      return 'من فضلك ادخل عنوان بريد صالح';
+    }
+    return null;
+  }
+
   static String? checkDateTime(String? value) {
     if (value?.isEmpty ?? true) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';
@@ -284,4 +306,71 @@ class ValidateInputData {
     }
     return null;
   }
+}
+
+Future<TimeOfDay?> showTime(BuildContext context) async {
+  return await showTimePicker(
+      context: context,
+      errorInvalidText: 'لا يمكن ان يكون اليوم قبل اليوم الحالي',
+      initialEntryMode: TimePickerEntryMode.input,
+      builder: (context, child) {
+        return Theme(
+            data: Theme.of(context).copyWith(
+              textSelectionTheme: TextSelectionThemeData(
+                  selectionColor: Colors.white54,
+                  cursorColor: appColorTheme,
+                  selectionHandleColor: appColorTheme),
+              inputDecorationTheme: InputDecorationTheme(
+                  focusColor: appColorTheme,
+                  activeIndicatorBorder: BorderSide(color: appColorTheme),
+                  hintStyle: TextStyle(color: appColorTheme),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(color: appColorTheme))),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  foregroundColor: appColorTheme, // button text color
+                ),
+              ),
+            ),
+            child: child!);
+      },
+      initialTime: TimeOfDay.now());
+}
+
+Future<DateTime?> showDate(BuildContext context) async {
+  return await showDatePicker(
+    builder: (context, child) {
+      return Theme(
+          data: Theme.of(context).copyWith(
+            textSelectionTheme: TextSelectionThemeData(
+                selectionColor: Colors.white54,
+                cursorColor: appColorTheme,
+                selectionHandleColor: appColorTheme),
+            inputDecorationTheme: InputDecorationTheme(
+                focusColor: appColorTheme,
+                activeIndicatorBorder: BorderSide(color: appColorTheme),
+                hintStyle: TextStyle(color: appColorTheme),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: appColorTheme))),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: appColorTheme, // button text color
+              ),
+            ),
+          ),
+          child: child!);
+    },
+    confirmText: 'موافق',
+    cancelText: 'الغاء',
+    currentDate: DateTime.now(),
+    context: context,
+    firstDate: DateTime(2024),
+    lastDate: DateTime(3000),
+    initialEntryMode: DatePickerEntryMode.input,
+    errorFormatText: 'خطأ في الصيغة',
+    errorInvalidText: 'لا يمكن ان يكون الوقت قبل الوقت الحالي',
+    initialDate: DateTime.now(),
+  );
 }

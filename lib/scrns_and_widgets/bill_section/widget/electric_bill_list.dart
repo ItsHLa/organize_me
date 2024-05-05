@@ -14,27 +14,35 @@ class ElectricList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: BlocBuilder<BillCubit, BillState>(
         builder: (context, state) {
           if (state is LoadingBill) {
             return const CircularProgressIndicator();
           } else if (state is BillLoaded && state.bills.isNotEmpty) {
             return MyListView(
-              dataList: state.bills,
-              itemCount: state.bills.length,
-              itemBuilder: (context, index) {
-                ElectricBills current = state.bills[index] as ElectricBills;
-                return ElectricBills(
-                  date: current.date,
-                  operationNumber: current.operationNumber,
-                  billingNumber: current.billingNumber,
-                  paymentAmount: current.paymentAmount,
-                  subscriptionNumber: current.subscriptionNumber,
-                );
-              },
-            );
+                dataList: [],
+                itemCount: 100,
+                itemBuilder: (context, index) {
+                  // ElectricBills current = state.bill[index];
+                  return ElectricBills(
+                    commissionAmount: 0.toString(),
+                    gov: 'اللاذقية',
+                    invoiceNumber: '69899292',
+                    date: ' 01/05/2024 18:11',
+                    operationNumber: 's600068373161 ',
+                    billingNumber: '254871',
+                    paymentAmount: ' 3920 ',
+                    subscriptionNumber: '157972',
+                  );
+                });
           }
-          return noBillsToShow;
+          return const Center(
+            child: Text(
+              'لا يوجد فواتير لعرضها',
+              style: TextStyle(fontSize: 20),
+            ),
+          );
         },
       ),
     );

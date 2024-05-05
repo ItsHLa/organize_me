@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/database/db.dart';
-import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'constants.dart';
-import 'customize_app_cubit/customize_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,13 +49,8 @@ class OrganizeMe extends StatefulWidget {
 }
 
 class _OrganizeMeState extends State<OrganizeMe> {
-  void initCustomize() async {
+  void initDarkMode() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool(
-        taskNotesKey, preferences.getBool(taskNotesKey) ?? true);
-    preferences.setBool(billsKey, preferences.getBool(billsKey) ?? true);
-    preferences.setBool(
-        medsAndDocsKey, preferences.getBool(medsAndDocsKey) ?? true);
     preferences.setBool('darkMode', preferences.getBool('darkMode') ?? false);
   }
 
@@ -66,15 +59,15 @@ class _OrganizeMeState extends State<OrganizeMe> {
     DatabaseHelper.intialDb();
     TelephonyService.askForPermission();
     TelephonyService.listenForIncomingSms();
-    initCustomize();
+    initDarkMode();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CustomizeCubit>(
-      create: (context) => CustomizeCubit(),
-      child: BlocBuilder<CustomizeCubit, CustomizeState>(
+    return BlocProvider(
+      create: (context) => DarkModeCubit(),
+      child: BlocBuilder<DarkModeCubit, DarkModeState>(
         builder: (context, state) {
           return MaterialApp(
               locale: const Locale('ar '),
@@ -83,11 +76,11 @@ class _OrganizeMeState extends State<OrganizeMe> {
               ],
               //themeMode: ThemeMode.system,
               debugShowCheckedModeBanner: false,
-              // darkTheme: ThemeData(brightness: Brightness.dark),
+              darkTheme: ThemeData(brightness: Brightness.dark),
               theme: ThemeData(
-                brightness: state.darkMode ? Brightness.dark : Brightness.light,
+                brightness: state.On ? Brightness.dark : Brightness.light,
               ),
-              home: const HomePage());
+              home: const Register());
         },
       ),
     );

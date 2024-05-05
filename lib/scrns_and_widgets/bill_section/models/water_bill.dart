@@ -142,7 +142,27 @@ class WaterBill extends Bill {
     return bills;
   }
 
-  static Future<double> calculatePayments(int year, int month) async {
-    return await Bill.calculatePayments(tableName, year, month);
-  }
+  factory WaterBill.fromJson(Map<String, dynamic> json) => WaterBill(
+        receiptNumber: json["receiptNumber"],
+        barcodeNumber: json["barcodeNumber"],
+        counterNumber: json["counterNumber"],
+        id: json["id"],
+        date: json["date"],
+        commissionAmount: json["commissionAmount"],
+        gov: json["gov"],
+        operationNumber: json["operationNumber"],
+        paymentAmount: json["paymentAmount"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "date": date,
+        "commissionAmount": commissionAmount,
+        "gov": gov,
+        "operationNumber": operationNumber,
+        "paymentAmount": paymentAmount,
+        "counterNumber": counterNumber,
+        "barcodeNumber": barcodeNumber,
+        "receiptNumber": receiptNumber
+      };
 }

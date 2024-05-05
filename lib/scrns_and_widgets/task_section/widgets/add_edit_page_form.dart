@@ -10,17 +10,18 @@ class TaskDataPageForm extends StatelessWidget {
       this.saveContent,
       this.saveStartTime,
       this.saveDate,
-      this.savePreAlarm,
-      required this.date,
-      required this.start,
-      required this.icon,
-      required this.label,
-      required this.onPressed,
-      this.taskTitleValidator,
-      this.contentValidator,
-      this.datValidator,
-      this.startTimeValidator,
-      this.preAlarmValidator});
+    this.savePreAlarm,
+    required this.date,
+    required this.start,
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+    this.taskTitleValidator,
+    this.contentValidator,
+    this.datValidator,
+    this.startTimeValidator,
+    this.preAlarmValidator,
+  });
 
   final void Function(String?)? saveTitle;
   final void Function(String?)? saveContent;

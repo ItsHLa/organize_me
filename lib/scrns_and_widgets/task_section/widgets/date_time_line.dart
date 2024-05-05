@@ -19,7 +19,7 @@ class _MyDateTimeLineState extends State<MyDateTimeLine> {
   @override
   Widget build(BuildContext context) {
     return EasyInfiniteDateTimeLine(
-      activeColor: deepPurple,
+      activeColor: appColorTheme,
       firstDate: DateTime(2024),
       lastDate: DateTime(3000),
       focusDate: widget.focusDate,

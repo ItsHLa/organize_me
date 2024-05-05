@@ -27,6 +27,7 @@ class ElectricBill extends Bill {
     required this.operationNumber,
     required this.subscriptionNumber,
   });
+
   static ElectricBill fromMap(Map elBillMap) {
     return ElectricBill(
       id: elBillMap['id'],
@@ -144,7 +145,29 @@ class ElectricBill extends Bill {
     return bills;
   }
 
-  static Future<double> calculatePayments(int year, int month) async {
-    return await Bill.calculatePayments(tableName, year, month);
-  }
+  // TODO search filter methods...
+  // (;_;) *crying*
+
+  factory ElectricBill.fromJson(Map<String, dynamic> json) => ElectricBill(
+      id: json["id"],
+      date: json["date"],
+      billingNumber: json["billingNumber"],
+      commissionAmount: json["commissionAmount"],
+      gov: json["gov"],
+      invoiceNumber: json["invoiceNumber"],
+      operationNumber: json["operationNumber"],
+      paymentAmount: json["paymentAmount"],
+      subscriptionNumber: json["subscriptionNumber"]);
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "date": date,
+        "billingNumber": billingNumber,
+        "commissionAmount": commissionAmount,
+        "gov": gov,
+        "invoiceNumber": invoiceNumber,
+        "operationNumber": operationNumber,
+        "paymentAmount": paymentAmount,
+        "subscriptionNumber": subscriptionNumber
+      };
 }

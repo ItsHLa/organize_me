@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 
 class InputText extends StatelessWidget {
   const InputText({
@@ -9,6 +10,7 @@ class InputText extends StatelessWidget {
     this.maxLength,
     this.keyboardType,
     this.validator,
+    this.labelText,
   });
 
   final String hint;
@@ -17,6 +19,7 @@ class InputText extends StatelessWidget {
   final int? maxLength;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
+  final String? labelText;
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +30,19 @@ class InputText extends StatelessWidget {
       maxLength: maxLength,
       maxLines: lines,
       decoration: InputDecoration(
+        labelText: labelText,
         hintText: hint,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.black12),
+          borderSide: BorderSide(color: appColorTheme),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.black12),
+          borderSide: BorderSide(color: appColorTheme),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.black12),
+          borderSide: const BorderSide(color: Colors.grey),
         ),
       ),
     );

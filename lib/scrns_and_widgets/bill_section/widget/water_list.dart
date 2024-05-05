@@ -16,27 +16,34 @@ class WaterList extends StatelessWidget {
   Widget build(BuildContext context) {
     BlocProvider.of<BillCubit>(context).loadWater();
     return Scaffold(
+      appBar: AppBar(),
       body: BlocBuilder<BillCubit, BillState>(
         builder: (context, state) {
           if (state is LoadingBill) {
             return const CircularProgressIndicator();
           } else if (state is BillLoaded && state.bills.isNotEmpty) {
             return MyListView(
-              dataList: state.bills,
-              itemCount: state.bills.length,
-              itemBuilder: (context, index) {
-                WaterBill current = state.bills[index] as WaterBill;
-                return WaterBills(
-                  date: current.date,
-                  operationNumber: current.operationNumber,
-                  paymentAmount: current.commissionAmount.toString(),
-                  barcodeNumber: current.barcodeNumber,
-                  counterNumber: current.counterNumber,
-                );
-              },
-            );
+                dataList: state.bill,
+                itemCount: state.bill.length,
+                itemBuilder: (context, index) {
+                  WaterBill current = state.bill[index];
+                  return WaterBills(
+                      gov: current.gov,
+                      commissionAmount: current.commissionAmount.toString(),
+                      receiptNumber: current.receiptNumber,
+                      date: current.date,
+                      operationNumber: current.operationNumber,
+                      paymentAmount: current.commissionAmount.toString(),
+                      barcodeNumber: current.barcodeNumber,
+                      counterNumber: current.counterNumber);
+                });
           }
-          return noBillsToShow;
+          return const Center(
+            child: Text(
+              'لا يوجد فواتير لعرضها',
+              style: TextStyle(fontSize: 20),
+            ),
+          );
         },
       ),
     );

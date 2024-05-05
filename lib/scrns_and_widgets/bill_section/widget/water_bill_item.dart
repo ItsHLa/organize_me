@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/my_row.dart';
 
 class WaterBills extends StatelessWidget {
   const WaterBills({
@@ -10,14 +9,19 @@ class WaterBills extends StatelessWidget {
     required this.operationNumber,
     required this.counterNumber,
     required this.paymentAmount,
+    required this.commissionAmount,
+    required this.gov,
+    required this.receiptNumber,
   });
 
-  final String date;
-
-  final String barcodeNumber;
-  final String operationNumber;
-  final String counterNumber;
   final String paymentAmount;
+  final String commissionAmount;
+  final String date;
+  final String gov;
+  final String receiptNumber;
+  final String barcodeNumber;
+  final String counterNumber;
+  final String operationNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -25,29 +29,11 @@ class WaterBills extends StatelessWidget {
       children: [
         Card(
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: ListTile(
-              title: Row(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(date),
-                  const Spacer(),
-                  Text(operationNumber)
-                ],
-              ),
-              subtitle: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  MyRow(title: 'رقم الباركود', value: barcodeNumber),
-                  MyRow(title: 'رقم العداد  ', value: counterNumber),
-                  MyRow(title: 'المبلغ         ', value: paymentAmount),
-                ],
-              ),
-            ),
+              padding: const EdgeInsets.all(5.0),
+              child: ListTile(
+                  title: Text('رقم الايصال$receiptNumber'),
+                  subtitle: Text(date))),
           ),
-        ),
         Positioned(
           top: -4,
           right: -4,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../date_time_picker.dart';
+import '../../date_picker.dart';
 import '../../input_text.dart';
 
 class InputTask extends StatelessWidget {
