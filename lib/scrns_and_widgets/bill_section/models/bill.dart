@@ -2,6 +2,8 @@ import 'package:organize_me/database/db.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class Bill {
+  Map<String, String> toJson();
+
   static Future<double> calculatePayments(
     String tableName,
     int year,

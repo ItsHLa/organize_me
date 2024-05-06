@@ -157,10 +157,10 @@ class WaterBill extends Bill {
         counterNumber: json["counterNumber"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "paymentAmount": paymentAmount,
-        "commissionAmount": commissionAmount,
+  @override
+  Map<String, String> toJson() => {
+        "paymentAmount": paymentAmount.toString(),
+        "commissionAmount": commissionAmount.toString(),
         "date": date,
         "time": time,
         "provider": provider,
