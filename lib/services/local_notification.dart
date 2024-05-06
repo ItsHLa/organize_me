@@ -46,8 +46,10 @@ abstract class LocalNotificationService {
     );
   }
 
-  static void showMedicineNotification(
-      {required int id, required String name}) async {
+  static void showMedicineNotification({
+    required int id,
+    required String name,
+  }) async {
     AndroidNotificationDetails androidNotificationDetails =
         const AndroidNotificationDetails(
       medicineChannel,
@@ -56,8 +58,9 @@ abstract class LocalNotificationService {
       importance: Importance.max,
       priority: Priority.high,
     );
-    NotificationDetails details =
-        NotificationDetails(android: androidNotificationDetails);
+    NotificationDetails details = NotificationDetails(
+      android: androidNotificationDetails,
+    );
 
     await LocalNotificationService.flutterLocalNotificationsPlugin.show(
       id,

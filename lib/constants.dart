@@ -153,5 +153,3 @@ Widget noBillsToShow = const Center(
     ),
   ),
 );
-
-String baseUrl = "https://haidaraib.pythonanywhere.com";

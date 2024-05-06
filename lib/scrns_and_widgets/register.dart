@@ -4,7 +4,6 @@ import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 import 'package:organize_me/scrns_and_widgets/login.dart';
 import 'package:organize_me/services/api_calls.dart';
-import 'package:http/http.dart';
 
 import '../services/functionality.dart';
 import '../user.dart';
@@ -21,7 +20,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   GlobalKey<FormState> userKey = GlobalKey();
-  String userName = '';
+  String username = '';
   String email = '';
   String password = '';
 
@@ -66,7 +65,7 @@ class _RegisterState extends State<Register> {
                   labelText: 'اسم المستخدم',
                   save: (value) {
                     setState(() {
-                      userName = value!;
+                      username = value!;
                     });
                   },
                   validator: ValidateInputData.checkIfNull,
@@ -81,9 +80,11 @@ class _RegisterState extends State<Register> {
                 child: InputText(
                   labelText: 'ايميل',
                   save: (value) {
-                    setState(() {
-                      email = value!;
-                    });
+                    setState(
+                      () {
+                        email = value!;
+                      },
+                    );
                   },
                   validator: ValidateInputData.validateEmail,
                   hint: '',
@@ -97,9 +98,11 @@ class _RegisterState extends State<Register> {
                 child: InputText(
                   labelText: 'كلمة السر',
                   save: (value) {
-                    setState(() {
-                      password = value!;
-                    });
+                    setState(
+                      () {
+                        password = value!;
+                      },
+                    );
                   },
                   validator: ValidateInputData.validatePassword,
                   hint: '',
@@ -117,8 +120,11 @@ class _RegisterState extends State<Register> {
                       style: TextStyle(color: appColorTheme),
                     ),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const Login()));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const Login(),
+                        ),
+                      );
                       // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
                     },
                   ),
@@ -134,18 +140,17 @@ class _RegisterState extends State<Register> {
                   if (ValidateInputData.validateField(userKey)) {
                     userKey.currentState?.save();
                     await User.setUserInfo(
-                      userName: userName,
+                      username: username,
                       email: email,
                       password: password,
                     );
-                    Response r = await addUser(
+                    await addUser(
                       User(
                         email: email,
                         password: password,
-                        username: userName,
+                        username: username,
                       ),
                     );
-                    print(r);
                     // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
                     if (context.mounted) {
                       Navigator.of(context).push(

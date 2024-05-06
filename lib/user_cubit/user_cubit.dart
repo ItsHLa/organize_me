@@ -6,13 +6,13 @@ import '../user.dart';
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit() : super(const UserInitial(userName: '', email: ''));
+  UserCubit() : super(const UserInitial(username: '', email: ''));
 
   Future<void> loadUserInfo() async {
     Map<String, String> info = await User.userInfo();
     emit(
       UserInfoLoaded(
-        userName: info['userName']!,
+        username: info['username']!,
         email: info['email']!,
       ),
     );

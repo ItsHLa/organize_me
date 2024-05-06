@@ -29,7 +29,7 @@ class AccountInfo extends StatelessWidget {
               builder: (context, state) {
                 return ListTile(
                   title: const Text('اسم المستخدم'),
-                  subtitle: Text(state.userName),
+                  subtitle: Text(state.username),
                 );
               },
             ),

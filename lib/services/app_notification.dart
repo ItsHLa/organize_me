@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import 'local_notification.dart';
 
 class AppNotification extends LocalNotificationService {
-  static showSimpleMedicineNotification(
-      {required int id, required String name}) async {
+  static showSimpleMedicineNotification({
+    required int id,
+    required String name,
+  }) async {
     LocalNotificationService.showMedicineNotification(id: id, name: name);
   }
 
   static showSimpleBillNotification() async {
     LocalNotificationService.showSimpleBillNotification(
-        id: 0, body: 'لا تنسى دفع فواتيرك الشهرية');
+      id: 0,
+      body: 'لا تنسى دفع فواتيرك الشهرية',
+    );
   }
 
   static showSimpleBreadNotification({required String body}) async {

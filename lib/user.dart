@@ -10,12 +10,12 @@ class User {
     required this.username,
   });
   static Future<void> setUserInfo({
-    required userName,
+    required username,
     required email,
     required password,
   }) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('userName', userName);
+    preferences.setString('username', username);
     preferences.setString('email', email);
     preferences.setString('password', password);
   }
@@ -23,7 +23,7 @@ class User {
   static Future<Map<String, String>> userInfo() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> userInfo = {
-      'userName': preferences.getString('userName')!,
+      'username': preferences.getString('username')!,
       'email': preferences.getString('email')!,
       'password': preferences.getString('password')!
     };

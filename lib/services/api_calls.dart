@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:organize_me/user.dart';
-import 'package:organize_me/constants.dart';
 
 import '../scrns_and_widgets/bill_section/models/bill.dart';
+
+String baseUrl = "https://haidaraib.pythonanywhere.com";
 
 Future<http.Response> addUser(User user) async {
   var r = await http.post(
@@ -10,11 +13,13 @@ Future<http.Response> addUser(User user) async {
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: {
-      "email": user.email,
-      "password": user.password,
-      "username": user.username,
-    },
+    body: jsonEncode(
+      {
+        "email": user.email,
+        "password": user.password,
+        "username": user.username,
+      },
+    ),
   );
   return r;
 }
@@ -25,10 +30,12 @@ Future<http.Response> login(String email, String password) async {
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: {
-      "email": email,
-      "password": password,
-    },
+    body: jsonEncode(
+      {
+        "email": email,
+        "password": password,
+      },
+    ),
   );
   return r;
 }
@@ -52,7 +59,7 @@ Future<http.Response> addBill(
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: body,
+    body: jsonEncode(body),
   );
   return r;
 }
@@ -73,7 +80,7 @@ Future<http.Response> addBills(
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: bodyList,
+    body: jsonEncode(bodyList),
   );
   return r;
 }
