@@ -1,13 +1,16 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 
+import '../services/api_calls.dart';
 import '../user.dart';
 
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit() : super(const UserInitial(username: '', email: ''));
+  UserCubit() : super(UserInitial());
 
+  /*
   Future<void> loadUserInfo() async {
     Map<String, String> info = await User.userInfo();
     emit(
@@ -16,5 +19,24 @@ class UserCubit extends Cubit<UserState> {
         email: info['email']!,
       ),
     );
+  }
+
+ * */
+
+  void userLogin(String email, String password) async {
+    emit(LoggingInLoading());
+    http.Response r = await login(email, password);
+    print(r);
+    if (r.statusCode == 200) {
+      //  print(r.body.);
+      User.setUserInfo(
+          username: 'user', //r.body['user']
+          email: email,
+          password: password);
+      emit(LoggingInSuccess());
+    } else {
+      print('failed');
+      emit(LoggingInFailed());
+    }
   }
 }
