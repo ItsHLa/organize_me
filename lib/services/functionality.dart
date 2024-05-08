@@ -311,33 +311,43 @@ class ValidateInputData {
 Future<TimeOfDay?> showTime(BuildContext context) async {
   return await showTimePicker(
       context: context,
+      confirmText: 'موافق',
+      cancelText: 'الغاء',
       errorInvalidText: 'لا يمكن ان يكون اليوم قبل اليوم الحالي',
       initialEntryMode: TimePickerEntryMode.input,
       builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            textSelectionTheme: TextSelectionThemeData(
-              selectionColor: Colors.white54,
-              cursorColor: appColorTheme,
-              selectionHandleColor: appColorTheme,
-            ),
-            inputDecorationTheme: InputDecorationTheme(
-              focusColor: appColorTheme,
-              activeIndicatorBorder: BorderSide(color: appColorTheme),
-              hintStyle: TextStyle(color: appColorTheme),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide(
-                  color: appColorTheme,
+        return TimePickerTheme(
+          data: TimePickerThemeData(
+              inputDecorationTheme: InputDecorationTheme(
+                hintStyle: TextStyle(color: appColorTheme),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(
+                    color: appColorTheme,
+                  ),
                 ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(
+                    color: appColorTheme,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(
+                    color: appColorTheme,
+                  ),
+                ),
+                labelStyle: TextStyle(color: appColorTheme),
               ),
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: appColorTheme, // button text color
+              dialBackgroundColor: appColorTheme,
+              dayPeriodColor: appColorTheme,
+              cancelButtonStyle: TextButton.styleFrom(
+                foregroundColor: appColorTheme,
               ),
-            ),
-          ),
+              confirmButtonStyle: TextButton.styleFrom(
+                foregroundColor: appColorTheme,
+              )),
           child: child!,
         );
       },
@@ -355,7 +365,6 @@ Future<DateTime?> showDate(BuildContext context) async {
             selectionHandleColor: appColorTheme,
           ),
           inputDecorationTheme: InputDecorationTheme(
-            focusColor: appColorTheme,
             activeIndicatorBorder: BorderSide(color: appColorTheme),
             hintStyle: TextStyle(color: appColorTheme),
             border: OutlineInputBorder(
@@ -364,6 +373,19 @@ Future<DateTime?> showDate(BuildContext context) async {
                 color: appColorTheme,
               ),
             ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(
+                color: appColorTheme,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(
+                color: appColorTheme,
+              ),
+            ),
+            labelStyle: TextStyle(color: appColorTheme),
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(

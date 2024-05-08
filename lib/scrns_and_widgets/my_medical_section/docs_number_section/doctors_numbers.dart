@@ -19,7 +19,10 @@ class MedsAndDocs extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: appColorTheme,
         shape: const CircleBorder(),
-        child: const Icon(Icons.add_call),
+        child: const Icon(
+          Icons.add_call,
+          color: Colors.white60,
+        ),
         onPressed: () async {
           showModalBottomSheet(
             isScrollControlled: true,

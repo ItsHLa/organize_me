@@ -22,8 +22,8 @@ class _AddTaskScreenState extends State<EditTask> {
 
   TimeOfDay? editedStart;
   DateTime? date;
-  String? dateTime;
 
+  String? dateTime;
   String? startTime;
 
   String editedPreAlarm = '';

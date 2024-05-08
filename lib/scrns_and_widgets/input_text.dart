@@ -31,6 +31,8 @@ class InputText extends StatelessWidget {
       maxLines: lines,
       decoration: InputDecoration(
         labelText: labelText,
+        labelStyle: TextStyle(color: appColorTheme),
+        hintStyle: TextStyle(color: appColorTheme),
         hintText: hint,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),

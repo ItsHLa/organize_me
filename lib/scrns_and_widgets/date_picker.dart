@@ -31,6 +31,8 @@ class MyDatePicker extends StatelessWidget {
             icon,
             color: appColorTheme,
           ),
+          labelStyle: TextStyle(color: appColorTheme),
+          hintStyle: TextStyle(color: appColorTheme),
           label: Text(labelText),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
