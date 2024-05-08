@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        if (state is LoggingInSuccess) {
+        if (state is Success) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('تم تسجيل الدخول بنجاح'),
             duration: Duration(seconds: 4),
@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
             builder: (context) => const HomePage(),
           ));
         }
-        if (state is LoggingInFailed) {
+        if (state is Failed) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('حصل خطأ اثناء تسجيل الدخول يرجى اعادة محاولة')));
         }
@@ -113,10 +113,10 @@ class _LoginState extends State<Login> {
                         if (ValidateInputData.validateField(userKey)) {
                           userKey.currentState?.save();
                           BlocProvider.of<UserCubit>(context)
-                              .userLogin(email, password);
+                              .login(email, password);
                         }
                       },
-                      child: state is LoggingInLoading
+                      child: state is Loading
                           ? const Center(
                               child: SizedBox(
                                   height: 20,

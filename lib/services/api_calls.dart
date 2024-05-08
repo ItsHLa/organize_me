@@ -5,82 +5,84 @@ import 'package:organize_me/user.dart';
 
 import '../scrns_and_widgets/bill_section/models/bill.dart';
 
-String baseUrl = "https://haidaraib.pythonanywhere.com";
+class ApiCalls {
+  static String baseUrl = "https://haidaraib.pythonanywhere.com";
 
-Future<http.Response> addUser(User user) async {
-  var r = await http.post(
-    Uri.parse("$baseUrl/addUser/"),
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(
-      {
-        "email": user.email,
-        "password": user.password,
-        "username": user.username,
+  static Future<http.Response> addUser(User user) async {
+    var r = await http.post(
+      Uri.parse("$baseUrl/addUser/"),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
       },
-    ),
-  );
-  return r;
-}
+      body: jsonEncode(
+        {
+          "email": user.email,
+          "password": user.password,
+          "username": user.username,
+        },
+      ),
+    );
+    return r;
+  }
 
-Future<http.Response> login(String email, String password) async {
-  var r = await http.post(
-    Uri.parse("$baseUrl/login/"),
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(
-      {
-        "email": email,
-        "password": password,
+  static Future<http.Response> login(String email, String password) async {
+    var r = await http.post(
+      Uri.parse("$baseUrl/login/"),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
       },
-    ),
-  );
-  return r;
-}
+      body: jsonEncode(
+        {
+          "email": email,
+          "password": password,
+        },
+      ),
+    );
+    return r;
+  }
 
-Future<http.Response> getBills(int userId, String type) async {
-  var r = await http.get(
-    Uri.parse("$baseUrl/getBills/$type/$userId/"),
-  );
-  return r;
-}
+  static Future<http.Response> getBills(int userId, String type) async {
+    var r = await http.get(
+      Uri.parse("$baseUrl/getBills/$type/$userId/"),
+    );
+    return r;
+  }
 
-Future<http.Response> addBill(
-  int userId,
-  String type,
-  Bill bill,
-) async {
-  Map<String, String> body = bill.toJson();
-  body['user'] = userId.toString();
-  var r = await http.post(
-    Uri.parse("$baseUrl/addBill/$type/"),
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(body),
-  );
-  return r;
-}
-
-Future<http.Response> addBills(
-  int userId,
-  String type,
-  List<Bill> bills,
-) async {
-  List<Map<String, String>> bodyList = [];
-  for (Bill bill in bills) {
+  static Future<http.Response> addBill(
+    int userId,
+    String type,
+    Bill bill,
+  ) async {
     Map<String, String> body = bill.toJson();
     body['user'] = userId.toString();
-    bodyList.add(body);
+    var r = await http.post(
+      Uri.parse("$baseUrl/addBill/$type/"),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(body),
+    );
+    return r;
   }
-  var r = await http.post(
-    Uri.parse("$baseUrl/addBills/$type/"),
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(bodyList),
-  );
-  return r;
+
+  static Future<http.Response> addBills(
+    int userId,
+    String type,
+    List<Bill> bills,
+  ) async {
+    List<Map<String, String>> bodyList = [];
+    for (Bill bill in bills) {
+      Map<String, String> body = bill.toJson();
+      body['user'] = userId.toString();
+      bodyList.add(body);
+    }
+    var r = await http.post(
+      Uri.parse("$baseUrl/addBills/$type/"),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(bodyList),
+    );
+    return r;
+  }
 }

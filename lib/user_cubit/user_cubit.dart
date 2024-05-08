@@ -23,9 +23,9 @@ class UserCubit extends Cubit<UserState> {
 
  * */
 
-  void userLogin(String email, String password) async {
-    emit(LoggingInLoading());
-    http.Response r = await login(email, password);
+  void login(String email, String password) async {
+    emit(Loading());
+    http.Response r = await ApiCalls.login(email, password);
     print(r);
     if (r.statusCode == 200) {
       //  print(r.body.);
@@ -33,10 +33,27 @@ class UserCubit extends Cubit<UserState> {
           username: 'user', //r.body['user']
           email: email,
           password: password);
-      emit(LoggingInSuccess());
+      emit(Success());
     } else {
       print('failed');
-      emit(LoggingInFailed());
+      emit(Failed());
+    }
+  }
+
+  void register(User user) async {
+    emit(Loading());
+    http.Response response = await ApiCalls.addUser(user);
+    print(response);
+    if (response.statusCode == 200) {
+      //  print(response.body.);
+      User.setUserInfo(
+          username: user.username, //response.body['user']
+          email: user.email,
+          password: user.password);
+      emit(Success());
+    } else {
+      print('failed');
+      emit(Failed());
     }
   }
 }

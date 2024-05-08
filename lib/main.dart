@@ -7,6 +7,7 @@ import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service.dart';
+import 'package:organize_me/user_cubit/user_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -68,8 +69,15 @@ class _OrganizeMeState extends State<OrganizeMe> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DarkModeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => DarkModeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => UserCubit(),
+        ),
+      ],
       child: BlocBuilder<DarkModeCubit, DarkModeState>(
         builder: (context, state) {
           return MaterialApp(

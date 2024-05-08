@@ -14,12 +14,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   int pageIndex = 0;
-  var pages = [taskPage, billsPage, medsPage, accountInfo];
+  var pages = [
+    taskPage,
+    billsPage,
+    medsPage,
+  ];
+
+  //accountInfo
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-   //     endDrawer: const Settings(),
         appBar: AppBar(
           title: Text(
             'OrganizeMe',
@@ -61,8 +66,8 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.medical_information_outlined),
                 label: 'الادوية'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_outlined), label: 'حساب')
+            //  BottomNavigationBarItem(
+            //    icon: Icon(Icons.person_outlined), label: 'حساب')
           ],
         ),
         body: pages[pageIndex]);

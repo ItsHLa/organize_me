@@ -48,10 +48,10 @@ Widget billsPage = BlocProvider(
   child: const MyBills(),
 );
 
-Widget accountInfo = BlocProvider(
+/*Widget accountInfo = BlocProvider(
   create: (context) => UserCubit(),
   child: const AccountInfo(),
-);
+);*/
 //////////////////////////////customize constants///////////////////////////////////
 
 String taskNotesKey = 'taskNotes';

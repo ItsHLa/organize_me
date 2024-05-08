@@ -7,8 +7,8 @@ final class UserInitial extends UserState {}
 
 final class UserInfoLoaded extends UserState {}
 
-final class LoggingInLoading extends UserState {}
+final class Loading extends UserState {}
 
-final class LoggingInSuccess extends UserState {}
+final class Success extends UserState {}
 
-final class LoggingInFailed extends UserState {}
+final class Failed extends UserState {}
