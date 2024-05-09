@@ -14,19 +14,6 @@ part 'user_state.dart';
 class UserCubit extends Cubit<UserState> {
   UserCubit() : super(UserInitial());
 
-  /*
-  Future<void> loadUserInfo() async {
-    Map<String, String> info = await User.userInfo();
-    emit(
-      UserInfoLoaded(
-        username: info['username']!,
-        email: info['email']!,
-      ),
-    );
-  }
-
- * */
-
   void login(String email, String password) async {
     emit(Loading());
     try {
