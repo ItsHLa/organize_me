@@ -108,8 +108,10 @@ class _AddTaskScreenState extends State<EditTask> {
                   id: widget.task.id,
                   title: editedTaskTitle!,
                   content: editedTaskContent!,
-                  startDate: date,
-                  startTime: editedStart,
+                  startDate:
+                      date ?? convertStringToDateTime(widget.task.startDate),
+                  startTime: editedStart ??
+                      convertStringToTimeDay(widget.task.startTime),
                 );
               } else {
                 autoValidated = AutovalidateMode.always;

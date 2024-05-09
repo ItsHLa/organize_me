@@ -63,9 +63,9 @@ class TaskCubit extends Cubit<TaskState> {
     required int id,
     required String title,
     required String content,
-    required DateTime? startDate,
+    required DateTime startDate,
     required int preAlarm,
-    required TimeOfDay? startTime,
+    required TimeOfDay startTime,
   }) async {
     try {
       String newStartTime =
@@ -84,21 +84,21 @@ class TaskCubit extends Cubit<TaskState> {
       int i = tasks.indexOf(tasks.singleWhere((task) => task.id == id));
       Task newTask = Task.fromMap(newTaskMap);
       tasks[i] = newTask;
-      TimeOfDay taskStartTime = TimeOfDay(
-        hour: int.parse(newTask.startTime.split(':')[0]),
-        minute: int.parse(newTask.startTime.split(':')[1]),
-      );
-      DateTime taskStartDate = DateTime(
-        int.parse(newTask.startDate.split('/')[2]),
-        int.parse(newTask.startDate.split('/')[1]),
-        int.parse(newTask.startDate.split('/')[0]),
-      );
+      // TimeOfDay taskStartTime = TimeOfDay(
+      //    hour: int.parse(newTask.startTime.split(':')[0]),
+      //  minute: int.parse(newTask.startTime.split(':')[1]),
+      // );
+      // DateTime taskStartDate = DateTime(
+      //  int.parse(newTask.startDate.split('/')[2]),
+      //  int.parse(newTask.startDate.split('/')[1]),
+      //  int.parse(newTask.startDate.split('/')[0]),
+      // );
       AppNotification.showTaskNotificationBeforeXMinutes(
           id: id,
           title: newTask.title,
           content: newTask.content,
-          taskTime: startTime ?? taskStartTime,
-          dateTime: taskStartDate,
+          taskTime: startTime,
+          dateTime: startDate,
           min: preAlarm);
       emit(AddTaskSuccess(tasks: tasks));
     } catch (e) {

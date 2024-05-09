@@ -21,7 +21,7 @@ class Med {
     );
   }
 
-  static Future<Med> addMed(String name, String shotTime, int interval) async {
+  static Future<Map> addMed(String name, String shotTime, int interval) async {
     Database? mydb = await DatabaseHelper.db;
     int medId = await mydb!.rawInsert(
       """
@@ -36,10 +36,10 @@ class Med {
         interval,
       ],
     );
-    return fromMap(await getOneMed(medId));
+    return await getOneMed(medId);
   }
 
-  static Future<Med> editMed(
+  static Future<Map> editMed(
     int medId, {
     String newName = '',
     int newInterval = 0,
@@ -63,7 +63,7 @@ class Med {
         medId,
       ],
     );
-    return fromMap(await getOneMed(medId));
+    return await getOneMed(medId);
   }
 
   static Future deleteMed(int medId) async {

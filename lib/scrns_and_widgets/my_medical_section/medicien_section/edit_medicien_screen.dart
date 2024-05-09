@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/services/functionality.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/widgets/input_medicien_form.dart';
+import 'package:organize_me/services/functionality.dart';
 
 import '../../add_data_page.dart';
 import 'cubit/medicien_cubit.dart';
@@ -64,7 +64,6 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
                 context: context,
                 initialTime: TimeOfDay.now(),
               );
-              time ?? convertStringToTimeDay(widget.med.shotTime);
               setState(
                 () {
                   editedShotTime =
@@ -77,7 +76,8 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
             medKey.currentState?.save();
             BlocProvider.of<MedicineCubit>(context).editMed(
               id: widget.med.id,
-              editedTimeOfShot: time!,
+              editedTimeOfShot:
+                  time ?? convertStringToTimeDay(widget.med.shotTime),
               editedInterval: editedMedInterval,
               editedName: editedMedName!,
             );

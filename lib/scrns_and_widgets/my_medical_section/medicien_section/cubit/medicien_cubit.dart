@@ -10,7 +10,6 @@ part 'medicien_state.dart';
 
 class MedicineCubit extends Cubit<MedicineState> {
   List<Med> meds = [];
-  int id = 0;
 
   MedicineCubit() : super(const MedInitial(meds: []));
 
@@ -21,32 +20,38 @@ class MedicineCubit extends Cubit<MedicineState> {
   ) async {
     try {
       String shotTime = '${timeOfShot.hour} : ${timeOfShot.minute}';
-      await Med.addMed(name, shotTime, interval).then((med) => meds.add(med));
+      Map med = await Med.addMed(name, shotTime, interval);
+      meds.add(Med.fromMap(med));
       debugPrint(timeOfDayToDuration(timeOfShot).toString());
       WorkManagerService.registerMyTask(
-        uniqueTaskName: 'medicine $id notification',
+        uniqueTaskName: 'medicine ${med['id']} notification',
         taskName: 'show medicine notification',
         frequency: Duration(hours: interval),
         title: name,
-        id: id,
+        id: med['id'],
         initialDelay: timeOfDayToDuration(timeOfShot),
       );
-      id++;
-
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
       emit(AddMedsFailed(meds: meds));
     }
   }
 
-  void editMed({
+  Future<void> editMed({
     required int id,
     required String editedName,
     required TimeOfDay editedTimeOfShot,
     required int editedInterval,
-  }) {
+  }) async {
     try {
-      // String shotTime = '${editedTimeOfShot.hour} : ${editedTimeOfShot.minute}';
+      String shotTime = '${editedTimeOfShot.hour} : ${editedTimeOfShot.minute}';
+      Map newMedMap = await Med.editMed(id,
+          newInterval: editedInterval,
+          newName: editedName,
+          newShotTime: shotTime);
+      int i = meds.indexOf(meds.singleWhere((med) => med.id == id));
+      Med newTask = Med.fromMap(newMedMap);
+      meds[i] = newTask;
       WorkManagerService.registerMyTask(
           uniqueTaskName: 'medicine $id notification',
           taskName: 'show medicine notification',
