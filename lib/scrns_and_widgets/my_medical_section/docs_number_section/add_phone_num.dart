@@ -14,8 +14,11 @@ class AddPhoneNum extends StatefulWidget {
 }
 
 class _AddPhoneNumState extends State<AddPhoneNum> {
-  String newName = '';
-  String newPhone = '';
+  TextEditingController newName = TextEditingController();
+  TextEditingController newPhone = TextEditingController();
+  TextEditingController specialty = TextEditingController();
+  TextEditingController clinicPhone = TextEditingController();
+
   GlobalKey<FormState> numKey = GlobalKey();
   AutovalidateMode validateMode = AutovalidateMode.disabled;
 
@@ -37,9 +40,10 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
               if (ValidateInputData.validateField(numKey)) {
                 numKey.currentState?.save();
                 BlocProvider.of<DocsNumCubit>(context).addPhoneNumber(
-                  newName,
-                  newPhone,
-                );
+                    newName.text,
+                    newPhone.text,
+                    clinicPhone.text,
+                    specialty.text);
               } else {
                 validateMode = AutovalidateMode.always;
               }
@@ -48,12 +52,17 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
               nameValidator: ValidateInputData.checkIfNull,
               specialistValidator: ValidateInputData.checkIfNull,
               phoneNumberValidator: ValidateInputData.checkPhoneNumber,
-              saveSpecialist: null,
+              saveClinicNumber: (value) {
+                clinicPhone.text = value!;
+              },
+              saveSpecialist: (value) {
+                specialty.text = value!;
+              },
               saveName: (value) {
-                newName = value ?? '';
+                newName.text = value!;
               },
               savePhoneNumber: (value) {
-                newPhone = value ?? '';
+                newPhone.text = value!;
               },
             ),
           ),

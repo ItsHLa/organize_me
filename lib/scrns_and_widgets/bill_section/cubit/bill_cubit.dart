@@ -5,6 +5,7 @@ import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.d
 import 'package:organize_me/scrns_and_widgets/bill_section/models/water_bill.dart';
 
 import '../models/bill.dart';
+
 part 'bill_state.dart';
 
 class BillCubit extends Cubit<BillState> {
@@ -41,6 +42,29 @@ class BillCubit extends Cubit<BillState> {
       emit(BillLoaded(bills: bills));
     } catch (e) {
       emit(LoadingBillFailed(e.toString(), bills: bills));
+    }
+  }
+
+  Future<void> monthlySpendingOneCategory(
+    int year,
+    int month,
+  ) async {
+    emit(const MonthlySpendingLoading(bills: []));
+    try {
+      double water = await Bill.calculatePayments('water_bills', year, month);
+      double electric =
+          await Bill.calculatePayments('electric_bills', year, month);
+      double telecom =
+          await Bill.calculatePayments('telecom_bills', year, month);
+      double all = water + electric + telecom;
+      emit(MonthlySpendingCalculated(
+          bills: bills,
+          monthlySpendingWater: (water / all) * 360,
+          monthlySpendingElectricity: (electric / all) * 360,
+          monthlySpendingTelecom: (telecom / all) * 360,
+          monthlySpendingAll: all));
+    } catch (e) {
+      emit(const MonthlySpendingFailed(bills: []));
     }
   }
 }

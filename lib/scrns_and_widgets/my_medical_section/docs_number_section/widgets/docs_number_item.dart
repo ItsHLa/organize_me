@@ -6,7 +6,7 @@ class DocsNumber extends StatelessWidget {
   const DocsNumber({
     super.key,
     required this.docsName,
-    required this.phoneNumber,
+    required this.spec,
     this.onPressedEdit,
     this.onPressedCall,
     this.onPressedDelete,
@@ -14,7 +14,7 @@ class DocsNumber extends StatelessWidget {
   });
 
   final String docsName;
-  final String phoneNumber;
+  final String spec;
   final Function()? onTap;
   final void Function()? onPressedEdit;
   final void Function()? onPressedCall;
@@ -30,7 +30,7 @@ class DocsNumber extends StatelessWidget {
             child: Icon(Icons.person_2_outlined),
           ),
           title: Text(docsName),
-          subtitle: Text(phoneNumber),
+          subtitle: Text(spec),
           trailing: IconButton(
             icon: const Icon(
               Icons.call,

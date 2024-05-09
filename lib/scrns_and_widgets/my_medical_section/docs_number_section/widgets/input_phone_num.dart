@@ -10,14 +10,18 @@ class InputPhoneNumber extends StatelessWidget {
     this.nameValidator,
     this.specialistValidator,
     this.phoneNumberValidator,
+    this.saveClinicNumber,
+    this.clinicNumberValidator,
   });
 
   final Function(String?)? saveName;
   final Function(String?)? saveSpecialist;
+  final Function(String?)? saveClinicNumber;
   final Function(String?)? savePhoneNumber;
   final String? Function(String?)? nameValidator;
   final String? Function(String?)? specialistValidator;
   final String? Function(String?)? phoneNumberValidator;
+  final String? Function(String?)? clinicNumberValidator;
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +39,27 @@ class InputPhoneNumber extends StatelessWidget {
           height: 5,
         ),
         InputText(
+          hint: 'الاختصاص',
+          save: saveSpecialist,
+          validator: specialistValidator,
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        InputText(
           keyboardType: TextInputType.phone,
-          hint: 'الرقم',
+          hint: 'رقم الطبيب',
           save: savePhoneNumber,
           validator: phoneNumberValidator,
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        InputText(
+          keyboardType: TextInputType.phone,
+          hint: 'رقم العيادة',
+          save: saveClinicNumber,
+          validator: clinicNumberValidator,
         ),
         const SizedBox(
           height: 5,

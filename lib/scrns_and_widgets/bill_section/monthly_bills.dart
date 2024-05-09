@@ -3,61 +3,94 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/bill_category_spending.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/electric_bill_list.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/search_bar_by_month_year.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/telecom_list.dart';
-import 'package:organize_me/scrns_and_widgets/bill_section/widget/water_list.dart';
 
+import 'bills_list.dart';
 import 'cubit/bill_cubit.dart';
 
-class MonthlyChart extends StatelessWidget {
+class MonthlyChart extends StatefulWidget {
   const MonthlyChart({super.key});
 
   @override
+  State<MonthlyChart> createState() => _MonthlyChartState();
+}
+
+class _MonthlyChartState extends State<MonthlyChart> {
+  List categories = ['الكهرباء', 'الاتصالات', 'المياه'];
+  List colors = [green, yellow, blue];
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const MySearchBar(),
-        const SizedBox(
-          height: 10,
-        ),
-        SizedBox(
-          height: 170,
-          width: 170,
-          child: PieChart(
-            PieChartData(
-              centerSpaceRadius: 30,
-              sections: [
-                PieChartSectionData(color: yellow, value: 50),
-                PieChartSectionData(color: blue, value: 20),
-                PieChartSectionData(color: green, value: 30),
-              ],
-            ),
-            swapAnimationDuration: const Duration(milliseconds: 150),
-            // Optional
-            swapAnimationCurve: Curves.linear, // Optional
-          ),
-        ),
-        BillCategorySpending(
-          onTap: () async {
-            await BlocProvider.of<BillCubit>(context).loadElectric();
-            if (context.mounted) {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (newcontext) => BlocProvider.value(
-                    value: BlocProvider.of<BillCubit>(context),
-                    child: const ElectricList(),
+    return BlocBuilder<BillCubit, BillState>(
+      builder: (context, state) {
+        if (state is MonthlySpendingCalculated) {
+          List monthly = [
+            state.monthlySpendingElectricity,
+            state.monthlySpendingTelecom,
+            state.monthlySpendingWater,
+          ];
+          return Column(
+            children: [
+              const MySearchBar(),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 170,
+                width: 170,
+                child: PieChart(
+                  PieChartData(
+                    centerSpaceRadius: 30,
+                    sections: [
+                      PieChartSectionData(color: yellow, value: monthly[0]),
+                      PieChartSectionData(color: green, value: monthly[1]),
+                      PieChartSectionData(color: blue, value: monthly[2]),
+                    ],
                   ),
+                  swapAnimationDuration: const Duration(milliseconds: 150),
+                  // Optional
+                  swapAnimationCurve: Curves.linear, // Optional
                 ),
-              );
-            }
-          },
-          sum: 3500,
-          color: yellow,
-          value: 50,
-          title: 'الكهرباء',
-        ),
-        const Divider(),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    return BillCategorySpending(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (newcontext) => BlocProvider.value(
+                              value: BlocProvider.of<BillCubit>(context),
+                              child: BillList(
+                                category: categories[index],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      sum: (monthly[index] * state.monthlySpendingAll) / 360,
+                      color: colors[index],
+                      value: monthly[index],
+                      title: categories[index],
+                    );
+                  },
+                ),
+              )
+            ],
+          );
+        }
+        return const Center(
+          child: Text(' لا يوجد فواتير لحساب الاستهلاك الشهري'),
+        );
+      },
+    );
+  }
+}
+
+/*
+*
+* const Divider(),
         BillCategorySpending(
           onTap: () async {
             await BlocProvider.of<BillCubit>(context).loadWater();
@@ -97,7 +130,6 @@ class MonthlyChart extends StatelessWidget {
           value: 30,
           title: 'الاتصالات',
         )
-      ],
-    );
-  }
-}
+*
+*
+* */

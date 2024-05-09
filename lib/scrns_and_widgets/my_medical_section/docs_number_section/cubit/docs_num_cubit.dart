@@ -12,9 +12,11 @@ class DocsNumCubit extends Cubit<DocsNumState> {
 
   DocsNumCubit() : super(const DocsNumInitial(docsNumber: []));
 
-  void addPhoneNumber(String name, String phoneNumber) async {
+  void addPhoneNumber(
+      String name, String phoneNumber, String specialist, String clinic) async {
     try {
-      Map docConMap = await DoctorsContacts.addContact(name, phoneNumber);
+      Map docConMap = await DoctorsContacts.addContact(
+          name, phoneNumber, clinic, specialist);
       contacts.add(DoctorsContacts.fromMap(docConMap));
       emit(AddDocsNumSuccess(docsNumber: contacts));
     } catch (e) {

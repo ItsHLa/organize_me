@@ -48,7 +48,7 @@ class DocsNumbersListView extends StatelessWidget {
                     )));
           },
           docsName: contacts[index].name,
-          phoneNumber: contacts[index].phone,
+          spec: contacts[index].specialist,
           onPressedCall: () {
             BlocProvider.of<DocsNumCubit>(context).call(contacts[index].phone);
           },
