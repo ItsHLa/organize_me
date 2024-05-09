@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
               content: Text('حصل خطأ اثناء تسجيل الدخول يرجى اعادة محاولة'),
             ),
           );
-        } else if (state is NoEnternet) {
+        } else if (state is NoInternet) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('تحقق من اتصالك بالانترنت'),
@@ -55,7 +55,6 @@ class _LoginState extends State<Login> {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(),
           body: SingleChildScrollView(
             child: Form(
               key: userKey,
@@ -63,6 +62,7 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  const SizedBox(height: 60,),
                   const IconForm(
                     child: Icon(
                       Icons.person_outlined,

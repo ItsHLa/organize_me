@@ -17,4 +17,4 @@ final class RegisterSuccess extends UserState {}
 
 final class RegisterFailed extends UserState {}
 
-final class NoEnternet extends UserState {}
+final class NoInternet extends UserState {}

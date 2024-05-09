@@ -49,22 +49,28 @@ class UserCubit extends Cubit<UserState> {
         emit(LoginFailed());
       }
     } on SocketException {
-      emit(NoEnternet());
+      emit(NoInternet());
     }
   }
 
   void register(User user) async {
     emit(Loading());
-    http.Response response = await ApiCalls.addUser(user);
-    if (response.statusCode == 200) {
-      User.setUserInfo(
-        username: user.username,
-        email: user.email,
-        password: user.password,
-      );
-      emit(RegisterSuccess());
-    } else {
-      emit(RegisterFailed());
+   try{
+     http.Response response = await ApiCalls.addUser(user);
+     if (response.statusCode == 200) {
+       User.setUserInfo(
+         username: user.username,
+         email: user.email,
+         password: user.password,
+       );
+       emit(RegisterSuccess());
+     } else {
+       emit(RegisterFailed());
+     }
+   }on SocketException {
+     emit(NoInternet());
+   }
+
     }
   }
-}
+

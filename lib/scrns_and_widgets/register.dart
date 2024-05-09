@@ -43,10 +43,15 @@ class _RegisterState extends State<Register> {
         if (state is RegisterFailed) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('حصل خطأ اثناء انشاء حساب يرجى اعادة محاولة')));
+        }else if (state is NoInternet) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('تحقق من اتصالك بالانترنت'),
+            ),
+          );
         }
       },
       child: Scaffold(
-        appBar: AppBar(),
         body: SingleChildScrollView(
           child: Form(
             key: userKey,
@@ -54,6 +59,7 @@ class _RegisterState extends State<Register> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
+                const SizedBox(height: 60,),
                 const IconForm(
                     child: Icon(
                   Icons.person_outlined,
@@ -65,16 +71,9 @@ class _RegisterState extends State<Register> {
                 const Text(
                   'هل تريد ربط فواتيرك بعنوان بريدك الالكتروني ؟',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  ' انشىء حساب',
-                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
                 ),
+
                 const SizedBox(
                   height: 15,
                 ),
