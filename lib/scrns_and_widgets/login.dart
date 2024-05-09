@@ -128,22 +128,20 @@ class _LoginState extends State<Login> {
                               .login(email, password);
                         }
                       },
-                      child: state is Loading
-                          ? const Center(
-                              child: SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white54,
-                                ),
+                      child: Center(
+                        child: state is Loading
+                            ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white54,
                               ),
                             )
-                          : const Center(
-                              child: Text(
-                                'سجل دخول',
-                                style: TextStyle(color: Colors.white),
-                              ),
+                            : const Text(
+                              'سجل دخول',
+                              style: TextStyle(color: Colors.white),
                             ),
+                      )
                     ),
                   ),
                 ],

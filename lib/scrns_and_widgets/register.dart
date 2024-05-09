@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
@@ -29,9 +27,9 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserCubit, UserState>(
+    return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        if (state is RegisterBinaryCallbackHandler) {
+        if(state is RegisterSuccess){
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('تم انشاء حساب بنجاح'),
             duration: Duration(seconds: 4),
@@ -39,8 +37,7 @@ class _RegisterState extends State<Register> {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const HomePage(),
           ));
-        }
-        if (state is RegisterFailed) {
+        }else if(state is RegisterFailed){
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('حصل خطأ اثناء انشاء حساب يرجى اعادة محاولة')));
         }else if (state is NoInternet) {
@@ -51,131 +48,147 @@ class _RegisterState extends State<Register> {
           );
         }
       },
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Form(
-            key: userKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                const SizedBox(height: 60,),
-                const IconForm(
-                    child: Icon(
-                  Icons.person_outlined,
-                  size: 50,
-                )),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  'هل تريد ربط فواتيرك بعنوان بريدك الالكتروني ؟',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-                ),
+      builder: (context, state) {
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Form(
+              key: userKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  const SizedBox(height: 60,),
+                  const IconForm(
+                      child: Icon(
+                        Icons.person_outlined,
+                        size: 50,
+                      )),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text(
+                    'هل تريد ربط فواتيرك بعنوان بريدك الالكتروني ؟',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w700),
+                  ),
 
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InputText(
-                    labelText: 'اسم المستخدم',
-                    save: (value) {
-                      setState(() {
-                        username = value!;
-                      });
-                    },
-                    validator: ValidateInputData.checkIfNull,
-                    hint: '',
+                  const SizedBox(
+                    height: 15,
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InputText(
-                    labelText: 'ايميل',
-                    save: (value) {
-                      setState(
-                        () {
-                          email = value!;
-                        },
-                      );
-                    },
-                    validator: ValidateInputData.validateEmail,
-                    hint: '',
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InputText(
-                    labelText: 'كلمة السر',
-                    save: (value) {
-                      setState(
-                        () {
-                          password = value!;
-                        },
-                      );
-                    },
-                    validator: ValidateInputData.validatePassword,
-                    hint: '',
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      child: Text(
-                        'سجل دخول',
-                        style: TextStyle(color: appColorTheme),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const Login(),
-                          ),
-                        );
-                        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InputText(
+                      labelText: 'اسم المستخدم',
+                      save: (value) {
+                        setState(() {
+                          username = value!;
+                        });
                       },
+                      validator: ValidateInputData.checkIfNull,
+                      hint: '',
                     ),
-                    const Text('لديك حساب مسبقا؟'),
-                  ],
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: appColorTheme,
-                    shape: const StadiumBorder(),
                   ),
-                  onPressed: () async {
-                    if (ValidateInputData.validateField(userKey)) {
-                      userKey.currentState?.save();
-                      User user = User(
-                        email: email,
-                        password: password,
-                        username: username,
-                      );
-                      BlocProvider.of<UserCubit>(context).register(user);
-                      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
-                    }
-                  },
-                  child: const Text(
-                    'انشئ حساب',
-                    style: TextStyle(color: Colors.white),
+                  const SizedBox(
+                    height: 5,
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InputText(
+                      labelText: 'ايميل',
+                      save: (value) {
+                        setState(
+                              () {
+                            email = value!;
+                          },
+                        );
+                      },
+                      validator: ValidateInputData.validateEmail,
+                      hint: '',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InputText(
+                      labelText: 'كلمة السر',
+                      save: (value) {
+                        setState(
+                              () {
+                            password = value!;
+                          },
+                        );
+                      },
+                      validator: ValidateInputData.validatePassword,
+                      hint: '',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        child: Text(
+                          'سجل دخول',
+                          style: TextStyle(color: appColorTheme),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const Login(),
+                            ),
+                          );
+                          // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
+                        },
+                      ),
+                      const Text('لديك حساب مسبقا؟'),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: appColorTheme,
+                          shape: const StadiumBorder(),
+                        ),
+                        onPressed: () async {
+                          if (ValidateInputData.validateField(userKey)) {
+                            userKey.currentState?.save();
+                            User user = User(
+                              email: email,
+                              password: password,
+                              username: username,
+                            );
+                            BlocProvider.of<UserCubit>(context).register(user);
+                            // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+                          }
+                        },
+                        child: Center(
+                          child: state is Loading
+                              ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white54,
+                            ),
+                          )
+                              : const Text(
+                            'انشاء حساب',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
