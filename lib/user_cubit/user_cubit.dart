@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
 
 import '../services/api_calls.dart';
 import '../user.dart';
@@ -25,35 +29,42 @@ class UserCubit extends Cubit<UserState> {
 
   void login(String email, String password) async {
     emit(Loading());
-    http.Response r = await ApiCalls.login(email, password);
-    print(r);
-    if (r.statusCode == 200) {
-      //  print(r.body.);
-      User.setUserInfo(
-          username: 'user', //r.body['user']
+    try {
+      http.Response r = await ApiCalls.login(email, password);
+      Map bodyMap = jsonDecode(r.body);
+      print(bodyMap['el']);
+      if (r.statusCode == 200) {
+        await User.setUserInfo(
+          username: bodyMap['username'],
           email: email,
-          password: password);
-      emit(Success());
-    } else {
-      print('failed');
-      emit(Failed());
+          password: password,
+        );
+        await Bill.fillDatabase(
+          elBills: bodyMap['el'],
+          waBills: bodyMap['wa'],
+          telBills: bodyMap['tel'],
+        );
+        emit(LoginSuccess());
+      } else {
+        emit(LoginFailed());
+      }
+    } on SocketException {
+      emit(NoEnternet());
     }
   }
 
   void register(User user) async {
     emit(Loading());
     http.Response response = await ApiCalls.addUser(user);
-    print(response);
     if (response.statusCode == 200) {
-      //  print(response.body.);
       User.setUserInfo(
-          username: user.username, //response.body['user']
-          email: user.email,
-          password: user.password);
-      emit(Success());
+        username: user.username,
+        email: user.email,
+        password: user.password,
+      );
+      emit(RegisterSuccess());
     } else {
-      print('failed');
-      emit(Failed());
+      emit(RegisterFailed());
     }
   }
 }

@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'my_row.dart';
 
 class TelecomBillDetail extends StatelessWidget {
-  const TelecomBillDetail(
-      {super.key,
-      required this.date,
-      required this.operationNumber,
-      required this.phoneNumberEmail,
-      required this.paymentAmount,
-      required this.commissionAmount});
+  const TelecomBillDetail({
+    super.key,
+    required this.date,
+    required this.time,
+    required this.operationNumber,
+    required this.phoneNumberEmail,
+    required this.paymentAmount,
+    required this.commissionAmount,
+  });
 
   final String date;
+  final String time;
   final String operationNumber;
   final String phoneNumberEmail;
   final String paymentAmount;

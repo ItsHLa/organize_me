@@ -6,7 +6,7 @@ import 'package:organize_me/user.dart';
 import '../scrns_and_widgets/bill_section/models/bill.dart';
 
 class ApiCalls {
-  static String baseUrl = "https://haidaraib.pythonanywhere.com";
+  static String baseUrl = "http://haidaraib.pythonanywhere.com";
 
   static Future<http.Response> addUser(User user) async {
     var r = await http.post(

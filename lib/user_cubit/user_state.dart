@@ -9,6 +9,12 @@ final class UserInfoLoaded extends UserState {}
 
 final class Loading extends UserState {}
 
-final class Success extends UserState {}
+final class LoginSuccess extends UserState {}
 
-final class Failed extends UserState {}
+final class LoginFailed extends UserState {}
+
+final class RegisterSuccess extends UserState {}
+
+final class RegisterFailed extends UserState {}
+
+final class NoEnternet extends UserState {}

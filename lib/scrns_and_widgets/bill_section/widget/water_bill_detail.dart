@@ -6,6 +6,7 @@ class WaterBillDetail extends StatelessWidget {
   const WaterBillDetail({
     super.key,
     required this.date,
+    required this.time,
     required this.operationNumber,
     required this.paymentAmount,
     required this.barcodeNumber,
@@ -18,6 +19,7 @@ class WaterBillDetail extends StatelessWidget {
   final String paymentAmount;
   final String commissionAmount;
   final String date;
+  final String time;
   final String gov;
   final String receiptNumber;
   final String barcodeNumber;

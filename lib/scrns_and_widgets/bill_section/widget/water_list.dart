@@ -13,29 +13,31 @@ class WaterList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<BillCubit>(context).loadWater();
     return Scaffold(
       appBar: AppBar(),
       body: BlocBuilder<BillCubit, BillState>(
         builder: (context, state) {
           if (state is LoadingBill) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else if (state is BillLoaded && state.bills.isNotEmpty) {
             return MyListView(
-                dataList: state.bills,
-                itemCount: state.bills.length,
-                itemBuilder: (context, index) {
-                  WaterBill current = state.bills[index] as WaterBill;
-                  return WaterBills(
-                      gov: current.gov,
-                      commissionAmount: current.commissionAmount.toString(),
-                      receiptNumber: current.receiptNumber,
-                      date: current.date,
-                      operationNumber: current.operationNumber,
-                      paymentAmount: current.commissionAmount.toString(),
-                      barcodeNumber: current.barcodeNumber,
-                      counterNumber: current.counterNumber);
-                });
+              dataList: state.bills,
+              itemCount: state.bills.length,
+              itemBuilder: (context, index) {
+                WaterBill current = state.bills[index] as WaterBill;
+                return WaterBills(
+                  time: current.time,
+                  gov: current.gov,
+                  commissionAmount: current.commissionAmount.toString(),
+                  receiptNumber: current.receiptNumber,
+                  date: current.date,
+                  operationNumber: current.operationNumber,
+                  paymentAmount: current.commissionAmount.toString(),
+                  barcodeNumber: current.barcodeNumber,
+                  counterNumber: current.counterNumber,
+                );
+              },
+            );
           }
           return const Center(
             child: Text(

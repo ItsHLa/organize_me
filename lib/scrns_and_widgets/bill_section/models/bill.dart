@@ -1,8 +1,27 @@
 import 'package:organize_me/database/db.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/water_bill.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class Bill {
   Map<String, String> toJson();
+
+  static Future<void> fillDatabase({
+    required List elBills,
+    required List waBills,
+    required List telBills,
+  }) async {
+    for (Map bill in elBills) {
+      await ElectricBill.addBill(provider: bill['provider'], billMap: bill);
+    }
+    for (Map bill in waBills) {
+      await WaterBill.addBill(provider: bill['provider'], billMap: bill);
+    }
+    for (Map bill in telBills) {
+      await TelecomBill.addBill(provider: bill['provider'], billMap: bill);
+    }
+  }
 
   static Future<double> calculatePayments(
     String tableName,

@@ -27,18 +27,30 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        if (state is Success) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('تم تسجيل الدخول بنجاح'),
-            duration: Duration(seconds: 4),
-          ));
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const HomePage(),
-          ));
-        }
-        if (state is Failed) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('حصل خطأ اثناء تسجيل الدخول يرجى اعادة محاولة')));
+        if (state is LoginSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('تم تسجيل الدخول بنجاح'),
+              duration: Duration(seconds: 4),
+            ),
+          );
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        } else if (state is LoginFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('حصل خطأ اثناء تسجيل الدخول يرجى اعادة محاولة'),
+            ),
+          );
+        } else if (state is NoEnternet) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('تحقق من اتصالك بالانترنت'),
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -119,11 +131,12 @@ class _LoginState extends State<Login> {
                       child: state is Loading
                           ? const Center(
                               child: SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white54,
-                                  )),
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white54,
+                                ),
+                              ),
                             )
                           : const Center(
                               child: Text(

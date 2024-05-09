@@ -5,6 +5,7 @@ class WaterBills extends StatelessWidget {
   const WaterBills({
     super.key,
     required this.date,
+    required this.time,
     required this.barcodeNumber,
     required this.operationNumber,
     required this.counterNumber,
@@ -17,6 +18,7 @@ class WaterBills extends StatelessWidget {
   final String paymentAmount;
   final String commissionAmount;
   final String date;
+  final String time;
   final String gov;
   final String receiptNumber;
   final String barcodeNumber;
@@ -29,11 +31,13 @@ class WaterBills extends StatelessWidget {
       children: [
         Card(
           child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: ListTile(
-                  title: Text('رقم الايصال$receiptNumber'),
-                  subtitle: Text(date))),
+            padding: const EdgeInsets.all(5.0),
+            child: ListTile(
+              title: Text('رقم الايصال$receiptNumber'),
+              subtitle: Text(date),
+            ),
           ),
+        ),
         Positioned(
           top: -4,
           right: -4,

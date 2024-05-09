@@ -4,19 +4,22 @@ import 'package:organize_me/constants.dart';
 import 'my_row.dart';
 
 class TelecomBills extends StatelessWidget {
-  const TelecomBills(
-      {super.key,
-      required this.date,
-      required this.operationNumber,
-      required this.phoneNumberEmail,
-      required this.paymentAmount,
-      required this.commissionAmount,
-      required this.invoiceNumber});
+  const TelecomBills({
+    super.key,
+    required this.date,
+    required this.time,
+    required this.operationNumber,
+    required this.phoneNumberEmail,
+    required this.paymentAmount,
+    required this.commissionAmount,
+    required this.invoiceNumber,
+  });
 
   final String paymentAmount;
   final String commissionAmount;
   final String invoiceNumber;
   final String date;
+  final String time;
   final String phoneNumberEmail;
   final String operationNumber;
 
@@ -37,6 +40,7 @@ class TelecomBills extends StatelessWidget {
                       paymentAmount: paymentAmount,
                       operationNumber: operationNumber,
                       commissionAmount: commissionAmount,
+                      time: time,
                     ),
                   );
                 },
@@ -55,15 +59,18 @@ class TelecomBills extends StatelessWidget {
 }
 
 class TelecomBillDetail extends StatelessWidget {
-  const TelecomBillDetail(
-      {super.key,
-      required this.date,
-      required this.operationNumber,
-      required this.phoneNumberEmail,
-      required this.paymentAmount,
-      required this.commissionAmount});
+  const TelecomBillDetail({
+    super.key,
+    required this.date,
+    required this.time,
+    required this.operationNumber,
+    required this.phoneNumberEmail,
+    required this.paymentAmount,
+    required this.commissionAmount,
+  });
 
   final String date;
+  final String time;
   final String operationNumber;
   final String phoneNumberEmail;
   final String paymentAmount;

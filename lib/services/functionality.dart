@@ -247,8 +247,8 @@ class ValidateInputData {
     if (value!.isEmpty) {
       return 'لا يمكن لهذا الحقل ان يكون فارغ';
     }
-    if (value.length < 6) {
-      return 'كلمة السر يجب ان تكون على الاقل 6 محارف';
+    if (value.length < 5) {
+      return 'كلمة السر يجب ان تكون على الاقل 5 محارف';
     }
     return null;
   }

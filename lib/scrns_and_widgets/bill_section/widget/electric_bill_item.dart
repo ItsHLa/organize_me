@@ -7,6 +7,7 @@ class ElectricBills extends StatelessWidget {
   const ElectricBills({
     super.key,
     required this.date,
+    required this.time,
     required this.operationNumber,
     required this.billingNumber,
     required this.subscriptionNumber,
@@ -20,6 +21,7 @@ class ElectricBills extends StatelessWidget {
   final String commissionAmount;
   final String invoiceNumber;
   final String date;
+  final String time;
   final String gov;
   final String billingNumber;
   final String subscriptionNumber;
@@ -37,6 +39,7 @@ class ElectricBills extends StatelessWidget {
                 showModalBottomSheet(
                   context: context,
                   builder: (context) => ElectricBillDetail(
+                    time: time,
                     date: date,
                     paymentAmount: paymentAmount,
                     operationNumber: operationNumber,

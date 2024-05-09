@@ -45,22 +45,22 @@ class WaterBill extends Bill {
 
   static Map _extractMatches(Match match) {
     Map matchesMap = {};
-    matchesMap['paymentAmount'] =
+    matchesMap['payment_amount'] =
         double.parse(match.group(waterRegexGroups['payment amount']!)!);
 
-    matchesMap['commissionAmount'] =
+    matchesMap['commission_amount'] =
         double.parse(match.group(waterRegexGroups['commission amount']!)!);
 
-    matchesMap['operationNumber'] =
+    matchesMap['operation_number'] =
         match.group(waterRegexGroups['operation number']!)!;
 
-    matchesMap['receiptNumber'] =
+    matchesMap['receipt_number'] =
         match.group(waterRegexGroups['receipt number']!)!;
 
-    matchesMap['barcodeNumber'] =
+    matchesMap['barcode_number'] =
         match.group(waterRegexGroups['barcode number']!)!;
 
-    matchesMap['counterNumber'] =
+    matchesMap['counter_number'] =
         match.group(waterRegexGroups['counter number']!)!;
 
     String dateTime = match.group(waterRegexGroups['date']!)!;
@@ -71,12 +71,18 @@ class WaterBill extends Bill {
     return matchesMap;
   }
 
-  static Future<Map> addBill(
-    Match match, {
+  static Future<Map> addBill({
+    Match? match,
+    Map? billMap,
     required String provider,
   }) async {
     Database? mydb = await DatabaseHelper.db;
-    Map matchesMap = _extractMatches(match);
+    Map matchesMap;
+    if (match != null) {
+      matchesMap = _extractMatches(match);
+    } else {
+      matchesMap = billMap!;
+    }
     int billId = await mydb!.rawInsert(
       """
         INSERT OR IGNORE INTO $tableName(
@@ -96,26 +102,26 @@ class WaterBill extends Bill {
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
       """,
       [
-        matchesMap['paymentAmount'],
-        matchesMap['commissionAmount'],
+        matchesMap['payment_amount'],
+        matchesMap['commission_amount'],
         matchesMap['date'],
         matchesMap['time'],
         provider,
-        matchesMap['operationNumber'],
+        matchesMap['operation_number'],
         matchesMap['gov'],
-        matchesMap['receiptNumber'],
-        matchesMap['barcodeNumber'],
-        matchesMap['counterNumber'],
+        matchesMap['receipt_nmber'],
+        matchesMap['barcode_number'],
+        matchesMap['counter_number'],
       ],
     );
-    return (await geOneBill(billId));
+    return match != null ? (await getOneBill(billId)) : {};
   }
 
   static deleteBill(int billId) async {
     await Bill.deleteBill(tableName, billId);
   }
 
-  static Future<Map> geOneBill(int billId) async {
+  static Future<Map> getOneBill(int billId) async {
     Database? mydb = await DatabaseHelper.db;
     List<Map> bill = await mydb!.rawQuery(
       """
@@ -145,29 +151,29 @@ class WaterBill extends Bill {
 
   factory WaterBill.fromJson(Map<String, dynamic> json) => WaterBill(
         id: json["id"],
-        paymentAmount: json["paymentAmount"],
-        commissionAmount: json["commissionAmount"],
+        paymentAmount: json["payment_amount"],
+        commissionAmount: json["commission_amount"],
         date: json["date"],
         time: json["time"],
         provider: json["provider"],
-        operationNumber: json["operationNumber"],
+        operationNumber: json["operation_number"],
         gov: json["gov"],
-        receiptNumber: json["receiptNumber"],
-        barcodeNumber: json["barcodeNumber"],
-        counterNumber: json["counterNumber"],
+        receiptNumber: json["receipt_number"],
+        barcodeNumber: json["barcode_number"],
+        counterNumber: json["counter_number"],
       );
 
   @override
   Map<String, String> toJson() => {
-        "paymentAmount": paymentAmount.toString(),
-        "commissionAmount": commissionAmount.toString(),
+        "payment_amount": paymentAmount.toString(),
+        "commission_amount": commissionAmount.toString(),
         "date": date,
         "time": time,
         "provider": provider,
-        "operationNumber": operationNumber,
+        "operation_number": operationNumber,
         "gov": gov,
-        "receiptNumber": receiptNumber,
-        "counterNumber": counterNumber,
-        "barcodeNumber": barcodeNumber,
+        "receipt_number": receiptNumber,
+        "counter_number": counterNumber,
+        "barcode_number": barcodeNumber,
       };
 }

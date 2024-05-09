@@ -13,28 +13,29 @@ class TelecomList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<BillCubit>(context).loadTelecom();
     return Scaffold(
       appBar: AppBar(),
       body: BlocBuilder<BillCubit, BillState>(
         builder: (context, state) {
           if (state is LoadingBill) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else if (state is BillLoaded && state.bills.isNotEmpty) {
             return MyListView(
-                dataList: state.bills,
-                itemCount: state.bills.length,
-                itemBuilder: (context, index) {
-                  TelecomBill currentBill = state.bills[index] as TelecomBill;
-                  return TelecomBills(
-                    invoiceNumber: currentBill.invoiceNumber,
-                    paymentAmount: '${currentBill.paymentAmount}',
-                    operationNumber: currentBill.operationNumber,
-                    date: currentBill.date,
-                    phoneNumberEmail: currentBill.phoneNumberEmail,
-                    commissionAmount: currentBill.commissionAmount.toString(),
-                  );
-                });
+              dataList: state.bills,
+              itemCount: state.bills.length,
+              itemBuilder: (context, index) {
+                TelecomBill currentBill = state.bills[index] as TelecomBill;
+                return TelecomBills(
+                  time: currentBill.time,
+                  invoiceNumber: currentBill.invoiceNumber,
+                  paymentAmount: '${currentBill.paymentAmount}',
+                  operationNumber: currentBill.operationNumber,
+                  date: currentBill.date,
+                  phoneNumberEmail: currentBill.phoneNumberEmail,
+                  commissionAmount: currentBill.commissionAmount.toString(),
+                );
+              },
+            );
           }
           return const Center(
             child: Text(

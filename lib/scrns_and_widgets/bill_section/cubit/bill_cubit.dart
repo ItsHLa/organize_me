@@ -14,33 +14,33 @@ class BillCubit extends Cubit<BillState> {
 
   void payFromSyriatelCash() async {}
 
-  void loadWater() async {
+  Future<void> loadWater() async {
     emit(LoadingBill(bills: bills));
     try {
       await WaterBill.getAllBills().then((waBills) => bills = waBills);
       emit(BillLoaded(bills: bills));
     } catch (e) {
-      emit(LoadingBill(bills: bills));
+      emit(LoadingBillFailed(e.toString(), bills: bills));
     }
   }
 
-  void loadElectric() async {
+  Future<void> loadElectric() async {
     emit(LoadingBill(bills: bills));
     try {
       await ElectricBill.getAllBills().then((elBills) => bills = elBills);
+      emit(BillLoaded(bills: bills));
     } catch (e) {
-      emit(LoadingBill(bills: bills));
+      emit(LoadingBillFailed(e.toString(), bills: bills));
     }
-    emit(BillLoaded(bills: bills));
   }
 
-  void loadTelecom() async {
+  Future<void> loadTelecom() async {
     emit(LoadingBill(bills: bills));
     try {
       await TelecomBill.getAllBills().then((telBills) => bills = telBills);
+      emit(BillLoaded(bills: bills));
     } catch (e) {
-      emit(LoadingBill(bills: bills));
+      emit(LoadingBillFailed(e.toString(), bills: bills));
     }
-    emit(BillLoaded(bills: bills));
   }
 }

@@ -48,22 +48,22 @@ class ElectricBill extends Bill {
 
   static Map _extractMatches(Match match) {
     Map matchesMap = {};
-    matchesMap['paymentAmount'] =
+    matchesMap['payment_amount'] =
         double.parse(match.group(electricRegexGroups['payment amount']!)!);
 
-    matchesMap['commissionAmount'] =
+    matchesMap['commission_amount'] =
         double.parse(match.group(electricRegexGroups['commission amount']!)!);
 
-    matchesMap['operationNumber'] =
+    matchesMap['operation_number'] =
         match.group(electricRegexGroups['operation number']!)!;
 
-    matchesMap['subscriptionNumber'] =
+    matchesMap['subscription_number'] =
         match.group(electricRegexGroups['subscription number']!)!;
 
-    matchesMap['billingNumber'] =
+    matchesMap['billing_number'] =
         match.group(electricRegexGroups['billing number']!)!;
 
-    matchesMap['invoiceNumber'] =
+    matchesMap['invoice_number'] =
         match.group(electricRegexGroups['invoice number']!)!;
 
     String dateTime = match.group(electricRegexGroups['date']!)!;
@@ -74,13 +74,18 @@ class ElectricBill extends Bill {
     return matchesMap;
   }
 
-  static Future<Map> addBill(
-    Match match, {
+  static Future<Map> addBill({
+    Match? match,
+    Map? billMap,
     required String provider,
   }) async {
     Database? mydb = await DatabaseHelper.db;
-
-    Map matchesMap = _extractMatches(match);
+    Map matchesMap;
+    if (match != null) {
+      matchesMap = _extractMatches(match);
+    } else {
+      matchesMap = billMap!;
+    }
 
     int billId = await mydb!.rawInsert(
       """
@@ -98,29 +103,30 @@ class ElectricBill extends Bill {
           invoice_number,
           operation_number
 
-        ) VALUES (?, ?, ?, ?, ?, ?, ?,s ?, ?, ?);
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
       """,
       [
-        matchesMap['paymentAmount'],
-        matchesMap['commissionAmount'],
+        matchesMap['payment_amount'],
+        matchesMap['commission_amount'],
         matchesMap['date'],
         matchesMap['time'],
         provider,
-        matchesMap['operationNumber'],
+        matchesMap['operation_number'],
         matchesMap['gov'],
-        matchesMap['billingNumber'],
-        matchesMap['invoiceNumber'],
-        matchesMap['subscriptionNumber'],
+        matchesMap['billing_number'],
+        matchesMap['invoice_number'],
+        matchesMap['subscription_number'],
       ],
     );
-    return (await geOneBill(billId));
+    print((await getOneBill(billId)));
+    return match != null ? (await getOneBill(billId)) : {};
   }
 
   static deleteBill(int billId) async {
     await Bill.deleteBill(tableName, billId);
   }
 
-  static Future<Map> geOneBill(int billId) async {
+  static Future<Map> getOneBill(int billId) async {
     Database? mydb = await DatabaseHelper.db;
     List<Map> bill = await mydb!.rawQuery(
       """
@@ -153,28 +159,28 @@ class ElectricBill extends Bill {
 
   factory ElectricBill.fromJson(Map<String, dynamic> json) => ElectricBill(
       id: json["id"],
-      paymentAmount: json["paymentAmount"],
-      commissionAmount: json["commissionAmount"],
+      paymentAmount: json["payment_amount"],
+      commissionAmount: json["commission_amount"],
       date: json["date"],
       time: json["time"],
       provider: json["provider"],
-      operationNumber: json["operationNumber"],
+      operationNumber: json["operation_number"],
       gov: json["gov"],
-      billingNumber: json["billingNumber"],
-      invoiceNumber: json["invoiceNumber"],
-      subscriptionNumber: json["subscriptionNumber"]);
+      billingNumber: json["billing_number"],
+      invoiceNumber: json["invoice_number"],
+      subscriptionNumber: json["subscription_number"]);
 
   @override
   Map<String, String> toJson() => {
-        "paymentAmount": paymentAmount.toString(),
-        "commissionAmount": commissionAmount.toString(),
+        "payment_amount": paymentAmount.toString(),
+        "commission_amount": commissionAmount.toString(),
         "date": date,
         "time": time,
         "provider": provider,
-        "operationNumber": operationNumber,
+        "operation_number": operationNumber,
         "gov": gov,
-        "billingNumber": billingNumber,
-        "invoiceNumber": invoiceNumber,
-        "subscriptionNumber": subscriptionNumber,
+        "billing_number": billingNumber,
+        "invoice_number": invoiceNumber,
+        "subscription_number": subscriptionNumber,
       };
 }

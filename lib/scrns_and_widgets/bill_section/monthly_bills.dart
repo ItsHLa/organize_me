@@ -39,40 +39,64 @@ class MonthlyChart extends StatelessWidget {
           ),
         ),
         BillCategorySpending(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
+          onTap: () async {
+            await BlocProvider.of<BillCubit>(context).loadElectric();
+            if (context.mounted) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
                   builder: (newcontext) => BlocProvider.value(
-                      value: BlocProvider.of<BillCubit>(context),
-                      child: const ElectricList())));
-            },
-            sum: 3500,
-            color: yellow,
-            value: 50,
-            title: 'الكهرباء'),
+                    value: BlocProvider.of<BillCubit>(context),
+                    child: const ElectricList(),
+                  ),
+                ),
+              );
+            }
+          },
+          sum: 3500,
+          color: yellow,
+          value: 50,
+          title: 'الكهرباء',
+        ),
         const Divider(),
         BillCategorySpending(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
+          onTap: () async {
+            await BlocProvider.of<BillCubit>(context).loadWater();
+            if (context.mounted) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
                   builder: (newcontext) => BlocProvider.value(
-                      value: BlocProvider.of<BillCubit>(context),
-                      child: const WaterList())));
-            },
-            sum: 3500,
-            color: blue,
-            value: 20,
-            title: 'المياه'),
+                    value: BlocProvider.of<BillCubit>(context),
+                    child: const WaterList(),
+                  ),
+                ),
+              );
+            }
+          },
+          sum: 3500,
+          color: blue,
+          value: 20,
+          title: 'المياه',
+        ),
         const Divider(),
         BillCategorySpending(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
+          onTap: () async {
+            await BlocProvider.of<BillCubit>(context).loadTelecom();
+            if (context.mounted) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
                   builder: (newcontext) => BlocProvider.value(
-                      value: BlocProvider.of<BillCubit>(context),
-                      child: const TelecomList())));
-            },
-            sum: 3500,
-            color: green,
-            value: 30,
-            title: 'الاتصالات')
+                    value: BlocProvider.of<BillCubit>(context),
+                    child: const TelecomList(),
+                  ),
+                ),
+              );
+            }
+          },
+          sum: 3500,
+          color: green,
+          value: 30,
+          title: 'الاتصالات',
+        )
       ],
     );
   }

@@ -41,19 +41,19 @@ class TelecomBill extends Bill {
 
   static Map _extractMatches(Match match) {
     Map matchesMap = {};
-    matchesMap['paymentAmount'] =
+    matchesMap['payment_amount'] =
         double.parse(match.group(telecomRegexGroups['payment amount']!)!);
 
-    matchesMap['commissionAmount'] =
+    matchesMap['commission_amount'] =
         double.parse(match.group(telecomRegexGroups['commission amount']!)!);
 
-    matchesMap['operationNumber'] =
+    matchesMap['operation_number'] =
         match.group(telecomRegexGroups['operation number']!)!;
 
-    matchesMap['phoneNumberEmail'] =
+    matchesMap['phone_number_email'] =
         match.group(telecomRegexGroups['phone number/email']!)!;
 
-    matchesMap['invoiceNumber'] =
+    matchesMap['invoice_number'] =
         match.group(telecomRegexGroups['invoice number']!)!;
 
     String dateTime = match.group(telecomRegexGroups['date']!)!;
@@ -62,12 +62,20 @@ class TelecomBill extends Bill {
     return matchesMap;
   }
 
-  static Future<Map> addBill(
-    Match match, {
+  static Future<Map> addBill({
+    Match? match,
+    Map? billMap,
     required String provider,
   }) async {
     Database? mydb = await DatabaseHelper.db;
-    Map matchesMap = _extractMatches(match);
+
+    Map matchesMap;
+    if (match != null) {
+      matchesMap = _extractMatches(match);
+    } else {
+      matchesMap = billMap!;
+    }
+
     int billId = await mydb!.rawInsert(
       """
         INSERT OR IGNORE INTO $tableName(
@@ -84,24 +92,24 @@ class TelecomBill extends Bill {
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
       """,
       [
-        matchesMap['paymentAmount'],
-        matchesMap['commissionAmount'],
+        matchesMap['payment_amount'],
+        matchesMap['commission_amount'],
         matchesMap['date'],
         matchesMap['time'],
         provider,
-        matchesMap['operationNumber'],
-        matchesMap['invoiceNumber'],
-        matchesMap['phoneNumberEmail'],
+        matchesMap['operation_number'],
+        matchesMap['invoice_number'],
+        matchesMap['phone_number_email'],
       ],
     );
-    return (await geOneBill(billId));
+    return match != null ? (await getOneBill(billId)) : {};
   }
 
   static deleteBill(int billId) async {
     await Bill.deleteBill(tableName, billId);
   }
 
-  static Future<Map> geOneBill(int billId) async {
+  static Future<Map> getOneBill(int billId) async {
     Database? mydb = await DatabaseHelper.db;
     List<Map> bill = await mydb!.rawQuery(
       """
@@ -131,24 +139,24 @@ class TelecomBill extends Bill {
 
   factory TelecomBill.fromJson(Map<String, dynamic> json) => TelecomBill(
       id: json["id"],
-      paymentAmount: json["paymentAmount"],
-      commissionAmount: json["commissionAmount"],
+      paymentAmount: json["payment_amount"],
+      commissionAmount: json["commission_amount"],
       date: json["date"],
       time: json["time"],
       provider: json["provider"],
-      operationNumber: json["operationNumber"],
-      invoiceNumber: json["invoiceNumber"],
-      phoneNumberEmail: json['phoneNumberEmail']);
+      operationNumber: json["operation_number"],
+      invoiceNumber: json["invoice_number"],
+      phoneNumberEmail: json['phone_number_email']);
 
   @override
   Map<String, String> toJson() => {
-        "paymentAmount": paymentAmount.toString(),
-        "commissionAmount": commissionAmount.toString(),
+        "payment_amount": paymentAmount.toString(),
+        "commission_amount": commissionAmount.toString(),
         "date": date,
         "time": time,
         "provider": provider,
-        "operationNumber": operationNumber,
-        "phoneNumberEmail": phoneNumberEmail,
-        "invoiceNumber": invoiceNumber,
+        "operation_number": operationNumber,
+        "phone_number_email": phoneNumberEmail,
+        "invoice_number": invoiceNumber,
       };
 }

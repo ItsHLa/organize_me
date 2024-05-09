@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
@@ -29,7 +31,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return BlocListener<UserCubit, UserState>(
       listener: (context, state) {
-        if (state is Success) {
+        if (state is RegisterBinaryCallbackHandler) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('تم انشاء حساب بنجاح'),
             duration: Duration(seconds: 4),
@@ -38,7 +40,7 @@ class _RegisterState extends State<Register> {
             builder: (context) => const HomePage(),
           ));
         }
-        if (state is Failed) {
+        if (state is RegisterFailed) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('حصل خطأ اثناء انشاء حساب يرجى اعادة محاولة')));
         }
