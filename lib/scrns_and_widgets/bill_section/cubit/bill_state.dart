@@ -29,6 +29,48 @@ final class MonthlySpendingLoading extends BillState {
   const MonthlySpendingLoading({required super.bills});
 }
 
+final class LoadingElectric extends BillState {
+  const LoadingElectric({required super.bills});
+}
+
+final class ElectricLoaded extends BillState {
+  const ElectricLoaded({required super.bills});
+}
+
+final class ElectricFailed extends BillState {
+  final String msg;
+
+  const ElectricFailed(this.msg, {required super.bills});
+}
+
+final class LoadingWater extends BillState {
+  const LoadingWater({required super.bills});
+}
+
+final class WaterLoaded extends BillState {
+  const WaterLoaded({required super.bills});
+}
+
+final class WaterFailed extends BillState {
+  final String msg;
+
+  const WaterFailed(this.msg, {required super.bills});
+}
+
+final class LoadingTelecom extends BillState {
+  const LoadingTelecom({required super.bills});
+}
+
+final class TelecomLoaded extends BillState {
+  const TelecomLoaded({required super.bills});
+}
+
+final class TelecomFailed extends BillState {
+  final String msg;
+
+  const TelecomFailed(this.msg, {required super.bills});
+}
+
 final class MonthlySpendingCalculated extends BillState {
   final double monthlySpendingWater;
   final double monthlySpendingElectricity;

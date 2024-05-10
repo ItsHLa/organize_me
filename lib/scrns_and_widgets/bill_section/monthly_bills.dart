@@ -17,19 +17,21 @@ class MonthlyChart extends StatefulWidget {
 
 class _MonthlyChartState extends State<MonthlyChart> {
   List categories = ['الكهرباء', 'الاتصالات', 'المياه'];
-  List colors = [green, yellow, blue];
+  List colors = [yellow, green, blue];
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<BillCubit>(context).monthlySpendingOneCategory(2024, 4);
     return BlocBuilder<BillCubit, BillState>(
       builder: (context, state) {
-        print(state.bills.toString());
+        print(state.bills);
         if (state is MonthlySpendingCalculated) {
           List monthly = [
             state.monthlySpendingElectricity,
             state.monthlySpendingTelecom,
             state.monthlySpendingWater,
           ];
+          print(monthly);
           return Column(
             children: [
               const MySearchBar(),
@@ -43,9 +45,9 @@ class _MonthlyChartState extends State<MonthlyChart> {
                   PieChartData(
                     centerSpaceRadius: 30,
                     sections: [
-                      PieChartSectionData(color: yellow, value: monthly[0]),
-                      PieChartSectionData(color: green, value: monthly[1]),
-                      PieChartSectionData(color: blue, value: monthly[2]),
+                      PieChartSectionData(color: yellow, value: monthly[0]), //
+                      PieChartSectionData(color: green, value: monthly[1]), //
+                      PieChartSectionData(color: blue, value: monthly[2]), //
                     ],
                   ),
                   swapAnimationDuration: const Duration(milliseconds: 150),
@@ -59,6 +61,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
                   itemBuilder: (context, index) {
                     return BillCategorySpending(
                       onTap: () {
+                        print(categories[index]);
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (newcontext) => BlocProvider.value(
@@ -81,9 +84,11 @@ class _MonthlyChartState extends State<MonthlyChart> {
             ],
           );
         }
-        return const Center(
-          child: Text(' لا يوجد فواتير لحساب الاستهلاك الشهري'),
+        return Container(
+          color: red,
         );
+        //return const Center(  child: Text(' لا يوجد فواتير لحساب الاستهلاك الشهري'),
+        //);
       },
     );
   }

@@ -19,9 +19,9 @@ class BillCubit extends Cubit<BillState> {
     emit(LoadingBill(bills: bills));
     try {
       await WaterBill.getAllBills().then((waBills) => bills = waBills);
-      emit(BillLoaded(bills: bills));
+      emit(WaterLoaded(bills: bills));
     } catch (e) {
-      emit(LoadingBillFailed(e.toString(), bills: bills));
+      emit(WaterFailed(e.toString(), bills: bills));
     }
   }
 
@@ -29,9 +29,9 @@ class BillCubit extends Cubit<BillState> {
     emit(LoadingBill(bills: bills));
     try {
       await ElectricBill.getAllBills().then((elBills) => bills = elBills);
-      emit(BillLoaded(bills: bills));
+      emit(ElectricLoaded(bills: bills));
     } catch (e) {
-      emit(LoadingBillFailed(e.toString(), bills: bills));
+      emit(ElectricFailed(e.toString(), bills: bills));
     }
   }
 
@@ -39,9 +39,9 @@ class BillCubit extends Cubit<BillState> {
     emit(LoadingBill(bills: bills));
     try {
       await TelecomBill.getAllBills().then((telBills) => bills = telBills);
-      emit(BillLoaded(bills: bills));
+      emit(TelecomLoaded(bills: bills));
     } catch (e) {
-      emit(LoadingBillFailed(e.toString(), bills: bills));
+      emit(TelecomFailed(e.toString(), bills: bills));
     }
   }
 
@@ -51,19 +51,27 @@ class BillCubit extends Cubit<BillState> {
   ) async {
     emit(const MonthlySpendingLoading(bills: []));
     try {
-      double water = await Bill.calculatePayments('water_bills', year, month);
-      double electric =
-          await Bill.calculatePayments('electric_bills', year, month);
-      double telecom =
-          await Bill.calculatePayments('telecom_bills', year, month);
-      double all = water + electric + telecom;
+      List tableName = [
+        WaterBill.tableName,
+        ElectricBill.tableName,
+        TelecomBill.tableName,
+      ];
+      List categorySum = [];
+      double sumMonthlySpending = 0;
+      for (var table in tableName) {
+        double sum = await Bill.calculatePayments(table, year, month);
+        categorySum.add(sum);
+        sumMonthlySpending += sum;
+      }
       emit(MonthlySpendingCalculated(
           bills: bills,
-          monthlySpendingWater: (water / all) * 360,
-          monthlySpendingElectricity: (electric / all) * 360,
-          monthlySpendingTelecom: (telecom / all) * 360,
-          monthlySpendingAll: all));
+          monthlySpendingWater: (categorySum[0] / sumMonthlySpending) * 360,
+          monthlySpendingElectricity:
+              (categorySum[1] / sumMonthlySpending) * 360,
+          monthlySpendingTelecom: (categorySum[2] / sumMonthlySpending) * 360,
+          monthlySpendingAll: sumMonthlySpending));
     } catch (e) {
+      print('ff');
       emit(const MonthlySpendingFailed(bills: []));
     }
   }

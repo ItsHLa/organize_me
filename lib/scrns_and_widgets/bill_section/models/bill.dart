@@ -33,9 +33,12 @@ abstract class Bill {
     List<Map> payments = await mydb!.rawQuery(
       """
         SELECT SUM(payment_amount) FROM $tableName 
-        WHERE date LIKE '__/${month.toString().padLeft(2, '0')}/$year';
+        WHERE date LIKE '__/__/$year';
       """,
     );
+    //${month.toString().padLeft(2, '0')}
+    print(payments);
+    print(tableName);
 
     return payments[0]['SUM(payment_amount)'];
   }
