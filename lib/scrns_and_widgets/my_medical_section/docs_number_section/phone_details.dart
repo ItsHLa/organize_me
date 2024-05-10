@@ -28,11 +28,17 @@ class ContactDetails extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: onPressedEdit,
-                child: const Text('تعديل'),
+                child: Text(
+                  'تعديل',
+                  style: TextStyle(color: appColorTheme),
+                ),
               ),
               TextButton(
                 onPressed: onPressedDelete,
-                child: const Text('حذف'),
+                child: Text(
+                  'حذف',
+                  style: TextStyle(color: appColorTheme),
+                ),
               ),
             ],
           ),
