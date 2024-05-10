@@ -60,10 +60,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
               );
             },
             saveMedShotTime: () async {
-              time = await showTimePicker(
-                context: context,
-                initialTime: TimeOfDay.now(),
-              );
+              time = await showTime(context);
               setState(
                 () {
                   editedShotTime =

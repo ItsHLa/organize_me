@@ -5,7 +5,15 @@ sealed class UserState {}
 
 final class UserInitial extends UserState {}
 
-final class UserInfoLoaded extends UserState {}
+final class UserInfoLoaded extends UserState {
+  final String email;
+
+  final String password;
+  final String username;
+
+  UserInfoLoaded(
+      {required this.email, required this.password, required this.username});
+}
 
 final class Loading extends UserState {}
 

@@ -16,7 +16,7 @@ class DatabaseHelper {
   static intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'data.db');
-   // await databaseFactory.deleteDatabase(path);
+    await databaseFactory.deleteDatabase(path);
     Database mydb = await openDatabase(
       path,
       onCreate: _onCreate,
@@ -62,10 +62,9 @@ class DatabaseHelper {
           CREATE TABLE IF NOT EXISTS doctors_contacts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             phone TEXT NOT NULL,
-            specialist TEXT NOT NULL,
             name TEXT NOT NULL,
-            clinic_number TEXT NOT NULL,
-            
+            specialist TEXT NOT NULL,
+            clinic_number TEXT NOT NULL
           );
       ''',
     );

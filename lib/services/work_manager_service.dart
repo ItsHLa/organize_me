@@ -40,6 +40,8 @@ void callDispatcher() {
       case 'show bill notification':
         AppNotification.showSimpleBillNotification();
         break;
+      case 'check Internet':
+        break;
     }
     return Future.value(true);
   });

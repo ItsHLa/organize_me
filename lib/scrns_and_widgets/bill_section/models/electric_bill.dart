@@ -183,4 +183,52 @@ class ElectricBill extends Bill {
         "invoice_number": invoiceNumber,
         "subscription_number": subscriptionNumber,
       };
+
+  static Future<Map> addDummyData({
+    payment_amount,
+    commission_amount,
+    date,
+    time,
+    provider,
+    operation_number,
+    gov,
+    billing_number,
+    invoice_number,
+    subscription_number,
+  }) async {
+    Database? mydb = await DatabaseHelper.db;
+    int billId = await mydb!.rawInsert(
+      """
+        INSERT OR IGNORE INTO $tableName(
+          payment_amount,
+          commission_amount,
+          date,
+          time,
+          provider,
+          subscription_number,
+
+          gov,
+
+          billing_number,
+          invoice_number,
+          operation_number
+
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+      """,
+      [
+        payment_amount,
+        commission_amount,
+        date,
+        time,
+        provider,
+        operation_number,
+        gov,
+        billing_number,
+        invoice_number,
+        subscription_number,
+      ],
+    );
+    print((await getOneBill(billId)));
+    return (await getOneBill(billId));
+  }
 }

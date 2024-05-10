@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/database/db.dart';
+import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service.dart';
@@ -81,18 +81,19 @@ class _OrganizeMeState extends State<OrganizeMe> {
       child: BlocBuilder<DarkModeCubit, DarkModeState>(
         builder: (context, state) {
           return MaterialApp(
-            locale: const Locale('ar '),
-            localizationsDelegates: const [
-              // MonthYearPickerLocalizations.delegate,
-            ],
-            //themeMode: ThemeMode.system,
-            debugShowCheckedModeBanner: false,
-            darkTheme: ThemeData(brightness: Brightness.dark),
-            theme: ThemeData(
-              brightness: state.on ? Brightness.dark : Brightness.light,
-            ),
-            home: const Register(),
-          );
+              locale: const Locale('ar '),
+              localizationsDelegates: const [
+                // MonthYearPickerLocalizations.delegate,
+              ],
+              //themeMode: ThemeMode.system,
+              debugShowCheckedModeBanner: false,
+              darkTheme: ThemeData(brightness: Brightness.dark),
+              theme: ThemeData(
+                brightness: state.on ? Brightness.dark : Brightness.light,
+              ),
+              home: const HomePage()
+              //Register(),
+              );
         },
       ),
     );

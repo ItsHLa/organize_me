@@ -23,6 +23,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
   Widget build(BuildContext context) {
     return BlocBuilder<BillCubit, BillState>(
       builder: (context, state) {
+        print(state.bills.toString());
         if (state is MonthlySpendingCalculated) {
           List monthly = [
             state.monthlySpendingElectricity,

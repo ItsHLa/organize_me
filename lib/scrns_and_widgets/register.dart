@@ -137,7 +137,7 @@ class _RegisterState extends State<Register> {
                           style: TextStyle(color: appColorTheme),
                         ),
                         onPressed: () {
-                          Navigator.of(context).push(
+                          Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => const Login(),
                             ),
