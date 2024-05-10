@@ -42,8 +42,8 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
                 BlocProvider.of<DocsNumCubit>(context).addPhoneNumber(
                     newName.text,
                     newPhone.text,
-                    clinicPhone.text,
-                    specialty.text);
+                    specialty.text,
+                    clinicPhone.text);
               } else {
                 validateMode = AutovalidateMode.always;
               }

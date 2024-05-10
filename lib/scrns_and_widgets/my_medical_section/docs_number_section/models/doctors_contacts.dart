@@ -18,11 +18,12 @@ class DoctorsContacts {
 
   static DoctorsContacts fromMap(Map docConMap) {
     return DoctorsContacts(
-        id: docConMap['id'],
-        name: docConMap['name'],
-        phone: docConMap['phone'],
-        specialist: docConMap['specialist'],
-        clinicPhone: docConMap['clinic_number']);
+      id: docConMap['id'],
+      name: docConMap['name'],
+      phone: docConMap['phone'],
+      clinicPhone: docConMap['clinic_number'],
+      specialist: docConMap['specialist'],
+    );
   }
 
   static Future<Map> addContact(
@@ -37,21 +38,24 @@ class DoctorsContacts {
     return (await geOneContact(contactId));
   }
 
-  static Future<Map> editContact(int contactId,
-      {String newPhone = '',
-      String newClinicNumber = '',
-      String newName = ''}) async {
+  static Future<Map> editContact(
+    int contactId, {
+    String newPhone = '',
+    String newClinicNumber = '',
+  }) async {
     Database? mydb = await DatabaseHelper.db;
-    String editName = newName.isNotEmpty ? "name = '$newName'" : "";
-    String editPhone = newPhone.isNotEmpty ? "phone = '$newPhone'" : "";
     String editClinicNumber =
         newClinicNumber.isNotEmpty ? "clinic_number = '$newClinicNumber'" : "";
-    // editName.isNotEmpty && editPhone.isNotEmpty
-    //    ? editPhone += ','
-    //   : editPhone += '';
+    String editPhone = newPhone.isNotEmpty ? "phone = '$newPhone'" : "";
+    editClinicNumber.isNotEmpty && editPhone.isNotEmpty
+        ? editPhone += ','
+        : editPhone += '';
+
     await mydb!.rawUpdate(
       """
-        UPDATE doctors_contacts SET $editPhone , $editName , $editClinicNumber WHERE id = ?;
+        UPDATE doctors_contacts SET $editPhone
+                                    $editClinicNumber 
+                                      WHERE id = ?;
       """,
       [
         contactId,

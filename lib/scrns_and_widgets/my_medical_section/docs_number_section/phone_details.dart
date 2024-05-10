@@ -83,7 +83,8 @@ class ContactDetails extends StatelessWidget {
                 ),
                 trailing: IconButton(
                   onPressed: () {
-                    BlocProvider.of<DocsNumCubit>(context).call(contact.phone);
+                    BlocProvider.of<DocsNumCubit>(context)
+                        .call(contact.clinicPhone);
                   },
                   icon: const Icon(Icons.call),
                   color: green,

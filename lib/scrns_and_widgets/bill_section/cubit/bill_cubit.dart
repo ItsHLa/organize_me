@@ -59,6 +59,7 @@ class BillCubit extends Cubit<BillState> {
       List categorySum = [];
       double sumMonthlySpending = 0;
       for (var table in tableName) {
+        print(table);
         double sum = await Bill.calculatePayments(table, year, month);
         categorySum.add(sum);
         sumMonthlySpending += sum;

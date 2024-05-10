@@ -24,11 +24,12 @@ class DocsNumCubit extends Cubit<DocsNumState> {
     }
   }
 
-  void editPhoneNumber(int contactId, String name, String phoneNumber) async {
+  void editPhoneNumber(
+      int contactId, String clinicNum, String phoneNumber) async {
     try {
       Map docConMap = await DoctorsContacts.editContact(
         contactId,
-        newName: name,
+        newClinicNumber: clinicNum,
         newPhone: phoneNumber,
       );
       for (DoctorsContacts c in contacts) {
@@ -69,7 +70,7 @@ class DocsNumCubit extends Cubit<DocsNumState> {
   }
 
   void call(String phoneNumber) async {
-    Uri syriatelCash = Uri(scheme: 'tel', path: phoneNumber);
-    await launchUrl(syriatelCash);
+    Uri num = Uri(scheme: 'tel', path: phoneNumber);
+    await launchUrl(num);
   }
 }
