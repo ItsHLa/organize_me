@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     taskPage,
     billsPage,
     medsPage,
-  ];
+    accountInfo];
 
   //accountInfo
 
@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.medical_information_outlined),
                 label: 'الادوية'),
-            //  BottomNavigationBarItem(
-            //    icon: Icon(Icons.person_outlined), label: 'حساب')
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_outlined), label: 'حساب')
           ],
         ),
         body: pages[pageIndex]);
