@@ -51,28 +51,27 @@ class BillCubit extends Cubit<BillState> {
   ) async {
     emit(const MonthlySpendingLoading(bills: []));
     try {
-      List tableName = [
-        WaterBill.tableName,
-        ElectricBill.tableName,
-        TelecomBill.tableName,
-      ];
-      List categorySum = [];
-      double sumMonthlySpending = 0;
-      for (var table in tableName) {
-        print(table);
-        double sum = await Bill.calculatePayments(table, year, month);
-        categorySum.add(sum);
-        sumMonthlySpending += sum;
-      }
+      double telecom = 0;
+      double water = 0;
+      double electric = 0;
+      await Bill.calculatePayments(TelecomBill.tableName, year, month)
+          .then((value) => telecom = value);
+      print('telecom $telecom');
+      await Bill.calculatePayments(WaterBill.tableName, year, month)
+          .then((value) => water = value);
+      print('water $water');
+      await Bill.calculatePayments(ElectricBill.tableName, year, month)
+          .then((value) => electric = value);
+      print('telecom $electric');
+      double sumMonthlySpending = water + electric + telecom;
       emit(MonthlySpendingCalculated(
           bills: bills,
-          monthlySpendingWater: (categorySum[0] / sumMonthlySpending) * 360,
-          monthlySpendingElectricity:
-              (categorySum[1] / sumMonthlySpending) * 360,
-          monthlySpendingTelecom: (categorySum[2] / sumMonthlySpending) * 360,
+          monthlySpendingWater: water,
+          monthlySpendingElectricity: electric,
+          monthlySpendingTelecom: telecom,
           monthlySpendingAll: sumMonthlySpending));
     } catch (e) {
-      print('ff');
+      print(e.toString());
       emit(const MonthlySpendingFailed(bills: []));
     }
   }

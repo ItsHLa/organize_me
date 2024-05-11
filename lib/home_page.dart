@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     BlocProvider.of<DarkModeCubit>(context).darkModeIsOn();
                   },
-                  icon: state is DarkModeOn ? darkModeOn : darkModeOff,
+                  icon: state.on ? darkModeOn : darkModeOff,
                 );
               },
             ),

@@ -16,7 +16,7 @@ class DatabaseHelper {
   static intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'data.db');
-    //await databaseFactory.deleteDatabase(path);
+   // await databaseFactory.deleteDatabase(path);
     Database mydb = await openDatabase(
       path,
       onCreate: _onCreate,
@@ -73,8 +73,8 @@ class DatabaseHelper {
           CREATE TABLE IF NOT EXISTS electric_bills (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-            payment_amount REAL,
-            commission_amount REAL,
+            payment_amount DOUBLE NOT NULL DEFAULT 0,
+            commission_amount DOUBLE NOT NULL DEFAULT 0,
             date TEXT, -- DD/MM/YYYY
             time TEXT, -- HH:MM
             provider TEXT,
@@ -93,8 +93,8 @@ class DatabaseHelper {
           CREATE TABLE IF NOT EXISTS water_bills (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-            payment_amount REAL,
-            commission_amount REAL,
+            payment_amount DOUBLE NOT NULL DEFAULT 0,
+            commission_amount DOUBLE NOT NULL DEFAULT 0,
             date TEXT, -- DD/MM/YYYY
             time TEXT, -- HH:MM
             provider TEXT,
@@ -114,8 +114,8 @@ class DatabaseHelper {
           CREATE TABLE IF NOT EXISTS telecom_bills (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-            payment_amount REAL,
-            commission_amount REAL,
+            payment_amount DOUBLE NOT NULL DEFAULT 0,
+            commission_amount DOUBLE NOT NULL DEFAULT 0,
             date TEXT, -- DD/MM/YYYY
             time TEXT, -- HH:MM
             provider TEXT,

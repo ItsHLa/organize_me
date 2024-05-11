@@ -105,7 +105,7 @@ class _EditPhoneNumberState extends State<EditPhoneNumber> {
                 labelText: 'رقم العيادة',
                 hint: "",
                 validator: (value) {
-                  return ValidateInputData.checkEditedPhoneNumber(value);
+                  return ValidateInputData.checkIfNull(value);
                 },
                 save: (value) {
                   editClinicNumber = value ?? widget.contact.clinicPhone;

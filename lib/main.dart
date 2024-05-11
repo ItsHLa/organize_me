@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/home_page.dart';
-import 'package:organize_me/scrns_and_widgets/notes_section/bloc/notes_bloc.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service.dart';
@@ -31,16 +30,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => NotesBloc(),
-        ),
-      ],
-      child: const MaterialApp(
-        home: OrganizeMe(),
-        debugShowCheckedModeBanner: false,
-      ),
+    return const MaterialApp(
+      home: OrganizeMe(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -63,7 +55,6 @@ class _OrganizeMeState extends State<OrganizeMe> {
     DatabaseHelper.intialDb();
     TelephonyService.askForPermission();
     TelephonyService.listenForIncomingSms();
-    initDarkMode();
     super.initState();
   }
 
@@ -80,6 +71,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
       ],
       child: BlocBuilder<DarkModeCubit, DarkModeState>(
         builder: (context, state) {
+          BlocProvider.of<DarkModeCubit>(context).getDarkMode();
           return MaterialApp(
               locale: const Locale('ar '),
               localizationsDelegates: const [
@@ -92,8 +84,8 @@ class _OrganizeMeState extends State<OrganizeMe> {
                 brightness: state.on ? Brightness.dark : Brightness.light,
               ),
               home: const HomePage()
-              //Register(),
-              );
+            //Register(),
+          );
         },
       ),
     );

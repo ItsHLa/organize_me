@@ -16,23 +16,28 @@ class EditTask extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<EditTask> {
-  String? editedTaskTitle;
+  TextEditingController editedTaskTitle = TextEditingController();
 
-  String? editedTaskContent;
+  TextEditingController editedTaskContent = TextEditingController();
 
   TimeOfDay? editedStart;
   DateTime? date;
 
-  String? dateTime;
-  String? startTime;
+  TextEditingController dateTime = TextEditingController();
+  TextEditingController startTime = TextEditingController();
 
-  String editedPreAlarm = '';
+  TextEditingController editedPreAlarm = TextEditingController();
 
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    dateTime.text = widget.task.startDate;
+    startTime.text = widget.task.startTime;
+    editedPreAlarm.text = widget.task.preAlarm.toString();
+    editedTaskContent.text = widget.task.content;
+    editedTaskTitle.text = widget.task.title;
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
       child: BlocListener<TaskCubit, TaskState>(
@@ -56,37 +61,38 @@ class _AddTaskScreenState extends State<EditTask> {
             datValidator: ValidateInputData.checkEditedDateTime,
             startTimeValidator: (value) {
               return ValidateInputData.checkEditedStartTime(
-                  value, dateTime ?? widget.task.startDate);
+                  value, dateTime.text ?? widget.task.startDate);
             },
             preAlarmValidator: (value) {
               return ValidateInputData.checkEditedTaskInterval(
                   value,
-                  startTime ?? widget.task.startTime,
-                  dateTime ?? widget.task.startDate);
+                  startTime.text ?? widget.task.startTime,
+                  dateTime.text ?? widget.task.startDate);
             },
             saveDate: () async {
               date = await showDate(context);
               setState(
                 () {
                   if (date != null) {
-                    dateTime = '${date!.day}/${date!.month}/${date!.year}';
+                    dateTime.text = '${date!.day}/${date!.month}/${date!.year}';
                   }
                 },
               );
             },
-            date: TextEditingController(text: dateTime),
+            date: dateTime,
             saveTitle: (value) {
-              editedTaskTitle = value ?? '';
+              editedTaskTitle.text = value ?? widget.task.title;
             },
             saveContent: (value) {
-              editedTaskContent = value ?? '';
+              editedTaskContent.text = value ?? widget.task.content;
             },
             saveStartTime: () async {
               editedStart = await showTime(context);
               setState(
                 () {
                   if (editedStart != null) {
-                    startTime = '${editedStart!.hour}:${editedStart!.minute}';
+                    startTime.text =
+                        '${editedStart!.hour}:${editedStart!.minute}';
                   }
                 },
               );
@@ -94,24 +100,22 @@ class _AddTaskScreenState extends State<EditTask> {
             savePreAlarm: (value) {
               setState(
                 () {
-                  editedPreAlarm =
+                  editedPreAlarm.text =
                       value!.isEmpty ? widget.task.preAlarm.toString() : value;
                 },
               );
             },
-            start: TextEditingController(text: startTime),
+            start: startTime,
             onPressed: () {
               if (ValidateInputData.validateField(taskKey)) {
                 taskKey.currentState?.save();
                 BlocProvider.of<TaskCubit>(context).editTask(
-                  preAlarm: int.parse(editedPreAlarm),
+                  preAlarm: int.parse(editedPreAlarm.text),
                   id: widget.task.id,
-                  title: editedTaskTitle!,
-                  content: editedTaskContent!,
-                  startDate:
-                      date ?? convertStringToDateTime(widget.task.startDate),
-                  startTime: editedStart ??
-                      convertStringToTimeDay(widget.task.startTime),
+                  title: editedTaskTitle.text!,
+                  content: editedTaskContent.text!,
+                  startDate: convertStringToDateTime(dateTime.text),
+                  startTime: convertStringToTimeDay(startTime.text),
                 );
               } else {
                 autoValidated = AutovalidateMode.always;

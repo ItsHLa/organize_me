@@ -30,17 +30,16 @@ abstract class Bill {
   ) async {
     // -- DD/MM/YYYY
     Database? mydb = await DatabaseHelper.db;
-    List<Map> payments = await mydb!.rawQuery(
+    List<Map> payments = [];
+    await mydb!.rawQuery(
       """
         SELECT SUM(payment_amount) FROM $tableName 
         WHERE date LIKE '__/__/$year';
       """,
-    );
-    //${month.toString().padLeft(2, '0')}
-    print(payments);
-    print(tableName);
-
-    return payments[0]['SUM(payment_amount)'];
+    ).then((value) {
+      payments = value;
+    });
+    return payments[0]['SUM(payment_amount)'] ?? 0;
   }
 
   static deleteBill(String tableName, int billId) async {

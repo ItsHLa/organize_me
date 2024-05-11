@@ -257,7 +257,7 @@ class ValidateInputData {
     if (email!.isEmpty) {
       return 'لا يمكن لهذا الحقل ان يكون فارغ';
     }
-    if (!RegExp(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b',
+    if (!RegExp(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[com]{2,}\b',
             caseSensitive: false)
         .hasMatch(email)) {
       return 'من فضلك ادخل عنوان بريد صالح';

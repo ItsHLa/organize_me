@@ -24,71 +24,77 @@ class _MonthlyChartState extends State<MonthlyChart> {
     BlocProvider.of<BillCubit>(context).monthlySpendingOneCategory(2024, 4);
     return BlocBuilder<BillCubit, BillState>(
       builder: (context, state) {
-        print(state.bills);
         if (state is MonthlySpendingCalculated) {
-          List monthly = [
-            state.monthlySpendingElectricity,
-            state.monthlySpendingTelecom,
-            state.monthlySpendingWater,
-          ];
-          print(monthly);
-          return Column(
-            children: [
-              const MySearchBar(),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: 170,
-                width: 170,
-                child: PieChart(
-                  PieChartData(
-                    centerSpaceRadius: 30,
-                    sections: [
-                      PieChartSectionData(color: yellow, value: monthly[0]), //
-                      PieChartSectionData(color: green, value: monthly[1]), //
-                      PieChartSectionData(color: blue, value: monthly[2]), //
-                    ],
-                  ),
-                  swapAnimationDuration: const Duration(milliseconds: 150),
-                  // Optional
-                  swapAnimationCurve: Curves.linear, // Optional
+          if (state.monthlySpendingAll == 0) {
+            return const Text('لا يوجد فواتير لحساب الاستهلاك الشهري ');
+          } else {
+            List monthlyPercent = [
+              (state.monthlySpendingElectricity / state.monthlySpendingAll) *
+                  360,
+              (state.monthlySpendingTelecom / state.monthlySpendingAll) * 360,
+              (state.monthlySpendingWater / state.monthlySpendingAll) * 360,
+            ];
+            List monthly = [
+              state.monthlySpendingElectricity,
+              state.monthlySpendingTelecom,
+              state.monthlySpendingWater,
+            ];
+            return Column(
+              children: [
+                const MySearchBar(),
+                const SizedBox(
+                  height: 10,
                 ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return BillCategorySpending(
-                      onTap: () {
-                        print(categories[index]);
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (newcontext) => BlocProvider.value(
-                              value: BlocProvider.of<BillCubit>(context),
-                              child: BillList(
-                                category: categories[index],
+                SizedBox(
+                  height: 170,
+                  width: 170,
+                  child: PieChart(
+                    PieChartData(
+                      centerSpaceRadius: 30,
+                      sections: [
+                        PieChartSectionData(
+                            color: yellow, value: monthlyPercent[0]), //
+                        PieChartSectionData(
+                            color: green, value: monthlyPercent[1]), //
+                        PieChartSectionData(
+                            color: blue, value: monthlyPercent[2]), //
+                      ],
+                    ),
+                    swapAnimationDuration: const Duration(milliseconds: 150),
+                    // Optional
+                    swapAnimationCurve: Curves.linear, // Optional
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: 3,
+                    itemBuilder: (newcontext, index) {
+                      return BillCategorySpending(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (ncontext) => BlocProvider.value(
+                                value: BlocProvider.of<BillCubit>(context),
+                                child: BillList(
+                                  category: categories[index],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                      sum: (monthly[index] * state.monthlySpendingAll) / 360,
-                      color: colors[index],
-                      value: monthly[index],
-                      title: categories[index],
-                    );
-                  },
-                ),
-              )
-            ],
-          );
+                          );
+                        },
+                        sum: monthly[index],
+                        color: colors[index],
+                        value: monthlyPercent[index],
+                        title: categories[index],
+                      );
+                    },
+                  ),
+                )
+              ],
+            );
+          }
         }
-        return Container(
-          color: red,
-        );
-        //return const Center(  child: Text(' لا يوجد فواتير لحساب الاستهلاك الشهري'),
-        //);
+        return Container();
       },
     );
   }
