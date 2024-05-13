@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
@@ -62,7 +64,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
     TelephonyService.askForPermission();
     TelephonyService.listenForIncomingSms();
     BlocProvider.of<UserCubit>(context).checkInternet();
-    //  BlocProvider.of<DarkModeCubit>(context).getDarkMode();
+
     BlocProvider.of<UserCubit>(context).checkIfSigned();
 
     super.initState();
@@ -72,9 +74,10 @@ class _OrganizeMeState extends State<OrganizeMe> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<DarkModeCubit>(context).getDarkMode();
     return BlocBuilder<DarkModeCubit, DarkModeState>(
       builder: (context, state) {
-        print(state);
+        log(state.toString());
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             darkTheme: ThemeData(brightness: Brightness.dark),
@@ -83,6 +86,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
             ),
             home: BlocListener<UserCubit, UserState>(
               listener: (context, state) {
+                log(state.toString());
                 if (state is CheckIfSigned) {
                   signed = state.signed;
                 }

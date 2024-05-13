@@ -30,6 +30,7 @@ class WaterBills extends StatelessWidget {
     return Stack(
       children: [
         Card(
+          elevation: 40,
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: ListTile(

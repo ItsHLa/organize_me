@@ -32,6 +32,7 @@ class ElectricBills extends StatelessWidget {
     return Stack(
       children: [
         Card(
+          elevation: 40,
           child: Padding(
             padding: const EdgeInsets.all(3.0),
             child: ListTile(
@@ -43,12 +44,12 @@ class ElectricBills extends StatelessWidget {
                     date: date,
                     paymentAmount: paymentAmount,
                     operationNumber: operationNumber,
-                    billingNumber: billingNumber,
-                    subscriptionNumber: subscriptionNumber,
-                    commissionAmount: commissionAmount,
-                    invoiceNumber: invoiceNumber,
-                    gov: gov,
-                  ),
+                        billingNumber: billingNumber,
+                        subscriptionNumber: subscriptionNumber,
+                        commissionAmount: commissionAmount,
+                        invoiceNumber: invoiceNumber,
+                        gov: gov,
+                      ),
                 );
               },
               subtitle: Text(date),

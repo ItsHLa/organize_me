@@ -28,6 +28,7 @@ class TelecomBills extends StatelessWidget {
     return Stack(
       children: [
         Card(
+          elevation: 40,
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: ListTile(
@@ -39,9 +40,9 @@ class TelecomBills extends StatelessWidget {
                       phoneNumberEmail: phoneNumberEmail,
                       paymentAmount: paymentAmount,
                       operationNumber: operationNumber,
-                      commissionAmount: commissionAmount,
-                      time: time,
-                    ),
+                          commissionAmount: commissionAmount,
+                          time: time,
+                        ),
                   );
                 },
                 title: Text(date),

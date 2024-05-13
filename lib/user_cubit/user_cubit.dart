@@ -76,6 +76,7 @@ class UserCubit extends Cubit<UserState> {
 
   void register(User user) async {
     var result = await (Connectivity().checkConnectivity());
+    print(result);
     if (result.contains(ConnectivityResult.wifi) ||
         result.contains(ConnectivityResult.mobile)) {
       emit(Loading());

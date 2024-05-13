@@ -25,18 +25,12 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
 
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<UserCubit>(context).checkInternet();
-  }
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserCubit>(context).checkInternet();
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        print(state);
+      //  log(state.toString());
         if (state is RegisterSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('تم انشاء حساب بنجاح'),
