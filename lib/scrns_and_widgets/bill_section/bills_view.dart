@@ -1,10 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/payment_widget.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/widget/search_bar_by_month_year.dart';
 import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 import 'package:organize_me/services/work_manager_service.dart';
 
+import 'cubit/bill_cubit.dart';
 import 'monthly_bills.dart';
 
 class MyBills extends StatelessWidget {
@@ -42,7 +46,7 @@ class MyBills extends StatelessWidget {
                                     uniqueTaskName: 'show bill notification',
                                     taskName: 'show bill notification',
                                     frequency: const Duration(days: 30),
-                                    initialDelay: Duration.zero,
+                                    initialDelay: const Duration(days: 15),
                                     id: 0,
                                     title: 'bills');
                               },
@@ -55,6 +59,35 @@ class MyBills extends StatelessWidget {
                 child: const Icon(Icons.notifications_active_outlined)),
           ],
         ),
-        body: const MonthlyChart());
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (newcontext) =>
+                              BlocProvider<BillCubit>.value(
+                            value: BlocProvider.of(context),
+                            child: const MySearchBar(),
+                          ),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.search_outlined,
+                        color: appColorTheme,
+                      )),
+                  const SizedBox(
+                    width: 10,
+                  )
+                ],
+              ),
+              const MonthlyChart(),
+            ],
+          ),
+        ));
   }
 }

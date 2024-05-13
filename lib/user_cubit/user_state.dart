@@ -5,6 +5,12 @@ sealed class UserState {}
 
 final class UserInitial extends UserState {}
 
+final class CheckIfSigned extends UserState {
+  final bool signed;
+
+  CheckIfSigned(this.signed);
+}
+
 final class UserInfoLoaded extends UserState {
   final String email;
 

@@ -42,61 +42,64 @@ class ContactDetails extends StatelessWidget {
               ),
             ],
           ),
-          body: Column(
-            children: [
-              const IconForm(
-                child: Icon(
-                  Icons.person_2_outlined,
-                  size: 40,
-                ),
-              ),
-              ListTile(
-                  title: Text(
-                    state.docsNumber[idx].name,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 25),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                const IconForm(
+                  child: Icon(
+                    Icons.person_2_outlined,
+                    size: 40,
                   ),
-                  subtitle: Text(state.docsNumber[idx].specialist,
+                ),
+                ListTile(
+                    title: Text(
+                      state.docsNumber[idx].name,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18))),
-              ListTile(
-                title: const Text('رقم الطبيب'),
-                subtitleTextStyle:
-                    const TextStyle(color: Colors.black, fontSize: 15),
-                titleTextStyle:
-                    const TextStyle(color: Colors.grey, fontSize: 10),
-                subtitle: Text(
-                  state.docsNumber[idx].phone,
+                          fontWeight: FontWeight.bold, fontSize: 25),
+                    ),
+                    subtitle: Text(state.docsNumber[idx].specialist,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18))),
+                ListTile(
+                  title: const Text('رقم الطبيب'),
+                  subtitleTextStyle:
+                      const TextStyle(color: Colors.black, fontSize: 15),
+                  titleTextStyle:
+                      const TextStyle(color: Colors.grey, fontSize: 10),
+                  subtitle: Text(
+                    state.docsNumber[idx].phone,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      BlocProvider.of<DocsNumCubit>(context)
+                          .call(contact.phone);
+                    },
+                    icon: const Icon(Icons.call),
+                    color: green,
+                  ),
                 ),
-                trailing: IconButton(
-                  onPressed: () {
-                    BlocProvider.of<DocsNumCubit>(context).call(contact.phone);
-                  },
-                  icon: const Icon(Icons.call),
-                  color: green,
-                ),
-              ),
-              ListTile(
-                title: const Text('رقم العيادة'),
-                titleTextStyle:
-                    const TextStyle(color: Colors.grey, fontSize: 10),
-                subtitleTextStyle:
-                    const TextStyle(color: Colors.black, fontSize: 15),
-                subtitle: Text(
-                  state.docsNumber[idx].clinicPhone,
-                ),
-                trailing: IconButton(
-                  onPressed: () {
-                    BlocProvider.of<DocsNumCubit>(context)
-                        .call(contact.clinicPhone);
-                  },
-                  icon: const Icon(Icons.call),
-                  color: green,
-                ),
-              )
-            ],
+                ListTile(
+                  title: const Text('رقم العيادة'),
+                  titleTextStyle:
+                      const TextStyle(color: Colors.grey, fontSize: 10),
+                  subtitleTextStyle:
+                      const TextStyle(color: Colors.black, fontSize: 15),
+                  subtitle: Text(
+                    state.docsNumber[idx].clinicPhone,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      BlocProvider.of<DocsNumCubit>(context)
+                          .call(contact.clinicPhone);
+                    },
+                    icon: const Icon(Icons.call),
+                    color: green,
+                  ),
+                )
+              ],
+            ),
           ),
         );
       },

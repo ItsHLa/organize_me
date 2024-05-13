@@ -46,10 +46,10 @@ class BillCubit extends Cubit<BillState> {
   }
 
   Future<void> monthlySpendingOneCategory(
-    int year,
-    int month,
+    String year,
+    String month,
   ) async {
-    emit(const MonthlySpendingLoading(bills: []));
+    emit(MonthlySpendingLoading(bills: bills));
     try {
       double telecom = 0;
       double water = 0;
@@ -71,8 +71,7 @@ class BillCubit extends Cubit<BillState> {
           monthlySpendingTelecom: telecom,
           monthlySpendingAll: sumMonthlySpending));
     } catch (e) {
-      print(e.toString());
-      emit(const MonthlySpendingFailed(bills: []));
+      emit(MonthlySpendingFailed(bills: bills));
     }
   }
 }

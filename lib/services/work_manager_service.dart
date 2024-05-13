@@ -1,14 +1,16 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:organize_me/services/app_notification.dart';
 import 'package:workmanager/workmanager.dart';
 
 class WorkManagerService {
-  static void registerMyTask({required String uniqueTaskName,
-    required String taskName,
-    required Duration frequency,
-    required Duration initialDelay,
-    required int id,
-    required String title,
-    ExistingWorkPolicy? existingWorkPolicy}) async {
+  static void registerMyTask(
+      {required String uniqueTaskName,
+      required String taskName,
+      required Duration frequency,
+      required Duration initialDelay,
+      required int id,
+      required String title,
+      ExistingWorkPolicy? existingWorkPolicy}) async {
     await Workmanager().registerPeriodicTask(
       uniqueTaskName,
       taskName,
@@ -45,4 +47,12 @@ void callDispatcher() {
     }
     return Future.value(true);
   });
+}
+
+checkInternetConnection() async {
+  var result = await (Connectivity().checkConnectivity());
+  if (result.contains(ConnectivityResult.wifi) ||
+      result.contains(ConnectivityResult.mobile)) {
+    // ApiCalls.addBills(userId, type, bills);
+  }
 }

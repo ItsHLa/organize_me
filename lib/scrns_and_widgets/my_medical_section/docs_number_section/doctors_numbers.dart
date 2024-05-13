@@ -44,22 +44,3 @@ class MedsAndDocs extends StatelessWidget {
     );
   }
 }
-
-class MyFabButtons extends StatelessWidget {
-  const MyFabButtons(
-      {super.key, required this.children, this.onPress, required this.icon});
-
-  final List<SpeedDialChild> children;
-  final void Function()? onPress;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return SpeedDial(
-      shape: const StadiumBorder(),
-      label: Icon(icon),
-      onPress: onPress,
-      children: children,
-    );
-  }
-}

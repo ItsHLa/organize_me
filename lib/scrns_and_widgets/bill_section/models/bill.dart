@@ -25,16 +25,17 @@ abstract class Bill {
 
   static Future<double> calculatePayments(
     String tableName,
-    int year,
-    int month,
+    String year,
+    String month,
   ) async {
     // -- DD/MM/YYYY
     Database? mydb = await DatabaseHelper.db;
     List<Map> payments = [];
+    month = month.length == 1 ? '0$month' : month;
     await mydb!.rawQuery(
       """
         SELECT SUM(payment_amount) FROM $tableName 
-        WHERE date LIKE '__/__/$year';
+        WHERE date LIKE '__/$month/$year';
       """,
     ).then((value) {
       payments = value;

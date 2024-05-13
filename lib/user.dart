@@ -20,6 +20,11 @@ class User {
     preferences.setString('password', password);
   }
 
+  static Future<void> signUser(bool sign) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool('sign', sign);
+  }
+
   static Future<Map<String, String>> userInfo() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> userInfo = {

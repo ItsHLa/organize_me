@@ -1,7 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/my_button.dart';
 
 import '../../../constants.dart';
 import '../../../services/functionality.dart';
+import '../../input_text.dart';
 
 class MySearchBar extends StatefulWidget {
   const MySearchBar({super.key});
@@ -11,59 +17,60 @@ class MySearchBar extends StatefulWidget {
 }
 
 class _MySearchBarState extends State<MySearchBar> {
-  DateTime? selectedDate;
-
-  String date = '';
+  String year = '';
+  String month = '';
   GlobalKey<FormState> key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
-        children: [
-          SizedBox(
-              height: 48,
-              width: 290,
-              child: Form(
-                key: key,
-                child:
-                    Container() /*MyDatePicker(
-                  labelText: '',
-                  validator: (value) {
-                    if (selectedDate != null &&
-                        (selectedDate!.year > DateTime.now().year)) {
-                      return 'لا يمكن السنة المختارة ان تكون اكبر من السنة الحالية';
+    return SimpleDialog(
+      children: [
+        Form(
+          key: key,
+          child: Column(
+            children: [
+              SizedBox(
+                  width: 200,
+                  child: InputText(
+                    validator: ValidateInputData.checkIfNull,
+                    hint: '',
+                    labelText: 'ادخل الشهر',
+                    save: (value) {
+                      month = value!;
+                    },
+                    keyboardType: TextInputType.number,
+                  )),
+              SizedBox(
+                height: 5,
+              ),
+              SizedBox(
+                width: 200,
+                child: InputText(
+                  validator: ValidateInputData.checkIfNull,
+                  hint: '',
+                  labelText: 'ادخل السنة',
+                  save: (value) {
+                    year = value!;
+                  },
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              MyButton(
+                  onPressed: () {
+                    if (ValidateInputData.validateField(key)) {
+                      key.currentState?.save();
+                      print(year);
+                      print(month);
+                      BlocProvider.of<BillCubit>(context)
+                          .monthlySpendingOneCategory(year, month);
                     }
                   },
-                  onTap: () async {
-                    selectedDate =
-                        await SimpleMonthYearPicker.showMonthYearPickerDialog(
-                      context: context,
-                      disableFuture: false,
-                      selectionColor: blue,
-                      monthTextStyle: const TextStyle(),
-                      yearTextStyle: const TextStyle(),
-                      titleTextStyle: const TextStyle(fontSize: 20),
-                    );
-                    setState(() {
-                      date = '${selectedDate?.year} / ${selectedDate?.month}';
-                    });
-                  },
-                  controller: TextEditingController(text: date),
-                )*/
-                ,
-              )),
-          IconButton(
-              onPressed: () {
-                if (ValidateInputData.validateField(key)) {}
-              },
-              icon: Icon(
-                Icons.search_outlined,
-                color: appColorTheme,
-              ))
-        ],
-      ),
+                  icon: Icons.search,
+                  label: 'ابحث')
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

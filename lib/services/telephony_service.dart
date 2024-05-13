@@ -17,25 +17,20 @@ class TelephonyService {
       onBackgroundMessage: onBackgroundMessage,
       listenInBackground: true,
       onNewMessage: (SmsMessage message) {
-        //  if (message.address == 'SyriatelSEP') {
-        //  debugPrint(message.body);
-        compareBill(smsMessage: message);
-        // }
+        if (message.address == 'SyriatelSEP') {
+          debugPrint(message.body);
+          compareBill(smsMessage: message);
+        }
       },
     );
   }
 }
 
 void onBackgroundMessage(SmsMessage message) async {
-// same code  for listener ...
-
-  // if (message.address == 'SyriatelSEP') {
-  debugPrint(message.body);
-  compareBill(smsMessage: message);
-  // }
-  // debugPrint('message that is not a bill');
-  // debugPrint(message.address);
-  // debugPrint(message.body);
+  if (message.address == 'SyriatelSEP') {
+    debugPrint(message.body);
+    compareBill(smsMessage: message);
+  }
 }
 
 void compareBill({required SmsMessage smsMessage}) {

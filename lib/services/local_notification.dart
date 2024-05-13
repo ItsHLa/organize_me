@@ -6,7 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../../constants.dart';
 
-abstract class LocalNotificationService {
+class LocalNotificationService {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -70,31 +70,6 @@ abstract class LocalNotificationService {
     );
   }
 
-  static void medicineNotification({
-    required int id,
-    required String name,
-  }) async {
-    AndroidNotificationDetails androidNotificationDetails =
-        const AndroidNotificationDetails(
-      medicineChannel,
-      medicineChannelName,
-      tag: medicineTag,
-      importance: Importance.max,
-      priority: Priority.high,
-    );
-    NotificationDetails details =
-        NotificationDetails(android: androidNotificationDetails);
-
-    await LocalNotificationService.flutterLocalNotificationsPlugin
-        .periodicallyShow(
-      id,
-      name,
-      'لا تنسى اخذ دواءك',
-      RepeatInterval.values[30],
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      details,
-    );
-  }
 
   static void showTaskNotification({
     required int id,

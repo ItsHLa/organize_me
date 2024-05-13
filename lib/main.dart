@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/database/db.dart';
+import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,9 +30,19 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: OrganizeMe(),
-      debugShowCheckedModeBanner: false,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => UserCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DarkModeCubit(),
+        ),
+      ],
+      child: const MaterialApp(
+        home: OrganizeMe(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
@@ -45,49 +55,42 @@ class OrganizeMe extends StatefulWidget {
 }
 
 class _OrganizeMeState extends State<OrganizeMe> {
-  void initDarkMode() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool('darkMode', preferences.getBool('darkMode') ?? false);
-  }
 
   @override
   void initState() {
     DatabaseHelper.intialDb();
     TelephonyService.askForPermission();
     TelephonyService.listenForIncomingSms();
+    BlocProvider.of<UserCubit>(context).checkInternet();
+    //  BlocProvider.of<DarkModeCubit>(context).getDarkMode();
+    BlocProvider.of<UserCubit>(context).checkIfSigned();
+
     super.initState();
   }
 
+  bool signed = false;
+
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => DarkModeCubit(),
-        ),
-        BlocProvider(
-          create: (context) => UserCubit(),
-        ),
-      ],
-      child: BlocBuilder<DarkModeCubit, DarkModeState>(
-        builder: (context, state) {
-          BlocProvider.of<DarkModeCubit>(context).getDarkMode();
-          return MaterialApp(
-              locale: const Locale('ar '),
-              localizationsDelegates: const [
-                // MonthYearPickerLocalizations.delegate,
-              ],
-              //themeMode: ThemeMode.system,
-              debugShowCheckedModeBanner: false,
-              darkTheme: ThemeData(brightness: Brightness.dark),
-              theme: ThemeData(
-                brightness: state.on ? Brightness.dark : Brightness.light,
-              ),
-              home: const Register()
-              //Register(),
-          );
-        },
-      ),
+    return BlocBuilder<DarkModeCubit, DarkModeState>(
+      builder: (context, state) {
+        print(state);
+        return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            darkTheme: ThemeData(brightness: Brightness.dark),
+            theme: ThemeData(
+              brightness: state.on ? Brightness.dark : Brightness.light,
+            ),
+            home: BlocListener<UserCubit, UserState>(
+              listener: (context, state) {
+                if (state is CheckIfSigned) {
+                  signed = state.signed;
+                }
+              },
+              child: signed ? const HomePage() : const Register(),
+            ));
+      },
     );
   }
 }
+

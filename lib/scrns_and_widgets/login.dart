@@ -24,6 +24,12 @@ class _LoginState extends State<Login> {
   String password = '';
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<UserCubit>(context).checkInternet();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {

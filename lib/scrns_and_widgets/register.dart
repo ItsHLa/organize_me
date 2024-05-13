@@ -26,10 +26,18 @@ class _RegisterState extends State<Register> {
   String password = '';
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<UserCubit>(context).checkInternet();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    BlocProvider.of<UserCubit>(context).checkInternet();
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        if(state is RegisterSuccess){
+        print(state);
+        if (state is RegisterSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('تم انشاء حساب بنجاح'),
             duration: Duration(seconds: 4),
@@ -37,7 +45,7 @@ class _RegisterState extends State<Register> {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const HomePage(),
           ));
-        }else if(state is RegisterFailed){
+        } else if (state is RegisterFailed) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('حصل خطأ اثناء انشاء حساب يرجى اعادة محاولة')));
         }else if (state is NoInternet) {

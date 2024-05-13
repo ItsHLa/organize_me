@@ -10,24 +10,7 @@ class AppNotification extends LocalNotificationService {
     LocalNotificationService.showMedicineNotification(id: id, name: name);
   }
 
-  static showSimpleBillNotification() async {
-    LocalNotificationService.showSimpleBillNotification(
-      id: 0,
-      body: 'لا تنسى دفع فواتيرك الشهرية',
-    );
-  }
 
-  static showSimpleBreadNotification({required String body}) async {
-    LocalNotificationService.showSimpleBillNotification(id: 1, body: body);
-  }
-
-  static showSimpleGasNotification({required String body}) async {
-    LocalNotificationService.showSimpleBillNotification(id: 2, body: body);
-  }
-
-  static showSimpleGasStationNotification({required String body}) async {
-    LocalNotificationService.showSimpleBillNotification(id: 3, body: body);
-  }
 
   static void showTaskNotificationBeforeXMinutes({
     required int id,
@@ -44,6 +27,13 @@ class AppNotification extends LocalNotificationService {
       title: title,
       content: content,
       min: min,
+    );
+  }
+
+  static showSimpleBillNotification() async {
+    LocalNotificationService.showSimpleBillNotification(
+      id: 0,
+      body: 'لا تنسى دفع فواتيرك الشهرية',
     );
   }
 }
