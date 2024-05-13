@@ -57,7 +57,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/services/functionality.dart';
 
 import '../../add_data_page.dart';
-import '../../input_text.dart';
 import 'cubit/docs_num_cubit.dart';
 import 'models/doctors_contacts.dart';
 
@@ -88,8 +87,20 @@ class _EditPhoneNumberState extends State<EditPhoneNumber> {
           }
         },
         child: InputDataPage(
+          labels: const ['رقم العيادة', 'رقم الطبيب'],
+          hint: ['', ''],
+          keyboardType: [TextInputType.number, TextInputType.number],
+          validator: const [null, ValidateInputData.checkEditedPhoneNumber],
+          save: [
+            (value) {
+              editClinicNumber = value ?? widget.contact.clinicPhone;
+            },
+            (value) {
+              editPhoneNumber = value ?? widget.contact.phone;
+            }
+          ],
           icon: Icons.add_call,
-          label: 'تعديل جهة الاتصال',
+          labelButton: 'تعديل جهة الاتصال',
           onPressed: () {
             numKey.currentState?.save();
             BlocProvider.of<DocsNumCubit>(context).editPhoneNumber(
@@ -98,35 +109,6 @@ class _EditPhoneNumberState extends State<EditPhoneNumber> {
               editPhoneNumber,
             );
           },
-          child: Column(
-            children: [
-              InputText(
-                keyboardType: TextInputType.number,
-                labelText: 'رقم العيادة',
-                hint: "",
-                validator: (value) {
-                  return ValidateInputData.checkIfNull(value);
-                },
-                save: (value) {
-                  editClinicNumber = value ?? widget.contact.clinicPhone;
-                },
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              InputText(
-                keyboardType: TextInputType.number,
-                labelText: 'رقم الطبيب',
-                hint: "",
-                validator: (value) {
-                  return ValidateInputData.checkEditedPhoneNumber(value);
-                },
-                save: (value) {
-                  editPhoneNumber = value ?? widget.contact.phone;
-                },
-              ),
-            ],
-          ),
         ),
       ),
     );

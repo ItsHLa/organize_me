@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
@@ -5,7 +7,6 @@ import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
 
 import 'add_data_page.dart';
-import 'input_text.dart';
 
 class AccountInfo extends StatelessWidget {
   const AccountInfo({super.key});
@@ -40,13 +41,13 @@ class AccountInfo extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: Colors.white24,
                                         borderRadius:
-                                            BorderRadius.circular(20)),
+                                        BorderRadius.circular(20)),
                                     child: IconButton(
                                         onPressed: () {
                                           showModalBottomSheet(
                                             context: context,
                                             builder: (context) =>
-                                                const EditUserInfo(),
+                                            const EditUserInfo(),
                                           );
                                         },
                                         icon: Icon(
@@ -83,10 +84,10 @@ class AccountInfo extends StatelessWidget {
                         left: -4,
                         child: IconForm(
                             child: Icon(
-                          Icons.person_outlined,
-                          size: 50,
-                          color: appColorTheme,
-                        )),
+                              Icons.person_outlined,
+                              size: 50,
+                              color: appColorTheme,
+                            )),
                       )
                     ],
                   ),
@@ -102,21 +103,52 @@ class AccountInfo extends StatelessWidget {
   }
 }
 
-class EditUserInfo extends StatelessWidget {
+class EditUserInfo extends StatefulWidget {
   const EditUserInfo({super.key});
 
   @override
+  State<EditUserInfo> createState() => _EditUserInfoState();
+}
+
+class _EditUserInfoState extends State<EditUserInfo> {
+  List labels = ['اسم المستخدم', 'عنوان البريد الالكتروني', 'كلمة السر'];
+  List info = ['', '', ''];
+  List hints = ['', '', ''];
+  GlobalKey<FormState> key = GlobalKey();
+
+  @override
   Widget build(BuildContext context) {
-    return InputDataPage(
-      onPressed: () {},
-      label: 'تعديل',
-      icon: Icons.edit_outlined,
-      child: const Column(
+    return Form(
+      key: key,
+      child: InputDataPage(
+        labels: labels,
+        hint: hints,
+        save: [
+          (value) {
+            info[0] = value!;
+          },
+          (value) {
+            info[1] = value!;
+          },
+          (value) {
+            info[2] = value!;
+          }
+        ],
+        onPressed: () {
+          key.currentState?.save();
+          log(info.toString());
+        },
+        labelButton: 'تعديل',
+        icon: Icons.edit_outlined,
+      ),
+    );
+  }
+}
+
+/*
+* const Column(
         children: [
-          InputText(
-            hint: '',
-            labelText: 'اسم المستخدم',
-          ),
+          ,
           SizedBox(
             height: 5,
           ),
@@ -132,7 +164,25 @@ class EditUserInfo extends StatelessWidget {
             labelText: 'كلمة السر',
           ),
         ],
-      ),
-    );
-  }
-}
+      )
+* */
+
+/*
+* child:SizedBox(
+        height: 200,
+        child: ListView.builder(
+          itemCount: labels.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: InputText(
+                  hint: '',
+                  labelText:labels[index] ,
+                  save: (value) {
+                    info[index] = value!;
+                  },
+                ),
+              );
+            },
+        ),
+      ) */

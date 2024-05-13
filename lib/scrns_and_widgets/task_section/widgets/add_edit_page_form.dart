@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+/*
+* import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/add_data_page.dart';
 
 import 'input_task.dart';
@@ -45,7 +46,7 @@ class TaskDataPageForm extends StatelessWidget {
     return InputDataPage(
         onPressed: onPressed,
         icon: icon,
-        label: label,
+        labels: label,
         child: InputTask(
           taskTitleValidator: taskTitleValidator,
           contentValidator: contentValidator,
@@ -63,3 +64,5 @@ class TaskDataPageForm extends StatelessWidget {
         ));
   }
 }
+
+* */

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/add_edit_page_form.dart';
 import 'package:organize_me/services/functionality.dart';
 
+import '../add_data_page.dart';
 import 'models/task.dart';
 
 class EditTask extends StatefulWidget {
@@ -57,55 +57,78 @@ class _AddTaskScreenState extends State<EditTask> {
         child: Form(
           key: taskKey,
           autovalidateMode: autoValidated,
-          child: TaskDataPageForm(
-            datValidator: ValidateInputData.checkEditedDateTime,
-            startTimeValidator: (value) {
-              return ValidateInputData.checkEditedStartTime(
-                  value, dateTime.text ?? widget.task.startDate);
-            },
-            preAlarmValidator: (value) {
-              return ValidateInputData.checkEditedTaskInterval(
-                  value,
-                  startTime.text ?? widget.task.startTime,
-                  dateTime.text ?? widget.task.startDate);
-            },
-            saveDate: () async {
-              date = await showDate(context);
-              setState(
-                () {
-                  if (date != null) {
-                    dateTime.text = '${date!.day}/${date!.month}/${date!.year}';
-                  }
-                },
-              );
-            },
-            date: dateTime,
-            saveTitle: (value) {
-              editedTaskTitle.text = value ?? widget.task.title;
-            },
-            saveContent: (value) {
-              editedTaskContent.text = value ?? widget.task.content;
-            },
-            saveStartTime: () async {
-              editedStart = await showTime(context);
-              setState(
-                () {
-                  if (editedStart != null) {
-                    startTime.text =
-                        '${editedStart!.hour}:${editedStart!.minute}';
-                  }
-                },
-              );
-            },
-            savePreAlarm: (value) {
-              setState(
-                () {
-                  editedPreAlarm.text =
-                      value!.isEmpty ? widget.task.preAlarm.toString() : value;
-                },
-              );
-            },
-            start: startTime,
+          child: InputDataPage(
+            labels: const [
+              'اسم المهمة',
+              'وصف المهمة',
+              ' تاريخ المهمة',
+              'وقت البدء',
+              'ذكرني قبل دقائق'
+            ],
+            validator: [
+              null,
+              null,
+              ValidateInputData.checkDateTime,
+              (value) {
+                return ValidateInputData.checkEditedStartTime(
+                    value, dateTime.text ?? widget.task.startDate);
+              },
+              (value) {
+                return ValidateInputData.checkEditedTaskInterval(
+                    value,
+                    startTime.text ?? widget.task.startTime,
+                    dateTime.text ?? widget.task.startDate);
+              }
+            ],
+            onTap: [
+              null,
+              null,
+              () async {
+                date = await showDate(context);
+                setState(
+                  () {
+                    if (date != null) {
+                      dateTime.text =
+                          '${date!.day}/${date!.month}/${date!.year}';
+                    }
+                  },
+                );
+              },
+              () async {
+                editedStart = await showTime(context);
+                setState(
+                  () {
+                    if (editedStart != null) {
+                      startTime.text =
+                          '${editedStart!.hour}:${editedStart!.minute}';
+                    }
+                  },
+                );
+              },
+              null
+            ],
+            readOnly: const [false, false, true, true, false],
+            save: [
+              (value) {
+                editedTaskTitle.text = value ?? widget.task.title;
+              },
+              (value) {
+                editedTaskContent.text = value ?? widget.task.content;
+              },
+              null,
+              null,
+              (value) {
+                setState(
+                  () {
+                    editedPreAlarm.text = value!.isEmpty
+                        ? widget.task.preAlarm.toString()
+                        : value;
+                  },
+                );
+              }
+            ],
+            keyboardType: const [null, null, null, null, TextInputType.number],
+            hint: const ['', '', '', '', ''],
             onPressed: () {
               if (ValidateInputData.validateField(taskKey)) {
                 taskKey.currentState?.save();
@@ -122,7 +145,7 @@ class _AddTaskScreenState extends State<EditTask> {
               }
             },
             icon: Icons.add_task_outlined,
-            label: 'تعديل المهمة',
+            labelButton: 'تعديل المهمة',
           ),
         ),
       ),

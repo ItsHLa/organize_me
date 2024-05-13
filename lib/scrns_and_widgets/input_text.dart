@@ -11,6 +11,8 @@ class InputText extends StatelessWidget {
     this.keyboardType,
     this.validator,
     this.labelText,
+    this.readOnly,
+    this.onTap,
   });
 
   final String hint;
@@ -20,10 +22,14 @@ class InputText extends StatelessWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final String? labelText;
+  final bool? readOnly;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
+      readOnly: readOnly ?? false,
       keyboardType: keyboardType,
       onSaved: save,
       validator: validator,

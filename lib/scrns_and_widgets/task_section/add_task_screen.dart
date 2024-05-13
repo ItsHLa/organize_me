@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
-import 'package:organize_me/scrns_and_widgets/task_section/widgets/add_edit_page_form.dart';
 import 'package:organize_me/services/functionality.dart';
 
 import '../../constants.dart';
+import '../add_data_page.dart';
 import '../bill_section/models/electric_bill.dart';
 import '../bill_section/models/telecom_bill.dart';
 import '../bill_section/models/water_bill.dart';
@@ -52,52 +52,73 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         child: Form(
           key: taskKey,
           autovalidateMode: autoValidated,
-          child: TaskDataPageForm(
-            contentValidator: ValidateInputData.checkIfNull,
-            taskTitleValidator: ValidateInputData.checkIfNull,
-            datValidator: ValidateInputData.checkDateTime,
-            startTimeValidator: (value) {
-              return ValidateInputData.checkStartTime(value, dateTime);
-            },
-            preAlarmValidator: (value) {
-              return ValidateInputData.checkTaskInterval(
-                  value, startTime, dateTime);
-            },
-            saveDate: () async {
-              date = await showDate(context);
-              setState(
-                () {
-                  if (date != null) {
-                    dateTime = '${date!.day}/${date!.month}/${date!.year}';
-                  }
-                },
-              );
-            },
-            date: TextEditingController(text: dateTime),
-            saveTitle: (value) {
-              taskTitle = value ?? '';
-            },
-            saveContent: (value) {
-              taskContent = value ?? '';
-            },
-            saveStartTime: () async {
-              start = await showTime(context);
-              setState(
-                () {
-                  if (start != null) {
-                    startTime = '${start!.hour}:${start!.minute}';
-                  }
-                },
-              );
-            },
-            savePreAlarm: (value) {
-              setState(
-                () {
-                  preAlarm = int.parse(value ?? '0');
-                },
-              );
-            },
-            start: TextEditingController(text: startTime),
+          child: InputDataPage(
+            labels: const [
+              'اسم المهمة',
+              'وصف المهمة',
+              ' تاريخ المهمة',
+              'وقت البدء',
+              'ذكرني قبل دقائق'
+            ],
+            validator: [
+              ValidateInputData.checkIfNull,
+              ValidateInputData.checkIfNull,
+              (value) {
+                return ValidateInputData.checkDateTime(dateTime);
+              },
+              (value) {
+                return ValidateInputData.checkStartTime(startTime, dateTime);
+              },
+              (value) {
+                return ValidateInputData.checkTaskInterval(
+                    value, startTime, dateTime);
+              }
+            ],
+            onTap: [
+              null,
+              null,
+              () async {
+                date = await showDate(context);
+                setState(
+                  () {
+                    if (date != null) {
+                      dateTime = '${date!.day}/${date!.month}/${date!.year}';
+                    }
+                  },
+                );
+              },
+              () async {
+                start = await showTime(context);
+                setState(
+                  () {
+                    if (start != null) {
+                      startTime = '${start!.hour}:${start!.minute}';
+                    }
+                  },
+                );
+              },
+              null
+            ],
+            readOnly: const [false, false, true, true, false],
+            save: [
+              (value) {
+                taskTitle = value ?? '';
+              },
+              (value) {
+                taskContent = value ?? '';
+              },
+              null,
+              null,
+              (value) {
+                setState(
+                  () {
+                    preAlarm = int.parse(value ?? '0');
+                  },
+                );
+              }
+            ],
+            keyboardType: const [null, null, null, null, TextInputType.number],
+            hint: const ['', '', '', '', ''],
             onPressed: () {
               var electric =
                   """تم دفع مبلغ 3920 ل.س لصالح المؤسسة العامة لنقل وتوزيع الكهرباء متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 69899292 بتاريخ 08/04/2024 21:09
@@ -108,7 +129,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
               var water = '''''';
               var telecom =
-                  '''تم دفع مبلغ 5100 ل.س لصالح السورية للاتصالات متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 2028066512 بتاريخ 01/05/2024 18:11
+              '''تم دفع مبلغ 5100 ل.س لصالح السورية للاتصالات متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 2028066512 بتاريخ 01/05/2024 18:11
 رقم الهاتف الثابت/ البريد الإلكتروني: taghreed.h@tarassul.sy
 رقم العملية: s600075648235''';
               compareBillTest(body: telecom);
@@ -126,7 +147,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               }
             },
             icon: Icons.add_task_outlined,
-            label: 'اضافة المهمة',
+            labelButton: 'اضافة المهمة',
           ),
         ),
       ),

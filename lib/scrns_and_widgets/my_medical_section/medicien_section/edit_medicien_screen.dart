@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/widgets/input_medicien_form.dart';
 import 'package:organize_me/services/functionality.dart';
 
 import '../../add_data_page.dart';
@@ -38,19 +37,20 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
       child: Form(
         key: medKey,
         child: InputDataPage(
-          icon: Icons.add,
-          label: 'تعديل الدواء',
-          child: MedsInput(
-            medIntervalValidator: ValidateInputData.checkEditedInterval,
-            shotTime: TextEditingController(text: editedShotTime),
-            saveMedName: (value) {
+          labels: const [
+            'اسم الدواء',
+            'عدد الساعات بين الجرعات',
+            'موعد اخذ الدواء'
+          ],
+          save: [
+            (value) {
               setState(
                 () {
                   editedMedName = (value!.isEmpty ? widget.med.name : value);
                 },
               );
             },
-            saveMedInterval: (value) {
+            (value) {
               setState(
                 () {
                   editedMedInterval = int.parse(value!.isNotEmpty
@@ -59,7 +59,13 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
                 },
               );
             },
-            saveMedShotTime: () async {
+            null
+          ],
+          readOnly: const [false, false, true],
+          onTap: [
+            null,
+            null,
+            () async {
               time = await showTime(context);
               setState(
                 () {
@@ -67,8 +73,17 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
                       '${time?.hour.toString()}:${time?.minute.toString()}';
                 },
               );
-            },
-          ),
+            }
+          ],
+          hint: const ['', '', ''],
+          validator: const [
+            ValidateInputData.checkIfNull,
+            ValidateInputData.checkEditedInterval,
+            ValidateInputData.checkIfNull
+          ],
+          keyboardType: const [null, null, TextInputType.number],
+          icon: Icons.add,
+          labelButton: 'تعديل الدواء',
           onPressed: () {
             medKey.currentState?.save();
             BlocProvider.of<MedicineCubit>(context).editMed(

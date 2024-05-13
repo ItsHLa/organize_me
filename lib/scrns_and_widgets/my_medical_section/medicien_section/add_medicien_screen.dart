@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/widgets/input_medicien_form.dart';
 
 import '../../../services/functionality.dart';
 import '../../add_data_page.dart';
@@ -34,27 +33,34 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
         key: medKey,
         child: InputDataPage(
           icon: Icons.add,
-          label: 'اضافة الدواء',
-          child: MedsInput(
-            medIntervalValidator: ValidateInputData.checkInterval,
-            medNameValidator: ValidateInputData.checkIfNull,
-            medShotTimeValidator: ValidateInputData.checkIfNull,
-            shotTime: TextEditingController(text: shotTime),
-            saveMedName: (value) {
+          labelButton: 'اضافة الدواء',
+          labels: const [
+            'اسم الدواء',
+            'عدد الساعات بين الجرعات',
+            'موعد اخذ الدواء'
+          ],
+          save: [
+            (value) {
               setState(
                 () {
                   medicienName = value!;
                 },
               );
             },
-            saveMedInterval: (value) {
+            (value) {
               setState(
                 () {
                   interval = int.parse(value!);
                 },
               );
             },
-            saveMedShotTime: () async {
+            null
+          ],
+          readOnly: const [false, false, true],
+          onTap: [
+            null,
+            null,
+            () async {
               time = (await showTimePicker(
                   context: context, initialTime: TimeOfDay.now()));
               setState(
@@ -64,8 +70,15 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
                       : '';
                 },
               );
-            },
-          ),
+            }
+          ],
+          hint: const ['', '', ''],
+          validator: const [
+            ValidateInputData.checkIfNull,
+            ValidateInputData.checkInterval,
+            ValidateInputData.checkIfNull
+          ],
+          keyboardType: const [null, null, TextInputType.number],
           onPressed: () {
             if (ValidateInputData.validateField(medKey)) {
               medKey.currentState?.save();

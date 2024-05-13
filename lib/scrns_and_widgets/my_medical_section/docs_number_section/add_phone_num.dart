@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/widgets/input_phone_num.dart';
 
 import '../../../services/functionality.dart';
 import '../../add_data_page.dart';
@@ -21,7 +20,6 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
 
   GlobalKey<FormState> numKey = GlobalKey();
   AutovalidateMode validateMode = AutovalidateMode.disabled;
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<DocsNumCubit, DocsNumState>(
@@ -34,8 +32,36 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
           key: numKey,
           autovalidateMode: validateMode,
           child: InputDataPage(
+            save: [
+              (value) {
+                newName.text = value!;
+              },
+              (value) {
+                specialty.text = value!;
+              },
+              (value) {
+                newPhone.text = value!;
+              },
+              (value) {
+                clinicPhone.text = value!;
+              }
+            ],
+            validator: const [
+              ValidateInputData.checkIfNull,
+              ValidateInputData.checkIfNull,
+              ValidateInputData.checkPhoneNumber,
+              null
+            ],
+            keyboardType: const [
+              null,
+              null,
+              TextInputType.number,
+              TextInputType.number
+            ],
+            hint: const ['', '', '', ''],
+            labels: const ['الاسم', 'الاختصاص', 'رقم الطبيب', 'رقم العيادة'],
             icon: Icons.add_call,
-            label: 'اضف جهة الاتصال',
+            labelButton: 'اضف جهة الاتصال',
             onPressed: () {
               if (ValidateInputData.validateField(numKey)) {
                 numKey.currentState?.save();
@@ -48,23 +74,6 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
                 validateMode = AutovalidateMode.always;
               }
             },
-            child: InputPhoneNumber(
-              nameValidator: ValidateInputData.checkIfNull,
-              specialistValidator: ValidateInputData.checkIfNull,
-              phoneNumberValidator: ValidateInputData.checkPhoneNumber,
-              saveClinicNumber: (value) {
-                clinicPhone.text = value!;
-              },
-              saveSpecialist: (value) {
-                specialty.text = value!;
-              },
-              saveName: (value) {
-                newName.text = value!;
-              },
-              savePhoneNumber: (value) {
-                newPhone.text = value!;
-              },
-            ),
           ),
         ));
   }
