@@ -62,9 +62,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
     DatabaseHelper.intialDb();
     TelephonyService.askForPermission();
     TelephonyService.listenForIncomingSms();
-    //BlocProvider.of<UserCubit>(context).checkInternet();
     BlocProvider.of<UserCubit>(context).checkIfSigned();
-
     super.initState();
   }
 

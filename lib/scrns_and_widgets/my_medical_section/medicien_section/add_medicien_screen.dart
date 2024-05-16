@@ -65,10 +65,9 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
             null,
             null,
                 () async {
-              time = (await showTimePicker(
-                  context: context, initialTime: TimeOfDay.now()));
+              time = await showTime(context);
               setState(
-                    () {
+                () {
                   shotTime.text = time != null
                       ? '${time?.hour.toString()}:${time?.minute.toString()}'
                       : '';

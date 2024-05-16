@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:organize_me/constants.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Altibbi extends StatefulWidget {
@@ -24,21 +22,21 @@ class _AltibbiState extends State<Altibbi> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageStarted: (value) {
-            setState(() {
-              body = null;
-            });
+            // setState(() {
+            //   body = null;
+            // });
           },
           onProgress: (request) {
-            setState(() {
-              body = Center(
-                  child: CircularProgressIndicator(
-                color: appColorTheme,
-              ));
-            });
+            // setState(() {
+            //   body = Center(
+            //       child: CircularProgressIndicator(
+            //     color: appColorTheme,
+            //   ));
+            // });
           },
           onWebResourceError: (WebResourceError error) {
             setState(() {
-              body = Center(
+              body = const Center(
                 child: Text(
                   'تحقق من اتصالك بالانترنت',
                   style: TextStyle(fontSize: 18),

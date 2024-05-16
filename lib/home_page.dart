@@ -18,9 +18,7 @@ class _HomePageState extends State<HomePage> {
     taskPage,
     billsPage,
     medsPage,
-    accountInfo];
-
-  //accountInfo
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +39,13 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => accountInfo,
+                  ));
+                },
+                icon: Icon(Icons.account_circle_outlined))
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -60,8 +65,6 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.medical_information_outlined),
                 label: 'الادوية'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_outlined), label: 'حساب')
           ],
         ),
         body: pages[pageIndex]);
