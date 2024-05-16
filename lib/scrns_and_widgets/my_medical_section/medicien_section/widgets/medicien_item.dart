@@ -23,18 +23,6 @@ class MedItem extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Expanded(
-              child: ListTile(
-                //Icon(Icons.medication),
-                subtitle: Text(
-                    'موعد اخذ الدواء : ${med.shotTime} \n يؤخذ كل ${med.interval} ساعة'),
-                title: Text(med.name),
-                leading: const Icon(
-                  Icons.medication,
-                  color: blue,
-                ),
-              ),
-            ),
             Column(
               children: [
                 IconButton(
@@ -44,7 +32,24 @@ class MedItem extends StatelessWidget {
                     onPressed: onPressedDelete,
                     icon: const Icon(Icons.cancel_outlined))
               ],
-            )
+            ),
+            Expanded(
+              child: ListTile(
+                //Icon(Icons.medication),
+                subtitle: Text(
+                  'موعد اخذ الدواء : ${med.shotTime} \n يؤخذ كل ${med.interval} ساعة',
+                  textAlign: TextAlign.right,
+                ),
+                title: Text(
+                  med.name,
+                  textAlign: TextAlign.right,
+                ),
+                trailing: const Icon(
+                  Icons.medication,
+                  color: blue,
+                ),
+              ),
+            ),
           ],
         ),
       ),

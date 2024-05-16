@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
 
-import 'my_row.dart';
+import 'bill_details.dart';
 
 class TelecomBills extends StatelessWidget {
   const TelecomBills({
@@ -25,78 +25,53 @@ class TelecomBills extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Card(
-          elevation: 40,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: ListTile(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => TelecomBillDetail(
-                      date: date,
-                      phoneNumberEmail: phoneNumberEmail,
-                      paymentAmount: paymentAmount,
-                      operationNumber: operationNumber,
-                          commissionAmount: commissionAmount,
-                          time: time,
-                        ),
-                  );
-                },
-                title: Text(date),
-                subtitle: Text(operationNumber)),
-          ),
-        ),
-        Positioned(
-          top: -4,
-          right: -4,
-          child: telecomBill,
-        ),
-      ],
-    );
-  }
-}
-
-class TelecomBillDetail extends StatelessWidget {
-  const TelecomBillDetail({
-    super.key,
-    required this.date,
-    required this.time,
-    required this.operationNumber,
-    required this.phoneNumberEmail,
-    required this.paymentAmount,
-    required this.commissionAmount,
-  });
-
-  final String date;
-  final String time;
-  final String operationNumber;
-  final String phoneNumberEmail;
-  final String paymentAmount;
-  final String commissionAmount;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(15),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            MyRow(title: 'رقم العملية', value: operationNumber),
-            const Divider(),
-            MyRow(title: ' التاريخ', value: date),
-            const Divider(),
-            MyRow(title: 'رقم الهاتف الثابت ', value: phoneNumberEmail),
-            const Divider(),
-            MyRow(title: 'المبلغ                   ', value: paymentAmount),
-            const Divider(),
-            MyRow(
-                title: 'الدفع للفاتورة                 ',
-                value: commissionAmount),
-          ],
-        ),
+    return Card(
+      elevation: 9,
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: ListTile(
+            trailing: telecomBill,
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BillCategoryDetail(
+                  title: const [
+                    'المبلغ',
+                    'رقم الفاتورة',
+                    'عمولة دفع الفاتورة',
+                    'تاريخ',
+                    'وقت',
+                    'رقم الهاتف الثابت /البريد الالكتروني',
+                    'رقم العملية',
+                  ],
+                  subtitle: [
+                    paymentAmount,
+                    invoiceNumber,
+                    commissionAmount,
+                    date,
+                    time,
+                    phoneNumberEmail,
+                    operationNumber,
+                  ],
+                  icon: const [
+                    Icons.monetization_on_outlined,
+                    Icons.receipt,
+                    Icons.monetization_on_outlined,
+                    Icons.date_range_outlined,
+                    Icons.timer,
+                    Icons.alternate_email,
+                    Icons.receipt_long
+                  ],
+                ),
+              ));
+            },
+            title: Text(
+              '$invoiceNumber رقم الفاتورة ',
+              textAlign: TextAlign.right,
+            ),
+            subtitle: Text(
+              'التاريخ $date',
+              textAlign: TextAlign.right,
+            )),
       ),
     );
   }

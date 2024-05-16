@@ -23,14 +23,12 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> loadUserInfo() async {
-    try {
       Map info = {};
       await User.userInfo().then((value) => info = value);
       emit(UserInfoLoaded(
           email: info['email'],
           password: info['password'],
           username: info['username']));
-    } catch (e) {}
   }
 
   void checkInternet() async {

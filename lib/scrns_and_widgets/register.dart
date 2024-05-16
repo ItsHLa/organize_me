@@ -88,7 +88,6 @@ class _RegisterState extends State<Register> {
                         });
                       },
                       validator: ValidateInputData.checkIfNull,
-                      hint: '',
                     ),
                   ),
                   const SizedBox(
@@ -106,7 +105,6 @@ class _RegisterState extends State<Register> {
                         );
                       },
                       validator: ValidateInputData.validateEmail,
-                      hint: '',
                     ),
                   ),
                   const SizedBox(
@@ -124,7 +122,6 @@ class _RegisterState extends State<Register> {
                         );
                       },
                       validator: ValidateInputData.validatePassword,
-                      hint: '',
                     ),
                   ),
                   const SizedBox(

@@ -32,6 +32,12 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
           key: numKey,
           autovalidateMode: validateMode,
           child: InputDataPage(
+            controllers: [
+              newName,
+              specialty,
+              newPhone,
+              clinicPhone,
+            ],
             save: [
               (value) {
                 newName.text = value!;
@@ -58,7 +64,6 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
               TextInputType.number,
               TextInputType.number
             ],
-            hint: const ['', '', '', ''],
             labels: const ['الاسم', 'الاختصاص', 'رقم الطبيب', 'رقم العيادة'],
             icon: Icons.add_call,
             labelButton: 'اضف جهة الاتصال',

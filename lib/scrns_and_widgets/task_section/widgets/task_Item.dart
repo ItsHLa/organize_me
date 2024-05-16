@@ -34,7 +34,7 @@ class TaskItem extends StatelessWidget {
               child: ListTile(
                 onTap: onTap,
                 title: Text(taskTitle),
-                subtitle: Text("$taskStartTime - $taskPreAlarm \n $date "),
+                subtitle: Text("$taskStartTime  \n $date "),
               ),
             ),
             MyStatusButton(

@@ -22,20 +22,22 @@ class TaskDetails extends StatelessWidget {
             children: [
               Center(
                 child: ListTile(
-                  trailing: IconButton(
+                  leading: IconButton(
                       onPressed: onPressedEdit,
                       iconSize: 20,
                       icon: const Icon(Icons.mode_edit_outlined)),
-                  leading: state.tasks[index].status == 'متوقف'
+                  trailing: state.tasks[index].status == 'متوقف'
                       ? taskPending
                       : (state.tasks[index].status == 'قيد تنفيذ'
                           ? taskOngoing
                           : taskComplete),
                   subtitle: Text(
                     '${state.tasks[index].startDate} -  ${state.tasks[index].startTime}',
+                    textAlign: TextAlign.right,
                   ),
                   title: Text(
                     state.tasks[index].title,
+                    textAlign: TextAlign.right,
                     style: const TextStyle(
                       fontSize: 20,
                     ),
@@ -70,6 +72,7 @@ class TaskInfo extends StatelessWidget {
         padding: const EdgeInsets.all(7),
         child: Text(
           text,
+          textAlign: TextAlign.right,
           style: const TextStyle(fontSize: 15),
         ),
       ),

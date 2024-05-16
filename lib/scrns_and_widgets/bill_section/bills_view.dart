@@ -59,35 +59,32 @@ class MyBills extends StatelessWidget {
                 child: const Icon(Icons.notifications_active_outlined)),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  const Spacer(),
-                  IconButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (newcontext) =>
-                              BlocProvider<BillCubit>.value(
-                            value: BlocProvider.of(context),
-                            child: const MySearchBar(),
-                          ),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.search_outlined,
-                        color: appColorTheme,
-                      )),
-                  const SizedBox(
-                    width: 10,
-                  )
-                ],
-              ),
-              const MonthlyChart(),
-            ],
-          ),
+        body: Column(
+          children: [
+            Row(
+              children: [
+                const Spacer(),
+                IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (newcontext) => BlocProvider<BillCubit>.value(
+                          value: BlocProvider.of(context),
+                          child: const MySearchBar(),
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      CupertinoIcons.search_circle,
+                      color: appColorTheme,
+                    )),
+                const SizedBox(
+                  width: 10,
+                )
+              ],
+            ),
+            const MonthlyChart(),
+          ],
         ));
   }
 }

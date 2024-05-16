@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
 
-import 'electri_bill_detail.dart';
+import 'bill_details.dart';
 
 class ElectricBills extends StatelessWidget {
   const ElectricBills({
@@ -29,40 +29,61 @@ class ElectricBills extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Card(
-          elevation: 40,
-          child: Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: ListTile(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) => ElectricBillDetail(
-                    time: time,
-                    date: date,
-                    paymentAmount: paymentAmount,
-                    operationNumber: operationNumber,
-                        billingNumber: billingNumber,
-                        subscriptionNumber: subscriptionNumber,
-                        commissionAmount: commissionAmount,
-                        invoiceNumber: invoiceNumber,
-                        gov: gov,
-                      ),
-                );
-              },
-              subtitle: Text(date),
-              title: Text('رقم الفاتورة : $billingNumber'),
-            ),
+    return Card(
+      elevation: 10,
+      child: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: ListTile(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => BillCategoryDetail(
+                title: const [
+                  'رقم الفاتورة',
+                  'المبلغ',
+                  'عمولة دفع الفاتورة',
+                  'تاريخ',
+                  'وقت',
+                  'المحافظة',
+                  'رقم الفوترة',
+                  'رقم الاشتراك',
+                  'رقم العملية',
+                ],
+                subtitle: [
+                  invoiceNumber,
+                  paymentAmount,
+                  commissionAmount,
+                  date,
+                  time,
+                  gov,
+                  billingNumber,
+                  subscriptionNumber,
+                  operationNumber,
+                ],
+                icon: const [
+                  Icons.receipt_outlined,
+                  Icons.monetization_on_outlined,
+                  Icons.monetization_on_outlined,
+                  Icons.date_range_outlined,
+                  Icons.timer_outlined,
+                  Icons.place_outlined,
+                  Icons.numbers_outlined,
+                  Icons.confirmation_num_outlined,
+                  Icons.receipt_long_outlined,
+                ],
+              ),
+            ));
+          },
+          trailing: electricBill,
+          title: Text(
+            'رقم الفاتورة $billingNumber',
+            textAlign: TextAlign.right,
+          ),
+          subtitle: Text(
+            date,
+            textAlign: TextAlign.right,
           ),
         ),
-        Positioned(
-          top: -4,
-          right: -4,
-          child: electricBill,
-        )
-      ],
+      ),
     );
   }
 }

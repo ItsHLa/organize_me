@@ -13,10 +13,13 @@ class AddMedsScreen extends StatefulWidget {
 }
 
 class _AddMedsScreenState extends State<AddMedsScreen> {
-  String medicienName = '';
-  int interval = 0;
-  String shotTime = '';
+  // String medicienName = '';
+  // int interval = 0;
+  // String shotTime = '';
   TimeOfDay? time;
+  TextEditingController shotTime = TextEditingController();
+  TextEditingController medicienName = TextEditingController();
+  TextEditingController interval = TextEditingController();
   GlobalKey<FormState> medKey = GlobalKey();
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
 
@@ -32,6 +35,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
         autovalidateMode: autoValidate,
         key: medKey,
         child: InputDataPage(
+          controllers: [medicienName, interval, shotTime],
           icon: Icons.add,
           labelButton: 'اضافة الدواء',
           labels: const [
@@ -43,14 +47,14 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
             (value) {
               setState(
                 () {
-                  medicienName = value!;
+                  medicienName.text = value!;
                 },
               );
             },
-            (value) {
+                (value) {
               setState(
-                () {
-                  interval = int.parse(value!);
+                    () {
+                  interval.text = value!;
                 },
               );
             },
@@ -60,19 +64,18 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
           onTap: [
             null,
             null,
-            () async {
+                () async {
               time = (await showTimePicker(
                   context: context, initialTime: TimeOfDay.now()));
               setState(
-                () {
-                  shotTime = time != null
+                    () {
+                  shotTime.text = time != null
                       ? '${time?.hour.toString()}:${time?.minute.toString()}'
                       : '';
                 },
               );
             }
           ],
-          hint: const ['', '', ''],
           validator: const [
             ValidateInputData.checkIfNull,
             ValidateInputData.checkInterval,
@@ -83,9 +86,9 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
             if (ValidateInputData.validateField(medKey)) {
               medKey.currentState?.save();
               BlocProvider.of<MedicineCubit>(context).addMed(
-                medicienName,
+                medicienName.text,
                 time!,
-                interval,
+                int.parse(interval.text),
               );
               debugPrint('Adding Medicien');
             } else {

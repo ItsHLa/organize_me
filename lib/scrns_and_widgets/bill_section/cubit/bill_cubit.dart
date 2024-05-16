@@ -45,31 +45,32 @@ class BillCubit extends Cubit<BillState> {
     }
   }
 
-  Future<void> monthlySpendingOneCategory(
-    String year,
-    String month,
-  ) async {
+  Future<void> monthlySpendingOneCategory(String year,
+      String month,) async {
     emit(MonthlySpendingLoading(bills: bills));
     try {
-      double telecom = 0;
-      double water = 0;
-      double electric = 0;
-      await Bill.calculatePayments(TelecomBill.tableName, year, month)
-          .then((value) => telecom = value);
-      print('telecom $telecom');
-      await Bill.calculatePayments(WaterBill.tableName, year, month)
-          .then((value) => water = value);
-      print('water $water');
-      await Bill.calculatePayments(ElectricBill.tableName, year, month)
-          .then((value) => electric = value);
-      print('telecom $electric');
-      double sumMonthlySpending = water + electric + telecom;
+      List<double> percent = [0, 0, 0];
+      List<double> sum = [0, 0, 0];
+
+      Future<double>.value(
+          await Bill.calculatePayments(ElectricBill.tableName, year, month)
+              .then((value) => sum[0] = value));
+      Future<double>.value(
+          await Bill.calculatePayments(TelecomBill.tableName, year, month)
+              .then((value) => sum[1] = value));
+      Future<double>.value(
+          await Bill.calculatePayments(WaterBill.tableName, year, month)
+              .then((value) => sum[2] = value));
+      double sumMonthlySpending = sum[0] + sum[1] + sum[2];
+      percent[0] = ((sum[0] / sumMonthlySpending) * 100).roundToDouble();
+      percent[1] = ((sum[1] / sumMonthlySpending) * 100).roundToDouble();
+      percent[2] = ((sum[2] / sumMonthlySpending) * 100).roundToDouble();
+      print(percent);
       emit(MonthlySpendingCalculated(
           bills: bills,
-          monthlySpendingWater: water,
-          monthlySpendingElectricity: electric,
-          monthlySpendingTelecom: telecom,
-          monthlySpendingAll: sumMonthlySpending));
+          monthlySpendingAll: sumMonthlySpending,
+          percent: percent,
+          sum: sum));
     } catch (e) {
       emit(MonthlySpendingFailed(bills: bills));
     }

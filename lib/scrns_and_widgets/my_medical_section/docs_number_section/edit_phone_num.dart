@@ -70,13 +70,15 @@ class EditPhoneNumber extends StatefulWidget {
 }
 
 class _EditPhoneNumberState extends State<EditPhoneNumber> {
-  String editClinicNumber = '';
-  String editPhoneNumber = '';
+  TextEditingController editClinicNumber = TextEditingController();
+  TextEditingController editPhoneNumber = TextEditingController();
   GlobalKey<FormState> numKey = GlobalKey();
   AutovalidateMode validateMode = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
+    editClinicNumber.text = widget.contact.clinicPhone;
+    editPhoneNumber.text = widget.contact.phone;
     return Form(
       key: numKey,
       autovalidateMode: validateMode,
@@ -87,16 +89,16 @@ class _EditPhoneNumberState extends State<EditPhoneNumber> {
           }
         },
         child: InputDataPage(
+          controllers: [editClinicNumber, editPhoneNumber],
           labels: const ['رقم العيادة', 'رقم الطبيب'],
-          hint: ['', ''],
           keyboardType: [TextInputType.number, TextInputType.number],
           validator: const [null, ValidateInputData.checkEditedPhoneNumber],
           save: [
             (value) {
-              editClinicNumber = value ?? widget.contact.clinicPhone;
+              editClinicNumber.text = value ?? editClinicNumber.text;
             },
             (value) {
-              editPhoneNumber = value ?? widget.contact.phone;
+              editPhoneNumber.text = value ?? editClinicNumber.text;
             }
           ],
           icon: Icons.add_call,
@@ -105,8 +107,8 @@ class _EditPhoneNumberState extends State<EditPhoneNumber> {
             numKey.currentState?.save();
             BlocProvider.of<DocsNumCubit>(context).editPhoneNumber(
               widget.contact.id,
-              editClinicNumber,
-              editPhoneNumber,
+              editClinicNumber.text,
+              editPhoneNumber.text,
             );
           },
         ),

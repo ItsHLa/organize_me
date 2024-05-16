@@ -84,7 +84,7 @@ class _LoginState extends State<Login> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InputText(
-                      hint: 'ايميل',
+                      labelText: 'ايميل',
                       save: (value) {
                         setState(
                           () {
@@ -101,7 +101,7 @@ class _LoginState extends State<Login> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InputText(
-                      hint: 'كلمة السر',
+                      labelText: 'كلمة السر',
                       save: (value) {
                         setState(
                           () {

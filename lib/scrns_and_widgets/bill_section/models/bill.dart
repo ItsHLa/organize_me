@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
@@ -23,11 +25,9 @@ abstract class Bill {
     }
   }
 
-  static Future<double> calculatePayments(
-    String tableName,
-    String year,
-    String month,
-  ) async {
+  static Future<double> calculatePayments(String tableName,
+      String year,
+      String month,) async {
     // -- DD/MM/YYYY
     Database? mydb = await DatabaseHelper.db;
     List<Map> payments = [];
@@ -40,6 +40,7 @@ abstract class Bill {
     ).then((value) {
       payments = value;
     });
+    log(payments.toString());
     return payments[0]['SUM(payment_amount)'] ?? 0;
   }
 

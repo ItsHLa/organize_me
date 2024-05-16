@@ -112,8 +112,11 @@ class EditUserInfo extends StatefulWidget {
 
 class _EditUserInfoState extends State<EditUserInfo> {
   List labels = ['اسم المستخدم', 'عنوان البريد الالكتروني', 'كلمة السر'];
-  List info = ['', '', ''];
-  List hints = ['', '', ''];
+  List<TextEditingController> controllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
   GlobalKey<FormState> key = GlobalKey();
 
   @override
@@ -121,22 +124,22 @@ class _EditUserInfoState extends State<EditUserInfo> {
     return Form(
       key: key,
       child: InputDataPage(
+        controllers: controllers,
         labels: labels,
-        hint: hints,
         save: [
           (value) {
-            info[0] = value!;
+            controllers[0].text = value!;
           },
           (value) {
-            info[1] = value!;
+            controllers[1].text = value!;
           },
           (value) {
-            info[2] = value!;
+            controllers[2].text = value!;
           }
         ],
         onPressed: () {
           key.currentState?.save();
-          log(info.toString());
+          log(controllers.toString());
         },
         labelButton: 'تعديل',
         icon: Icons.edit_outlined,

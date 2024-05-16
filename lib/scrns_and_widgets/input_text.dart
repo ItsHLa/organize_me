@@ -4,26 +4,22 @@ import 'package:organize_me/constants.dart';
 class InputText extends StatelessWidget {
   const InputText({
     super.key,
-    required this.hint,
-    this.lines = 1,
     this.save,
-    this.maxLength,
     this.keyboardType,
     this.validator,
     this.labelText,
     this.readOnly,
     this.onTap,
+    this.controller,
   });
 
-  final String hint;
-  final int lines;
   final void Function(String?)? save;
-  final int? maxLength;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final String? labelText;
   final bool? readOnly;
   final Function()? onTap;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +29,11 @@ class InputText extends StatelessWidget {
       keyboardType: keyboardType,
       onSaved: save,
       validator: validator,
-      maxLength: maxLength,
-      maxLines: lines,
+      controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(color: appColorTheme),
         hintStyle: TextStyle(color: appColorTheme),
-        hintText: hint,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: appColorTheme),

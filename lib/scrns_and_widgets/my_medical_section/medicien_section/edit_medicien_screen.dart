@@ -16,6 +16,9 @@ class EditMedsScreen extends StatefulWidget {
 }
 
 class _EditMedsScreenState extends State<EditMedsScreen> {
+  TextEditingController shotTime = TextEditingController();
+  TextEditingController medicienName = TextEditingController();
+  TextEditingController interval = TextEditingController();
   String? editedMedName;
 
   int editedMedInterval = 0;
@@ -28,6 +31,9 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    medicienName.text = widget.med.name;
+    interval.text = widget.med.interval.toString();
+    shotTime.text = widget.med.shotTime;
     return BlocListener<MedicineCubit, MedicineState>(
       listener: (context, state) {
         if (state is AddMedSuccses) {
@@ -37,6 +43,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
       child: Form(
         key: medKey,
         child: InputDataPage(
+          controllers: [medicienName, interval, shotTime],
           labels: const [
             'اسم الدواء',
             'عدد الساعات بين الجرعات',
@@ -46,16 +53,16 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
             (value) {
               setState(
                 () {
-                  editedMedName = (value!.isEmpty ? widget.med.name : value);
+                  medicienName.text =
+                      (value!.isEmpty ? medicienName.text : value);
+                  //  editedMedName = (value!.isEmpty ? widget.med.name : value);
                 },
               );
             },
-            (value) {
+                (value) {
               setState(
-                () {
-                  editedMedInterval = int.parse(value!.isNotEmpty
-                      ? value
-                      : widget.med.interval.toString());
+                    () {
+                  interval.text = value!.isNotEmpty ? value : interval.text;
                 },
               );
             },
@@ -65,17 +72,16 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
           onTap: [
             null,
             null,
-            () async {
+                () async {
               time = await showTime(context);
               setState(
-                () {
+                    () {
                   editedShotTime =
-                      '${time?.hour.toString()}:${time?.minute.toString()}';
+                  '${time?.hour.toString()}:${time?.minute.toString()}';
                 },
               );
             }
           ],
-          hint: const ['', '', ''],
           validator: const [
             ValidateInputData.checkIfNull,
             ValidateInputData.checkEditedInterval,
@@ -90,8 +96,8 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
               id: widget.med.id,
               editedTimeOfShot:
                   time ?? convertStringToTimeDay(widget.med.shotTime),
-              editedInterval: editedMedInterval,
-              editedName: editedMedName!,
+              editedInterval: int.parse(interval.text!),
+              editedName: medicienName.text!,
             );
             debugPrint('Editing Medicine');
           },

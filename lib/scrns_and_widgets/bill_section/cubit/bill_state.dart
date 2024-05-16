@@ -72,16 +72,14 @@ final class TelecomFailed extends BillState {
 }
 
 final class MonthlySpendingCalculated extends BillState {
-  final double monthlySpendingWater;
-  final double monthlySpendingElectricity;
-  final double monthlySpendingTelecom;
+  final List<double> percent;
+  final List<double> sum;
   final double monthlySpendingAll;
 
   const MonthlySpendingCalculated(
       {required super.bills,
-      required this.monthlySpendingWater,
-      required this.monthlySpendingElectricity,
-      required this.monthlySpendingTelecom,
+      required this.percent,
+      required this.sum,
       required this.monthlySpendingAll});
 }
 

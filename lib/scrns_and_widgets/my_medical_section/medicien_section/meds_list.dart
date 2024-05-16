@@ -3,12 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/widgets/medicien_list_view.dart';
 
-class MedsGrid extends StatelessWidget {
+class MedsGrid extends StatefulWidget {
   const MedsGrid({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<MedsGrid> createState() => _MedsGridState();
+}
+
+class _MedsGridState extends State<MedsGrid> {
+  @override
+  void initState() {
     BlocProvider.of<MedicineCubit>(context).loadMedsData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<MedicineCubit, MedicineState>(
       builder: (context, state) {
         if (state is LoadMeds) {

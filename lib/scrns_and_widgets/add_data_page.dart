@@ -8,26 +8,24 @@ import 'input_text.dart';
 import 'my_button.dart';
 
 class InputDataPage extends StatelessWidget {
-  const InputDataPage(
-      {super.key,
-      //   required this.child,
-      required this.onPressed,
-      required this.icon,
-      required this.labels,
-      required this.hint,
-      this.keyboardType,
-      this.validator,
-      required this.save,
-      required this.labelButton,
-      this.readOnly,
-      this.onTap});
+  const InputDataPage({super.key,
+    //   required this.child,
+    required this.onPressed,
+    required this.icon,
+    required this.labels,
+    this.keyboardType,
+    this.validator,
+    required this.save,
+    required this.labelButton,
+    this.readOnly,
+    this.onTap, required this.controllers});
 
 //  final Widget child;
   final void Function()? onPressed;
   final IconData icon;
   final String labelButton;
   final List labels;
-  final List hint;
+  final List controllers;
   final List<TextInputType?>? keyboardType;
   final List<String? Function(String?)?>? validator;
   final List<void Function(String?)?> save;
@@ -61,7 +59,7 @@ class InputDataPage extends StatelessWidget {
                   child: InputText(
                     readOnly: readOnly?[index],
                     onTap: onTap?[index],
-                    hint: hint[index],
+                    controller: controllers[index],
                     labelText: labels[index],
                     keyboardType: keyboardType?[index],
                     validator: validator?[index],

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
@@ -17,16 +18,21 @@ class AddTaskScreen extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
-  String? taskTitle;
+  TextEditingController taskTitle = TextEditingController();
+  TextEditingController taskContent = TextEditingController();
+  TextEditingController dateTime = TextEditingController();
+  TextEditingController startTime = TextEditingController();
+  TextEditingController preAlarm = TextEditingController();
 
-  String? taskContent;
+  // String? taskContent;
 
   TimeOfDay? start;
   DateTime? date;
-  String dateTime = '';
 
-  String startTime = '';
-  int? preAlarm;
+  //String dateTime = '';
+
+  // String startTime = '';
+  // int? preAlarm;
 
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
@@ -53,6 +59,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           key: taskKey,
           autovalidateMode: autoValidated,
           child: InputDataPage(
+            controllers: [
+              taskTitle,
+              taskContent,
+              dateTime,
+              startTime,
+              preAlarm
+            ],
             labels: const [
               'اسم المهمة',
               'وصف المهمة',
@@ -64,35 +77,37 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ValidateInputData.checkIfNull,
               ValidateInputData.checkIfNull,
               (value) {
-                return ValidateInputData.checkDateTime(dateTime);
+                return ValidateInputData.checkDateTime(dateTime.text);
               },
-              (value) {
-                return ValidateInputData.checkStartTime(startTime, dateTime);
+                  (value) {
+                return ValidateInputData.checkStartTime(
+                    startTime.text, dateTime.text);
               },
-              (value) {
+                  (value) {
                 return ValidateInputData.checkTaskInterval(
-                    value, startTime, dateTime);
+                    value, startTime.text, dateTime.text);
               }
             ],
             onTap: [
               null,
               null,
-              () async {
+                  () async {
                 date = await showDate(context);
                 setState(
-                  () {
+                      () {
                     if (date != null) {
-                      dateTime = '${date!.day}/${date!.month}/${date!.year}';
+                      dateTime.text =
+                          '${date!.day}/${date!.month}/${date!.year}';
                     }
                   },
                 );
               },
-              () async {
+                  () async {
                 start = await showTime(context);
                 setState(
-                  () {
+                      () {
                     if (start != null) {
-                      startTime = '${start!.hour}:${start!.minute}';
+                      startTime.text = '${start!.hour}:${start!.minute}';
                     }
                   },
                 );
@@ -101,27 +116,22 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ],
             readOnly: const [false, false, true, true, false],
             save: [
-              (value) {
-                taskTitle = value ?? '';
+                  (value) {
+                taskTitle.text = value ?? '';
               },
-              (value) {
-                taskContent = value ?? '';
+                  (value) {
+                taskContent.text = value ?? '';
               },
               null,
               null,
-              (value) {
-                setState(
-                  () {
-                    preAlarm = int.parse(value ?? '0');
-                  },
-                );
+                  (value) {
+                preAlarm.text = value ?? '0';
               }
             ],
             keyboardType: const [null, null, null, null, TextInputType.number],
-            hint: const ['', '', '', '', ''],
             onPressed: () {
               var electric =
-                  """تم دفع مبلغ 3920 ل.س لصالح المؤسسة العامة لنقل وتوزيع الكهرباء متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 69899292 بتاريخ 08/04/2024 21:09
+              """تم دفع مبلغ 3920 ل.س لصالح المؤسسة العامة لنقل وتوزيع الكهرباء متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 69899292 بتاريخ 08/05/2024 21:09
 المحافظة: اللاذقية
 رقم الفوترة: 254871
 رقم الاشتراك: 157972
@@ -129,17 +139,17 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
               var water = '''''';
               var telecom =
-              '''تم دفع مبلغ 5100 ل.س لصالح السورية للاتصالات متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 2028066512 بتاريخ 01/05/2024 18:11
+                  '''تم دفع مبلغ 5100 ل.س لصالح السورية للاتصالات متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 2028066512 بتاريخ 01/05/2024 18:11
 رقم الهاتف الثابت/ البريد الإلكتروني: taghreed.h@tarassul.sy
 رقم العملية: s600075648235''';
-              compareBillTest(body: telecom);
+              compareBillTest(body: electric);
               if (ValidateInputData.validateField(taskKey)) {
                 taskKey.currentState!.save();
                 BlocProvider.of<TaskCubit>(context).addTask(
-                  content: taskContent!,
-                  title: taskTitle!,
+                  content: taskContent.text!,
+                  title: taskTitle.text!,
                   startDate: date!,
-                  preAlarm: preAlarm!,
+                  preAlarm: int.parse(preAlarm.text!),
                   startTime: start!,
                 );
               } else {

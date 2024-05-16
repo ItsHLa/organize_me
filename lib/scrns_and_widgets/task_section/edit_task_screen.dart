@@ -58,6 +58,13 @@ class _AddTaskScreenState extends State<EditTask> {
           key: taskKey,
           autovalidateMode: autoValidated,
           child: InputDataPage(
+            controllers: [
+              editedTaskTitle,
+              editedTaskContent,
+              dateTime,
+              startTime,
+              editedPreAlarm
+            ],
             labels: const [
               'اسم المهمة',
               'وصف المهمة',
@@ -69,11 +76,11 @@ class _AddTaskScreenState extends State<EditTask> {
               null,
               null,
               ValidateInputData.checkDateTime,
-              (value) {
+                  (value) {
                 return ValidateInputData.checkEditedStartTime(
                     value, dateTime.text ?? widget.task.startDate);
               },
-              (value) {
+                  (value) {
                 return ValidateInputData.checkEditedTaskInterval(
                     value,
                     startTime.text ?? widget.task.startTime,
@@ -83,24 +90,24 @@ class _AddTaskScreenState extends State<EditTask> {
             onTap: [
               null,
               null,
-              () async {
+                  () async {
                 date = await showDate(context);
                 setState(
-                  () {
+                      () {
                     if (date != null) {
                       dateTime.text =
-                          '${date!.day}/${date!.month}/${date!.year}';
+                      '${date!.day}/${date!.month}/${date!.year}';
                     }
                   },
                 );
               },
-              () async {
+                  () async {
                 editedStart = await showTime(context);
                 setState(
-                  () {
+                      () {
                     if (editedStart != null) {
                       startTime.text =
-                          '${editedStart!.hour}:${editedStart!.minute}';
+                      '${editedStart!.hour}:${editedStart!.minute}';
                     }
                   },
                 );
@@ -109,17 +116,17 @@ class _AddTaskScreenState extends State<EditTask> {
             ],
             readOnly: const [false, false, true, true, false],
             save: [
-              (value) {
+                  (value) {
                 editedTaskTitle.text = value ?? widget.task.title;
               },
-              (value) {
+                  (value) {
                 editedTaskContent.text = value ?? widget.task.content;
               },
               null,
               null,
-              (value) {
+                  (value) {
                 setState(
-                  () {
+                      () {
                     editedPreAlarm.text = value!.isEmpty
                         ? widget.task.preAlarm.toString()
                         : value;
@@ -128,7 +135,6 @@ class _AddTaskScreenState extends State<EditTask> {
               }
             ],
             keyboardType: const [null, null, null, null, TextInputType.number],
-            hint: const ['', '', '', '', ''],
             onPressed: () {
               if (ValidateInputData.validateField(taskKey)) {
                 taskKey.currentState?.save();

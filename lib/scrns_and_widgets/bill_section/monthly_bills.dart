@@ -17,94 +17,72 @@ class MonthlyChart extends StatefulWidget {
 class _MonthlyChartState extends State<MonthlyChart> {
   List categories = ['الكهرباء', 'الاتصالات', 'المياه'];
   List colors = [yellow, green, blue];
+  List icons = [electricBill, telecomBill, waterBill];
 
   @override
   void initState() {
-    super.initState();
     BlocProvider.of<BillCubit>(context).monthlySpendingOneCategory(
         DateTime.now().year.toString(), DateTime.now().month.toString());
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<BillCubit>(context).monthlySpendingOneCategory(
-        DateTime.now().year.toString(), DateTime.now().month.toString());
     return BlocBuilder<BillCubit, BillState>(
+      buildWhen: (previous, current) =>
+          current is MonthlySpendingCalculated || current is BillInitial,
       builder: (context, state) {
         print(state);
         if (state is MonthlySpendingCalculated) {
-          print(state.monthlySpendingAll);
-          if (state.monthlySpendingAll == 0) {
-            return const Center(
-                child: Text('لا يوجد فواتير لحساب الاستهلاك الشهري '));
-          } else {
-            List monthlyPercent = [
-              (state.monthlySpendingElectricity / state.monthlySpendingAll) *
-                  360,
-              (state.monthlySpendingTelecom / state.monthlySpendingAll) * 360,
-              (state.monthlySpendingWater / state.monthlySpendingAll) * 360,
-            ];
-            List monthly = [
-              state.monthlySpendingElectricity,
-              state.monthlySpendingTelecom,
-              state.monthlySpendingWater,
-            ];
-            return SizedBox(
-              height: 2000,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 170,
-                    width: 170,
-                    child: PieChart(
-                      PieChartData(
-                        centerSpaceRadius: 30,
-                        sections: [
-                          PieChartSectionData(
-                              color: yellow, value: monthlyPercent[0]), //
-                          PieChartSectionData(
-                              color: green, value: monthlyPercent[1]), //
-                          PieChartSectionData(
-                              color: blue, value: monthlyPercent[2]), //
-                        ],
-                      ),
-                      swapAnimationDuration: const Duration(milliseconds: 150),
-                      // Optional
-                      swapAnimationCurve: Curves.linear, // Optional
-                    ),
+          List monthlyPercent = state.percent;
+          List monthly = state.sum;
+          return state.monthlySpendingAll == 0
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 150.0),
+                  child: Column(
+                    children: [
+                      Icon(Icons.not_interested),
+                      const Center(
+                          child:
+                              Text('لا يوجد فواتير لحساب الاستهلاك الشهري ')),
+                    ],
                   ),
-                  Expanded(
-                      child: ListView.builder(
-                    itemCount: 3,
-                    itemBuilder: (newcontext, index) {
-                      return BillCategorySpending(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (ncontext) => BlocProvider.value(
-                                value: BlocProvider.of<BillCubit>(context),
-                                child: BillList(
-                                  category: categories[index],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        sum: monthly[index],
-                        color: colors[index],
-                        value: monthlyPercent[index],
-                        title: categories[index],
-                      );
-                    },
-                  ))
-                ],
-              ),
-            );
-          }
+                )
+              : SizedBox(
+                  height: 400,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 170,
+                        width: 170,
+                        child: PieChart(
+                          PieChartData(
+                            centerSpaceRadius: 30,
+                            sections: [
+                              PieChartSectionData(
+                                  color: yellow, value: monthlyPercent[0]),
+                              PieChartSectionData(
+                                  color: green, value: monthlyPercent[1]),
+                              PieChartSectionData(
+                                  color: blue, value: monthlyPercent[2]),
+                            ],
+                          ),
+                          swapAnimationDuration:
+                              const Duration(milliseconds: 150),
+                          // Optional
+                          swapAnimationCurve: Curves.linear, // Optional
+                        ),
+                      ),
+                      Category(
+                        monthly: monthly,
+                        categories: categories,
+                        Icons: icons,
+                      )
+                    ],
+                  ),
+                );
         }
-        return Container(
-          color: Colors.red,
-        );
+        return Container();
       },
     );
   }
@@ -115,38 +93,37 @@ class Category extends StatelessWidget {
       {super.key,
       required this.categories,
       required this.monthly,
-      required this.colors,
-      required this.monthlyPercent});
+      required this.Icons});
 
   final List categories;
   final List monthly;
-  final List colors;
-  final List monthlyPercent;
+  final List Icons;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 3,
-      itemBuilder: (newcontext, index) {
-        return BillCategorySpending(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (ncontext) => BlocProvider.value(
-                  value: BlocProvider.of<BillCubit>(context),
-                  child: BillList(
-                    category: categories[index],
+    return Expanded(
+      child: ListView.builder(
+        itemCount: 3,
+        itemBuilder: (newcontext, index) {
+          return BillCategorySpending(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ncontext) => BlocProvider.value(
+                    value: BlocProvider.of<BillCubit>(context),
+                    child: BillList(
+                      category: categories[index],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
-          sum: monthly[index],
-          color: colors[index],
-          value: monthlyPercent[index],
-          title: categories[index],
-        );
-      },
+              );
+            },
+            sum: monthly[index],
+            title: categories[index],
+            trailing: Icons[index],
+          );
+        },
+      ),
     );
   }
 }

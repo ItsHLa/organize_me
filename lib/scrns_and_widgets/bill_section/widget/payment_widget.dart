@@ -21,7 +21,7 @@ class PaymentPage extends StatelessWidget {
         PaymentButton(
           name: 'دفع عن طريق MTN كاش',
           logic: () async {
-            Uri mtnCash = Uri(scheme: 'tel', path: '*3040#');
+            Uri mtnCash = Uri(scheme: 'tel', path: '*2030#');
             await launchUrl(mtnCash);
           },
         ),

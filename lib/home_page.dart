@@ -41,12 +41,6 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            const IconButton(
-              onPressed: null,
-              icon: Icon(
-                Icons.energy_savings_leaf_outlined,
-              ),
-            )
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(

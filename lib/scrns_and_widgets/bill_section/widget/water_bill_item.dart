@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
 
+import 'bill_details.dart';
+
 class WaterBills extends StatelessWidget {
   const WaterBills({
     super.key,
@@ -34,6 +36,43 @@ class WaterBills extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: ListTile(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => BillCategoryDetail(
+                    title: const [
+                      'رقم الفاتورة',
+                      'المبلغ',
+                      'عمولة دفع الفاتورة',
+                      'تاريخ',
+                      'وقت',
+                      'المحافظة',
+                      'رقم الباركود',
+                      'رقم العداد',
+                      'رقم العملية',
+                    ],
+                    subtitle: [
+                      receiptNumber,
+                      paymentAmount,
+                      commissionAmount,
+                      date,
+                      time,
+                      gov,
+                      barcodeNumber,
+                      counterNumber,
+                      operationNumber,
+                    ],
+                    icon: const [
+                      Icons.money,
+                      Icons.numbers_outlined,
+                      Icons.money,
+                      Icons.date_range_outlined,
+                      Icons.timer,
+                      Icons.alternate_email,
+                      Icons.numbers_outlined
+                    ],
+                  ),
+                ));
+              },
               title: Text('رقم الايصال$receiptNumber'),
               subtitle: Text(date),
             ),

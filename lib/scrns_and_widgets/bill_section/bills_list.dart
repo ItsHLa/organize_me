@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
@@ -23,8 +22,8 @@ class BillList extends StatefulWidget {
 class _BillListState extends State<BillList> {
   @override
   void initState() {
-    super.initState();
     loadCategory(context, widget.category);
+    super.initState();
   }
 
   @override
@@ -33,20 +32,23 @@ class _BillListState extends State<BillList> {
         body: Column(
       children: [
         const SizedBox(
-          height: 50,
+          height: 40,
         ),
         Row(
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
-                  BlocProvider.of<BillCubit>(context)
-                      .monthlySpendingOneCategory(
-                          DateTime.now().year.toString(),
-                          DateTime.now().month.toString());
+                  Navigator.pop(context);
                 },
                 icon: const Icon(Icons.arrow_back)),
-            const Spacer()
+            const Spacer(),
+            const Text(
+              'فواتيرك المدفوعة',
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(
+              width: 10,
+            )
           ],
         ),
         Expanded(
@@ -60,7 +62,6 @@ class _BillListState extends State<BillList> {
               }
             },
             builder: (context, state) {
-              print(state);
               if (state.bills.isEmpty) {
                 return const Center(
                   child: Text('لا يوجد فواتير لعرضها',
@@ -160,5 +161,27 @@ void loadCategory(BuildContext context, String category) {
     case 'الكهرباء':
       BlocProvider.of<BillCubit>(context).loadElectric();
       break;
+  }
+}
+
+class Bill extends StatelessWidget {
+  const Bill({super.key, required this.title, required this.subtitle});
+
+  final List title;
+  final List subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListView.builder(
+        itemCount: title.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(title[index]),
+            subtitle: Text(subtitle[index]),
+          );
+        },
+      ),
+    );
   }
 }
