@@ -316,38 +316,39 @@ Future<TimeOfDay?> showTime(BuildContext context) async {
       errorInvalidText: 'لا يمكن ان يكون اليوم قبل اليوم الحالي',
       initialEntryMode: TimePickerEntryMode.input,
       builder: (context, child) {
-        return TimePickerTheme(
-          data: TimePickerThemeData(
-              inputDecorationTheme: InputDecorationTheme(
-                hintStyle: TextStyle(color: appColorTheme),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(
-                    color: appColorTheme,
-                  ),
+        return Theme(
+          data: Theme.of(context).copyWith(
+            inputDecorationTheme: InputDecorationTheme(
+              hintStyle: TextStyle(color: appColorTheme),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide(
+                  color: appColorTheme,
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(
-                    color: appColorTheme,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(
-                    color: appColorTheme,
-                  ),
-                ),
-                labelStyle: TextStyle(color: appColorTheme),
               ),
-              dialBackgroundColor: appColorTheme,
-              dayPeriodColor: appColorTheme,
-              cancelButtonStyle: TextButton.styleFrom(
-                foregroundColor: appColorTheme,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide(
+                    color: appColorTheme,
+                ),
               ),
-              confirmButtonStyle: TextButton.styleFrom(
-                foregroundColor: appColorTheme,
-              )),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide(
+                  color: appColorTheme,
+                ),
+              ),
+              labelStyle: TextStyle(color: appColorTheme),
+            ),
+            // dialBackgroundColor: appColorTheme,
+            // dayPeriodColor: appColorTheme,
+            // cancelButtonStyle: TextButton.styleFrom(
+            //   foregroundColor: appColorTheme,
+            // ),
+            // actionIconTheme: TextButton.styleFrom(
+            //   foregroundColor: appColorTheme,
+            // )
+          ),
           child: child!,
         );
       },
@@ -360,7 +361,7 @@ Future<DateTime?> showDate(BuildContext context) async {
       return Theme(
         data: Theme.of(context).copyWith(
           textSelectionTheme: TextSelectionThemeData(
-            selectionColor: Colors.white54,
+            selectionColor: Colors.grey,
             cursorColor: appColorTheme,
             selectionHandleColor: appColorTheme,
           ),
@@ -408,3 +409,12 @@ Future<DateTime?> showDate(BuildContext context) async {
     initialDate: DateTime.now(),
   );
 }
+
+/**
+ * TimePickerTheme(
+    data: TimePickerThemeData(
+
+    child: child!,
+    )
+ *
+ * */

@@ -37,12 +37,12 @@ class _MonthlyChartState extends State<MonthlyChart> {
           List monthlyPercent = state.percent;
           List monthly = state.sum;
           return state.monthlySpendingAll == 0
-              ? Padding(
-                  padding: const EdgeInsets.only(top: 150.0),
+              ? const Padding(
+                  padding: EdgeInsets.only(top: 150.0),
                   child: Column(
                     children: [
                       Icon(Icons.not_interested),
-                      const Center(
+                      Center(
                           child:
                               Text('لا يوجد فواتير لحساب الاستهلاك الشهري ')),
                     ],
