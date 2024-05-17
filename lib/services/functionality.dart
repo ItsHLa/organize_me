@@ -318,36 +318,37 @@ Future<TimeOfDay?> showTime(BuildContext context) async {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            inputDecorationTheme: InputDecorationTheme(
-              hintStyle: TextStyle(color: appColorTheme),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide(
-                  color: appColorTheme,
-                ),
+            timePickerTheme: TimePickerThemeData(
+              dialBackgroundColor: appColorTheme,
+              dayPeriodColor: appColorTheme,
+              cancelButtonStyle: TextButton.styleFrom(
+                foregroundColor: appColorTheme,
               ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide(
+              confirmButtonStyle: TextButton.styleFrom(
+                foregroundColor: appColorTheme,
+              ),
+              // hourMinuteColor: appColorTheme,
+              // hourMinuteShape: const RoundedRectangleBorder(),
+              inputDecorationTheme: InputDecorationTheme(
+                hintStyle: TextStyle(color: appColorTheme),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(
                     color: appColorTheme,
+                  ),
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide(
-                  color: appColorTheme,
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: appColorTheme,
+                  ),
                 ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: appColorTheme,
+                  ),
+                ),
+                labelStyle: TextStyle(color: appColorTheme),
               ),
-              labelStyle: TextStyle(color: appColorTheme),
             ),
-            // dialBackgroundColor: appColorTheme,
-            // dayPeriodColor: appColorTheme,
-            // cancelButtonStyle: TextButton.styleFrom(
-            //   foregroundColor: appColorTheme,
-            // ),
-            // actionIconTheme: TextButton.styleFrom(
-            //   foregroundColor: appColorTheme,
-            // )
           ),
           child: child!,
         );
@@ -368,20 +369,17 @@ Future<DateTime?> showDate(BuildContext context) async {
           inputDecorationTheme: InputDecorationTheme(
             activeIndicatorBorder: BorderSide(color: appColorTheme),
             hintStyle: TextStyle(color: appColorTheme),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
+            border: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: appColorTheme,
               ),
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
+            enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: appColorTheme,
               ),
             ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
+            focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: appColorTheme,
               ),
