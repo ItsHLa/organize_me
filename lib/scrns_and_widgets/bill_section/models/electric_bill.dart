@@ -118,7 +118,6 @@ class ElectricBill extends Bill {
         matchesMap['subscription_number'],
       ],
     );
-    print((await getOneBill(billId)));
     return match != null ? (await getOneBill(billId)) : {};
   }
 
@@ -154,21 +153,37 @@ class ElectricBill extends Bill {
     return bills;
   }
 
+  static Future<List<ElectricBill>> getBillsFromId(int id) async {
+    Database? mydb = await DatabaseHelper.db;
+    List<Map> elBillsMap = await mydb!.rawQuery(
+      """
+        SELECT * FROM $tableName WHERE id > ?;
+      """,
+      [id],
+    );
+    List<ElectricBill> bills = [];
+    for (Map bill in elBillsMap) {
+      bills.add(ElectricBill.fromMap(bill));
+    }
+    return bills;
+  }
+
   // TODO search filter methods...
   // (;_;) *crying*
 
   factory ElectricBill.fromJson(Map<String, dynamic> json) => ElectricBill(
-      id: json["id"],
-      paymentAmount: json["payment_amount"],
-      commissionAmount: json["commission_amount"],
-      date: json["date"],
-      time: json["time"],
-      provider: json["provider"],
-      operationNumber: json["operation_number"],
-      gov: json["gov"],
-      billingNumber: json["billing_number"],
-      invoiceNumber: json["invoice_number"],
-      subscriptionNumber: json["subscription_number"]);
+        id: json["id"],
+        paymentAmount: json["payment_amount"],
+        commissionAmount: json["commission_amount"],
+        date: json["date"],
+        time: json["time"],
+        provider: json["provider"],
+        operationNumber: json["operation_number"],
+        gov: json["gov"],
+        billingNumber: json["billing_number"],
+        invoiceNumber: json["invoice_number"],
+        subscriptionNumber: json["subscription_number"],
+      );
 
   @override
   Map<String, String> toJson() => {

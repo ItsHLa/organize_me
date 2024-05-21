@@ -137,16 +137,32 @@ class TelecomBill extends Bill {
     return bills;
   }
 
+  static Future<List<TelecomBill>> getBillsFromId(int id) async {
+    Database? mydb = await DatabaseHelper.db;
+    List<Map> elBillsMap = await mydb!.rawQuery(
+      """
+        SELECT * FROM $tableName WHERE id > ?;
+      """,
+      [id],
+    );
+    List<TelecomBill> bills = [];
+    for (Map bill in elBillsMap) {
+      bills.add(TelecomBill.fromMap(bill));
+    }
+    return bills;
+  }
+
   factory TelecomBill.fromJson(Map<String, dynamic> json) => TelecomBill(
-      id: json["id"],
-      paymentAmount: json["payment_amount"],
-      commissionAmount: json["commission_amount"],
-      date: json["date"],
-      time: json["time"],
-      provider: json["provider"],
-      operationNumber: json["operation_number"],
-      invoiceNumber: json["invoice_number"],
-      phoneNumberEmail: json['phone_number_email']);
+        id: json["id"],
+        paymentAmount: json["payment_amount"],
+        commissionAmount: json["commission_amount"],
+        date: json["date"],
+        time: json["time"],
+        provider: json["provider"],
+        operationNumber: json["operation_number"],
+        invoiceNumber: json["invoice_number"],
+        phoneNumberEmail: json['phone_number_email'],
+      );
 
   @override
   Map<String, String> toJson() => {

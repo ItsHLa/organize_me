@@ -149,6 +149,21 @@ class WaterBill extends Bill {
     return bills;
   }
 
+  static Future<List<WaterBill>> getBillsFromId(int id) async {
+    Database? mydb = await DatabaseHelper.db;
+    List<Map> elBillsMap = await mydb!.rawQuery(
+      """
+        SELECT * FROM $tableName WHERE id > ?;
+      """,
+      [id],
+    );
+    List<WaterBill> bills = [];
+    for (Map bill in elBillsMap) {
+      bills.add(WaterBill.fromMap(bill));
+    }
+    return bills;
+  }
+
   factory WaterBill.fromJson(Map<String, dynamic> json) => WaterBill(
         id: json["id"],
         paymentAmount: json["payment_amount"],

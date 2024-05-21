@@ -96,8 +96,8 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
               id: widget.med.id,
               editedTimeOfShot:
                   time ?? convertStringToTimeDay(widget.med.shotTime),
-              editedInterval: int.parse(interval.text!),
-              editedName: medicienName.text!,
+              editedInterval: int.parse(interval.text),
+              editedName: medicienName.text,
             );
             debugPrint('Editing Medicine');
           },

@@ -68,11 +68,9 @@ class TaskCubit extends Cubit<TaskState> {
     required TimeOfDay startTime,
   }) async {
     try {
-      String newStartTime =
-          startTime != null ? '${startTime.hour}:${startTime.minute}' : '';
-      String newStartDate = startDate != null
-          ? '${startDate.day}/${startDate.month}/${startDate.year}'
-          : '';
+      String newStartTime = '${startTime.hour}:${startTime.minute}';
+      String newStartDate =
+          '${startDate.day}/${startDate.month}/${startDate.year}';
       Map newTaskMap = await Task.editTask(
         id,
         newContent: content,

@@ -32,7 +32,6 @@ class _MonthlyChartState extends State<MonthlyChart> {
       buildWhen: (previous, current) =>
           current is MonthlySpendingCalculated || current is BillInitial,
       builder: (context, state) {
-        print(state);
         if (state is MonthlySpendingCalculated) {
           List monthlyPercent = state.percent;
           List monthly = state.sum;
@@ -76,7 +75,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
                       Category(
                         monthly: monthly,
                         categories: categories,
-                        Icons: icons,
+                        icons: icons,
                       )
                     ],
                   ),
@@ -93,11 +92,11 @@ class Category extends StatelessWidget {
       {super.key,
       required this.categories,
       required this.monthly,
-      required this.Icons});
+      required this.icons});
 
   final List categories;
   final List monthly;
-  final List Icons;
+  final List icons;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +119,7 @@ class Category extends StatelessWidget {
             },
             sum: monthly[index],
             title: categories[index],
-            trailing: Icons[index],
+            trailing: icons[index],
           );
         },
       ),

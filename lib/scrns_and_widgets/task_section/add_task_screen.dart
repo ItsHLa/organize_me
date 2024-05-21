@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
@@ -79,11 +78,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               (value) {
                 return ValidateInputData.checkDateTime(dateTime.text);
               },
-                  (value) {
+              (value) {
                 return ValidateInputData.checkStartTime(
                     startTime.text, dateTime.text);
               },
-                  (value) {
+              (value) {
                 return ValidateInputData.checkTaskInterval(
                     value, startTime.text, dateTime.text);
               }
@@ -91,10 +90,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             onTap: [
               null,
               null,
-                  () async {
+              () async {
                 date = await showDate(context);
                 setState(
-                      () {
+                  () {
                     if (date != null) {
                       dateTime.text =
                           '${date!.day}/${date!.month}/${date!.year}';
@@ -102,10 +101,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   },
                 );
               },
-                  () async {
+              () async {
                 start = await showTime(context);
                 setState(
-                      () {
+                  () {
                     if (start != null) {
                       startTime.text = '${start!.hour}:${start!.minute}';
                     }
@@ -116,40 +115,40 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ],
             readOnly: const [false, false, true, true, false],
             save: [
-                  (value) {
+              (value) {
                 taskTitle.text = value ?? '';
               },
-                  (value) {
+              (value) {
                 taskContent.text = value ?? '';
               },
               null,
               null,
-                  (value) {
+              (value) {
                 preAlarm.text = value ?? '0';
               }
             ],
             keyboardType: const [null, null, null, null, TextInputType.number],
             onPressed: () {
               var electric =
-              """تم دفع مبلغ 3920 ل.س لصالح المؤسسة العامة لنقل وتوزيع الكهرباء متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 69899292 بتاريخ 08/05/2024 21:09
+                  """تم دفع مبلغ 3920 ل.س لصالح المؤسسة العامة لنقل وتوزيع الكهرباء متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 69899292 بتاريخ 08/05/2024 21:09
 المحافظة: اللاذقية
 رقم الفوترة: 254871
 رقم الاشتراك: 157972
 رقم العملية: s600068373161""";
 
-              var water = '''''';
-              var telecom =
-                  '''تم دفع مبلغ 5100 ل.س لصالح السورية للاتصالات متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 2028066512 بتاريخ 01/05/2024 18:11
-رقم الهاتف الثابت/ البريد الإلكتروني: taghreed.h@tarassul.sy
-رقم العملية: s600075648235''';
+//               var water = '''''';
+//               var telecom =
+//                   '''تم دفع مبلغ 5100 ل.س لصالح السورية للاتصالات متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 2028066512 بتاريخ 01/05/2024 18:11
+// رقم الهاتف الثابت/ البريد الإلكتروني: taghreed.h@tarassul.sy
+// رقم العملية: s600075648235''';
               compareBillTest(body: electric);
               if (ValidateInputData.validateField(taskKey)) {
                 taskKey.currentState!.save();
                 BlocProvider.of<TaskCubit>(context).addTask(
-                  content: taskContent.text!,
-                  title: taskTitle.text!,
+                  content: taskContent.text,
+                  title: taskTitle.text,
                   startDate: date!,
-                  preAlarm: int.parse(preAlarm.text!),
+                  preAlarm: int.parse(preAlarm.text),
                   startTime: start!,
                 );
               } else {

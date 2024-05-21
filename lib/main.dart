@@ -56,7 +56,6 @@ class OrganizeMe extends StatefulWidget {
 }
 
 class _OrganizeMeState extends State<OrganizeMe> {
-
   @override
   void initState() {
     DatabaseHelper.intialDb();
@@ -87,11 +86,10 @@ class _OrganizeMeState extends State<OrganizeMe> {
                     signed = state.signed;
                   }
                 },
-                child: HomePage()
+                child: const HomePage()
                 //signed ? const HomePage() : const Register(),
                 ));
       },
     );
   }
 }
-

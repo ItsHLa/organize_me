@@ -45,8 +45,10 @@ class BillCubit extends Cubit<BillState> {
     }
   }
 
-  Future<void> monthlySpendingOneCategory(String year,
-      String month,) async {
+  Future<void> monthlySpendingOneCategory(
+    String year,
+    String month,
+  ) async {
     emit(MonthlySpendingLoading(bills: bills));
     try {
       List<double> percent = [0, 0, 0];
@@ -65,7 +67,6 @@ class BillCubit extends Cubit<BillState> {
       percent[0] = ((sum[0] / sumMonthlySpending) * 100).roundToDouble();
       percent[1] = ((sum[1] / sumMonthlySpending) * 100).roundToDouble();
       percent[2] = ((sum[2] / sumMonthlySpending) * 100).roundToDouble();
-      print(percent);
       emit(MonthlySpendingCalculated(
           bills: bills,
           monthlySpendingAll: sumMonthlySpending,

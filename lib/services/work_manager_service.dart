@@ -1,6 +1,15 @@
+import 'dart:convert';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/water_bill.dart';
+import 'package:organize_me/services/api_calls.dart';
 import 'package:organize_me/services/app_notification.dart';
+import 'package:organize_me/user.dart';
 import 'package:workmanager/workmanager.dart';
+
+import '../scrns_and_widgets/bill_section/models/bill.dart';
 
 class WorkManagerService {
   static void registerMyTask(
@@ -49,10 +58,19 @@ void callDispatcher() {
   });
 }
 
-checkInternetConnection() async {
+addBills() async {
   var result = await (Connectivity().checkConnectivity());
   if (result.contains(ConnectivityResult.wifi) ||
       result.contains(ConnectivityResult.mobile)) {
-    // ApiCalls.addBills(userId, type, bills);
+    Map<String, dynamic> userInfo = await User.userInfo();
+    Map user = jsonDecode((await ApiCalls.getUser(userInfo['id'])).body);
+    List<Bill> elBills =
+        await ElectricBill.getBillsFromId(user['last_el_bill']);
+    List<Bill> waBills = await WaterBill.getBillsFromId(user['last_wa_bill']);
+    List<Bill> telBills =
+        await TelecomBill.getBillsFromId(user['last_tel_bill']);
+    await ApiCalls.addBills(userInfo['id'], 'el', elBills);
+    await ApiCalls.addBills(userInfo['id'], 'wa', waBills);
+    await ApiCalls.addBills(userInfo['id'], 'tel', telBills);
   }
 }

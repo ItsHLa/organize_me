@@ -23,12 +23,15 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> loadUserInfo() async {
-      Map info = {};
-      await User.userInfo().then((value) => info = value);
-      emit(UserInfoLoaded(
-          email: info['email'],
-          password: info['password'],
-          username: info['username']));
+    Map info = {};
+    await User.userInfo().then((value) => info = value);
+    emit(
+      UserInfoLoaded(
+        email: info['email'],
+        password: info['password'],
+        username: info['username'],
+      ),
+    );
   }
 
   void checkInternet() async {
@@ -40,17 +43,16 @@ class UserCubit extends Cubit<UserState> {
 
   void login(String email, String password) async {
     var result = await (Connectivity().checkConnectivity());
-    print(result.toString());
     if (result.contains(ConnectivityResult.wifi) ||
         result.contains(ConnectivityResult.mobile)) {
       emit(Loading());
       try {
         http.Response r = await ApiCalls.login(email, password);
         Map bodyMap = jsonDecode(r.body);
-        print(bodyMap['el']);
         if (r.statusCode == 200) {
           await User.signUser(true);
           await User.setUserInfo(
+            id: bodyMap['id'],
             username: bodyMap['username'],
             email: email,
             password: password,
@@ -74,15 +76,16 @@ class UserCubit extends Cubit<UserState> {
 
   void register(User user) async {
     var result = await (Connectivity().checkConnectivity());
-    print(result);
     if (result.contains(ConnectivityResult.wifi) ||
         result.contains(ConnectivityResult.mobile)) {
       emit(Loading());
       try {
         http.Response response = await ApiCalls.addUser(user);
+        Map bodyMap = jsonDecode(response.body);
         if (response.statusCode == 200) {
           await User.signUser(true);
           await User.setUserInfo(
+            id: bodyMap['me']['id'],
             username: user.username,
             email: user.email,
             password: user.password,

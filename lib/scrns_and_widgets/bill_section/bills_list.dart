@@ -134,6 +134,7 @@ class _BillListState extends State<BillList> {
                           default:
                             break;
                         }
+                        return const SizedBox();
                       },
                     );
               //  if (state is WaterLoaded ||
@@ -141,7 +142,6 @@ class _BillListState extends State<BillList> {
               //     state is TelecomLoaded) {
               //  ;
               // }
-              return SizedBox();
             },
           ),
         )

@@ -48,6 +48,13 @@ class ApiCalls {
     return r;
   }
 
+  static Future<http.Response> getUser(int userId) async {
+    var r = await http.get(
+      Uri.parse("$baseUrl/getUser/$userId/"),
+    );
+    return r;
+  }
+
   static Future<http.Response> addBill(
     int userId,
     String type,

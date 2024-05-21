@@ -83,7 +83,7 @@ class MyBills extends StatelessWidget {
                 )
               ],
             ),
-            SingleChildScrollView(child: const MonthlyChart()),
+            const SingleChildScrollView(child: MonthlyChart()),
           ],
         ));
   }

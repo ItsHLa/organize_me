@@ -91,7 +91,7 @@ class _EditPhoneNumberState extends State<EditPhoneNumber> {
         child: InputDataPage(
           controllers: [editClinicNumber, editPhoneNumber],
           labels: const ['رقم العيادة', 'رقم الطبيب'],
-          keyboardType: [TextInputType.number, TextInputType.number],
+          keyboardType: const [TextInputType.number, TextInputType.number],
           validator: const [null, ValidateInputData.checkEditedPhoneNumber],
           save: [
             (value) {

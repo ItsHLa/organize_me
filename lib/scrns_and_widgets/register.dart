@@ -25,12 +25,11 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-      //  log(state.toString());
+        //  log(state.toString());
         if (state is RegisterSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('تم انشاء حساب بنجاح'),
@@ -42,7 +41,7 @@ class _RegisterState extends State<Register> {
         } else if (state is RegisterFailed) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('حصل خطأ اثناء انشاء حساب يرجى اعادة محاولة')));
-        }else if (state is NoInternet) {
+        } else if (state is NoInternet) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('تحقق من اتصالك بالانترنت'),
@@ -59,22 +58,22 @@ class _RegisterState extends State<Register> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const SizedBox(height: 60,),
+                  const SizedBox(
+                    height: 60,
+                  ),
                   const IconForm(
                       child: Icon(
-                        Icons.person_outlined,
-                        size: 50,
-                      )),
+                    Icons.person_outlined,
+                    size: 50,
+                  )),
                   const SizedBox(
                     height: 15,
                   ),
                   const Text(
                     'هل تريد ربط فواتيرك بعنوان بريدك الالكتروني ؟',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
                   ),
-
                   const SizedBox(
                     height: 15,
                   ),
@@ -99,7 +98,7 @@ class _RegisterState extends State<Register> {
                       labelText: 'ايميل',
                       save: (value) {
                         setState(
-                              () {
+                          () {
                             email = value!;
                           },
                         );
@@ -116,7 +115,7 @@ class _RegisterState extends State<Register> {
                       labelText: 'كلمة السر',
                       save: (value) {
                         setState(
-                              () {
+                          () {
                             password = value!;
                           },
                         );
@@ -169,18 +168,17 @@ class _RegisterState extends State<Register> {
                         child: Center(
                           child: state is Loading
                               ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              color: Colors.white54,
-                            ),
-                          )
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white54,
+                                  ),
+                                )
                               : const Text(
-                            'انشاء حساب',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )
-                    ),
+                                  'انشاء حساب',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                        )),
                   ),
                 ],
               ),

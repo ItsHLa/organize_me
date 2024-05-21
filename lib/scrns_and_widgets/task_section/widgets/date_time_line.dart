@@ -40,7 +40,7 @@ class _MyDateTimeLineState extends State<MyDateTimeLine> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
                 Text(
@@ -55,7 +55,7 @@ class _MyDateTimeLineState extends State<MyDateTimeLine> {
                   dayName,
                   style: const TextStyle(fontSize: 12),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
               ],
