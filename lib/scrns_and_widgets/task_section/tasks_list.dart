@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/task_list_view.dart';
 
@@ -19,8 +20,10 @@ class _TasksState extends State<Tasks> {
     return BlocBuilder<TaskCubit, TaskState>(
       builder: (context, state) {
         if (state is LoadingTasks) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Center(
+            child: CircularProgressIndicator(
+              color: appColorTheme,
+            ),
           );
         } else if (state.tasks.isNotEmpty &&
             (state is TaskLoaded ||

@@ -72,13 +72,19 @@ class EditPhoneNumber extends StatefulWidget {
 class _EditPhoneNumberState extends State<EditPhoneNumber> {
   TextEditingController editClinicNumber = TextEditingController();
   TextEditingController editPhoneNumber = TextEditingController();
+
+  @override
+  void initState() {
+    editClinicNumber.text = widget.contact.clinicPhone;
+    editPhoneNumber.text = widget.contact.phone;
+    super.initState();
+  }
+
   GlobalKey<FormState> numKey = GlobalKey();
   AutovalidateMode validateMode = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
-    editClinicNumber.text = widget.contact.clinicPhone;
-    editPhoneNumber.text = widget.contact.phone;
     return Form(
       key: numKey,
       autovalidateMode: validateMode,
@@ -95,21 +101,23 @@ class _EditPhoneNumberState extends State<EditPhoneNumber> {
           validator: const [null, ValidateInputData.checkEditedPhoneNumber],
           save: [
             (value) {
-              editClinicNumber.text = value ?? editClinicNumber.text;
+              editClinicNumber.text = value!;
             },
             (value) {
-              editPhoneNumber.text = value ?? editClinicNumber.text;
+              editPhoneNumber.text = value!;
             }
           ],
           icon: Icons.add_call,
           labelButton: 'تعديل جهة الاتصال',
           onPressed: () {
-            numKey.currentState?.save();
-            BlocProvider.of<DocsNumCubit>(context).editPhoneNumber(
-              widget.contact.id,
-              editClinicNumber.text,
-              editPhoneNumber.text,
-            );
+            if (ValidateInputData.validateField(numKey)) {
+              numKey.currentState?.save();
+              BlocProvider.of<DocsNumCubit>(context).editPhoneNumber(
+                widget.contact.id,
+                editClinicNumber.text,
+                editPhoneNumber.text,
+              );
+            }
           },
         ),
       ),

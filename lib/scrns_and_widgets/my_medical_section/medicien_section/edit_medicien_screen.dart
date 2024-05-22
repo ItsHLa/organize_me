@@ -26,14 +26,19 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
   String editedShotTime = '';
   TimeOfDay? time;
 
+  @override
+  void initState() {
+    medicienName.text = widget.med.name;
+    interval.text = widget.med.interval.toString();
+    shotTime.text = widget.med.shotTime;
+    super.initState();
+  }
+
   GlobalKey<FormState> medKey = GlobalKey();
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
-    medicienName.text = widget.med.name;
-    interval.text = widget.med.interval.toString();
-    shotTime.text = widget.med.shotTime;
     return BlocListener<MedicineCubit, MedicineState>(
       listener: (context, state) {
         if (state is AddMedSuccses) {
@@ -53,16 +58,14 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
             (value) {
               setState(
                 () {
-                  medicienName.text =
-                      (value!.isEmpty ? medicienName.text : value);
-                  //  editedMedName = (value!.isEmpty ? widget.med.name : value);
+                  medicienName.text = value!;
                 },
               );
             },
                 (value) {
               setState(
                     () {
-                  interval.text = value!.isNotEmpty ? value : interval.text;
+                      interval.text = value!;
                 },
               );
             },
