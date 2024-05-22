@@ -16,28 +16,33 @@ class EditTask extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<EditTask> {
-  TextEditingController editedTaskTitle = TextEditingController();
-
-  TextEditingController editedTaskContent = TextEditingController();
 
   TimeOfDay? editedStart;
   DateTime? date;
-
+  String title = '';
+  String selectedDate = '';
+  String selectedTime = '';
+  String content = '';
   TextEditingController dateTime = TextEditingController();
   TextEditingController startTime = TextEditingController();
-
+  TextEditingController editedTaskTitle = TextEditingController();
+  TextEditingController editedTaskContent = TextEditingController();
   TextEditingController editedPreAlarm = TextEditingController();
+
+  void initState() {
+    dateTime.text = widget.task.startDate;
+    startTime.text = widget.task.startTime;
+    editedPreAlarm.text = widget.task.preAlarm.toString();
+    editedTaskContent.text = widget.task.content;
+    editedTaskTitle.text = widget.task.title;
+    super.initState();
+  }
 
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    dateTime.text = widget.task.startDate;
-    startTime.text = widget.task.startTime;
-    editedPreAlarm.text = widget.task.preAlarm.toString();
-    editedTaskContent.text = widget.task.content;
-    editedTaskTitle.text = widget.task.title;
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
       child: BlocListener<TaskCubit, TaskState>(

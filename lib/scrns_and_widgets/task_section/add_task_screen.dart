@@ -25,15 +25,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   TextEditingController startTime = TextEditingController();
   TextEditingController preAlarm = TextEditingController();
 
-  // String? taskContent;
-
   TimeOfDay? start;
   DateTime? date;
 
-  //String dateTime = '';
-
-  // String startTime = '';
-  // int? preAlarm;
 
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
