@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/widgets/medicien_list_view.dart';
 
@@ -22,9 +23,11 @@ class _MedsGridState extends State<MedsGrid> {
     return BlocBuilder<MedicineCubit, MedicineState>(
       builder: (context, state) {
         if (state is LoadMeds) {
-          return const Expanded(
+          return Expanded(
             child: Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: appColorTheme,
+              ),
             ),
           );
         } else if (state.meds.isNotEmpty &&
