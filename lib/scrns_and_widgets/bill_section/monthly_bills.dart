@@ -22,7 +22,9 @@ class _MonthlyChartState extends State<MonthlyChart> {
   @override
   void initState() {
     BlocProvider.of<BillCubit>(context).monthlySpendingOneCategory(
-        DateTime.now().year.toString(), DateTime.now().month.toString());
+      '2024',
+      '01',
+    );
     super.initState();
   }
 

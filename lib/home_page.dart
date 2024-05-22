@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'constants.dart';
 import 'dark_mode_cubit/dark_mode_cubit.dart';
+import 'user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +13,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    User.userInfo().then(
+      (userInfo) => me = User(
+        id: userInfo['id'],
+        username: userInfo['username'],
+        email: userInfo['email'],
+        password: userInfo['password'],
+      ),
+    );
+  }
+
   int pageIndex = 0;
   var pages = [
     taskPage,

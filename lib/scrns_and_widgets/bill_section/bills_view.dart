@@ -72,19 +72,20 @@ class MyBills extends StatelessWidget {
             children: [
               const Spacer(),
               IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (newcontext) => BlocProvider<BillCubit>.value(
-                        value: BlocProvider.of(context),
-                        child: const MySearchBar(),
-                      ),
-                    );
-                  },
-                  icon: Icon(
-                    CupertinoIcons.search_circle,
-                    color: appColorTheme,
-                  )),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (newcontext) => BlocProvider<BillCubit>.value(
+                      value: BlocProvider.of(context),
+                      child: const MySearchBar(),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  CupertinoIcons.search_circle,
+                  color: appColorTheme,
+                ),
+              ),
               const SizedBox(
                 width: 10,
               )

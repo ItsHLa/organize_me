@@ -10,6 +10,7 @@ import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_sectio
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 import 'package:organize_me/scrns_and_widgets/user_info_page.dart';
+import 'package:organize_me/user.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
 
 /////////////////////////////////////// notifications constants//////////////////////////////
@@ -31,7 +32,6 @@ Widget taskPage = BlocProvider(
   create: (context) => TaskCubit(),
   child: const DayCalendar(),
 );
-
 
 Widget docsNumPage = BlocProvider(
     create: (context) => DocsNumCubit(), child: const MedsAndDocs());
@@ -150,4 +150,30 @@ Widget noBillsToShow = const Center(
       fontSize: 20,
     ),
   ),
+);
+
+// dummy bills
+var dummyElectric =
+    """تم دفع مبلغ 1518 ل.س لصالح المؤسسة العامة لنقل وتوزيع الكهرباء متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 68727229 بتاريخ 22/01/2024 23:07
+المحافظة: اللاذقية
+رقم الفوترة: 146337
+رقم الاشتراك: 121135
+رقم العملية: s600045481846""";
+
+var dummyWater =
+    '''تم دفع مبلغ 268 ل.س فاتورة المياه متضمناً 0 ل.س عمولة الدفع للإيصال رقم 0_2096606880 بتاريخ 22/01/2024 22:49
+المحافظة: اللاذقية
+رقم الباركود: 592613
+رقم العداد: 78411
+رقم العملية: s600045475232''';
+var dummyTelecom =
+    '''تم دفع مبلغ 8800 ل.س لصالح السورية للاتصالات متضمناً 0 ل.س عمولة الدفع للفاتورة رقم 1928278459 بتاريخ 22/01/2024 23:32
+رقم الهاتف الثابت/ البريد الإلكتروني: dummy@tarassul.sy
+رقم العملية: s600052753654''';
+
+User me = const User(
+  id: 0,
+  email: 'email',
+  password: 'password',
+  username: 'username',
 );

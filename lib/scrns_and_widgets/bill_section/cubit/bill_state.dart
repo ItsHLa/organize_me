@@ -76,11 +76,12 @@ final class MonthlySpendingCalculated extends BillState {
   final List<double> sum;
   final double monthlySpendingAll;
 
-  const MonthlySpendingCalculated(
-      {required super.bills,
-      required this.percent,
-      required this.sum,
-      required this.monthlySpendingAll});
+  const MonthlySpendingCalculated({
+    required super.bills,
+    required this.percent,
+    required this.sum,
+    required this.monthlySpendingAll,
+  });
 }
 
 final class MonthlySpendingFailed extends BillState {

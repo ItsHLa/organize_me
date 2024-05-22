@@ -1,6 +1,8 @@
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
+import 'package:organize_me/services/api_calls.dart';
+import 'package:organize_me/services/functionality.dart';
 import 'package:sqflite/sqflite.dart';
 
 class WaterBill extends Bill {
@@ -64,8 +66,13 @@ class WaterBill extends Bill {
         match.group(waterRegexGroups['counter number']!)!;
 
     String dateTime = match.group(waterRegexGroups['date']!)!;
-    matchesMap['date'] = dateTime.split(' ')[0];
-    matchesMap['time'] = dateTime.split(' ')[1];
+    matchesMap['date'] = dateTime
+        .split(' ')[0]
+        .replaceAll('/', '-')
+        .split('-')
+        .swap(0, 2)
+        .join('-');
+    matchesMap['time'] = '${dateTime.split(' ')[1]}:00';
 
     matchesMap['gov'] = match.group(waterRegexGroups['gov']!)!;
     return matchesMap;
@@ -109,11 +116,27 @@ class WaterBill extends Bill {
         provider,
         matchesMap['operation_number'],
         matchesMap['gov'],
-        matchesMap['receipt_nmber'],
+        matchesMap['receipt_number'],
         matchesMap['barcode_number'],
         matchesMap['counter_number'],
       ],
     );
+    WaterBill bill = WaterBill(
+      id: billId,
+      paymentAmount: matchesMap['payment_amount'],
+      commissionAmount: matchesMap['commission_amount'],
+      date: matchesMap['date'],
+      time: matchesMap['time'],
+      provider: provider,
+      operationNumber: matchesMap['operation_number'],
+      gov: matchesMap['gov'],
+      receiptNumber: matchesMap['receipt_number'],
+      barcodeNumber: matchesMap['barcode_number'],
+      counterNumber: matchesMap['counter_number'],
+    );
+    // TODO We need to check the internet first
+
+    await ApiCalls.addBill(me.id, 'wa', bill);
     return match != null ? (await getOneBill(billId)) : {};
   }
 

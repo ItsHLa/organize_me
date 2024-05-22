@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
@@ -37,12 +35,11 @@ abstract class Bill {
     await mydb!.rawQuery(
       """
         SELECT SUM(payment_amount) FROM $tableName 
-        WHERE date LIKE '__/$month/$year';
+        WHERE date LIKE '$year-$month-__';
       """,
     ).then((value) {
       payments = value;
     });
-    log(payments.toString());
     return payments[0]['SUM(payment_amount)'] ?? 0;
   }
 

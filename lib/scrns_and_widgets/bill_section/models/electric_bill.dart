@@ -1,6 +1,8 @@
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
+import 'package:organize_me/services/api_calls.dart';
+import 'package:organize_me/services/functionality.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ElectricBill extends Bill {
@@ -67,8 +69,13 @@ class ElectricBill extends Bill {
         match.group(electricRegexGroups['invoice number']!)!;
 
     String dateTime = match.group(electricRegexGroups['date']!)!;
-    matchesMap['date'] = dateTime.split(' ')[0];
-    matchesMap['time'] = dateTime.split(' ')[1];
+    matchesMap['date'] = dateTime
+        .split(' ')[0]
+        .replaceAll('/', '-')
+        .split('-')
+        .swap(0, 2)
+        .join('-');
+    matchesMap['time'] = '${dateTime.split(' ')[1]}:00';
 
     matchesMap['gov'] = match.group(electricRegexGroups['gov']!)!;
     return matchesMap;
@@ -86,7 +93,6 @@ class ElectricBill extends Bill {
     } else {
       matchesMap = billMap!;
     }
-
     int billId = await mydb!.rawInsert(
       """
         INSERT OR IGNORE INTO $tableName(
@@ -118,6 +124,22 @@ class ElectricBill extends Bill {
         matchesMap['subscription_number'],
       ],
     );
+
+    ElectricBill bill = ElectricBill(
+      id: billId,
+      paymentAmount: matchesMap['payment_amount'],
+      commissionAmount: matchesMap['commission_amount'],
+      date: matchesMap['date'],
+      time: matchesMap['time'],
+      provider: provider,
+      operationNumber: matchesMap['operation_number'],
+      gov: matchesMap['gov'],
+      billingNumber: matchesMap['billing_number'],
+      invoiceNumber: matchesMap['invoice_number'],
+      subscriptionNumber: matchesMap['subscription_number'],
+    );
+    // TODO We need to check the internet first
+    await ApiCalls.addBill(me.id, 'el', bill);
     return match != null ? (await getOneBill(billId)) : {};
   }
 

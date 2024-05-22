@@ -408,6 +408,15 @@ Future<DateTime?> showDate(BuildContext context) async {
   );
 }
 
+extension SwappableList<E> on List<E> {
+  List swap(int first, int second) {
+    final temp = this[first];
+    this[first] = this[second];
+    this[second] = temp;
+    return this;
+  }
+}
+
 /**
  * TimePickerTheme(
     data: TimePickerThemeData(

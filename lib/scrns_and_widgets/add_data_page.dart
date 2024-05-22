@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,17 +6,19 @@ import 'input_text.dart';
 import 'my_button.dart';
 
 class InputDataPage extends StatelessWidget {
-  const InputDataPage({super.key,
-    //   required this.child,
-    required this.onPressed,
-    required this.icon,
-    required this.labels,
-    this.keyboardType,
-    this.validator,
-    required this.save,
-    required this.labelButton,
-    this.readOnly,
-    this.onTap, required this.controllers});
+  const InputDataPage(
+      {super.key,
+      //   required this.child,
+      required this.onPressed,
+      required this.icon,
+      required this.labels,
+      this.keyboardType,
+      this.validator,
+      required this.save,
+      required this.labelButton,
+      this.readOnly,
+      this.onTap,
+      required this.controllers});
 
 //  final Widget child;
   final void Function()? onPressed;
@@ -51,9 +51,6 @@ class InputDataPage extends StatelessWidget {
             child: ListView.builder(
               itemCount: labels.length,
               itemBuilder: (context, index) {
-                log(index.toString());
-                log(labels.toString());
-                log(labels.length.toString());
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: InputText(

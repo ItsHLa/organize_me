@@ -1,10 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class User {
+  final int id;
   final String email;
   final String password;
   final String username;
   const User({
+    this.id = 0,
     required this.email,
     required this.password,
     required this.username,
@@ -35,7 +37,11 @@ class User {
       'password': preferences.getString('password')!,
       'id': preferences.getInt('id')!,
     };
-    print(userInfo);
     return userInfo;
+  }
+
+  @override
+  String toString() {
+    return "User($id, $email, $password, $username)";
   }
 }

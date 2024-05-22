@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
+import 'package:organize_me/user.dart';
 
 import 'add_data_page.dart';
 
@@ -16,6 +20,7 @@ class _AccountInfoState extends State<AccountInfo> {
   @override
   void initState() {
     BlocProvider.of<UserCubit>(context).loadUserInfo();
+    log(me.toString());
     super.initState();
   }
 
@@ -148,12 +153,15 @@ class _AccountInfoState extends State<AccountInfo> {
                             'تسجيل خروج',
                             textAlign: TextAlign.right,
                           ),
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const Register(),
-                              ),
-                            );
+                          onTap: () async {
+                            await User.signUser(false);
+                            if (context.mounted) {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const Register(),
+                                ),
+                              );
+                            }
                           },
                         ),
                         const SizedBox(

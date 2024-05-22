@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
@@ -74,7 +72,6 @@ class _OrganizeMeState extends State<OrganizeMe> {
     BlocProvider.of<DarkModeCubit>(context).getDarkMode();
     return BlocBuilder<DarkModeCubit, DarkModeState>(
       builder: (context, state) {
-        log(state.toString());
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             darkTheme: ThemeData(brightness: Brightness.dark),
@@ -83,7 +80,6 @@ class _OrganizeMeState extends State<OrganizeMe> {
             ),
             home: BlocListener<UserCubit, UserState>(
               listener: (context, state) {
-                log(state.toString());
                 if (state is CheckIfSigned) {
                   signed = state.signed;
                 }
