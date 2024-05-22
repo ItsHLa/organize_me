@@ -41,18 +41,18 @@ class _DayCalendarState extends State<DayCalendar> {
       ),
       body: Column(
         children: [
-          BlocBuilder<TaskCubit, TaskState>(
-            builder: (context, state) {
-              return MyDateTimeLine(
-                onDateChange: (selectedDate) {
-                  focusDate = selectedDate;
-                  BlocProvider.of<TaskCubit>(context).loadTasks(focusDate);
-                },
-                focusDate: focusDate,
-              );
+          MyDateTimeLine(
+            onDateChange: (selectedDate) {
+              setState(() {
+                focusDate = selectedDate;
+              });
             },
+            focusDate: focusDate,
           ),
-          const Expanded(child: Tasks()),
+          Expanded(
+              child: Tasks(
+            focusDate: focusDate,
+          )),
         ],
       ),
     );
