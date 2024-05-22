@@ -35,9 +35,11 @@ class _RegisterState extends State<Register> {
             content: Text('تم انشاء حساب بنجاح'),
             duration: Duration(seconds: 4),
           ));
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const HomePage(),
-          ));
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
         } else if (state is RegisterFailed) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('حصل خطأ اثناء انشاء حساب يرجى اعادة محاولة')));

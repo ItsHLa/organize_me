@@ -3,12 +3,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
-import 'package:organize_me/database/db.dart';
 import 'package:organize_me/home_page.dart';
+import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
+
+import 'database/db.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -80,15 +82,14 @@ class _OrganizeMeState extends State<OrganizeMe> {
               brightness: state.on ? Brightness.dark : Brightness.light,
             ),
             home: BlocListener<UserCubit, UserState>(
-                listener: (context, state) {
-                  log(state.toString());
-                  if (state is CheckIfSigned) {
-                    signed = state.signed;
-                  }
-                },
-                child: const HomePage()
-                //signed ? const HomePage() : const Register(),
-                ));
+              listener: (context, state) {
+                log(state.toString());
+                if (state is CheckIfSigned) {
+                  signed = state.signed;
+                }
+              },
+              child: signed ? const HomePage() : const Register(),
+            ));
       },
     );
   }

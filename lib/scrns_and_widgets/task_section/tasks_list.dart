@@ -4,9 +4,7 @@ import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/task_list_view.dart';
 
 class Tasks extends StatefulWidget {
-  const Tasks({super.key, required this.focusDate});
-
-  final DateTime focusDate;
+  const Tasks({super.key});
 
   @override
   State<Tasks> createState() => _TasksState();
@@ -16,7 +14,6 @@ class _TasksState extends State<Tasks> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<TaskCubit>(context).loadTasks(widget.focusDate);
   }
 
   @override

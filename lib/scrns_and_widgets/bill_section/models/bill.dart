@@ -25,9 +25,11 @@ abstract class Bill {
     }
   }
 
-  static Future<double> calculatePayments(String tableName,
-      String year,
-      String month,) async {
+  static Future<double> calculatePayments(
+    String tableName,
+    String year,
+    String month,
+  ) async {
     // -- DD/MM/YYYY
     Database? mydb = await DatabaseHelper.db;
     List<Map> payments = [];

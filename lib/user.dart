@@ -35,6 +35,7 @@ class User {
       'password': preferences.getString('password')!,
       'id': preferences.getInt('id')!,
     };
+    print(userInfo);
     return userInfo;
   }
 }

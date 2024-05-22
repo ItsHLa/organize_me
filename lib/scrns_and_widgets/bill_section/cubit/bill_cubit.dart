@@ -67,11 +67,14 @@ class BillCubit extends Cubit<BillState> {
       percent[0] = ((sum[0] / sumMonthlySpending) * 100).roundToDouble();
       percent[1] = ((sum[1] / sumMonthlySpending) * 100).roundToDouble();
       percent[2] = ((sum[2] / sumMonthlySpending) * 100).roundToDouble();
-      emit(MonthlySpendingCalculated(
+      emit(
+        MonthlySpendingCalculated(
           bills: bills,
           monthlySpendingAll: sumMonthlySpending,
           percent: percent,
-          sum: sum));
+          sum: sum,
+        ),
+      );
     } catch (e) {
       emit(MonthlySpendingFailed(bills: bills));
     }

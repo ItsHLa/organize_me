@@ -12,13 +12,18 @@ final class CheckIfSigned extends UserState {
 }
 
 final class UserInfoLoaded extends UserState {
+  final int id;
   final String email;
 
   final String password;
   final String username;
 
-  UserInfoLoaded(
-      {required this.email, required this.password, required this.username});
+  UserInfoLoaded({
+    required this.id,
+    required this.email,
+    required this.password,
+    required this.username,
+  });
 }
 
 final class Loading extends UserState {}

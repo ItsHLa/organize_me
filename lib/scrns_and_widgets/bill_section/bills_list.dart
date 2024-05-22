@@ -29,124 +29,133 @@ class _BillListState extends State<BillList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        const SizedBox(
-          height: 40,
-        ),
-        Row(
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.arrow_back)),
-            const Spacer(),
-            const Text(
-              'فواتيرك المدفوعة',
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(
-              width: 10,
-            )
-          ],
-        ),
-        Expanded(
-          child: BlocConsumer<BillCubit, BillState>(
-            listener: (context, state) {
-              if (state is TelecomFailed ||
-                  state is ElectricFailed ||
-                  state is WaterFailed) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('حصل خطأ اثناء تحميل فواتيرك')));
-              }
-            },
-            builder: (context, state) {
-              if (state.bills.isEmpty) {
-                return const Center(
-                  child: Text('لا يوجد فواتير لعرضها',
-                      style: TextStyle(fontSize: 20)),
-                );
-              }
-
-              return state is LoadingBill
-                  ? Center(
-                      child: CircularProgressIndicator(
-                        color: appColorTheme,
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: state.bills.length,
-                      itemBuilder: (context, index) {
-                        switch (widget.category) {
-                          case 'المياه':
-                            if (state is WaterLoaded) {
-                              WaterBill water = state.bills[index] as WaterBill;
-                              return WaterBills(
-                                counterNumber: water.counterNumber,
-                                barcodeNumber: water.barcodeNumber,
-                                receiptNumber: water.receiptNumber,
-                                commissionAmount:
-                                    water.commissionAmount.toString(),
-                                gov: water.gov,
-                                paymentAmount: water.paymentAmount.toString(),
-                                date: water.date,
-                                operationNumber: water.operationNumber,
-                                time: water.time,
-                              );
-                            }
-                            break;
-                          case 'الاتصالات':
-                            if (state is TelecomLoaded) {
-                              TelecomBill telecom =
-                                  state.bills[index] as TelecomBill;
-                              return TelecomBills(
-                                time: telecom.time,
-                                operationNumber: telecom.operationNumber,
-                                date: telecom.date,
-                                paymentAmount: telecom.paymentAmount.toString(),
-                                commissionAmount:
-                                    telecom.commissionAmount.toString(),
-                                invoiceNumber: telecom.invoiceNumber,
-                                phoneNumberEmail: telecom.phoneNumberEmail,
-                              );
-                            }
-                            break;
-                          case 'الكهرباء':
-                            if (state is ElectricLoaded) {
-                              ElectricBill electric =
-                                  state.bills[index] as ElectricBill;
-                              return ElectricBills(
-                                invoiceNumber: electric.invoiceNumber,
-                                commissionAmount:
-                                    electric.commissionAmount.toString(),
-                                paymentAmount:
-                                    electric.paymentAmount.toString(),
-                                date: electric.date,
-                                operationNumber: electric.operationNumber,
-                                time: electric.time,
-                                subscriptionNumber: electric.subscriptionNumber,
-                                gov: electric.gov,
-                                billingNumber: electric.billingNumber,
-                              );
-                            }
-                            break;
-                          default:
-                            break;
-                        }
-                        return const SizedBox();
-                      },
-                    );
-              //  if (state is WaterLoaded ||
-              //      state is ElectricLoaded ||
-              //     state is TelecomLoaded) {
-              //  ;
-              // }
-            },
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 40,
           ),
-        )
-      ],
-    ));
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back)),
+              const Spacer(),
+              const Text(
+                'فواتيرك المدفوعة',
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(
+                width: 10,
+              )
+            ],
+          ),
+          Expanded(
+            child: BlocConsumer<BillCubit, BillState>(
+              listener: (context, state) {
+                if (state is TelecomFailed ||
+                    state is ElectricFailed ||
+                    state is WaterFailed) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('حصل خطأ اثناء تحميل فواتيرك'),
+                    ),
+                  );
+                }
+              },
+              builder: (context, state) {
+                if (state.bills.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'لا يوجد فواتير لعرضها',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  );
+                }
+
+                return state is LoadingBill
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: appColorTheme,
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: state.bills.length,
+                        itemBuilder: (context, index) {
+                          switch (widget.category) {
+                            case 'المياه':
+                              if (state is WaterLoaded) {
+                                WaterBill water =
+                                    state.bills[index] as WaterBill;
+                                return WaterBills(
+                                  counterNumber: water.counterNumber,
+                                  barcodeNumber: water.barcodeNumber,
+                                  receiptNumber: water.receiptNumber,
+                                  commissionAmount:
+                                      water.commissionAmount.toString(),
+                                  gov: water.gov,
+                                  paymentAmount: water.paymentAmount.toString(),
+                                  date: water.date,
+                                  operationNumber: water.operationNumber,
+                                  time: water.time,
+                                );
+                              }
+                              break;
+                            case 'الاتصالات':
+                              if (state is TelecomLoaded) {
+                                TelecomBill telecom =
+                                    state.bills[index] as TelecomBill;
+                                return TelecomBills(
+                                  time: telecom.time,
+                                  operationNumber: telecom.operationNumber,
+                                  date: telecom.date,
+                                  paymentAmount:
+                                      telecom.paymentAmount.toString(),
+                                  commissionAmount:
+                                      telecom.commissionAmount.toString(),
+                                  invoiceNumber: telecom.invoiceNumber,
+                                  phoneNumberEmail: telecom.phoneNumberEmail,
+                                );
+                              }
+                              break;
+                            case 'الكهرباء':
+                              if (state is ElectricLoaded) {
+                                ElectricBill electric =
+                                    state.bills[index] as ElectricBill;
+                                return ElectricBills(
+                                  invoiceNumber: electric.invoiceNumber,
+                                  commissionAmount:
+                                      electric.commissionAmount.toString(),
+                                  paymentAmount:
+                                      electric.paymentAmount.toString(),
+                                  date: electric.date,
+                                  operationNumber: electric.operationNumber,
+                                  time: electric.time,
+                                  subscriptionNumber:
+                                      electric.subscriptionNumber,
+                                  gov: electric.gov,
+                                  billingNumber: electric.billingNumber,
+                                );
+                              }
+                              break;
+                            default:
+                              break;
+                          }
+                          return const SizedBox();
+                        },
+                      );
+                //  if (state is WaterLoaded ||
+                //      state is ElectricLoaded ||
+                //     state is TelecomLoaded) {
+                //  ;
+                // }
+              },
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 

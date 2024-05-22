@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/home_page.dart';
+import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
 
 import 'add_data_page.dart';
@@ -19,6 +19,7 @@ class _AccountInfoState extends State<AccountInfo> {
     super.initState();
   }
 
+  TextEditingController id = TextEditingController();
   TextEditingController userName = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -28,6 +29,7 @@ class _AccountInfoState extends State<AccountInfo> {
     return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         if (state is UserInfoLoaded) {
+          id.text = state.id.toString();
           userName.text = state.username;
           email.text = state.email;
           password.text = state.password;
@@ -80,6 +82,18 @@ class _AccountInfoState extends State<AccountInfo> {
                         const SizedBox(
                           height: 5,
                         ),
+                        ListTile(
+                          trailing: const Icon(Icons.numbers),
+                          title: const Text(
+                            'id',
+                            textAlign: TextAlign.right,
+                          ),
+                          subtitle: Text(
+                            id.text,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        const Divider(),
                         ListTile(
                           trailing: const Icon(Icons.person_outline),
                           title: const Text(
@@ -135,9 +149,10 @@ class _AccountInfoState extends State<AccountInfo> {
                             textAlign: TextAlign.right,
                           ),
                           onTap: () {
-                            Navigator.popUntil(
-                              context,
-                              (route) => route == const HomePage(),
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const Register(),
+                              ),
                             );
                           },
                         ),

@@ -27,6 +27,7 @@ class UserCubit extends Cubit<UserState> {
     await User.userInfo().then((value) => info = value);
     emit(
       UserInfoLoaded(
+        id: info['id'],
         email: info['email'],
         password: info['password'],
         username: info['username'],

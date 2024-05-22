@@ -42,8 +42,8 @@ class _MonthlyChartState extends State<MonthlyChart> {
                     children: [
                       Icon(Icons.not_interested),
                       Center(
-                          child:
-                              Text('لا يوجد فواتير لحساب الاستهلاك الشهري ')),
+                        child: Text('لا يوجد فواتير لحساب الاستهلاك الشهري '),
+                      ),
                     ],
                   ),
                 )
@@ -88,11 +88,12 @@ class _MonthlyChartState extends State<MonthlyChart> {
 }
 
 class Category extends StatelessWidget {
-  const Category(
-      {super.key,
-      required this.categories,
-      required this.monthly,
-      required this.icons});
+  const Category({
+    super.key,
+    required this.categories,
+    required this.monthly,
+    required this.icons,
+  });
 
   final List categories;
   final List monthly;
