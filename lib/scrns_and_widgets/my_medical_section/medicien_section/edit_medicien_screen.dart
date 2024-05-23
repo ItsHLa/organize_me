@@ -79,8 +79,8 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
               time = await showTime(context);
               setState(
                     () {
-                  editedShotTime =
-                  '${time?.hour.toString()}:${time?.minute.toString()}';
+                  shotTime.text =
+                      '${time?.hour.toString()}:${time?.minute.toString()}';
                 },
               );
             }

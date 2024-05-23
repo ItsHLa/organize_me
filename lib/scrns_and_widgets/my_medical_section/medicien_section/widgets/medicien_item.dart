@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
 
-import '../../../../constants.dart';
-
 class MedItem extends StatelessWidget {
   const MedItem({
     super.key,
@@ -21,37 +19,42 @@ class MedItem extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Column(
-              children: [
-                IconButton(
-                    onPressed: onPressedEdit,
-                    icon: const Icon(Icons.edit_outlined)),
-                IconButton(
-                    onPressed: onPressedDelete,
-                    icon: const Icon(Icons.cancel_outlined))
-              ],
+        child: ExpansionTile(
+            leading: IconButton(
+                onPressed: onPressedDelete,
+                icon: const Icon(Icons.cancel_outlined)),
+            title: Text(
+              med.name,
+              textAlign: TextAlign.right,
             ),
-            Expanded(
-              child: ListTile(
-                subtitle: Text(
-                  'موعد اخذ الدواء : ${med.shotTime} \n يؤخذ كل ${med.interval} ساعة',
-                  textAlign: TextAlign.right,
-                ),
-                title: Text(
-                  med.name,
-                  textAlign: TextAlign.right,
-                ),
-                trailing: const Icon(
-                  Icons.medication,
-                  color: blue,
-                ),
+            trailing: Image.asset('images/drug.png'),
+            children: [
+              const Divider(),
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: onPressedEdit,
+                      icon: const Icon(Icons.edit_outlined)),
+                  Spacer(),
+                  Column(
+                    children: [
+                      Text(
+                        'موعد اخذ الدواء : ${med.shotTime} ',
+                        textAlign: TextAlign.right,
+                        style: const TextStyle(fontSize: 15),
+                      ),
+                      Text(
+                        ' يؤخذ كل ${med.interval} ساعة',
+                        textAlign: TextAlign.right,
+                        style: const TextStyle(fontSize: 15),
+                      )
+                    ],
+                  )
+                ],
               ),
-            ),
-          ],
-        ),
+            ]),
       ),
     );
   }
 }
+
