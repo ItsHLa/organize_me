@@ -35,7 +35,6 @@ class MedItem extends StatelessWidget {
             ),
             Expanded(
               child: ListTile(
-                //Icon(Icons.medication),
                 subtitle: Text(
                   'موعد اخذ الدواء : ${med.shotTime} \n يؤخذ كل ${med.interval} ساعة',
                   textAlign: TextAlign.right,

@@ -17,8 +17,8 @@ class WorkManagerService {
       required String taskName,
       required Duration frequency,
       required Duration initialDelay,
-      required int id,
-      required String title,
+      int? id,
+      String? title,
       ExistingWorkPolicy? existingWorkPolicy}) async {
     await Workmanager().registerPeriodicTask(
       uniqueTaskName,
@@ -33,6 +33,12 @@ class WorkManagerService {
   // init work manager service
   Future<void> init() async {
     await Workmanager().initialize(callDispatcher, isInDebugMode: true);
+    registerMyTask(
+      uniqueTaskName: 'check Internet',
+      taskName: 'check Internet',
+      frequency: const Duration(hours: 1),
+      initialDelay: Duration.zero,
+    );
   }
 
   static void cancelTask(String uniqueName) {
@@ -52,6 +58,7 @@ void callDispatcher() {
         AppNotification.showSimpleBillNotification();
         break;
       case 'check Internet':
+        addBills();
         break;
     }
     return Future.value(true);
