@@ -57,6 +57,9 @@ class UserCubit extends Cubit<UserState> {
             username: bodyMap['username'],
             email: email,
             password: password,
+            lastElBill: bodyMap['last_el_bill'],
+            lastWaBill: bodyMap['last_wa_bill'],
+            lastTelBill: bodyMap['last_tel_bill'],
           );
           await Bill.fillDatabase(
             elBills: bodyMap['el'],
@@ -90,6 +93,9 @@ class UserCubit extends Cubit<UserState> {
             username: user.username,
             email: user.email,
             password: user.password,
+            lastElBill: bodyMap['me']['last_el_bill'],
+            lastWaBill: bodyMap['me']['last_wa_bill'],
+            lastTelBill: bodyMap['me']['last_tel_bill'],
           );
           emit(RegisterSuccess());
         } else {

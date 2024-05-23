@@ -35,7 +35,7 @@ class MedItem extends StatelessWidget {
                   IconButton(
                       onPressed: onPressedEdit,
                       icon: const Icon(Icons.edit_outlined)),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     children: [
                       Text(
@@ -57,4 +57,3 @@ class MedItem extends StatelessWidget {
     );
   }
 }
-

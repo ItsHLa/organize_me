@@ -16,7 +16,6 @@ class EditTask extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<EditTask> {
-
   TimeOfDay? editedStart;
   DateTime? date;
   String title = '';
@@ -29,6 +28,7 @@ class _AddTaskScreenState extends State<EditTask> {
   TextEditingController editedTaskContent = TextEditingController();
   TextEditingController editedPreAlarm = TextEditingController();
 
+  @override
   void initState() {
     dateTime.text = widget.task.startDate;
     startTime.text = widget.task.startTime;

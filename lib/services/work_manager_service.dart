@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/water_bill.dart';
@@ -76,6 +77,16 @@ addBills() async {
     List<Bill> waBills = await WaterBill.getBillsFromId(user['last_wa_bill']);
     List<Bill> telBills =
         await TelecomBill.getBillsFromId(user['last_tel_bill']);
+    await User.setUserInfo(
+      id: me,
+      username: me.username,
+      email: me.email,
+      password: me.password,
+      lastElBill: (elBills.last as ElectricBill).id,
+      lastWaBill: (waBills.last as WaterBill).id,
+      lastTelBill: (telBills.last as TelecomBill).id,
+    );
+    await ApiCalls.updateUserInfo();
     await ApiCalls.addBills(userInfo['id'], 'el', elBills);
     await ApiCalls.addBills(userInfo['id'], 'wa', waBills);
     await ApiCalls.addBills(userInfo['id'], 'tel', telBills);
