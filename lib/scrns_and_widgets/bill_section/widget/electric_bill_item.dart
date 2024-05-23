@@ -62,7 +62,7 @@ class ElectricBills extends StatelessWidget {
                 icon: const [
                   Icons.receipt_outlined,
                   Icons.monetization_on_outlined,
-                  Icons.monetization_on_outlined,
+                  Icons.money,
                   Icons.date_range_outlined,
                   Icons.timer_outlined,
                   Icons.place_outlined,

@@ -117,11 +117,11 @@ class ElectricBill extends Bill {
         matchesMap['date'],
         matchesMap['time'],
         provider,
-        matchesMap['operation_number'],
+        matchesMap['subscription_number'],
         matchesMap['gov'],
         matchesMap['billing_number'],
         matchesMap['invoice_number'],
-        matchesMap['subscription_number'],
+        matchesMap['operation_number'],
       ],
     );
 

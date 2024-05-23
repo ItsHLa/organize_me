@@ -62,13 +62,15 @@ class WaterBills extends StatelessWidget {
                       operationNumber,
                     ],
                     icon: const [
-                      Icons.money,
-                      Icons.numbers_outlined,
+                      Icons.receipt_outlined,
+                      Icons.monetization_on_outlined,
                       Icons.money,
                       Icons.date_range_outlined,
-                      Icons.timer,
-                      Icons.alternate_email,
-                      Icons.numbers_outlined
+                      Icons.timer_outlined,
+                      Icons.place_outlined,
+                      Icons.numbers_outlined,
+                      Icons.numbers_outlined,
+                      Icons.receipt_long_outlined,
                     ],
                   ),
                 ));

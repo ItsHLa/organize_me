@@ -54,12 +54,12 @@ class TelecomBills extends StatelessWidget {
                   ],
                   icon: const [
                     Icons.monetization_on_outlined,
-                    Icons.receipt,
+                    Icons.receipt_outlined,
                     Icons.monetization_on_outlined,
                     Icons.date_range_outlined,
-                    Icons.timer,
+                    Icons.timer_outlined,
                     Icons.alternate_email,
-                    Icons.receipt_long
+                    Icons.receipt_long_outlined
                   ],
                 ),
               ));
