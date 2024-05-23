@@ -361,6 +361,10 @@ Future<DateTime?> showDate(BuildContext context) async {
     builder: (context, child) {
       return Theme(
         data: Theme.of(context).copyWith(
+          datePickerTheme: DatePickerThemeData(
+              rangePickerBackgroundColor: appColorTheme,
+              surfaceTintColor: appColorTheme,
+              rangeSelectionBackgroundColor: appColorTheme),
           textSelectionTheme: TextSelectionThemeData(
             selectionColor: Colors.grey,
             cursorColor: appColorTheme,
@@ -417,11 +421,3 @@ extension SwappableList<E> on List<E> {
   }
 }
 
-/**
- * TimePickerTheme(
-    data: TimePickerThemeData(
-
-    child: child!,
-    )
- *
- * */

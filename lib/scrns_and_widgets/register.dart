@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/home_page.dart';
-import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 import 'package:organize_me/scrns_and_widgets/login.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
 
@@ -62,67 +61,58 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 60,
                   ),
-                  const IconForm(
-                      child: Icon(
-                    Icons.person_outlined,
-                    size: 50,
-                  )),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    'هل تريد ربط فواتيرك بعنوان بريدك الالكتروني ؟',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InputText(
-                      labelText: 'اسم المستخدم',
-                      save: (value) {
-                        setState(() {
-                          username = value!;
-                        });
-                      },
-                      validator: ValidateInputData.checkIfNull,
+                  SizedBox(
+                      height: 80, child: Image.asset('images/app_icon.png')),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    alignment: Alignment.centerRight,
+                    child: const Text(
+                      'انشئ حساب',
+                      textAlign: TextAlign.right,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  InputText(
+                    labelText: 'اسم المستخدم',
+                    save: (value) {
+                      setState(() {
+                        username = value!;
+                      });
+                    },
+                    validator: ValidateInputData.checkIfNull,
                   ),
                   const SizedBox(
                     height: 5,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InputText(
-                      labelText: 'ايميل',
-                      save: (value) {
-                        setState(
-                          () {
-                            email = value!;
-                          },
-                        );
-                      },
-                      validator: ValidateInputData.validateEmail,
-                    ),
+                  InputText(
+                    labelText: 'ايميل',
+                    save: (value) {
+                      setState(
+                        () {
+                          email = value!;
+                        },
+                      );
+                    },
+                    validator: ValidateInputData.validateEmail,
                   ),
                   const SizedBox(
                     height: 5,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InputText(
-                      labelText: 'كلمة السر',
-                      save: (value) {
-                        setState(
-                          () {
-                            password = value!;
-                          },
-                        );
-                      },
-                      validator: ValidateInputData.validatePassword,
-                    ),
+                  InputText(
+                    labelText: 'كلمة السر',
+                    save: (value) {
+                      setState(
+                        () {
+                          password = value!;
+                        },
+                      );
+                    },
+                    validator: ValidateInputData.validatePassword,
                   ),
                   const SizedBox(
                     height: 5,

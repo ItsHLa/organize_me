@@ -74,10 +74,9 @@ class _OrganizeMeState extends State<OrganizeMe> {
       builder: (context, state) {
         return MaterialApp(
             debugShowCheckedModeBanner: false,
-            darkTheme: ThemeData(brightness: Brightness.dark),
-            theme: ThemeData(
-              brightness: state.on ? Brightness.dark : Brightness.light,
-            ),
+            themeMode: ThemeMode.system,
+            darkTheme: ThemeData.dark(),
+            theme: state.on ? ThemeData.dark() : ThemeData.light(),
             home: BlocListener<UserCubit, UserState>(
               listener: (context, state) {
                 if (state is CheckIfSigned) {

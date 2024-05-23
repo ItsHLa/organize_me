@@ -23,28 +23,31 @@ class InputText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onTap: onTap,
-      readOnly: readOnly ?? false,
-      keyboardType: keyboardType,
-      onSaved: save,
-      validator: validator,
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: TextStyle(color: appColorTheme),
-        hintStyle: TextStyle(color: appColorTheme),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: appColorTheme),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: appColorTheme),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.grey),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 5),
+      child: TextFormField(
+        onTap: onTap,
+        readOnly: readOnly ?? false,
+        keyboardType: keyboardType,
+        onSaved: save,
+        validator: validator,
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: labelText,
+          labelStyle: TextStyle(color: appColorTheme),
+          hintStyle: TextStyle(color: appColorTheme),
+          border: UnderlineInputBorder(
+            // borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: appColorTheme),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            // borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: appColorTheme),
+          ),
+          enabledBorder: const UnderlineInputBorder(
+            // borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
         ),
       ),
     );

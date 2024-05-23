@@ -4,6 +4,8 @@ import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/cubit/medicien_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/widgets/medicien_list_view.dart';
 
+import '../../no_content.dart';
+
 class MedsGrid extends StatefulWidget {
   const MedsGrid({super.key});
 
@@ -40,12 +42,9 @@ class _MedsGridState extends State<MedsGrid> {
             ),
           );
         } else {
-          return const Expanded(
-            child: Center(
-              child: Text(
-                'لا يوجد أدوية بعد',
-                style: TextStyle(fontSize: 20),
-              ),
+          return const Center(
+            child: NoContent(
+              text: 'لا يوجد أدوية بعد',
             ),
           );
         }

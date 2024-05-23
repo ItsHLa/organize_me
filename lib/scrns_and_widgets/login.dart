@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/home_page.dart';
-import 'package:organize_me/scrns_and_widgets/icon_Form.dart';
 import 'package:organize_me/services/functionality.dart';
 
 import '../user_cubit/user_cubit.dart';
@@ -63,54 +62,46 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const SizedBox(height: 60,),
-                  const IconForm(
-                    child: Icon(
-                      Icons.person_outlined,
-                      size: 50,
+                  const SizedBox(
+                    height: 60,
+                  ),
+                  SizedBox(
+                      height: 90, child: Image.asset('images/app_icon.png')),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.only(top: 15, bottom: 15),
+                    alignment: Alignment.centerRight,
+                    child: const Text(
+                      ' سجل دخول',
+                      textAlign: TextAlign.right,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    ' سجل دخول',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InputText(
-                      labelText: 'ايميل',
-                      save: (value) {
-                        setState(
-                          () {
-                            email = value!;
-                          },
-                        );
-                      },
-                      validator: ValidateInputData.validateEmail,
-                    ),
+                  InputText(
+                    labelText: 'ايميل',
+                    save: (value) {
+                      setState(
+                        () {
+                          email = value!;
+                        },
+                      );
+                    },
+                    validator: ValidateInputData.validateEmail,
                   ),
                   const SizedBox(
                     height: 5,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InputText(
-                      labelText: 'كلمة السر',
-                      save: (value) {
-                        setState(
-                          () {
-                            password = value!;
-                          },
-                        );
-                      },
-                      validator: ValidateInputData.validatePassword,
-                    ),
+                  InputText(
+                    labelText: 'كلمة السر',
+                    save: (value) {
+                      setState(
+                        () {
+                          password = value!;
+                        },
+                      );
+                    },
+                    validator: ValidateInputData.validatePassword,
                   ),
                   const SizedBox(
                     height: 5,
@@ -118,31 +109,31 @@ class _LoginState extends State<Login> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: appColorTheme,
-                        shape: const StadiumBorder(),
-                      ),
-                      onPressed: () async {
-                        if (ValidateInputData.validateField(userKey)) {
-                          userKey.currentState?.save();
-                          BlocProvider.of<UserCubit>(context)
-                              .login(email, password);
-                        }
-                      },
-                      child: Center(
-                        child: state is Loading
-                            ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                color: Colors.white54,
-                              ),
-                            )
-                            : const Text(
-                              'سجل دخول',
-                              style: TextStyle(color: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: appColorTheme,
+                          shape: const StadiumBorder(),
+                        ),
+                        onPressed: () async {
+                          if (ValidateInputData.validateField(userKey)) {
+                            userKey.currentState?.save();
+                            BlocProvider.of<UserCubit>(context)
+                                .login(email, password);
+                          }
+                        },
+                        child: Center(
+                          child: state is Loading
+                              ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white54,
                             ),
-                      )
+                          )
+                              : const Text(
+                            'سجل دخول',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )
                     ),
                   ),
                 ],

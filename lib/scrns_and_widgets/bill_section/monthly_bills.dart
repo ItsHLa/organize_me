@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/bill_category_spending.dart';
+import 'package:organize_me/scrns_and_widgets/no_content.dart';
 
 import 'bills_list.dart';
 import 'cubit/bill_cubit.dart';
@@ -38,16 +39,9 @@ class _MonthlyChartState extends State<MonthlyChart> {
           List monthlyPercent = state.percent;
           List monthly = state.sum;
           return state.monthlySpendingAll == 0
-              ? const Padding(
-                  padding: EdgeInsets.only(top: 150.0),
-                  child: Column(
-                    children: [
-                      Icon(Icons.not_interested),
-                      Center(
-                        child: Text('لا يوجد فواتير لحساب الاستهلاك الشهري '),
-                      ),
-                    ],
-                  ),
+              ? const Center(
+                  child:
+                      NoContent(text: 'لا يوجد فواتير لحساب الاستهلاك الشهري '),
                 )
               : SizedBox(
                   height: 400,

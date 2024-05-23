@@ -4,6 +4,8 @@ import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/widgets/task_list_view.dart';
 
+import '../no_content.dart';
+
 class Tasks extends StatefulWidget {
   const Tasks({super.key, required this.focusDate});
 
@@ -33,11 +35,8 @@ class _TasksState extends State<Tasks> {
             tasks: state.tasks,
           );
         } else {
-          return const Center(
-            child: Text(
-              "ليس لديك مهام بعد",
-              style: TextStyle(fontSize: 20),
-            ),
+          return const NoContent(
+            text: "ليس لديك مهام بعد",
           );
         }
       },

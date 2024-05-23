@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/widgets/docs_numbers_listview.dart';
+import 'package:organize_me/scrns_and_widgets/no_content.dart';
 
 import 'cubit/docs_num_cubit.dart';
 
@@ -27,9 +28,8 @@ class DocsNumbers extends StatelessWidget {
           );
         } else {
           return const Center(
-            child: Text(
-              "ليس لديك جهات اتصال بعد",
-              style: TextStyle(fontSize: 20),
+            child: NoContent(
+              text: "ليس لديك جهات اتصال بعد",
             ),
           );
         }
