@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:organize_me/constants.dart';
+import 'package:http/http.dart';
 import 'package:organize_me/user.dart';
 
 import '../scrns_and_widgets/bill_section/models/bill.dart';
@@ -9,23 +9,23 @@ import '../scrns_and_widgets/bill_section/models/bill.dart';
 class ApiCalls {
   static String baseUrl = "http://haidaraib.pythonanywhere.com";
 
-  static Future<http.Response> updateUserInfo() async {
-    var r = await http.post(
-      Uri.parse("$baseUrl/updateUserInfo/"),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(
-        {
-          "id": me.id,
-          "email": me.email,
-          "password": me.password,
-          "username": me.username,
-        },
-      ),
-    );
-    return r;
-  }
+  // static Future<http.Response> updateUserInfo() async {
+  //   var r = await http.post(
+  //     Uri.parse("$baseUrl/updateUserInfo/"),
+  //     headers: {
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(
+  //       {
+  //         "id": me.id,
+  //         "email": me.email,
+  //         "password": me.password,
+  //         "username": me.username,
+  //       },
+  //     ),
+  //   );
+  //   return r;
+  // }
 
   static Future<http.Response> addUser(User user) async {
     var r = await http.post(
@@ -41,6 +41,25 @@ class ApiCalls {
         },
       ),
     );
+    return r;
+  }
+
+  static Future<Response> editUserInfo(
+      {required int id,
+      required String userName,
+      required String email,
+      required String password}) async {
+    var url = Uri.parse("$baseUrl/updateUserInfo/");
+    var r = await http.post(url,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          'id': id,
+          'email': email,
+          'password': password,
+          'username': userName
+        }));
     return r;
   }
 
