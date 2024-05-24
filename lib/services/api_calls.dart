@@ -77,16 +77,15 @@ class ApiCalls {
   static Future<http.Response> addBill(
     int userId,
     String type,
-    Bill bill,
+    Map<String, Object?> bill,
   ) async {
-    Map<String, String> body = bill.toJson();
-    body['user'] = userId.toString();
+    bill['user'] = userId.toString();
     var r = await http.post(
       Uri.parse("$baseUrl/addBill/$type/"),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(body),
+      body: jsonEncode(bill),
     );
     return r;
   }

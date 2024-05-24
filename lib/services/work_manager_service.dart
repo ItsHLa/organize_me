@@ -5,14 +5,15 @@ import 'package:organize_me/services/app_notification.dart';
 import 'package:workmanager/workmanager.dart';
 
 class WorkManagerService {
-  static void registerMyTask(
-      {required String uniqueTaskName,
-      required String taskName,
-      required Duration frequency,
-      required Duration initialDelay,
-      int? id,
-      String? title,
-      ExistingWorkPolicy? existingWorkPolicy}) async {
+  static void registerMyTask({
+    required String uniqueTaskName,
+    required String taskName,
+    required Duration frequency,
+    required Duration initialDelay,
+    int? id,
+    String? title,
+    ExistingWorkPolicy? existingWorkPolicy,
+  }) async {
     await Workmanager().registerPeriodicTask(
       uniqueTaskName,
       taskName,
@@ -31,6 +32,8 @@ class WorkManagerService {
       taskName: 'check Internet',
       frequency: const Duration(hours: 1),
       initialDelay: Duration.zero,
+      id: -1,
+      title: '',
     );
   }
 

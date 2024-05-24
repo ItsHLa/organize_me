@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/services/functionality.dart';
 
@@ -27,7 +28,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   TimeOfDay? start;
   DateTime? date;
-
 
   AutovalidateMode autoValidated = AutovalidateMode.disabled;
   GlobalKey<FormState> taskKey = GlobalKey<FormState>();
@@ -155,12 +155,27 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 Future<void> addDummyBills(String body) async {
   if (waterRegex.hasMatch(body)) {
     Match match = waterRegex.firstMatch(body)!;
-    await WaterBill.addBill(match: match, provider: 'address');
+    await Bill.addBill(
+      tableName: WaterBill.tableName,
+      match: match,
+      extractMatches: WaterBill.extractMatches,
+      provider: 'address',
+    );
   } else if (telecomRegex.hasMatch(body)) {
     Match match = telecomRegex.firstMatch(body)!;
-    await TelecomBill.addBill(match: match, provider: 'address');
+    await Bill.addBill(
+      tableName: TelecomBill.tableName,
+      match: match,
+      extractMatches: TelecomBill.extractMatches,
+      provider: 'address',
+    );
   } else if (electricRegex.hasMatch(body)) {
     Match match = electricRegex.firstMatch(body)!;
-    await ElectricBill.addBill(match: match, provider: 'address');
+    await Bill.addBill(
+      tableName: ElectricBill.tableName,
+      match: match,
+      extractMatches: ElectricBill.extractMatches,
+      provider: 'address',
+    );
   }
 }

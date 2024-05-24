@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/water_bill.dart';
@@ -37,12 +38,27 @@ void compareBill({required SmsMessage smsMessage}) {
   String body = smsMessage.body!;
   if (waterRegex.hasMatch(body)) {
     Match match = waterRegex.firstMatch(body)!;
-    WaterBill.addBill(match: match, provider: smsMessage.address!);
+    Bill.addBill(
+      tableName: WaterBill.tableName,
+      extractMatches: WaterBill.extractMatches,
+      match: match,
+      provider: smsMessage.address!,
+    );
   } else if (telecomRegex.hasMatch(body)) {
     Match match = telecomRegex.firstMatch(body)!;
-    TelecomBill.addBill(match: match, provider: smsMessage.address!);
+    Bill.addBill(
+      tableName: TelecomBill.tableName,
+      extractMatches: TelecomBill.extractMatches,
+      match: match,
+      provider: smsMessage.address!,
+    );
   } else if (electricRegex.hasMatch(body)) {
     Match match = electricRegex.firstMatch(body)!;
-    ElectricBill.addBill(match: match, provider: smsMessage.address!);
+    Bill.addBill(
+      tableName: ElectricBill.tableName,
+      extractMatches: ElectricBill.extractMatches,
+      match: match,
+      provider: smsMessage.address!,
+    );
   }
 }

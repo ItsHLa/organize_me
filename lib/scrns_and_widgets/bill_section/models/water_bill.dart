@@ -1,31 +1,23 @@
 import 'package:organize_me/constants.dart';
-import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
-import 'package:organize_me/services/api_calls.dart';
 import 'package:organize_me/services/functionality.dart';
-import 'package:sqflite/sqflite.dart';
 
 class WaterBill extends Bill {
   static const String tableName = 'water_bills';
-  int id;
-  double paymentAmount;
-  double commissionAmount;
-  String date;
-  String time;
-  String provider;
-  String operationNumber;
+  static const String tempTableName = 'temp_water_bills';
+
   String gov;
   String receiptNumber;
   String barcodeNumber;
   String counterNumber;
   WaterBill({
-    required this.id,
-    required this.paymentAmount,
-    required this.commissionAmount,
-    required this.date,
-    required this.time,
-    required this.provider,
-    required this.operationNumber,
+    super.id,
+    required super.paymentAmount,
+    required super.commissionAmount,
+    required super.date,
+    required super.time,
+    required super.provider,
+    required super.operationNumber,
     required this.gov,
     required this.receiptNumber,
     required this.barcodeNumber,
@@ -45,8 +37,8 @@ class WaterBill extends Bill {
         operationNumber: elBillMap['operation_number'],
       );
 
-  static Map _extractMatches(Match match) {
-    Map matchesMap = {};
+  static Map<String, Object?> extractMatches(Match match) {
+    Map<String, Object?> matchesMap = {};
     matchesMap['payment_amount'] =
         double.parse(match.group(waterRegexGroups['payment amount']!)!);
 
@@ -76,115 +68,6 @@ class WaterBill extends Bill {
 
     matchesMap['gov'] = match.group(waterRegexGroups['gov']!)!;
     return matchesMap;
-  }
-
-  static Future<Map> addBill({
-    Match? match,
-    Map? billMap,
-    required String provider,
-  }) async {
-    Database? mydb = await DatabaseHelper.db;
-    Map matchesMap;
-    if (match != null) {
-      matchesMap = _extractMatches(match);
-    } else {
-      matchesMap = billMap!;
-    }
-    int billId = await mydb!.rawInsert(
-      """
-        INSERT OR IGNORE INTO $tableName(
-          payment_amount,
-          commission_amount,
-          date,
-          time,
-          provider,
-          operation_number,
-
-          gov,
-
-          receipt_number,
-          barcode_number,
-          counter_number
-
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-      """,
-      [
-        matchesMap['payment_amount'],
-        matchesMap['commission_amount'],
-        matchesMap['date'],
-        matchesMap['time'],
-        provider,
-        matchesMap['operation_number'],
-        matchesMap['gov'],
-        matchesMap['receipt_number'],
-        matchesMap['barcode_number'],
-        matchesMap['counter_number'],
-      ],
-    );
-    WaterBill bill = WaterBill(
-      id: billId,
-      paymentAmount: matchesMap['payment_amount'],
-      commissionAmount: matchesMap['commission_amount'],
-      date: matchesMap['date'],
-      time: matchesMap['time'],
-      provider: provider,
-      operationNumber: matchesMap['operation_number'],
-      gov: matchesMap['gov'],
-      receiptNumber: matchesMap['receipt_number'],
-      barcodeNumber: matchesMap['barcode_number'],
-      counterNumber: matchesMap['counter_number'],
-    );
-    // TODO We need to check the internet first
-
-    await ApiCalls.addBill(me.id, 'wa', bill);
-    return match != null ? (await getOneBill(billId)) : {};
-  }
-
-  static deleteBill(int billId) async {
-    await Bill.deleteBill(tableName, billId);
-  }
-
-  static Future<Map> getOneBill(int billId) async {
-    Database? mydb = await DatabaseHelper.db;
-    List<Map> bill = await mydb!.rawQuery(
-      """
-        SELECT * FROM $tableName WHERE id = ?
-      """,
-      [
-        billId,
-      ],
-    );
-
-    return bill[0];
-  }
-
-  static Future<List<WaterBill>> getAllBills() async {
-    Database? mydb = await DatabaseHelper.db;
-    List<Map> waBillsMap = await mydb!.rawQuery(
-      """
-        SELECT * FROM $tableName;
-      """,
-    );
-    List<WaterBill> bills = [];
-    for (Map bill in waBillsMap) {
-      bills.add(WaterBill.fromMap(bill));
-    }
-    return bills;
-  }
-
-  static Future<List<WaterBill>> getBillsFromId(int id) async {
-    Database? mydb = await DatabaseHelper.db;
-    List<Map> elBillsMap = await mydb!.rawQuery(
-      """
-        SELECT * FROM $tableName WHERE id > ?;
-      """,
-      [id],
-    );
-    List<WaterBill> bills = [];
-    for (Map bill in elBillsMap) {
-      bills.add(WaterBill.fromMap(bill));
-    }
-    return bills;
   }
 
   factory WaterBill.fromJson(Map<String, dynamic> json) => WaterBill(

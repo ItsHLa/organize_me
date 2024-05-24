@@ -162,13 +162,13 @@ class _BillListState extends State<BillList> {
 void loadCategory(BuildContext context, String category) {
   switch (category) {
     case 'المياه':
-      BlocProvider.of<BillCubit>(context).loadWater();
+      BlocProvider.of<BillCubit>(context).loadBills(WaterBill.tableName);
       break;
     case 'الاتصالات':
-      BlocProvider.of<BillCubit>(context).loadTelecom();
+      BlocProvider.of<BillCubit>(context).loadBills(TelecomBill.tableName);
       break;
     case 'الكهرباء':
-      BlocProvider.of<BillCubit>(context).loadElectric();
+      BlocProvider.of<BillCubit>(context).loadBills(ElectricBill.tableName);
       break;
   }
 }

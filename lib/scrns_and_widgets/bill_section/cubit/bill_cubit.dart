@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
@@ -15,33 +17,39 @@ class BillCubit extends Cubit<BillState> {
 
   void payFromSyriatelCash() async {}
 
-  Future<void> loadWater() async {
+  Future<void> loadBills(String tableName) async {
     emit(LoadingBill(bills: bills));
     try {
-      await WaterBill.getAllBills().then((waBills) => bills = waBills);
-      emit(WaterLoaded(bills: bills));
+      await Bill.getAllBills(tableName)
+          .then((loadedBills) => bills = loadedBills);
+      switch (tableName) {
+        case WaterBill.tableName:
+          emit(WaterLoaded(bills: bills));
+          break;
+        case ElectricBill.tableName:
+          emit(ElectricLoaded(bills: bills));
+          break;
+        case TelecomBill.tableName:
+          emit(TelecomLoaded(bills: bills));
+          break;
+        default:
+          break;
+      }
     } catch (e) {
-      emit(WaterFailed(e.toString(), bills: bills));
-    }
-  }
-
-  Future<void> loadElectric() async {
-    emit(LoadingBill(bills: bills));
-    try {
-      await ElectricBill.getAllBills().then((elBills) => bills = elBills);
-      emit(ElectricLoaded(bills: bills));
-    } catch (e) {
-      emit(ElectricFailed(e.toString(), bills: bills));
-    }
-  }
-
-  Future<void> loadTelecom() async {
-    emit(LoadingBill(bills: bills));
-    try {
-      await TelecomBill.getAllBills().then((telBills) => bills = telBills);
-      emit(TelecomLoaded(bills: bills));
-    } catch (e) {
-      emit(TelecomFailed(e.toString(), bills: bills));
+      log(e.toString());
+      switch (tableName) {
+        case WaterBill.tableName:
+          emit(WaterFailed(e.toString(), bills: bills));
+          break;
+        case ElectricBill.tableName:
+          emit(ElectricFailed(e.toString(), bills: bills));
+          break;
+        case TelecomBill.tableName:
+          emit(TelecomFailed(e.toString(), bills: bills));
+          break;
+        default:
+          break;
+      }
     }
   }
 

@@ -68,7 +68,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
                           swapAnimationCurve: Curves.linear, // Optional
                         ),
                       ),
-                      Category(
+                      CategoriesListView(
                         monthly: monthly,
                         categories: categories,
                         icons: icons,
@@ -83,8 +83,8 @@ class _MonthlyChartState extends State<MonthlyChart> {
   }
 }
 
-class Category extends StatelessWidget {
-  const Category({
+class CategoriesListView extends StatelessWidget {
+  const CategoriesListView({
     super.key,
     required this.categories,
     required this.monthly,

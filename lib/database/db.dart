@@ -16,7 +16,7 @@ class DatabaseHelper {
   static intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'data.db');
-    //await databaseFactory.deleteDatabase(path);
+    await databaseFactory.deleteDatabase(path);
     Database mydb = await openDatabase(
       path,
       onCreate: _onCreate,
@@ -90,6 +90,26 @@ class DatabaseHelper {
     );
     await db.execute(
       '''
+          CREATE TABLE IF NOT EXISTS temp_electric_bills (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            payment_amount DOUBLE NOT NULL DEFAULT 0,
+            commission_amount DOUBLE NOT NULL DEFAULT 0,
+            date TEXT, -- DD/MM/YYYY
+            time TEXT, -- HH:MM
+            provider TEXT,
+            operation_number TEXT,
+
+            gov TEXT,
+
+            billing_number TEXT,
+            invoice_number TEXT,
+            subscription_number TEXT
+          );
+      ''',
+    );
+    await db.execute(
+      '''
           CREATE TABLE IF NOT EXISTS water_bills (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -111,7 +131,45 @@ class DatabaseHelper {
     );
     await db.execute(
       '''
+          CREATE TABLE IF NOT EXISTS temp_water_bills (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            payment_amount DOUBLE NOT NULL DEFAULT 0,
+            commission_amount DOUBLE NOT NULL DEFAULT 0,
+            date TEXT, -- DD/MM/YYYY
+            time TEXT, -- HH:MM
+            provider TEXT,
+            operation_number TEXT,
+
+            gov TEXT,
+
+            receipt_number TEXT,
+            barcode_number TEXT,
+            counter_number TEXT
+
+          );
+      ''',
+    );
+    await db.execute(
+      '''
           CREATE TABLE IF NOT EXISTS telecom_bills (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            payment_amount DOUBLE NOT NULL DEFAULT 0,
+            commission_amount DOUBLE NOT NULL DEFAULT 0,
+            date TEXT, -- DD/MM/YYYY
+            time TEXT, -- HH:MM
+            provider TEXT,
+            operation_number TEXT,
+
+            invoice_number TEXT,
+            phone_number_email TEXT
+          );
+      ''',
+    );
+    await db.execute(
+      '''
+          CREATE TABLE IF NOT EXISTS temp_telecom_bills (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
 
             payment_amount DOUBLE NOT NULL DEFAULT 0,
