@@ -30,40 +30,6 @@ class MyBills extends StatelessWidget {
               );
             },
           ),
-          SpeedDialChild(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text(
-                    'هل توافق على تذكيرك بدفع فواتيرك كل شهر ؟',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  actionsAlignment: MainAxisAlignment.center,
-                  actions: [
-                    ElevatedButton(
-                      onPressed: () {
-                        WorkManagerService.registerMyTask(
-                          uniqueTaskName: 'show bill notification',
-                          taskName: 'show bill notification',
-                          frequency: const Duration(days: 30),
-                          initialDelay: const Duration(days: 15),
-                          id: 0,
-                          title: 'bills',
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: appColorTheme,
-                      ),
-                      child: const Text('اوافق'),
-                    )
-                  ],
-                ),
-              );
-            },
-            child: const Icon(Icons.notifications_active_outlined),
-          ),
         ],
       ),
       body: Column(
