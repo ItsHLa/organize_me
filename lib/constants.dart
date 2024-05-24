@@ -173,10 +173,8 @@ var dummyTelecom =
 رقم العملية: s600052753654''';
 
 User me = const User(
-    id: 0,
-    email: 'email',
-    password: 'password',
-    username: 'username',
-    lastElBill: 0,
-    lastTelBill: 0,
-    lastWaBill: 0);
+  id: 0,
+  email: 'email',
+  password: 'password',
+  username: 'username',
+);

@@ -21,9 +21,6 @@ class ApiCalls {
           "email": me.email,
           "password": me.password,
           "username": me.username,
-          "last_el_bill": me.lastElBill,
-          "last_wa_bill": me.lastWaBill,
-          "last_tel_bill": me.lastTelBill,
         },
       ),
     );

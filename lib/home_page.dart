@@ -22,9 +22,6 @@ class _HomePageState extends State<HomePage> {
         username: userInfo['username'],
         email: userInfo['email'],
         password: userInfo['password'],
-        lastElBill: userInfo['last_el_bill'],
-        lastWaBill: userInfo['last_wa_bill'],
-        lastTelBill: userInfo['last_tel_bill'],
       ),
     );
   }
