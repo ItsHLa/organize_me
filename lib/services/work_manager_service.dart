@@ -1,5 +1,10 @@
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:organize_me/constants.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/water_bill.dart';
 import 'package:organize_me/services/api_calls.dart';
 import 'package:organize_me/services/app_notification.dart';
 import 'package:workmanager/workmanager.dart';
@@ -65,8 +70,22 @@ addBills() async {
   var result = await (Connectivity().checkConnectivity());
   if (result.contains(ConnectivityResult.wifi) ||
       result.contains(ConnectivityResult.mobile)) {
-    // await ApiCalls.addBills(me.id, 'el', elBills);
-    // await ApiCalls.addBills(me.id, 'wa', waBills);
-    // await ApiCalls.addBills(me.id, 'tel', telBills);
+    List<Bill> elBills = await Bill.getAllTempBills(ElectricBill.tempTableName);
+    var r = await ApiCalls.addBills(me.id, 'el', elBills);
+    if (r.statusCode == 200) {
+      await Bill.clearTempTable(ElectricBill.tempTableName);
+    }
+
+    List<Bill> waBills = await Bill.getAllTempBills(WaterBill.tempTableName);
+    r = await ApiCalls.addBills(me.id, 'wa', waBills);
+    if (r.statusCode == 200) {
+      await Bill.clearTempTable(WaterBill.tempTableName);
+    }
+
+    List<Bill> telBills = await Bill.getAllTempBills(TelecomBill.tempTableName);
+    r = await ApiCalls.addBills(me.id, 'tel', telBills);
+    if (r.statusCode == 200) {
+      await Bill.clearTempTable(TelecomBill.tempTableName);
+    }
   }
 }

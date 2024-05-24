@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
 import 'package:organize_me/user.dart';
@@ -20,7 +17,6 @@ class _AccountInfoState extends State<AccountInfo> {
   @override
   void initState() {
     BlocProvider.of<UserCubit>(context).loadUserInfo();
-    log(me.toString());
     super.initState();
   }
 
@@ -183,11 +179,12 @@ class _AccountInfoState extends State<AccountInfo> {
 }
 
 class EditUserInfo extends StatefulWidget {
-  const EditUserInfo(
-      {super.key,
-      required this.userName,
-      required this.password,
-      required this.email});
+  const EditUserInfo({
+    super.key,
+    required this.userName,
+    required this.password,
+    required this.email,
+  });
 
   final String userName;
   final String password;

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +35,6 @@ class BillCubit extends Cubit<BillState> {
           break;
       }
     } catch (e) {
-      log(e.toString());
       switch (tableName) {
         case WaterBill.tableName:
           emit(WaterFailed(e.toString(), bills: bills));

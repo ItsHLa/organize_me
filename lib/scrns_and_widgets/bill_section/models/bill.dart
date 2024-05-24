@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/database/db.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
@@ -31,17 +30,21 @@ abstract class Bill {
   static Bill fromMap(Map billMap, String tableName) {
     Bill bill;
     switch (tableName) {
+      case WaterBill.tempTableName:
       case WaterBill.tableName:
         bill = WaterBill.fromMap(billMap);
         break;
+      case ElectricBill.tempTableName:
       case ElectricBill.tableName:
         bill = ElectricBill.fromMap(billMap);
         break;
+      case TelecomBill.tempTableName:
       case TelecomBill.tableName:
         bill = TelecomBill.fromMap(billMap);
         break;
       default:
         bill = TelecomBill.fromMap(billMap);
+        break;
     }
     return bill;
   }
@@ -62,21 +65,23 @@ abstract class Bill {
       billMap,
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-    log(billId.toString());
-    // // this check indicates that the bill is new, so we wanna send it (if possible) via an api call.
-    // if (match != null) {
-    //   // TODO internet check here, if there isn't then store in the temp table.
-    //   if (tempTableName != null) {
-    //     await mydb.insert(
-    //       tempTableName,
-    //       billMap,
-    //       conflictAlgorithm: ConflictAlgorithm.replace,
-    //     );
-    //   } else {
-    //     await ApiCalls.addBill(me.id, 'wa', billMap);
-    //   }
-    //   return (await getOneBill(billId, tableName));
-    // }
+    // this check indicates that the bill is new, so we wanna send it (if possible) via an api call.
+    if (match != null) {
+      var result = await (Connectivity().checkConnectivity());
+      // if there's a connection send it via api call right away.
+      if (result.contains(ConnectivityResult.wifi) ||
+          result.contains(ConnectivityResult.mobile)) {
+        await ApiCalls.addBill(me.id, tableNameToTypeCode[tableName]!, billMap);
+        // otherwise store it in the temp table.
+      } else {
+        await mydb.insert(
+          tempTableName!,
+          billMap,
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+      return (await getOneBill(billId, tableName));
+    }
     return {};
   }
 
@@ -98,6 +103,21 @@ abstract class Bill {
       bills.add(fromMap(bill, tableName));
     }
     return bills;
+  }
+
+  static Future<List<Bill>> getAllTempBills(String tempTableName) async {
+    Database? mydb = await DatabaseHelper.db;
+    List<Map> waBillsMap = await mydb!.query(tempTableName);
+    List<Bill> bills = [];
+    for (Map bill in waBillsMap) {
+      bills.add(fromMap(bill, tempTableName));
+    }
+    return bills;
+  }
+
+  static Future<void> clearTempTable(String tempTableName) async {
+    Database? mydb = await DatabaseHelper.db;
+    await mydb!.delete(tempTableName);
   }
 
   static Future<void> fillDatabase({

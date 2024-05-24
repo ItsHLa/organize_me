@@ -125,9 +125,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ],
             keyboardType: const [null, null, null, null, TextInputType.number],
             onPressed: () async {
-              await addDummyBills(dummyElectric);
-              await addDummyBills(dummyTelecom);
-              await addDummyBills(dummyWater);
+              // await addDummyBills(dummyElectric);
+              // await addDummyBills(dummyTelecom);
+              // await addDummyBills(dummyWater);
+              // await addBills();
               if (ValidateInputData.validateField(taskKey)) {
                 taskKey.currentState!.save();
                 if (context.mounted) {
@@ -160,6 +161,7 @@ Future<void> addDummyBills(String body) async {
       match: match,
       extractMatches: WaterBill.extractMatches,
       provider: 'address',
+      tempTableName: WaterBill.tempTableName,
     );
   } else if (telecomRegex.hasMatch(body)) {
     Match match = telecomRegex.firstMatch(body)!;
@@ -168,6 +170,7 @@ Future<void> addDummyBills(String body) async {
       match: match,
       extractMatches: TelecomBill.extractMatches,
       provider: 'address',
+      tempTableName: TelecomBill.tempTableName,
     );
   } else if (electricRegex.hasMatch(body)) {
     Match match = electricRegex.firstMatch(body)!;
@@ -176,6 +179,7 @@ Future<void> addDummyBills(String body) async {
       match: match,
       extractMatches: ElectricBill.extractMatches,
       provider: 'address',
+      tempTableName: ElectricBill.tempTableName,
     );
   }
 }

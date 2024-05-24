@@ -43,6 +43,7 @@ void compareBill({required SmsMessage smsMessage}) {
       extractMatches: WaterBill.extractMatches,
       match: match,
       provider: smsMessage.address!,
+      tempTableName: WaterBill.tempTableName,
     );
   } else if (telecomRegex.hasMatch(body)) {
     Match match = telecomRegex.firstMatch(body)!;
@@ -51,6 +52,7 @@ void compareBill({required SmsMessage smsMessage}) {
       extractMatches: TelecomBill.extractMatches,
       match: match,
       provider: smsMessage.address!,
+      tempTableName: TelecomBill.tempTableName,
     );
   } else if (electricRegex.hasMatch(body)) {
     Match match = electricRegex.firstMatch(body)!;
@@ -59,6 +61,7 @@ void compareBill({required SmsMessage smsMessage}) {
       extractMatches: ElectricBill.extractMatches,
       match: match,
       provider: smsMessage.address!,
+      tempTableName: ElectricBill.tempTableName,
     );
   }
 }

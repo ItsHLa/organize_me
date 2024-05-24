@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/bills_view.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/telecom_bill.dart';
+import 'package:organize_me/scrns_and_widgets/bill_section/models/water_bill.dart';
 import 'package:organize_me/scrns_and_widgets/icon_form.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/cubit/docs_num_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/docs_number_section/doctors_numbers.dart';
@@ -178,3 +181,9 @@ User me = const User(
   password: 'password',
   username: 'username',
 );
+
+Map<String, String> tableNameToTypeCode = {
+  ElectricBill.tableName: 'el',
+  WaterBill.tableName: 'wa',
+  TelecomBill.tableName: 'tel'
+};

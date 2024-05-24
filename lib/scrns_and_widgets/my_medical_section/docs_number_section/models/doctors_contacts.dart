@@ -31,7 +31,7 @@ class DoctorsContacts {
     Database? mydb = await DatabaseHelper.db;
     int contactId = await mydb!.rawInsert(
       """
-        INSERT OR IGNORE INTO doctors_contacts(name, phone , clinic_number, specialist) VALUES (?, ? ,?, ?);
+        INSERT OR IGNORE INTO doctors_contacts(name, phone, clinic_number, specialist) VALUES (?, ? ,?, ?);
       """,
       [name, phone, clinic, specialist],
     );
