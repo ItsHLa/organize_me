@@ -29,13 +29,14 @@ class _MonthlyChartState extends State<MonthlyChart> {
     super.initState();
   }
 
+  TextStyle pieChartTitleStyle = const TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  );
+
   @override
   Widget build(BuildContext context) {
-    TextStyle pieChartTitleStyle = const TextStyle(
-      color: Colors.black,
-      fontWeight: FontWeight.bold,
-      fontSize: 18,
-    );
     return BlocBuilder<BillCubit, BillState>(
       buildWhen: (previous, current) =>
           current is MonthlySpendingCalculated || current is BillInitial,

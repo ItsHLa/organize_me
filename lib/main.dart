@@ -12,6 +12,7 @@ import 'database/db.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  DatabaseHelper.intialDb();
   await Future.wait(
     [
       LocalNotificationService.initi(),
@@ -58,7 +59,6 @@ class OrganizeMe extends StatefulWidget {
 class _OrganizeMeState extends State<OrganizeMe> {
   @override
   void initState() {
-    DatabaseHelper.intialDb();
     TelephonyService.askForPermission();
     TelephonyService.listenForIncomingSms();
     BlocProvider.of<UserCubit>(context).checkIfSigned();
@@ -74,7 +74,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
       builder: (context, state) {
         return MaterialApp(
             debugShowCheckedModeBanner: false,
-            themeMode: ThemeMode.system,
+            // themeMode: ThemeMode.system,
             darkTheme: ThemeData.dark(),
             theme: state.on ? ThemeData.dark() : ThemeData.light(),
             home: BlocListener<UserCubit, UserState>(

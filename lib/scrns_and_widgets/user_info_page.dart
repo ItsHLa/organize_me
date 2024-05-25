@@ -56,14 +56,14 @@ class _AccountInfoState extends State<AccountInfo> {
                 children: [
                   Spacer(),
                   Text(
-                    'معلوماتك الشخصية',
+                    ' حول',
                     style: TextStyle(fontSize: 18),
                   ),
                   SizedBox(
                     width: 6,
                   ),
                   Icon(
-                    Icons.person_outlined,
+                    Icons.info_outline,
                     size: 25,
                   ),
                   SizedBox(
@@ -225,10 +225,9 @@ class _EditUserInfoState extends State<EditUserInfo> {
             return Form(
               key: key,
               child: InputDataPage(
-                controllers: [userName, email, password],
+                controllers: [userName, password],
                 labels: labels,
                 validator: const [
-                  ValidateInputData.checkIfNull,
                   ValidateInputData.checkIfNull,
                   ValidateInputData.checkIfNull,
                 ],
@@ -237,9 +236,6 @@ class _EditUserInfoState extends State<EditUserInfo> {
                     setState(() {
                       userName.text = value ?? widget.userName;
                     });
-                  },
-                  (value) {
-                    email.text = value ?? widget.email;
                   },
                   (value) {
                     password.text = value ?? widget.password;
@@ -252,7 +248,6 @@ class _EditUserInfoState extends State<EditUserInfo> {
                     BlocProvider.of<UserCubit>(context).editUserInfo(
                         id: int.parse(id.text),
                         userName: userName.text,
-                        email: email.text,
                         password: password.text);
                   }
                 },
