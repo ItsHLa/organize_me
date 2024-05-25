@@ -23,7 +23,7 @@ class MedicineCubit extends Cubit<MedicineState> {
       Map med = await Med.addMed(name, shotTime, interval);
       meds.add(Med.fromMap(med));
       debugPrint(timeOfDayToDuration(timeOfShot).toString());
-      WorkManagerService.registerMyTask(
+      WorkManagerService.registerNotificationTask(
         uniqueTaskName: 'medicine ${med['id']} notification',
         taskName: 'show medicine notification',
         frequency: Duration(hours: interval),
@@ -52,7 +52,7 @@ class MedicineCubit extends Cubit<MedicineState> {
       int i = meds.indexOf(meds.singleWhere((med) => med.id == id));
       Med newTask = Med.fromMap(newMedMap);
       meds[i] = newTask;
-      WorkManagerService.registerMyTask(
+      WorkManagerService.registerNotificationTask(
           uniqueTaskName: 'medicine $id notification',
           taskName: 'show medicine notification',
           frequency: Duration(hours: editedInterval),

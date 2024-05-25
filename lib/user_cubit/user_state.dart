@@ -26,6 +26,8 @@ final class UserInfoLoaded extends UserState {
   });
 }
 
+final class Failed extends UserState {}
+
 final class Loading extends UserState {}
 
 final class LoginSuccess extends UserState {}

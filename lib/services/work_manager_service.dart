@@ -10,7 +10,7 @@ import 'package:organize_me/services/app_notification.dart';
 import 'package:workmanager/workmanager.dart';
 
 class WorkManagerService {
-  static void registerMyTask({
+  static void registerNotificationTask({
     required String uniqueTaskName,
     required String taskName,
     required Duration frequency,
@@ -29,17 +29,26 @@ class WorkManagerService {
     );
   }
 
+  static void registerSendingData() async {
+    await Workmanager().registerPeriodicTask(
+      'check Internet',
+      'check Internet',
+      frequency: const Duration(hours: 1),
+    );
+  }
+
+  static void registerMonthlyBillNotification() async {
+    await Workmanager().registerPeriodicTask(
+        'show bill notification', 'show bill notification',
+        initialDelay: const Duration(days: 20),
+        frequency: const Duration(days: 30));
+  }
+
   // init work manager service
   Future<void> init() async {
     await Workmanager().initialize(callDispatcher, isInDebugMode: true);
-    registerMyTask(
-      uniqueTaskName: 'check Internet',
-      taskName: 'check Internet',
-      frequency: const Duration(hours: 1),
-      initialDelay: Duration.zero,
-      id: -1,
-      title: '',
-    );
+    registerSendingData();
+    registerMonthlyBillNotification();
   }
 
   static void cancelTask(String uniqueName) {

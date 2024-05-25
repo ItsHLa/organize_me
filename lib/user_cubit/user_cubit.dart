@@ -35,6 +35,34 @@ class UserCubit extends Cubit<UserState> {
     );
   }
 
+  Future<void> editUserInfo(
+      {required int id,
+      required String userName,
+      required String email,
+      required String password}) async {
+    var result = await Connectivity().checkConnectivity();
+    if (result.contains(ConnectivityResult.wifi) ||
+        result.contains(ConnectivityResult.mobile)) {
+      emit(Loading());
+      try {
+        var r = await ApiCalls.editUserInfo(
+            id: id, email: email, password: password, userName: userName);
+        if (r.statusCode == 200) {
+          await User.setUserInfo(
+              username: userName, password: password, email: email, id: id);
+          emit(UserInfoLoaded(
+              id: id, email: email, password: password, username: userName));
+        } else {
+          emit(Failed());
+        }
+      } on SocketException {
+        emit(NoInternet());
+      }
+    } else {
+      emit(NoInternet());
+    }
+  }
+
   void checkInternet() async {
     var result = await (Connectivity().checkConnectivity());
     if (result.contains(ConnectivityResult.none)) {
