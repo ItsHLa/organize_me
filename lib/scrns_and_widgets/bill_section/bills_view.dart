@@ -26,14 +26,14 @@ class MyBills extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          // BlocProvider<BillCubit>.value(
-          //   value: BlocProvider.of(context),
-          //   child: const MySearchBar(),),
-          Expanded(child: const MonthlyChart()),
-        ],
-      ),
+      body: const MonthlyChart(),
     );
   }
 }
+/*
+*
+*   BlocProvider<BillCubit>.value(
+            value: BlocProvider.of(context),
+            child: const MySearchBar(),),
+*
+* */

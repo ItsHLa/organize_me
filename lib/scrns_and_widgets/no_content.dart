@@ -11,7 +11,7 @@ class NoContent extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Spacer(),
+          //const Spacer(),
           Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
@@ -22,7 +22,7 @@ class NoContent extends StatelessWidget {
             text,
             style: const TextStyle(fontSize: 18),
           ),
-          Spacer()
+          // const Spacer()
         ],
       ),
     );

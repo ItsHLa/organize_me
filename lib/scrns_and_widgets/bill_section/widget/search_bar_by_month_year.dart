@@ -17,23 +17,25 @@ class MySearchBar extends StatefulWidget {
 class _MySearchBarState extends State<MySearchBar> {
   String year = '';
   String month = '';
+  String date = '${DateTime.now().month}  / ${DateTime.now().year}';
   GlobalKey<FormState> key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BillCubit, BillState>(
-      listener: (context, state) {
-        if (state is MonthlySpendingCalculated) {
-          Navigator.pop(context);
-        }
-      },
-      child: SizedBox(
-        width: 150,
-        child: InputText(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) => SimpleDialog(
+    return InputText(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (newcontext) => BlocProvider<BillCubit>.value(
+            value: BlocProvider.of(context),
+            child: BlocListener<BillCubit, BillState>(
+              listener: (context, state) {
+                // TODO: implement listener
+                if (state is MonthlySpendingCalculated) {
+                  Navigator.pop(context);
+                }
+              },
+              child: SimpleDialog(
                 children: [
                   Form(
                     key: key,
@@ -89,6 +91,9 @@ class _MySearchBarState extends State<MySearchBar> {
                           onPressed: () {
                             if (ValidateInputData.validateField(key)) {
                               key.currentState?.save();
+                              setState(() {
+                                date = '$month / $year';
+                              });
                               BlocProvider.of<BillCubit>(context)
                                   .monthlySpendingOneCategory(year, month);
                               lastSelectedMonth = month;
@@ -103,12 +108,12 @@ class _MySearchBarState extends State<MySearchBar> {
                   ),
                 ],
               ),
-            );
-          },
-          readOnly: true,
-          controller: TextEditingController(text: '$month / $year'),
-        ),
-      ),
+            ),
+          ),
+        );
+      },
+      readOnly: true,
+      controller: TextEditingController(text: date),
     );
   }
 }
