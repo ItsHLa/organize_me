@@ -46,10 +46,13 @@ class UserCubit extends Cubit<UserState> {
       emit(Loading());
       try {
         var r = await ApiCalls.editUserInfo(
-            id: id, email: email, password: password, userName: userName);
+          id: id,
+          email: email,
+          password: password,
+          userName: userName,
+        );
         if (r.statusCode == 200) {
-          await User.setUserInfo(
-              username: userName, password: password, email: email, id: id);
+          await User.setUserInfo(user: jsonDecode(r.body)['user']);
           emit(UserInfoLoaded(
               id: id, email: email, password: password, username: userName));
         } else {

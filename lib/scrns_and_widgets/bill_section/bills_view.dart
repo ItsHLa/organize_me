@@ -6,7 +6,6 @@ import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/payment_widget.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/widget/search_bar_by_month_year.dart';
 import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
-import 'package:organize_me/services/work_manager_service.dart';
 
 import 'cubit/bill_cubit.dart';
 import 'monthly_bills.dart';
