@@ -11,17 +11,12 @@ class User {
     required this.password,
     required this.username,
   });
-  static Future<void> setUserInfo({
-    required id,
-    required username,
-    required email,
-    required password,
-  }) async {
+  static Future<void> setUserInfo({required Map user}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setInt('id', id);
-    preferences.setString('username', username);
-    preferences.setString('email', email);
-    preferences.setString('password', password);
+    preferences.setInt('id', user['id']);
+    preferences.setString('username', user['username']);
+    preferences.setString('email', user['email']);
+    preferences.setString('password', user['password']);
   }
 
   static Future<void> signUser(bool sign) async {

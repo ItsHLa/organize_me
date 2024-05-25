@@ -187,3 +187,6 @@ Map<String, String> tableNameToTypeCode = {
   WaterBill.tableName: 'wa',
   TelecomBill.tableName: 'tel'
 };
+
+String lastSelectedMonth = DateTime.now().month.toString();
+String lastSelectedYear = DateTime.now().year.toString();

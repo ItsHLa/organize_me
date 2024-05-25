@@ -52,12 +52,7 @@ class UserCubit extends Cubit<UserState> {
         Map bodyMap = jsonDecode(r.body);
         if (r.statusCode == 200) {
           await User.signUser(true);
-          await User.setUserInfo(
-            id: bodyMap['id'],
-            username: bodyMap['username'],
-            email: email,
-            password: password,
-          );
+          await User.setUserInfo(user: bodyMap['user']);
           await Bill.fillDatabase(
             elBills: bodyMap['el'],
             waBills: bodyMap['wa'],
@@ -85,12 +80,7 @@ class UserCubit extends Cubit<UserState> {
         Map bodyMap = jsonDecode(response.body);
         if (response.statusCode == 200) {
           await User.signUser(true);
-          await User.setUserInfo(
-            id: bodyMap['me']['id'],
-            username: user.username,
-            email: user.email,
-            password: user.password,
-          );
+          await User.setUserInfo(user: bodyMap['me']);
           emit(RegisterSuccess());
         } else {
           await User.signUser(false);

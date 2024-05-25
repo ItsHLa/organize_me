@@ -23,14 +23,19 @@ class _MonthlyChartState extends State<MonthlyChart> {
   @override
   void initState() {
     BlocProvider.of<BillCubit>(context).monthlySpendingOneCategory(
-      '2024',
-      '01',
+      lastSelectedYear,
+      lastSelectedMonth,
     );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    TextStyle pieChartTitleStyle = const TextStyle(
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
+      fontSize: 18,
+    );
     return BlocBuilder<BillCubit, BillState>(
       buildWhen: (previous, current) =>
           current is MonthlySpendingCalculated || current is BillInitial,
@@ -40,8 +45,9 @@ class _MonthlyChartState extends State<MonthlyChart> {
           List monthly = state.sum;
           return state.monthlySpendingAll == 0
               ? const Center(
-                  child:
-                      NoContent(text: 'لا يوجد فواتير لحساب الاستهلاك الشهري '),
+                  child: NoContent(
+                    text: 'لا يوجد فواتير لهذا الشهر لحساب الاستهلاك الشهري ',
+                  ),
                 )
               : SizedBox(
                   height: 400,
@@ -55,13 +61,29 @@ class _MonthlyChartState extends State<MonthlyChart> {
                             centerSpaceRadius: 30,
                             sections: [
                               PieChartSectionData(
-                                  color: yellow, value: monthlyPercent[0]),
+                                title: "${monthlyPercent[0].toInt()}%",
+                                showTitle: true,
+                                color: yellow,
+                                value: monthlyPercent[0],
+                                titleStyle: pieChartTitleStyle,
+                              ),
                               PieChartSectionData(
-                                  color: green, value: monthlyPercent[1]),
+                                title: "${monthlyPercent[1].toInt()}%",
+                                showTitle: true,
+                                color: green,
+                                value: monthlyPercent[1],
+                                titleStyle: pieChartTitleStyle,
+                              ),
                               PieChartSectionData(
-                                  color: blue, value: monthlyPercent[2]),
+                                title: "${monthlyPercent[2].toInt()}%",
+                                showTitle: true,
+                                color: blue,
+                                value: monthlyPercent[2],
+                                titleStyle: pieChartTitleStyle,
+                              ),
                             ],
                           ),
+
                           swapAnimationDuration:
                               const Duration(milliseconds: 150),
                           // Optional

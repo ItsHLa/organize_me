@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/cubit/bill_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/my_button.dart';
 
@@ -78,15 +79,18 @@ class _MySearchBarState extends State<MySearchBar> {
                   ),
                 ),
                 MyButton(
-                    onPressed: () {
-                      if (ValidateInputData.validateField(key)) {
-                        key.currentState?.save();
-                        BlocProvider.of<BillCubit>(context)
-                            .monthlySpendingOneCategory(year, month);
-                      }
-                    },
-                    icon: Icons.search,
-                    label: 'ابحث')
+                  onPressed: () {
+                    if (ValidateInputData.validateField(key)) {
+                      key.currentState?.save();
+                      BlocProvider.of<BillCubit>(context)
+                          .monthlySpendingOneCategory(year, month);
+                      lastSelectedMonth = month;
+                      lastSelectedYear = year;
+                    }
+                  },
+                  icon: Icons.search,
+                  label: 'ابحث',
+                )
               ],
             ),
           ),

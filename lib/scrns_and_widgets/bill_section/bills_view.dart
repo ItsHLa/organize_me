@@ -36,7 +36,7 @@ class MyBills extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: const Text(
-                    'هل توافق على تذكيرك بدفع فواتيرك كل شهر ؟',
+                    'هل توافق على تذكيرك بدفع فواتيرك كل شهر؟',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 18),
                   ),
@@ -56,7 +56,7 @@ class MyBills extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: appColorTheme,
                       ),
-                      child: const Text('اوافق'),
+                      child: const Text('أوافق'),
                     )
                   ],
                 ),
@@ -66,33 +66,39 @@ class MyBills extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              const Spacer(),
-              IconButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (newcontext) => BlocProvider<BillCubit>.value(
-                      value: BlocProvider.of(context),
-                      child: const MySearchBar(),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  CupertinoIcons.search_circle,
-                  color: appColorTheme,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text("$lastSelectedYear-$lastSelectedMonth"),
                 ),
-              ),
-              const SizedBox(
-                width: 10,
-              )
-            ],
-          ),
-          const SingleChildScrollView(child: MonthlyChart()),
-        ],
+                const SizedBox(
+                  width: 10,
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (newcontext) => BlocProvider<BillCubit>.value(
+                        value: BlocProvider.of(context),
+                        child: const MySearchBar(),
+                      ),
+                    );
+                  },
+                  icon: Icon(
+                    CupertinoIcons.search_circle,
+                    color: appColorTheme,
+                  ),
+                ),
+              ],
+            ),
+            const MonthlyChart(),
+          ],
+        ),
       ),
     );
   }
