@@ -39,10 +39,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 90,
-          child: MySearchBar(),
-        ),
+        MySearchBar(),
         BlocBuilder<BillCubit, BillState>(
           buildWhen: (previous, current) =>
               current is MonthlySpendingCalculated || current is BillInitial,
@@ -61,8 +58,9 @@ class _MonthlyChartState extends State<MonthlyChart> {
                       height: 400,
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: 170,
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 25),
+                            height: 100,
                             width: 170,
                             child: PieChart(
                               PieChartData(

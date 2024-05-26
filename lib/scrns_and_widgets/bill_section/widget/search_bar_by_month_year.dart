@@ -22,98 +22,126 @@ class _MySearchBarState extends State<MySearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return InputText(
-      onTap: () {
-        showDialog(
-          context: context,
-          builder: (newcontext) => BlocProvider<BillCubit>.value(
-            value: BlocProvider.of(context),
-            child: BlocListener<BillCubit, BillState>(
-              listener: (context, state) {
-                // TODO: implement listener
-                if (state is MonthlySpendingCalculated) {
-                  Navigator.pop(context);
-                }
-              },
-              child: SimpleDialog(
-                children: [
-                  Form(
-                    key: key,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        SizedBox(
-                            width: 200,
-                            child: InputText(
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'لا يمكن هذا الحقل ان يكون فارغ';
-                                } else if (value.isNotEmpty &&
-                                    (int.parse(value) < 0 ||
-                                        int.parse(value) > 12)) {
-                                  return 'يرجى ادخال الشهر بشكل صحيح';
-                                } else {
-                                  return null;
-                                }
-                              },
-                              labelText: 'ادخل الشهر',
-                              save: (value) {
-                                month = value!;
-                              },
-                              keyboardType: TextInputType.number,
-                            )),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        SizedBox(
-                          width: 200,
-                          child: InputText(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'لا يمكن هذا الحقل ان يكون فارغ';
-                              } else if (value.isNotEmpty &&
-                                  (int.parse(value) > DateTime.now().year)) {
-                                return 'يرجى ادخال السنة بشكل صحيح';
-                              } else {
-                                return null;
-                              }
-                            },
-                            labelText: 'ادخل السنة',
-                            save: (value) {
-                              year = value!;
-                            },
-                            keyboardType: TextInputType.number,
-                          ),
-                        ),
-                        MyButton(
-                          onPressed: () {
-                            if (ValidateInputData.validateField(key)) {
-                              key.currentState?.save();
-                              setState(() {
-                                date = '$month / $year';
-                              });
-                              BlocProvider.of<BillCubit>(context)
-                                  .monthlySpendingOneCategory(year, month);
-                              lastSelectedMonth = month;
-                              lastSelectedYear = year;
-                            }
-                          },
-                          icon: Icons.search,
-                          label: 'ابحث',
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 11.0),
+      child: SizedBox(
+        // padding: EdgeInsets.all(8),
+        height: 100,
+        child: TextField(
+          decoration: InputDecoration(
+            suffix: Icon(
+              Icons.search,
+              color: appColorTheme,
+            ),
+            labelStyle: TextStyle(color: appColorTheme),
+            hintStyle: TextStyle(color: appColorTheme),
+            border: UnderlineInputBorder(
+              //borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(color: appColorTheme),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              // borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(color: appColorTheme),
+            ),
+            enabledBorder: UnderlineInputBorder(
+              // borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(color: Colors.grey),
             ),
           ),
-        );
-      },
-      readOnly: true,
-      controller: TextEditingController(text: date),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (newcontext) => BlocProvider<BillCubit>.value(
+                value: BlocProvider.of(context),
+                child: BlocListener<BillCubit, BillState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                    if (state is MonthlySpendingCalculated) {
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: SimpleDialog(
+                    children: [
+                      Form(
+                        key: key,
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            SizedBox(
+                                width: 200,
+                                child: InputText(
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'لا يمكن هذا الحقل ان يكون فارغ';
+                                    } else if (value.isNotEmpty &&
+                                        (int.parse(value) < 0 ||
+                                            int.parse(value) > 12)) {
+                                      return 'يرجى ادخال الشهر بشكل صحيح';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  labelText: 'ادخل الشهر',
+                                  save: (value) {
+                                    month = value!;
+                                  },
+                                  keyboardType: TextInputType.number,
+                                )),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            SizedBox(
+                              width: 200,
+                              child: InputText(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'لا يمكن هذا الحقل ان يكون فارغ';
+                                  } else if (value.isNotEmpty &&
+                                      (int.parse(value) >
+                                          DateTime.now().year)) {
+                                    return 'يرجى ادخال السنة بشكل صحيح';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                labelText: 'ادخل السنة',
+                                save: (value) {
+                                  year = value!;
+                                },
+                                keyboardType: TextInputType.number,
+                              ),
+                            ),
+                            MyButton(
+                              onPressed: () {
+                                if (ValidateInputData.validateField(key)) {
+                                  key.currentState?.save();
+                                  setState(() {
+                                    date = '$month / $year';
+                                  });
+                                  BlocProvider.of<BillCubit>(context)
+                                      .monthlySpendingOneCategory(year, month);
+                                  lastSelectedMonth = month;
+                                  lastSelectedYear = year;
+                                }
+                              },
+                              icon: Icons.search,
+                              label: 'ابحث',
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+          readOnly: true,
+          controller: TextEditingController(text: date),
+        ),
+      ),
     );
   }
 }

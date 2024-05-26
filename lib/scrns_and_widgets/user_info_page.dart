@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
-import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/services/functionality.dart';
-import 'package:organize_me/user.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
 
 import 'add_data_page.dart';
@@ -16,63 +14,103 @@ class AccountInfo extends StatefulWidget {
 }
 
 class _AccountInfoState extends State<AccountInfo> {
+  List labels = ['اسم المستخدم', 'عنوان البريد الالكتروني', 'كلمة السر'];
 
   TextEditingController id = TextEditingController();
   TextEditingController userName = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  GlobalKey<FormState> key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<UserCubit>(context).loadUserInfo();
-    return BlocBuilder<UserCubit, UserState>(
-      builder: (context, state) {
-        if (state is UserInfoLoaded) {
-          id.text = state.id.toString();
-          userName.text = state.username;
-          email.text = state.email;
-          password.text = state.password;
-          return Scaffold(
-            floatingActionButton: FloatingActionButton(
-                shape: const StadiumBorder(),
-                backgroundColor: appColorTheme,
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => EditUserInfo(
-                      id: state.id.toString(),
-                      userName: state.username,
-                      password: state.password,
-                      email: state.email,
-                    ),
-                  );
-                },
-                child: const Icon(
-                  Icons.edit_outlined,
-                  color: Colors.white54,
-                )),
-            appBar: AppBar(
-              title: const Row(
-                children: [
-                  Spacer(),
-                  Text(
-                    ' حول',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Icon(
-                    Icons.info_outline,
-                    size: 25,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                ],
+    return Scaffold(
+        appBar: AppBar(
+          title: const Row(
+            children: [
+              Spacer(),
+              Text(
+                'صفحتك الشخصية',
+                style: TextStyle(fontSize: 18),
               ),
-            ),
-            body: SingleChildScrollView(
+              SizedBox(
+                width: 6,
+              ),
+              Icon(
+                Icons.account_circle_outlined,
+                size: 25,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+            ],
+          ),
+        ),
+        body: BlocListener<UserCubit, UserState>(
+          listener: (context, state) {
+            if (state is UserInfoLoaded) {
+              Navigator.of(context).pop();
+            } else if (state is Failed) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('حصل خطأ اثناءالتعديل يرجى اعادة محاولة')));
+            } else if (state is NoInternet) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('تحقق من اتصالك بالانترنت'),
+                ),
+              );
+            }
+          },
+          child: BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              if (state is Loading) {
+                return Expanded(
+                    child: CircularProgressIndicator(color: appColorTheme));
+              } else {
+                return Form(
+                  key: key,
+                  child: InputDataPage(
+                    controllers: [userName, password],
+                    labels: labels,
+                    validator: const [
+                      ValidateInputData.checkIfNull,
+                      ValidateInputData.checkIfNull,
+                    ],
+                    save: [
+                      (value) {
+                        setState(() {
+                          userName.text = value!;
+                        });
+                      },
+                      (value) {
+                        password.text = value!;
+                      }
+                    ],
+                    onPressed: () {
+                      if (ValidateInputData.validateField(key)) {
+                        key.currentState?.save();
+                        print(userName.text);
+                        BlocProvider.of<UserCubit>(context).editUserInfo(
+                            id: int.parse(id.text),
+                            userName: userName.text,
+                            password: password.text);
+                      }
+                    },
+                    labelButton: 'تعديل',
+                    icon: Icons.edit_outlined,
+                  ),
+                );
+              }
+            },
+          ),
+        ));
+  }
+}
+
+/*
+*
+* SingleChildScrollView(
               child: Column(
                 children: [
                   Padding(
@@ -80,16 +118,19 @@ class _AccountInfoState extends State<AccountInfo> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        InputText(
+                          save: (){
+                          },
+                          labelText:'اسم المستخدم' ,
+                          controller: userName
+                        )
                         ListTile(
                           trailing: const Icon(Icons.person_outline),
                           title: const Text(
-                            'اسم المستخدم',
+                            ,
                             textAlign: TextAlign.right,
                           ),
-                          subtitle: Text(
-                            userName.text,
-                            textAlign: TextAlign.right,
-                          ),
+                          subtitle:
                         ),
                         const Divider(),
                         ListTile(
@@ -153,15 +194,9 @@ class _AccountInfoState extends State<AccountInfo> {
                   ),
                 ],
               ),
-            ),
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
-  }
-}
+            )
+*
+* */
 
 class EditUserInfo extends StatefulWidget {
   const EditUserInfo({

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NoContent extends StatelessWidget {
@@ -9,20 +10,19 @@ class NoContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          //const Spacer(),
-          Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.transparent),
-              height: 100,
-              child: Image.asset('images/no_content.png')),
+          SizedBox(
+            height: 150,
+            child: Image.asset(
+              'images/no_content.png',
+              semanticLabel: 'no content',
+            ),
+          ),
           Text(
             text,
             style: const TextStyle(fontSize: 18),
           ),
-          // const Spacer()
         ],
       ),
     );
