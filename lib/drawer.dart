@@ -62,7 +62,7 @@ class _MyDarwerState extends State<MyDarwer> {
                     trailing: IconButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AccountInfo(),
+                          builder: (context) => const AccountInfo(),
                         ));
                       },
                       icon: Icon(Icons.edit_outlined),

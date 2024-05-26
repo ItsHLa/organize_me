@@ -14,7 +14,7 @@ class AccountInfo extends StatefulWidget {
 }
 
 class _AccountInfoState extends State<AccountInfo> {
-  List labels = ['اسم المستخدم', 'عنوان البريد الالكتروني', 'كلمة السر'];
+  List labels = ['اسم المستخدم', 'كلمة السر'];
 
   TextEditingController id = TextEditingController();
   TextEditingController userName = TextEditingController();
@@ -25,86 +25,82 @@ class _AccountInfoState extends State<AccountInfo> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<UserCubit>(context).loadUserInfo();
-    return Scaffold(
-        appBar: AppBar(
-          title: const Row(
-            children: [
-              Spacer(),
-              Text(
-                'صفحتك الشخصية',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(
-                width: 6,
-              ),
-              Icon(
-                Icons.account_circle_outlined,
-                size: 25,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-            ],
-          ),
-        ),
-        body: BlocListener<UserCubit, UserState>(
-          listener: (context, state) {
-            if (state is UserInfoLoaded) {
-              Navigator.of(context).pop();
-            } else if (state is Failed) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('حصل خطأ اثناءالتعديل يرجى اعادة محاولة')));
-            } else if (state is NoInternet) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('تحقق من اتصالك بالانترنت'),
-                ),
-              );
-            }
-          },
-          child: BlocBuilder<UserCubit, UserState>(
-            builder: (context, state) {
-              if (state is Loading) {
-                return Expanded(
-                    child: CircularProgressIndicator(color: appColorTheme));
-              } else {
-                return Form(
-                  key: key,
-                  child: InputDataPage(
-                    controllers: [userName, password],
-                    labels: labels,
-                    validator: const [
-                      ValidateInputData.checkIfNull,
-                      ValidateInputData.checkIfNull,
-                    ],
-                    save: [
-                      (value) {
-                        setState(() {
-                          userName.text = value!;
-                        });
-                      },
-                      (value) {
-                        password.text = value!;
-                      }
-                    ],
-                    onPressed: () {
-                      if (ValidateInputData.validateField(key)) {
-                        key.currentState?.save();
-                        print(userName.text);
-                        BlocProvider.of<UserCubit>(context).editUserInfo(
-                            id: int.parse(id.text),
-                            userName: userName.text,
-                            password: password.text);
-                      }
-                    },
-                    labelButton: 'تعديل',
-                    icon: Icons.edit_outlined,
+    return BlocConsumer<UserCubit, UserState>(
+      listener: (context, state) {
+        if (state is UserInfoLoaded) {
+          Navigator.of(context).pop();
+        } else if (state is Failed) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('حصل خطأ اثناءالتعديل يرجى اعادة محاولة')));
+        } else if (state is NoInternet) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('تحقق من اتصالك بالانترنت'),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+            appBar: AppBar(
+              title: const Row(
+                children: [
+                  Spacer(),
+                  Text(
+                    'صفحتك الشخصية',
+                    style: TextStyle(fontSize: 18),
                   ),
-                );
-              }
-            },
-          ),
-        ));
+                  SizedBox(
+                    width: 6,
+                  ),
+                  Icon(
+                    Icons.account_circle_outlined,
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                ],
+              ),
+            ),
+            body: state is Loading
+                ? Expanded(
+                    child: CircularProgressIndicator(color: appColorTheme))
+                : Form(
+                    key: key,
+                    child: InputDataPage(
+                      controllers: [userName, password],
+                      labels: labels,
+                      validator: const [
+                        ValidateInputData.checkIfNull,
+                        ValidateInputData.checkIfNull,
+                      ],
+                      save: [
+                        (value) {
+                          setState(() {
+                            userName.text = value!;
+                          });
+                        },
+                        (value) {
+                          password.text = value!;
+                        }
+                      ],
+                      onPressed: () {
+                        if (ValidateInputData.validateField(key)) {
+                          key.currentState?.save();
+                          print(userName.text);
+                          BlocProvider.of<UserCubit>(context).editUserInfo(
+                              id: int.parse(id.text),
+                              userName: userName.text,
+                              password: password.text);
+                        }
+                      },
+                      labelButton: 'تعديل',
+                      icon: Icons.edit_outlined,
+                    ),
+                  ));
+      },
+    );
   }
 }
 
@@ -267,12 +263,12 @@ class _EditUserInfoState extends State<EditUserInfo> {
                   ValidateInputData.checkIfNull,
                 ],
                 save: [
-                  (value) {
+                      (value) {
                     setState(() {
                       userName.text = value ?? widget.userName;
                     });
                   },
-                  (value) {
+                      (value) {
                     password.text = value ?? widget.password;
                   }
                 ],
