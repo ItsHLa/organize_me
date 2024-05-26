@@ -1,4 +1,3 @@
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
@@ -39,9 +38,11 @@ class WorkManagerService {
 
   static void registerMonthlyBillNotification() async {
     await Workmanager().registerPeriodicTask(
-        'show bill notification', 'show bill notification',
-        initialDelay: const Duration(days: 20),
-        frequency: const Duration(days: 30));
+      'show bill notification',
+      'show bill notification',
+      initialDelay: const Duration(days: 20),
+      frequency: const Duration(days: 30),
+    );
   }
 
   // init work manager service
@@ -61,8 +62,10 @@ void callDispatcher() {
   Workmanager().executeTask((taskName, inputData) {
     switch (taskName) {
       case 'show medicine notification':
-        AppNotification.showSimpleMedicineNotification(
-            id: inputData!['id'], name: inputData['title']);
+        // AppNotification.showSimpleMedicineNotification(
+        //   id: inputData!['id'],
+        //   name: inputData['title'],
+        // );
         break;
       case 'show bill notification':
         AppNotification.showSimpleBillNotification();

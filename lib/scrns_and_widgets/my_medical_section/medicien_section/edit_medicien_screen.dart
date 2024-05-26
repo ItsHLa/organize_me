@@ -52,7 +52,7 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
           labels: const [
             'اسم الدواء',
             'عدد الساعات بين الجرعات',
-            'موعد اخذ الدواء'
+            'موعد أخذ الدواء'
           ],
           save: [
             (value) {
@@ -62,10 +62,10 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
                 },
               );
             },
-                (value) {
+            (value) {
               setState(
-                    () {
-                      interval.text = value!;
+                () {
+                  interval.text = value!;
                 },
               );
             },
@@ -75,10 +75,10 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
           onTap: [
             null,
             null,
-                () async {
+            () async {
               time = await showTime(context);
               setState(
-                    () {
+                () {
                   shotTime.text =
                       '${time?.hour.toString()}:${time?.minute.toString()}';
                 },

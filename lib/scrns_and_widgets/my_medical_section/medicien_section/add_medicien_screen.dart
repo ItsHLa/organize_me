@@ -41,7 +41,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
           labels: const [
             'اسم الدواء',
             'عدد الساعات بين الجرعات',
-            'موعد اخذ الدواء'
+            'موعد أخذ الدواء'
           ],
           save: [
             (value) {
@@ -51,9 +51,9 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
                 },
               );
             },
-                (value) {
+            (value) {
               setState(
-                    () {
+                () {
                   interval.text = value!;
                 },
               );
@@ -64,7 +64,7 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
           onTap: [
             null,
             null,
-                () async {
+            () async {
               time = await showTime(context);
               setState(
                 () {

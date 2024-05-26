@@ -39,7 +39,7 @@ class MedItem extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'موعد اخذ الدواء : ${med.shotTime} ',
+                        'موعد أخذ الدواء : ${med.shotTime} ',
                         textAlign: TextAlign.right,
                         style: const TextStyle(fontSize: 15),
                       ),

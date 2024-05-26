@@ -19,7 +19,7 @@ class MedicineCubit extends Cubit<MedicineState> {
     int interval,
   ) async {
     try {
-      String shotTime = '${timeOfShot.hour} : ${timeOfShot.minute}';
+      String shotTime = '${timeOfShot.minute}:${timeOfShot.hour}';
       Map med = await Med.addMed(name, shotTime, interval);
       meds.add(Med.fromMap(med));
       debugPrint(timeOfDayToDuration(timeOfShot).toString());
@@ -44,7 +44,7 @@ class MedicineCubit extends Cubit<MedicineState> {
     required int editedInterval,
   }) async {
     try {
-      String shotTime = '${editedTimeOfShot.hour} : ${editedTimeOfShot.minute}';
+      String shotTime = '${editedTimeOfShot.minute}:${editedTimeOfShot.hour}';
       Map newMedMap = await Med.editMed(id,
           newInterval: editedInterval,
           newName: editedName,
@@ -53,13 +53,14 @@ class MedicineCubit extends Cubit<MedicineState> {
       Med newTask = Med.fromMap(newMedMap);
       meds[i] = newTask;
       WorkManagerService.registerNotificationTask(
-          uniqueTaskName: 'medicine $id notification',
-          taskName: 'show medicine notification',
-          frequency: Duration(hours: editedInterval),
-          title: editedName,
-          id: id,
-          initialDelay: timeOfDayToDuration(editedTimeOfShot),
-          existingWorkPolicy: ExistingWorkPolicy.update);
+        uniqueTaskName: 'medicine $id notification',
+        taskName: 'show medicine notification',
+        frequency: Duration(hours: editedInterval),
+        title: editedName,
+        id: id,
+        initialDelay: timeOfDayToDuration(editedTimeOfShot),
+        existingWorkPolicy: ExistingWorkPolicy.update,
+      );
       emit(AddMedSuccses(meds: meds));
     } catch (e) {
       emit(AddMedsFailed(meds: meds));
@@ -73,7 +74,7 @@ class MedicineCubit extends Cubit<MedicineState> {
           meds.singleWhere((med) => med.id == medId),
         ),
       );
-      WorkManagerService.cancelTask('medicine $medId notification ');
+      WorkManagerService.cancelTask('medicine $medId notification');
       emit(DeleteMedsSuccses(meds: meds));
     } catch (e) {
       emit(DeleteMedsFailed(meds: meds));
@@ -94,4 +95,3 @@ class MedicineCubit extends Cubit<MedicineState> {
     }
   }
 }
-
