@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/drawer.dart';
 
 import 'constants.dart';
+import 'dark_mode_cubit/dark_mode_cubit.dart';
 import 'user.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,33 +37,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: MyDarwer(),
+      drawer: MyDarwer(),
       appBar: AppBar(
         title: Text(
           'OrganizeMe',
           style: TextStyle(color: appColorTheme),
         ),
         actions: [
-          // BlocBuilder<DarkModeCubit, DarkModeState>(
-          //   builder: (context, state) {
-          //     return IconButton(
-          //       onPressed: () {
-          //         BlocProvider.of<DarkModeCubit>(context).darkModeIsOn();
-          //       },
-          //       icon: state.on ? darkModeOn : darkModeOff,
-          //     );
-          //   },
-          // ),
-          // IconButton(
-          //   onPressed: () {
-          //     Navigator.of(context).push(MaterialPageRoute(
-          //       builder: (context) => accountInfo,
-          //     ));
-          //   },
-          //   icon: const Icon(
-          //     Icons.info_outline,
-          //   ),
-          // )
+          BlocBuilder<DarkModeCubit, DarkModeState>(
+            builder: (context, state) {
+              return IconButton(
+                onPressed: () {
+                  BlocProvider.of<DarkModeCubit>(context).darkModeIsOn();
+                },
+                icon: state.on ? darkModeOn : darkModeOff,
+              );
+            },
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

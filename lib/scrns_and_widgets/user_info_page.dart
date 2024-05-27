@@ -4,29 +4,215 @@ import 'package:organize_me/constants.dart';
 import 'package:organize_me/services/functionality.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
 
-import 'add_data_page.dart';
+import 'input_text.dart';
 
 class AccountInfo extends StatefulWidget {
-  const AccountInfo({super.key});
+  const AccountInfo(
+      {super.key,
+      required this.id,
+      required this.userName,
+      required this.password,
+      required this.email});
+
+  final String id;
+  final String userName;
+  final String password;
+  final String email;
 
   @override
   State<AccountInfo> createState() => _AccountInfoState();
 }
 
 class _AccountInfoState extends State<AccountInfo> {
-  List labels = ['اسم المستخدم', 'كلمة السر'];
+  List labels = ['اسم المستخدم', 'البريد الالكتروني', 'كلمة السر'];
 
   TextEditingController id = TextEditingController();
   TextEditingController userName = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+
+  List validator = const [
+    ValidateInputData.checkIfNull,
+    ValidateInputData.checkIfNull,
+    ValidateInputData.checkIfNull,
+  ];
+
   GlobalKey<FormState> key = GlobalKey();
 
   @override
+  void initState() {
+    id.text = widget.id;
+    userName.text = widget.userName;
+    email.text = widget.email;
+    password.text = widget.password;
+    super.initState();
+  }
+
+  bool loading = false;
+
+  @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserCubit>(context).loadUserInfo();
-    return BlocConsumer<UserCubit, UserState>(
+    List controllers = [userName, email, password];
+    List save = [
+      (value) {
+        setState(() {
+          userName.text = value!;
+        });
+      },
+      (value) {
+        setState(() {
+          email.text = value!;
+        });
+      },
+      (value) {
+        password.text = value!;
+      }
+    ];
+    return BlocListener<UserCubit, UserState>(
       listener: (context, state) {
+        if (state is Loading) {
+          setState(() {
+            loading = true;
+          });
+        } else if (state is UserInfoLoaded) {
+          Navigator.of(context).pop();
+        } else if (state is Failed) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('حصل خطأ اثناء التعديل يرجى اعادة محاولة')));
+        } else if (state is NoInternet) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('تحقق من اتصالك بالانترنت'),
+            ),
+          );
+        }
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Row(
+              children: [
+                Spacer(),
+                Text(
+                  'صفحتك الشخصية',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(
+                  width: 6,
+                ),
+                Icon(
+                  Icons.account_circle_outlined,
+                  size: 25,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+              ],
+            ),
+          ),
+          body: Form(
+            key: key,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                  height: 70.0 * labels.length,
+                  child: ListView.builder(
+                    itemCount: labels.length,
+                    itemBuilder: (context, index) {
+                      return InputText(
+                        labelText: labels[index],
+                        controller: controllers[index],
+                        validator: validator[index],
+                        save: save[index],
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: appColorTheme,
+                        shape: const StadiumBorder(),
+                      ),
+                      onPressed: () {
+                        if (ValidateInputData.validateField(key)) {
+                          key.currentState?.save();
+                          print(userName.text);
+                          print(email.text);
+                          print(password.text);
+                          BlocProvider.of<UserCubit>(context).editUserInfo(
+                              id: int.parse(id.text),
+                              email: email.text,
+                              userName: userName.text,
+                              password: password.text);
+                        }
+                      },
+                      child: Center(
+                        child: loading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white54,
+                                ),
+                              )
+                            : const Text(
+                                'تعديل الحساب',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                      )),
+                ),
+                // InputDataPage(
+                //   controllers: [userName, email, password],
+                //   labels: labels,
+                //   validator: const [
+                //     ValidateInputData.checkIfNull,
+                //     ValidateInputData.checkIfNull,
+                //     ValidateInputData.checkIfNull,
+                //   ],
+                //   save: [
+                //         (value) {
+                //       setState(() {
+                //         userName.text = value!;
+                //       });
+                //     },
+                //         (value) {
+                //       setState(() {
+                //         email.text = value!;
+                //       });
+                //     },
+                //         (value) {
+                //       password.text = value!;
+                //     }
+                //   ],
+                //   onPressed: () {
+                //     if (ValidateInputData.validateField(key)) {
+                //       key.currentState?.save();
+                //       print(userName.text);
+                //       print(email.text);
+                //       print(password.text);
+                //       BlocProvider.of<UserCubit>(context).editUserInfo(
+                //           id: int.parse(id.text),
+                //           email: email.text,
+                //           userName: userName.text,
+                //           password: password.text);
+                //     }
+                //   },
+                //   labelButton: 'تعديل',
+                //   icon: Icons.edit_outlined,
+                // ),
+              ],
+            ),
+          )),
+    );
+  }
+}
+
+/*
+*
+*
+* listener: (context, state) {
         if (state is UserInfoLoaded) {
           Navigator.of(context).pop();
         } else if (state is Failed) {
@@ -40,71 +226,8 @@ class _AccountInfoState extends State<AccountInfo> {
           );
         }
       },
-      builder: (context, state) {
-        return Scaffold(
-            appBar: AppBar(
-              title: const Row(
-                children: [
-                  Spacer(),
-                  Text(
-                    'صفحتك الشخصية',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Icon(
-                    Icons.account_circle_outlined,
-                    size: 25,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                ],
-              ),
-            ),
-            body: state is Loading
-                ? Expanded(
-                    child: CircularProgressIndicator(color: appColorTheme))
-                : Form(
-                    key: key,
-                    child: InputDataPage(
-                      controllers: [userName, password],
-                      labels: labels,
-                      validator: const [
-                        ValidateInputData.checkIfNull,
-                        ValidateInputData.checkIfNull,
-                      ],
-                      save: [
-                        (value) {
-                          setState(() {
-                            userName.text = value!;
-                          });
-                        },
-                        (value) {
-                          password.text = value!;
-                        }
-                      ],
-                      onPressed: () {
-                        if (ValidateInputData.validateField(key)) {
-                          key.currentState?.save();
-                          print(userName.text);
-                          BlocProvider.of<UserCubit>(context).editUserInfo(
-                              id: int.parse(id.text),
-                              userName: userName.text,
-                              password: password.text);
-                        }
-                      },
-                      labelButton: 'تعديل',
-                      icon: Icons.edit_outlined,
-                    ),
-                  ));
-      },
-    );
-  }
-}
-
-/*
+*
+*
 *
 * SingleChildScrollView(
               child: Column(
@@ -194,101 +317,3 @@ class _AccountInfoState extends State<AccountInfo> {
 *
 * */
 
-class EditUserInfo extends StatefulWidget {
-  const EditUserInfo({
-    super.key,
-    required this.userName,
-    required this.password,
-    required this.email,
-    required this.id,
-  });
-
-  final String id;
-  final String userName;
-  final String password;
-  final String email;
-
-  @override
-  State<EditUserInfo> createState() => _EditUserInfoState();
-}
-
-class _EditUserInfoState extends State<EditUserInfo> {
-  List labels = ['اسم المستخدم', 'عنوان البريد الالكتروني', 'كلمة السر'];
-
-  TextEditingController id = TextEditingController();
-  TextEditingController userName = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  GlobalKey<FormState> key = GlobalKey();
-
-  @override
-  void initState() {
-    id.text = widget.id;
-    userName.text = widget.userName;
-    email.text = widget.email;
-    password.text = widget.password;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<UserCubit, UserState>(
-      listener: (context, state) {
-        if (state is UserInfoLoaded) {
-          Navigator.of(context).pop();
-        } else if (state is Failed) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('حصل خطأ اثناءالتعديل يرجى اعادة محاولة')));
-        } else if (state is NoInternet) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('تحقق من اتصالك بالانترنت'),
-            ),
-          );
-        }
-      },
-      child: BlocBuilder<UserCubit, UserState>(
-        builder: (context, state) {
-          if (state is Loading) {
-            return Expanded(
-                child: CircularProgressIndicator(color: appColorTheme));
-          } else {
-            return Form(
-              key: key,
-              child: InputDataPage(
-                controllers: [userName, password],
-                labels: labels,
-                validator: const [
-                  ValidateInputData.checkIfNull,
-                  ValidateInputData.checkIfNull,
-                ],
-                save: [
-                      (value) {
-                    setState(() {
-                      userName.text = value ?? widget.userName;
-                    });
-                  },
-                      (value) {
-                    password.text = value ?? widget.password;
-                  }
-                ],
-                onPressed: () {
-                  if (ValidateInputData.validateField(key)) {
-                    key.currentState?.save();
-                    print(userName.text);
-                    BlocProvider.of<UserCubit>(context).editUserInfo(
-                        id: int.parse(id.text),
-                        userName: userName.text,
-                        password: password.text);
-                  }
-                },
-                labelButton: 'تعديل',
-                icon: Icons.edit_outlined,
-              ),
-            );
-          }
-        },
-      ),
-    );
-  }
-}

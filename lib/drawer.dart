@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/register.dart';
@@ -36,7 +38,7 @@ class _MyDarwerState extends State<MyDarwer> {
     List<void Function()?> onTap = [
       null,
       null,
-      () async {
+          () async {
         await User.signUser(false);
         if (context.mounted) {
           Navigator.of(context).pushReplacement(
@@ -51,28 +53,37 @@ class _MyDarwerState extends State<MyDarwer> {
     return Drawer(
       child: Column(
         children: [
-          BlocBuilder<UserCubit, UserState>(
-            builder: (context, state) {
-              if (state is UserInfoLoaded) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 50),
-                  child: ListTile(
+          Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                if (state is UserInfoLoaded) {
+                  log(state.email);
+                  log(state.username);
+                  return ListTile(
                     title: Text(state.username),
                     subtitle: Text(state.email),
                     trailing: IconButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const AccountInfo(),
+                          builder: (context) => AccountInfo(
+                            id: state.id.toString(),
+                            email: state.email,
+                            password: state.password,
+                            userName: state.username,
+                          ),
                         ));
                       },
                       icon: Icon(Icons.edit_outlined),
                     ),
-                  ),
-                );
-              } else {
-                return Container();
-              }
-            },
+                  );
+                } else {
+                  return Container(
+                    color: Colors.red,
+                  );
+                }
+              },
+            ),
           ),
           Expanded(
             child: ListView.separated(

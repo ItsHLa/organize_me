@@ -21,37 +21,32 @@ class _MonthlyChartState extends State<MonthlyChart> {
   List colors = [yellow, green, blue];
   List icons = [electricBill, telecomBill, waterBill];
 
-  @override
-  void initState() {
-    BlocProvider.of<BillCubit>(context).monthlySpendingOneCategory(
-      lastSelectedYear,
-      lastSelectedMonth,
-    );
-    super.initState();
-  }
 
   TextStyle pieChartTitleStyle = const TextStyle(
     color: Colors.black,
     fontSize: 18,
   );
-
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<BillCubit>(context).monthlySpendingOneCategory(
+      DateTime.now().year.toString(),
+      DateTime.now().month.toString(),
+    );
+
     return Column(
       children: [
-        MySearchBar(),
+        const MySearchBar(),
         BlocBuilder<BillCubit, BillState>(
-          buildWhen: (previous, current) =>
-              current is MonthlySpendingCalculated || current is BillInitial,
           builder: (context, state) {
+            print(state.toString());
             if (state is MonthlySpendingCalculated) {
               List monthlyPercent = state.percent;
               List monthly = state.sum;
+              print(state.monthlySpendingAll);
               return state.monthlySpendingAll == 0
-                  ? const Center(
+                  ? const Expanded(
                       child: NoContent(
-                        text:
-                            'لا يوجد فواتير لهذا الشهر لحساب الاستهلاك الشهري ',
+                        text: 'لا يوجد فواتير لهذا الشهر',
                       ),
                     )
                   : SizedBox(
@@ -60,49 +55,49 @@ class _MonthlyChartState extends State<MonthlyChart> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(bottom: 25),
-                            height: 100,
-                            width: 170,
-                            child: PieChart(
-                              PieChartData(
-                                centerSpaceRadius: 30,
-                                sections: [
-                                  PieChartSectionData(
-                                    title: "${monthlyPercent[0].toInt()}%",
-                                    showTitle: true,
-                                    color: yellow,
-                                    value: monthlyPercent[0],
-                                    titleStyle: pieChartTitleStyle,
-                                  ),
-                                  PieChartSectionData(
-                                    title: "${monthlyPercent[1].toInt()}%",
-                                    showTitle: true,
-                                    color: green,
-                                    value: monthlyPercent[1],
-                                    titleStyle: pieChartTitleStyle,
-                                  ),
-                                  PieChartSectionData(
-                                    title: "${monthlyPercent[2].toInt()}%",
-                                    showTitle: true,
-                                    color: blue,
-                                    value: monthlyPercent[2],
-                                    titleStyle: pieChartTitleStyle,
-                                  ),
-                                ],
-                              ),
-                              swapAnimationDuration:
-                                  const Duration(milliseconds: 150),
-                              // Optional
-                              swapAnimationCurve: Curves.linear, // Optional
+                      height: 100,
+                      width: 170,
+                      child: PieChart(
+                        PieChartData(
+                          centerSpaceRadius: 30,
+                          sections: [
+                            PieChartSectionData(
+                              title: "${monthlyPercent[0].toInt()}%",
+                              showTitle: true,
+                              color: yellow,
+                              value: monthlyPercent[0],
+                              titleStyle: pieChartTitleStyle,
                             ),
-                          ),
-                          CategoriesListView(
-                            monthly: monthly,
-                            categories: categories,
-                            icons: icons,
-                          )
-                        ],
+                            PieChartSectionData(
+                              title: "${monthlyPercent[1].toInt()}%",
+                              showTitle: true,
+                              color: green,
+                              value: monthlyPercent[1],
+                              titleStyle: pieChartTitleStyle,
+                            ),
+                            PieChartSectionData(
+                              title: "${monthlyPercent[2].toInt()}%",
+                              showTitle: true,
+                              color: blue,
+                              value: monthlyPercent[2],
+                              titleStyle: pieChartTitleStyle,
+                            ),
+                          ],
+                        ),
+                        swapAnimationDuration:
+                        const Duration(milliseconds: 150),
+                        // Optional
+                        swapAnimationCurve: Curves.linear, // Optional
                       ),
-                    );
+                    ),
+                    CategoriesListView(
+                      monthly: monthly,
+                      categories: categories,
+                      icons: icons,
+                    )
+                  ],
+                ),
+              );
             }
             return Container();
           },

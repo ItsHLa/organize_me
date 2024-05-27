@@ -37,7 +37,8 @@ class BillCategoryDetail extends StatelessWidget {
             ],
           ),
           Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const Divider(),
               padding: EdgeInsets.zero,
               itemCount: title.length,
               itemBuilder: (context, index) {
