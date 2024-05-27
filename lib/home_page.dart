@@ -35,13 +35,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: MyDarwer(),
+      endDrawer: const MyDarwer(),
       appBar: AppBar(
         title: Text(
           'OrganizeMe',
           style: TextStyle(color: appColorTheme),
         ),
-        actions: [
+        actions: const [
           // BlocBuilder<DarkModeCubit, DarkModeState>(
           //   builder: (context, state) {
           //     return IconButton(

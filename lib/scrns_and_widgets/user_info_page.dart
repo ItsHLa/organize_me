@@ -88,7 +88,6 @@ class _AccountInfoState extends State<AccountInfo> {
                       onPressed: () {
                         if (ValidateInputData.validateField(key)) {
                           key.currentState?.save();
-                          print(userName.text);
                           BlocProvider.of<UserCubit>(context).editUserInfo(
                               id: int.parse(id.text),
                               userName: userName.text,
@@ -263,19 +262,18 @@ class _EditUserInfoState extends State<EditUserInfo> {
                   ValidateInputData.checkIfNull,
                 ],
                 save: [
-                      (value) {
+                  (value) {
                     setState(() {
                       userName.text = value ?? widget.userName;
                     });
                   },
-                      (value) {
+                  (value) {
                     password.text = value ?? widget.password;
                   }
                 ],
                 onPressed: () {
                   if (ValidateInputData.validateField(key)) {
                     key.currentState?.save();
-                    print(userName.text);
                     BlocProvider.of<UserCubit>(context).editUserInfo(
                         id: int.parse(id.text),
                         userName: userName.text,

@@ -43,7 +43,7 @@ class _MySearchBarState extends State<MySearchBar> {
               // borderRadius: BorderRadius.circular(20),
               borderSide: BorderSide(color: appColorTheme),
             ),
-            enabledBorder: UnderlineInputBorder(
+            enabledBorder: const UnderlineInputBorder(
               // borderRadius: BorderRadius.circular(20),
               borderSide: BorderSide(color: Colors.grey),
             ),

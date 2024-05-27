@@ -39,7 +39,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        MySearchBar(),
+        const MySearchBar(),
         BlocBuilder<BillCubit, BillState>(
           buildWhen: (previous, current) =>
               current is MonthlySpendingCalculated || current is BillInitial,

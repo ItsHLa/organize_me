@@ -113,8 +113,7 @@ class Task {
     String editStatus = newStatus.isNotEmpty ? "status = '$newStatus'," : "";
     await mydb!.rawUpdate(
       """
-        UPDATE tasks SET 
-                         $editStatus
+        UPDATE tasks SET $editStatus
                          last_modified = ? WHERE id = ?;
       """,
       [

@@ -26,9 +26,9 @@ class _MyDarwerState extends State<MyDarwer> {
   ];
 
   List<Widget> leading = [
-    Icon(Icons.apps_outlined),
-    Icon(Icons.attach_email_outlined),
-    Icon(Icons.logout)
+    const Icon(Icons.apps_outlined),
+    const Icon(Icons.attach_email_outlined),
+    const Icon(Icons.logout)
   ];
 
   @override
@@ -55,7 +55,7 @@ class _MyDarwerState extends State<MyDarwer> {
             builder: (context, state) {
               if (state is UserInfoLoaded) {
                 return Padding(
-                  padding: EdgeInsets.only(top: 50),
+                  padding: const EdgeInsets.only(top: 50),
                   child: ListTile(
                     title: Text(state.username),
                     subtitle: Text(state.email),
@@ -65,7 +65,7 @@ class _MyDarwerState extends State<MyDarwer> {
                           builder: (context) => const AccountInfo(),
                         ));
                       },
-                      icon: Icon(Icons.edit_outlined),
+                      icon: const Icon(Icons.edit_outlined),
                     ),
                   ),
                 );
@@ -76,7 +76,7 @@ class _MyDarwerState extends State<MyDarwer> {
           ),
           Expanded(
             child: ListView.separated(
-              separatorBuilder: (context, index) => Divider(),
+              separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, index) => ListTile(
                 onTap: onTap[index],
                 title: Text(
