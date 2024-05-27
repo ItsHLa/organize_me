@@ -25,27 +25,21 @@ class _MedsGridState extends State<MedsGrid> {
     return BlocBuilder<MedicineCubit, MedicineState>(
       builder: (context, state) {
         if (state is LoadMeds) {
-          return Expanded(
-            child: Center(
-              child: CircularProgressIndicator(
-                color: appColorTheme,
-              ),
+          return Center(
+            child: CircularProgressIndicator(
+              color: appColorTheme,
             ),
           );
         } else if (state.meds.isNotEmpty &&
             (state is MedsLoaded ||
                 state is AddMedSuccses ||
                 state is DeleteMedsSuccses)) {
-          return Expanded(
-            child: MedsListView(
-              meds: state.meds,
-            ),
+          return MedsListView(
+            meds: state.meds,
           );
         } else {
-          return const Center(
-            child: NoContent(
-              text: 'لا يوجد أدوية بعد',
-            ),
+          return const NoContent(
+            text: 'لا يوجد أدوية بعد',
           );
         }
       },

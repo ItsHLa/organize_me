@@ -50,9 +50,7 @@ class MedsPage extends StatelessWidget {
           ),
         ],
       ),
-      body: const Column(
-        children: [MedsGrid()],
-      ),
+      body: const MedsGrid(),
     );
   }
 }

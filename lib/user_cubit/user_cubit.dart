@@ -38,7 +38,6 @@ class UserCubit extends Cubit<UserState> {
   Future<void> editUserInfo(
       {required int id,
       required String userName,
-      required String email,
       required String password}) async {
     var result = await Connectivity().checkConnectivity();
     if (result.contains(ConnectivityResult.wifi) ||
@@ -47,14 +46,13 @@ class UserCubit extends Cubit<UserState> {
       try {
         var r = await ApiCalls.editUserInfo(
           id: id,
-          email: email,
           password: password,
           userName: userName,
         );
         if (r.statusCode == 200) {
           await User.setUserInfo(user: jsonDecode(r.body)['user']);
           emit(UserInfoLoaded(
-              id: id, email: email, password: password, username: userName));
+              id: id, email: '', password: password, username: userName));
         } else {
           emit(Failed());
         }

@@ -33,17 +33,6 @@ class DatabaseHelper {
   static _onCreate(Database db, int version) async {
     await db.execute(
       '''
-          CREATE TABLE IF NOT EXISTS notes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            content TEXT NOT NULL,
-            date TEXT,
-            last_modified TEXT DEFAULT NULL
-          );
-      ''',
-    );
-    await db.execute(
-      '''
           CREATE TABLE IF NOT EXISTS tasks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL,
