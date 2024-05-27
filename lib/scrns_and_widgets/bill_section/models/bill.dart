@@ -154,9 +154,11 @@ abstract class Bill {
     List<Map> payments = [];
     month = month.length == 1 ? '0$month' : month;
     await mydb!
-        .query(tableName,
-            columns: ['SUM(payment_amount)'],
-            where: "date LIKE '$year-$month-__'")
+        .query(
+          tableName,
+          columns: ['SUM(payment_amount)'],
+          where: "date LIKE '$year-$month-__'",
+        )
         .then((value) => payments = value);
     return payments[0]['SUM(payment_amount)'] ?? 0;
   }

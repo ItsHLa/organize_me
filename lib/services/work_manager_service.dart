@@ -62,10 +62,10 @@ void callDispatcher() {
   Workmanager().executeTask((taskName, inputData) {
     switch (taskName) {
       case 'show medicine notification':
-        // AppNotification.showSimpleMedicineNotification(
-        //   id: inputData!['id'],
-        //   name: inputData['title'],
-        // );
+        AppNotification.showSimpleMedicineNotification(
+          id: inputData!['id'],
+          name: inputData['title'],
+        );
         break;
       case 'show bill notification':
         AppNotification.showSimpleBillNotification();
