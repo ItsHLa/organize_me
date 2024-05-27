@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tzl;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../../constants.dart';
@@ -65,11 +65,10 @@ class LocalNotificationService {
     await LocalNotificationService.flutterLocalNotificationsPlugin.show(
       id,
       name,
-      'لا تنسى اخذ دواءك',
+      'لا تنسى أخذ دوائك',
       details,
     );
   }
-
 
   static void showTaskNotification({
     required int id,
@@ -89,7 +88,7 @@ class LocalNotificationService {
     );
     NotificationDetails taskDetails =
         NotificationDetails(android: androidTaskSettings);
-    tz.initializeTimeZones();
+    tzl.initializeTimeZones();
     String currentTimeZone = await FlutterTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
     var currentTime = tz.TZDateTime.now(tz.local);

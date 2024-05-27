@@ -7,14 +7,20 @@ import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'database/db.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  DatabaseHelper.intialDb();
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
   await Future.wait(
     [
+      DatabaseHelper.intialDb(),
       LocalNotificationService.initi(),
       WorkManagerService().init(),
     ],
