@@ -13,7 +13,7 @@ class DatabaseHelper {
     }
   }
 
-  static intialDb() async {
+  static Future intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'data.db');
     // await databaseFactory.deleteDatabase(path);
