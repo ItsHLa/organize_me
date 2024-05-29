@@ -8,22 +8,23 @@ import '../../../services/functionality.dart';
 import '../../input_text.dart';
 
 class MySearchBar extends StatefulWidget {
-  const MySearchBar({super.key});
+  const MySearchBar({
+    super.key,
+  });
 
   @override
   State<MySearchBar> createState() => _MySearchBarState();
 }
 
 class _MySearchBarState extends State<MySearchBar> {
-  String year = '';
-  String month = '';
-  String date = '${DateTime.now().year}-${DateTime.now().month}';
+  String selectedYear = '';
+  String selectedMonth = '';
   GlobalKey<FormState> key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 11.0),
+      padding: const EdgeInsets.symmetric(horizontal: 17.0),
       child: SizedBox(
         // padding: EdgeInsets.all(8),
         height: 100,
@@ -85,7 +86,7 @@ class _MySearchBarState extends State<MySearchBar> {
                                   },
                                   labelText: 'ادخل الشهر',
                                   save: (value) {
-                                    month = value!;
+                                    selectedMonth = value!;
                                   },
                                   keyboardType: TextInputType.number,
                                 )),
@@ -108,17 +109,23 @@ class _MySearchBarState extends State<MySearchBar> {
                                 },
                                 labelText: 'ادخل السنة',
                                 save: (value) {
-                                  year = value!;
+                                  selectedYear = value!;
                                 },
                                 keyboardType: TextInputType.number,
                               ),
+                            ),
+                            SizedBox(
+                              height: 5,
                             ),
                             MyButton(
                               onPressed: () {
                                 if (ValidateInputData.validateField(key)) {
                                   key.currentState?.save();
+                                  lastMonth = selectedMonth;
+                                  lastYear = selectedYear;
                                   BlocProvider.of<BillCubit>(context)
-                                      .monthlySpendingOneCategory(year, month);
+                                      .monthlySpendingOneCategory(
+                                          selectedYear, selectedMonth);
                                 }
                               },
                               icon: Icons.search,
@@ -134,7 +141,7 @@ class _MySearchBarState extends State<MySearchBar> {
             );
           },
           readOnly: true,
-          controller: TextEditingController(text: date),
+          controller: TextEditingController(text: '$lastMonth / $lastYear'),
         ),
       ),
     );

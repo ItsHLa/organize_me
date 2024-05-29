@@ -38,7 +38,7 @@ class _BillListState extends State<BillList> {
             children: [
               IconButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.of(context).pop();
                   },
                   icon: const Icon(Icons.arrow_back)),
               const Spacer(),

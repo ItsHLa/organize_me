@@ -14,6 +14,8 @@ import 'database/db.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await requestPermission(Permission.);
+
   await requestPermission(Permission.phone);
   await requestPermission(Permission.sms);
   await requestPermission(Permission.notification);

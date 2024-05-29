@@ -27,16 +27,16 @@ class _MyDateTimeLineState extends State<MyDateTimeLine> {
           (context, dayNumber, dayName, monthName, fullDate, isSelected) {
         return Container(
           decoration: BoxDecoration(
-            color: (fullDate.year == DateTime.now().year &&
-                    fullDate.month == DateTime.now().month &&
-                    fullDate.day == DateTime.now().day)
-                ? appColorTheme
-                : null,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: isSelected ? appColorTheme : Colors.grey,
-            ),
-          ),
+              border: Border.all(
+                width: 1.1,
+                color: (fullDate.year == DateTime.now().year &&
+                        fullDate.month == DateTime.now().month &&
+                        fullDate.day == DateTime.now().day)
+                    ? appColorTheme
+                    : Colors.grey,
+              ),
+              borderRadius: BorderRadius.circular(20),
+              color: isSelected ? appColorTheme : null),
           alignment: Alignment.center,
           child: SingleChildScrollView(
             child: Column(

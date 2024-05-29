@@ -8,12 +8,13 @@ import '../models/bill.dart';
 
 part 'bill_state.dart';
 
+String lastMonth = DateTime.now().month.toString();
+String lastYear = DateTime.now().year.toString();
+
 class BillCubit extends Cubit<BillState> {
   List<Bill> bills = [];
 
-  BillCubit() : super(const BillInitial(bills: []));
-
-  void payFromSyriatelCash() async {}
+  BillCubit() : super(const BillInitial(bills: [])) {}
 
   Future<void> loadBills(String tableName) async {
     emit(LoadingBill(bills: bills));
@@ -72,6 +73,8 @@ class BillCubit extends Cubit<BillState> {
       percent[0] = ((sum[0] / sumMonthlySpending) * 100).roundToDouble();
       percent[1] = ((sum[1] / sumMonthlySpending) * 100).roundToDouble();
       percent[2] = ((sum[2] / sumMonthlySpending) * 100).roundToDouble();
+      lastMonth = month;
+      lastYear = year;
       emit(
         MonthlySpendingCalculated(
           bills: bills,
