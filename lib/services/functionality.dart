@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 DateTime convertStringToDateTime(String value) {
-  List<String>? parts = value.split('/');
-  int year = int.parse(parts[2]);
+  List<String>? parts = value.split('-');
+  int year = int.parse(parts[0]);
   int month = int.parse(parts[1]);
-  int day = int.parse(parts[0]);
+  int day = int.parse(parts[2]);
   DateTime date = DateTime(year, month, day);
   return date;
 }
@@ -293,10 +293,10 @@ class ValidateInputData {
         now.month,
         now.day,
       );
-      List<String>? parts = value.split('/');
-      int year = int.parse(parts[2]);
+      List<String>? parts = value.split('-');
+      int year = int.parse(parts[0]);
       int month = int.parse(parts[1]);
-      int day = int.parse(parts[0]);
+      int day = int.parse(parts[2]);
       DateTime date = DateTime(year, month, day);
       if (date.isBefore(currentDate.toUtc())) {
         return 'لا يمكن ان يكون اليوم قبل اليوم الحالي';
@@ -420,4 +420,3 @@ extension SwappableList<E> on List<E> {
     return this;
   }
 }
-

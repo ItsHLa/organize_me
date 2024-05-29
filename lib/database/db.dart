@@ -38,7 +38,7 @@ class DatabaseHelper {
             title TEXT NOT NULL,
             content TEXT NOT NULL,
             creation_date TEXT,
-            start_date TEXT, -- DD/MM/YYYY
+            start_date TEXT, -- YYYY-MM-DD
             start_time TEXT, -- HH:MM
             pre_alarm INTEGER,
             status TEXT DEFAULT 'متوقف',
@@ -64,7 +64,7 @@ class DatabaseHelper {
 
             payment_amount DOUBLE NOT NULL DEFAULT 0,
             commission_amount DOUBLE NOT NULL DEFAULT 0,
-            date TEXT, -- DD/MM/YYYY
+            date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
             operation_number TEXT,
@@ -84,7 +84,7 @@ class DatabaseHelper {
 
             payment_amount DOUBLE NOT NULL DEFAULT 0,
             commission_amount DOUBLE NOT NULL DEFAULT 0,
-            date TEXT, -- DD/MM/YYYY
+            date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
             operation_number TEXT,
@@ -104,7 +104,7 @@ class DatabaseHelper {
 
             payment_amount DOUBLE NOT NULL DEFAULT 0,
             commission_amount DOUBLE NOT NULL DEFAULT 0,
-            date TEXT, -- DD/MM/YYYY
+            date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
             operation_number TEXT,
@@ -125,7 +125,7 @@ class DatabaseHelper {
 
             payment_amount DOUBLE NOT NULL DEFAULT 0,
             commission_amount DOUBLE NOT NULL DEFAULT 0,
-            date TEXT, -- DD/MM/YYYY
+            date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
             operation_number TEXT,
@@ -146,7 +146,7 @@ class DatabaseHelper {
 
             payment_amount DOUBLE NOT NULL DEFAULT 0,
             commission_amount DOUBLE NOT NULL DEFAULT 0,
-            date TEXT, -- DD/MM/YYYY
+            date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
             operation_number TEXT,
@@ -163,7 +163,7 @@ class DatabaseHelper {
 
             payment_amount DOUBLE NOT NULL DEFAULT 0,
             commission_amount DOUBLE NOT NULL DEFAULT 0,
-            date TEXT, -- DD/MM/YYYY
+            date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
             operation_number TEXT,

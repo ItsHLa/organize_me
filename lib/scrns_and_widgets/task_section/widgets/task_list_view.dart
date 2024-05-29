@@ -18,8 +18,6 @@ class TaskListView extends StatefulWidget {
 }
 
 class _TaskListViewState extends State<TaskListView> {
-  String status = '';
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskCubit, TaskState>(

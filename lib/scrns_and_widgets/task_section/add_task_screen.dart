@@ -92,7 +92,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   () {
                     if (date != null) {
                       dateTime.text =
-                          '${date!.day}/${date!.month}/${date!.year}';
+                          '${date!.year}-${date!.month}-${date!.day}';
                     }
                   },
                 );
@@ -125,9 +125,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ],
             keyboardType: const [null, null, null, null, TextInputType.number],
             onPressed: () async {
-              await addDummyBills(dummyElectric);
-              await addDummyBills(dummyTelecom);
-              await addDummyBills(dummyWater);
+              // await addDummyBills(dummyElectric);
+              // await addDummyBills(dummyTelecom);
+              // await addDummyBills(dummyWater);
               // await addBills();
               if (ValidateInputData.validateField(taskKey)) {
                 taskKey.currentState!.save();

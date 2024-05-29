@@ -17,7 +17,7 @@ class MySearchBar extends StatefulWidget {
 class _MySearchBarState extends State<MySearchBar> {
   String year = '';
   String month = '';
-  String date = '${DateTime.now().month}  / ${DateTime.now().year}';
+  String date = '${DateTime.now().year}-${DateTime.now().month}';
   GlobalKey<FormState> key = GlobalKey<FormState>();
 
   @override
@@ -118,7 +118,7 @@ class _MySearchBarState extends State<MySearchBar> {
                                 if (ValidateInputData.validateField(key)) {
                                   key.currentState?.save();
                                   setState(() {
-                                    date = '$month / $year';
+                                    date = '$year-$month';
                                   });
                                   BlocProvider.of<BillCubit>(context)
                                       .monthlySpendingOneCategory(year, month);

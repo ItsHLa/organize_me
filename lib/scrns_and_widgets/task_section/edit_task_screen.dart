@@ -83,11 +83,16 @@ class _AddTaskScreenState extends State<EditTask> {
               ValidateInputData.checkDateTime,
               (value) {
                 return ValidateInputData.checkEditedStartTime(
-                    value, dateTime.text);
+                  value,
+                  dateTime.text,
+                );
               },
               (value) {
                 return ValidateInputData.checkEditedTaskInterval(
-                    value, startTime.text, dateTime.text);
+                  value,
+                  startTime.text,
+                  dateTime.text,
+                );
               }
             ],
             onTap: [
@@ -99,7 +104,7 @@ class _AddTaskScreenState extends State<EditTask> {
                   () {
                     if (date != null) {
                       dateTime.text =
-                          '${date!.day}/${date!.month}/${date!.year}';
+                          '${date!.year}-${date!.month}-${date!.day}';
                     }
                   },
                 );

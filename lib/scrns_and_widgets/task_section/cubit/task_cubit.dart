@@ -23,12 +23,13 @@ class TaskCubit extends Cubit<TaskState> {
   }) async {
     try {
       Map task = await Task.addTask(
-          title: title,
-          content: content,
-          preAlarm: preAlarm,
-          startTime: '${startTime.hour}:${startTime.minute}',
-          startDate: '${startDate.day}/${startDate.month}/${startDate.year}',
-          status: 'متوقف');
+        title: title,
+        content: content,
+        preAlarm: preAlarm,
+        startTime: '${startTime.hour}:${startTime.minute}',
+        startDate: '${startDate.year}-${startDate.month}-${startDate.day}',
+        status: 'متوقف',
+      );
       tasks.add(Task.fromMap(task));
       AppNotification.showTaskNotificationBeforeXMinutes(
         id: task['id'],
@@ -70,7 +71,7 @@ class TaskCubit extends Cubit<TaskState> {
     try {
       String newStartTime = '${startTime.hour}:${startTime.minute}';
       String newStartDate =
-          '${startDate.day}/${startDate.month}/${startDate.year}';
+          '${startDate.year}-${startDate.month}-${startDate.day}';
       Map newTaskMap = await Task.editTask(
         id,
         newContent: content,
@@ -108,7 +109,7 @@ class TaskCubit extends Cubit<TaskState> {
     emit(const LoadingTasks(tasks: []));
     try {
       String date =
-          '${currentDate.day}/${currentDate.month}/${currentDate.year}';
+          '${currentDate.year}-${currentDate.month}-${currentDate.day}';
       await Task.getTasksByDate(date).then(
         (value) {
           tasks = value;
