@@ -28,9 +28,9 @@ class _MyDarwerState extends State<MyDarwer> {
   ];
 
   List<Widget> leading = [
-    Icon(Icons.apps_outlined),
-    Icon(Icons.attach_email_outlined),
-    Icon(Icons.logout)
+    const Icon(Icons.apps_outlined),
+    const Icon(Icons.attach_email_outlined),
+    const Icon(Icons.logout)
   ];
 
   @override
@@ -74,7 +74,7 @@ class _MyDarwerState extends State<MyDarwer> {
                           ),
                         ));
                       },
-                      icon: Icon(Icons.edit_outlined),
+                      icon: const Icon(Icons.edit_outlined),
                     ),
                   );
                 } else {
@@ -87,7 +87,7 @@ class _MyDarwerState extends State<MyDarwer> {
           ),
           Expanded(
             child: ListView.separated(
-              separatorBuilder: (context, index) => Divider(),
+              separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, index) => ListTile(
                 onTap: onTap[index],
                 title: Text(

@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDarwer(),
+      drawer: const MyDarwer(),
       appBar: AppBar(
         title: Text(
           'OrganizeMe',

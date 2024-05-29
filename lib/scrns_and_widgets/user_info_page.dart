@@ -138,9 +138,6 @@ class _AccountInfoState extends State<AccountInfo> {
                       onPressed: () {
                         if (ValidateInputData.validateField(key)) {
                           key.currentState?.save();
-                          print(userName.text);
-                          print(email.text);
-                          print(password.text);
                           BlocProvider.of<UserCubit>(context).editUserInfo(
                               id: int.parse(id.text),
                               email: email.text,
