@@ -117,13 +117,8 @@ class _MySearchBarState extends State<MySearchBar> {
                               onPressed: () {
                                 if (ValidateInputData.validateField(key)) {
                                   key.currentState?.save();
-                                  setState(() {
-                                    date = '$year-$month';
-                                  });
                                   BlocProvider.of<BillCubit>(context)
                                       .monthlySpendingOneCategory(year, month);
-                                  lastSelectedMonth = month;
-                                  lastSelectedYear = year;
                                 }
                               },
                               icon: Icons.search,

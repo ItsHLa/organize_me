@@ -47,6 +47,7 @@ class ApiCalls {
   static Future<Response> editUserInfo(
       {required int id,
       required String userName,
+      required String email,
       required String password}) async {
     var url = Uri.parse("$baseUrl/updateUserInfo/");
     var r = await http.post(url,
@@ -55,6 +56,7 @@ class ApiCalls {
         },
         body: jsonEncode({
           'id': id,
+          "email": email,
           'password': password,
           'username': userName
         }));

@@ -12,9 +12,7 @@ import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_sectio
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/meds_page.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart';
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
-import 'package:organize_me/scrns_and_widgets/user_info_page.dart';
 import 'package:organize_me/user.dart';
-import 'package:organize_me/user_cubit/user_cubit.dart';
 
 /////////////////////////////////////// notifications constants//////////////////////////////
 const taskTag = 'taskTag';
@@ -49,10 +47,6 @@ Widget billsPage = BlocProvider(
   child: const MyBills(),
 );
 
-Widget accountInfo = BlocProvider(
-  create: (context) => UserCubit(),
-  child: const AccountInfo(),
-);
 //////////////////////////////customize constants///////////////////////////////////
 
 String taskNotesKey = 'taskNotes';
@@ -188,5 +182,3 @@ Map<String, String> tableNameToTypeCode = {
   TelecomBill.tableName: 'tel'
 };
 
-String lastSelectedMonth = DateTime.now().month.toString();
-String lastSelectedYear = DateTime.now().year.toString();

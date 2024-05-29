@@ -10,10 +10,10 @@ class NoContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            height: 150,
+            height: 100,
             child: Image.asset(
               'images/no_content.png',
               semanticLabel: 'no content',

@@ -16,7 +16,7 @@ class MyListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       itemCount: itemCount,
       itemBuilder: itemBuilder,
     );
