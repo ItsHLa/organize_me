@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/home_page.dart';
 import 'package:organize_me/scrns_and_widgets/register.dart';
+import 'package:organize_me/services/functionality.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
 import 'package:organize_me/services/work_manager_service.dart';
@@ -13,11 +14,9 @@ import 'database/db.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Permission.notification.isDenied.then((value) {
-    if (value) {
-      Permission.notification.request();
-    }
-  });
+  await requestPermission(Permission.phone);
+  await requestPermission(Permission.sms);
+  await requestPermission(Permission.notification);
   await Future.wait(
     [
       DatabaseHelper.intialDb(),
@@ -65,7 +64,6 @@ class OrganizeMe extends StatefulWidget {
 class _OrganizeMeState extends State<OrganizeMe> {
   @override
   void initState() {
-    TelephonyService.askForPermission();
     TelephonyService.listenForIncomingSms();
     BlocProvider.of<UserCubit>(context).checkIfSigned();
     super.initState();

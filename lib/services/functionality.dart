@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../constants.dart';
+
+Future<void> requestPermission(Permission permission) async {
+  await permission.isDenied.then((value) {
+    if (value) {
+      permission.request();
+    }
+  });
+}
 
 DateTime convertStringToDateTime(String value) {
   List<String>? parts = value.split('-');

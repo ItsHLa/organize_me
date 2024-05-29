@@ -9,10 +9,6 @@ import 'package:telephony/telephony.dart';
 class TelephonyService {
   static Telephony telephony = Telephony.instance;
 
-  static Future<bool?> askForPermission() async {
-    return await telephony.requestPhoneAndSmsPermissions;
-  }
-
   static void listenForIncomingSms() {
     telephony.listenIncomingSms(
       onBackgroundMessage: onBackgroundMessage,
