@@ -5,7 +5,6 @@ import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants.dart';
-import '../docs_number_section/altibbi.dart';
 import 'add_medicien_screen.dart';
 import 'cubit/medicien_cubit.dart';
 import 'meds_list.dart';
@@ -42,17 +41,13 @@ class MedsPage extends StatelessWidget {
             onTap: () async {
               final Uri url = Uri.parse(
                   'https://altibbi.com/%D8%A7%D9%84%D8%AF%D9%84%D9%8A%D9%84-%D8%A7%D9%84%D8%B7%D8%A8%D9%8A/%D8%B3%D9%88%D8%B1%D9%8A%D8%A7');
-              if (!await launchUrl(url)) {
+              if (!await launchUrl(
+                url,
+                mode: LaunchMode.inAppBrowserView,
+              )) {
                 throw Exception('Could not launch $url');
               }
-              // Navigator.of(context).push(MaterialPageRoute(
-              // builder: (context) => const Altibbi(),
-              // ));
             },
-            /* onTap:() async {
-    final Uri _url = Uri.parse();
-    if (!await launchUrl(_url)) {
-    throw Exception('Could not launch $_url');}}*/
           ),
         ],
       ),
