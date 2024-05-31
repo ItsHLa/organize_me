@@ -33,6 +33,7 @@ class WorkManagerService {
       'check Internet',
       'check Internet',
       frequency: const Duration(hours: 1),
+      constraints: Constraints(networkType: NetworkType.connected),
     );
   }
 
