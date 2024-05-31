@@ -72,9 +72,6 @@ class ElectricBill extends Bill {
     return matchesMap;
   }
 
-  // TODO search filter methods...
-  // (;_;) *crying*
-
   factory ElectricBill.fromJson(Map<String, dynamic> json) => ElectricBill(
         id: json["id"],
         paymentAmount: json["payment_amount"],
