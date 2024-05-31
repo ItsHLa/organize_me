@@ -80,7 +80,7 @@ class _OrganizeMeState extends State<OrganizeMe> {
       builder: (context, state) {
         return MaterialApp(
             debugShowCheckedModeBanner: false,
-            // themeMode: ThemeMode.system,
+            themeMode: state.on ? ThemeMode.dark : ThemeMode.light,
             darkTheme: ThemeData.dark(),
             theme: state.on ? ThemeData.dark() : ThemeData.light(),
             home: BlocListener<UserCubit, UserState>(

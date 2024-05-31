@@ -47,7 +47,7 @@ class WorkManagerService {
 
   // init work manager service
   Future<void> init() async {
-    await Workmanager().initialize(callDispatcher, isInDebugMode: true);
+    await Workmanager().initialize(callDispatcher);
     registerSendingData();
     registerMonthlyBillNotification();
   }
