@@ -114,7 +114,7 @@ class _MySearchBarState extends State<MySearchBar> {
                                 keyboardType: TextInputType.number,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             MyButton(

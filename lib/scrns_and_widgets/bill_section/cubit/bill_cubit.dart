@@ -14,7 +14,7 @@ String lastYear = DateTime.now().year.toString();
 class BillCubit extends Cubit<BillState> {
   List<Bill> bills = [];
 
-  BillCubit() : super(const BillInitial(bills: [])) {}
+  BillCubit() : super(const BillInitial(bills: []));
 
   Future<void> loadBills(String tableName) async {
     emit(LoadingBill(bills: bills));

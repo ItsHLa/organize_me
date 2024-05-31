@@ -37,7 +37,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          MySearchBar(),
+          const MySearchBar(),
           BlocBuilder<BillCubit, BillState>(
             buildWhen: (previous, current) =>
                 current is MonthlySpendingCalculated,
@@ -46,7 +46,6 @@ class _MonthlyChartState extends State<MonthlyChart> {
               if (state is MonthlySpendingCalculated) {
                 List monthlyPercent = state.percent;
                 List monthly = state.sum;
-                print(state.monthlySpendingAll);
                 return state.monthlySpendingAll == 0
                     ? const Expanded(
                         child: NoContent(
