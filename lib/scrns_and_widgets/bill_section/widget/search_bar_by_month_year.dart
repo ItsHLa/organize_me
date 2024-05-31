@@ -84,7 +84,7 @@ class _MySearchBarState extends State<MySearchBar> {
                                       return null;
                                     }
                                   },
-                                  labelText: 'ادخل الشهر',
+                                  labelText: 'أدخل الشهر',
                                   save: (value) {
                                     selectedMonth = value!;
                                   },
@@ -107,7 +107,7 @@ class _MySearchBarState extends State<MySearchBar> {
                                     return null;
                                   }
                                 },
-                                labelText: 'ادخل السنة',
+                                labelText: 'أدخل السنة',
                                 save: (value) {
                                   selectedYear = value!;
                                 },

@@ -32,27 +32,26 @@ class _MonthlyChartState extends State<MonthlyChart> {
       lastYear,
       lastMonth,
     );
-    return Flexible(
-      fit: FlexFit.loose,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const MySearchBar(),
-          BlocBuilder<BillCubit, BillState>(
-            buildWhen: (previous, current) =>
-                current is MonthlySpendingCalculated,
-            builder: (context, state) {
-              //   print(state.toString());
-              if (state is MonthlySpendingCalculated) {
-                List monthlyPercent = state.percent;
-                List monthly = state.sum;
-                return state.monthlySpendingAll == 0
-                    ? const Expanded(
-                        child: NoContent(
-                          text: 'لا يوجد فواتير لهذا الشهر',
-                        ),
-                      )
-                    : SizedBox(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const MySearchBar(),
+        BlocBuilder<BillCubit, BillState>(
+          buildWhen: (previous, current) =>
+              current is MonthlySpendingCalculated,
+          builder: (context, state) {
+            //   print(state.toString());
+            if (state is MonthlySpendingCalculated) {
+              List monthlyPercent = state.percent;
+              List monthly = state.sum;
+              return state.monthlySpendingAll == 0
+                  ? const Expanded(
+                      child: NoContent(
+                        text: 'لا يوجد فواتير لهذا الشهر',
+                      ),
+                    )
+                  : Expanded(
+                      child: SizedBox(
                         height: 400,
                         child: Column(
                           children: [
@@ -100,13 +99,13 @@ class _MonthlyChartState extends State<MonthlyChart> {
                             )
                           ],
                         ),
-                      );
-              }
-              return Container();
-            },
-          ),
-        ],
-      ),
+                      ),
+                    );
+            }
+            return Container();
+          },
+        ),
+      ],
     );
   }
 }

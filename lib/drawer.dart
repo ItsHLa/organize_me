@@ -16,13 +16,13 @@ class MyDarwer extends StatefulWidget {
 
 class _MyDarwerState extends State<MyDarwer> {
   List<String> label = [
-    'نسخة التطيبق',
+    'نسخة التطبيق',
     ' تواصل معنا',
     'تسجيل خروج',
   ];
 
   List<String> subTitle = [
-    'v0',
+    'v1.0',
     'organizeme@gmail.com',
     '',
   ];
@@ -38,7 +38,7 @@ class _MyDarwerState extends State<MyDarwer> {
     List<void Function()?> onTap = [
       null,
       null,
-          () async {
+      () async {
         await User.signUser(false);
         if (context.mounted) {
           Navigator.of(context).pushReplacement(

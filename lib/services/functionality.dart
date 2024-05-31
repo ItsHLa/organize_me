@@ -269,7 +269,7 @@ class ValidateInputData {
     if (!RegExp(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[com]{2,}\b',
             caseSensitive: false)
         .hasMatch(email)) {
-      return 'من فضلك ادخل عنوان بريد صالح';
+      return 'من فضلك أدخل عنوان بريد صالح';
     }
     return null;
   }

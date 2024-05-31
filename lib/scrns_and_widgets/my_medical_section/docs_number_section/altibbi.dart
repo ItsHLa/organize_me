@@ -35,14 +35,16 @@ class _AltibbiState extends State<Altibbi> {
             // });
           },
           onWebResourceError: (WebResourceError error) {
-            setState(() {
-              body = const Center(
-                child: Text(
-                  'تحقق من اتصالك بالانترنت',
-                  style: TextStyle(fontSize: 18),
-                ),
-              );
-            });
+            if (mounted) {
+              setState(() {
+                body = const Center(
+                  child: Text(
+                    'تحقق من اتصالك بالانترنت',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                );
+              });
+            }
           },
         ),
       )
@@ -53,4 +55,3 @@ class _AltibbiState extends State<Altibbi> {
     );
   }
 }
-
