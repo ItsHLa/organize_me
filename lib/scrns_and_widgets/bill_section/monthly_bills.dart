@@ -1,5 +1,4 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
@@ -47,7 +46,6 @@ class _MonthlyChartState extends State<MonthlyChart> {
               if (state is MonthlySpendingCalculated) {
                 List monthlyPercent = state.percent;
                 List monthly = state.sum;
-                print(state.monthlySpendingAll);
                 return state.monthlySpendingAll == 0
                     ? const Expanded(
                         child: NoContent(

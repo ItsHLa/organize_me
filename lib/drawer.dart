@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/register.dart';
@@ -58,8 +56,6 @@ class _MyDarwerState extends State<MyDarwer> {
             child: BlocBuilder<UserCubit, UserState>(
               builder: (context, state) {
                 if (state is UserInfoLoaded) {
-                  log(state.email);
-                  log(state.username);
                   return ListTile(
                     title: Text(state.username),
                     subtitle: Text(state.email),

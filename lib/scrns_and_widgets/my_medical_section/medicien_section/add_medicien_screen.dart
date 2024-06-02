@@ -89,7 +89,6 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
                 time!,
                 int.parse(interval.text),
               );
-              debugPrint('Adding Medicien');
             } else {
               autoValidate = AutovalidateMode.always;
             }

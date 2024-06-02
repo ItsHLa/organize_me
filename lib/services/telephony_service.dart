@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:organize_me/constants.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/bill.dart';
 import 'package:organize_me/scrns_and_widgets/bill_section/models/electric_bill.dart';
@@ -15,7 +14,6 @@ class TelephonyService {
       listenInBackground: true,
       onNewMessage: (SmsMessage message) {
         if (message.address == 'SyriatelSEP') {
-          debugPrint(message.body);
           compareBill(smsMessage: message);
         }
       },
@@ -25,7 +23,6 @@ class TelephonyService {
 
 void onBackgroundMessage(SmsMessage message) async {
   if (message.address == 'SyriatelSEP') {
-    debugPrint(message.body);
     compareBill(smsMessage: message);
   }
 }
