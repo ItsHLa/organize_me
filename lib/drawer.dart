@@ -15,7 +15,7 @@ class MyDarwer extends StatefulWidget {
 class _MyDarwerState extends State<MyDarwer> {
   List<String> label = [
     'نسخة التطبيق',
-    ' تواصل معنا',
+    'تواصل معنا',
     'تسجيل خروج',
   ];
 

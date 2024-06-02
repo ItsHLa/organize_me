@@ -120,12 +120,14 @@ class _MySearchBarState extends State<MySearchBar> {
                             MyButton(
                               onPressed: () {
                                 if (ValidateInputData.validateField(key)) {
-                                  key.currentState?.save();
-                                  lastMonth = selectedMonth;
-                                  lastYear = selectedYear;
-                                  BlocProvider.of<BillCubit>(context)
-                                      .monthlySpendingOneCategory(
-                                          selectedYear, selectedMonth);
+                                  setState(() {
+                                    key.currentState?.save();
+                                    lastMonth = selectedMonth;
+                                    lastYear = selectedYear;
+                                    BlocProvider.of<BillCubit>(context)
+                                        .monthlySpendingOneCategory(
+                                            selectedYear, selectedMonth);
+                                  });
                                 }
                               },
                               icon: Icons.search,
@@ -141,7 +143,7 @@ class _MySearchBarState extends State<MySearchBar> {
             );
           },
           readOnly: true,
-          controller: TextEditingController(text: '$lastMonth / $lastYear'),
+          controller: TextEditingController(text: '$lastYear-$lastMonth'),
         ),
       ),
     );

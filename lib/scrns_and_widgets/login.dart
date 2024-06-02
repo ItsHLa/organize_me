@@ -22,7 +22,6 @@ class _LoginState extends State<Login> {
   String email = '';
   String password = '';
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
@@ -65,8 +64,10 @@ class _LoginState extends State<Login> {
                   const SizedBox(
                     height: 60,
                   ),
-                  SizedBox(
-                      height: 90, child: Image.asset('images/app_icon.jpg')),
+                  const SizedBox(
+                    height: 90,
+                    // child: Image.asset('images/app_icon.jpg'),
+                  ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     padding: const EdgeInsets.only(top: 15, bottom: 15),
@@ -123,18 +124,17 @@ class _LoginState extends State<Login> {
                         child: Center(
                           child: state is Loading
                               ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              color: Colors.white54,
-                            ),
-                          )
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white54,
+                                  ),
+                                )
                               : const Text(
-                            'سجل دخول',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )
-                    ),
+                                  'سجل دخول',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                        )),
                   ),
                 ],
               ),
