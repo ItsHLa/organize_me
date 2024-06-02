@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
                     height: 60,
                   ),
                   SizedBox(
-                      height: 90, child: Image.asset('images/app_icon.png')),
+                      height: 90, child: Image.asset('images/app_icon.jpg')),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     padding: const EdgeInsets.only(top: 15, bottom: 15),
