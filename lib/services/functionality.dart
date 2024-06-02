@@ -57,8 +57,13 @@ Duration differenceBetweenTimes(TimeOfDay timeOfDay) {
 Duration timeOfDayToDuration(TimeOfDay timeOfDay) {
   // Create a DateTime object with today's date and the time from TimeOfDay
   DateTime now = DateTime.now();
-  DateTime dateTime =
-      DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+  DateTime dateTime = DateTime(
+    now.year,
+    now.month,
+    now.day,
+    timeOfDay.hour,
+    timeOfDay.minute,
+  );
 
   // Calculate the difference between now and the specified time
   Duration duration = dateTime.difference(now);

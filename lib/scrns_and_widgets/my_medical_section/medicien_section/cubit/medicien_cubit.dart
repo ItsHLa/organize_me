@@ -19,10 +19,9 @@ class MedicineCubit extends Cubit<MedicineState> {
     int interval,
   ) async {
     try {
-      String shotTime = '${timeOfShot.minute}:${timeOfShot.hour}';
+      String shotTime = '${timeOfShot.hour}:${timeOfShot.minute}';
       Map med = await Med.addMed(name, shotTime, interval);
       meds.add(Med.fromMap(med));
-      debugPrint(timeOfDayToDuration(timeOfShot).toString());
       WorkManagerService.registerNotificationTask(
         uniqueTaskName: 'medicine ${med['id']} notification',
         taskName: 'show medicine notification',
@@ -44,7 +43,7 @@ class MedicineCubit extends Cubit<MedicineState> {
     required int editedInterval,
   }) async {
     try {
-      String shotTime = '${editedTimeOfShot.minute}:${editedTimeOfShot.hour}';
+      String shotTime = '${editedTimeOfShot.hour}:${editedTimeOfShot.minute}';
       Map newMedMap = await Med.editMed(id,
           newInterval: editedInterval,
           newName: editedName,

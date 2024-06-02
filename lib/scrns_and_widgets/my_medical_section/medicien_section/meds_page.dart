@@ -5,7 +5,6 @@ import 'package:organize_me/scrns_and_widgets/floating_action_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants.dart';
-import '../docs_number_section/altibbi.dart';
 import 'add_medicien_screen.dart';
 import 'cubit/medicien_cubit.dart';
 import 'meds_list.dart';
