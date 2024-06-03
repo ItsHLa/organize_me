@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/scrns_and_widgets/my_medical_section/medicien_section/models/med.dart';
-import 'package:organize_me/services/work_manager_service.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../../../../services/functionality.dart';
+import '../../../../services/work_manager_service.dart';
 
 part 'medicien_state.dart';
 

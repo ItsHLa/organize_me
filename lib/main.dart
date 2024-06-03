@@ -6,11 +6,11 @@ import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/services/functionality.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
-import 'package:organize_me/services/work_manager_service.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'database/db.dart';
+import 'services/work_manager_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
