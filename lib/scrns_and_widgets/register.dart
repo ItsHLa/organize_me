@@ -61,12 +61,10 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 60,
                   ),
-                  Container(
-                      height: 80,
-                      padding: EdgeInsets.zero,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100)),
-                      child: Image.asset('images/app_icon.jpg')),
+                  const SizedBox(
+                    height: 80,
+                    // child: Image.asset('images/app_icon.jpg'),
+                  ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     padding: const EdgeInsets.only(top: 10, bottom: 10),

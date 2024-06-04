@@ -58,7 +58,7 @@ class WorkManagerService {
   }
 }
 
-@pragma('vm_entry_point')
+@pragma('vm:entry-point')
 void callDispatcher() {
   Workmanager().executeTask((taskName, inputData) {
     switch (taskName) {

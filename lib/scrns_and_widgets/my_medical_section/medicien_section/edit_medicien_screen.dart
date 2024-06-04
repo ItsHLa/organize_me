@@ -102,7 +102,6 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
               editedInterval: int.parse(interval.text),
               editedName: medicienName.text,
             );
-            debugPrint('Editing Medicine');
           },
         ),
       ),

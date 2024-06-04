@@ -15,11 +15,14 @@ class LocalNotificationService {
   static Future initi() async {
     InitializationSettings initializationSettings =
         const InitializationSettings(
-            android: AndroidInitializationSettings('@mipmap/ic_launcher'),
-            iOS: DarwinInitializationSettings());
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onTap,
-        onDidReceiveBackgroundNotificationResponse: onTap);
+      android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      iOS: DarwinInitializationSettings(),
+    );
+    flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onTap,
+      onDidReceiveBackgroundNotificationResponse: onTap,
+    );
   }
 
   static cancelNotification({required int id, required String tag}) {
@@ -106,7 +109,9 @@ class LocalNotificationService {
         id,
         title,
         content,
-        scheduledTime.subtract(Duration(minutes: min)),
+        scheduledTime.subtract(
+          Duration(minutes: min),
+        ),
         taskDetails,
         payload: ' Title : $title , Content : $content',
         uiLocalNotificationDateInterpretation:
