@@ -46,6 +46,7 @@ class MedItem extends StatelessWidget {
                           icon: const Icon(Icons.edit_outlined)),
                       const Spacer(),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
                             'موعد أخذ الدواء : ${med.shotTime} ',
@@ -56,9 +57,12 @@ class MedItem extends StatelessWidget {
                             ' يؤخذ كل ${med.interval} ساعة',
                             textAlign: TextAlign.right,
                             style: const TextStyle(fontSize: 15),
-                          )
+                          ),
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
                     ],
                   ),
                 ),
