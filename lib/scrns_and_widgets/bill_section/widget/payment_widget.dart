@@ -44,7 +44,7 @@ class PaymentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(backgroundColor: softPurple),
+      style: ElevatedButton.styleFrom(backgroundColor: appColorTheme),
       onPressed: logic,
       child: Text(
         name,

@@ -88,14 +88,8 @@ Widget telecomBill = const IconForm(
 ));
 
 ///////////////////////////Colors //////////////////////////////////////////////
-const Color grey = Color(0xFFc9c0c7);
-Color appColorTheme = Colors.blue.shade800;
-//const Color.fromRGBO(7, 144, 166, 1);
-Color softPurple = Colors.blue.shade500;
-const white = Colors.white54;
-const Color verySoftDarkBlue = Color(0xFF20abb9);
-const Color black = Color(0xFF222831);
-const Color darkTheme = Color(0xFF121212);
+
+Color appColorTheme = const Color.fromRGBO(7, 144, 166, 1);
 const Color blue = Color.fromRGBO(7, 144, 166, 1);
 const Color red = Color.fromRGBO(194, 100, 101, 1);
 const Color yellow = Color.fromRGBO(219, 200, 109, 1);
