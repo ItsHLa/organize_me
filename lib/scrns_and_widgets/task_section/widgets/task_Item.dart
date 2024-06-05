@@ -31,6 +31,33 @@ class TaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        MyStatusButton(
+          onPressed: onCancelIconPressed,
+          icon: cancelIcon,
+        ),
+        Expanded(
+          child: ListTile(
+            onTap: onTap,
+            title: Text(
+              textAlign: TextAlign.right,
+              taskTitle,
+              style: const TextStyle(overflow: TextOverflow.ellipsis),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  taskStartTime,
+                  textAlign: TextAlign.right,
+                ),
+                Text(
+                  date,
+                  textAlign: TextAlign.right,
+                ),
+              ],
+            ),
+          ),
+        ),
         Container(
           height: 80,
           width: 10,
@@ -38,30 +65,10 @@ class TaskItem extends StatelessWidget {
               color: done ? green : appColorTheme,
               borderRadius: BorderRadius.circular(20)),
         ),
-        Expanded(
-          child: ListTile(
-            onTap: onTap,
-            title: Text(
-              taskTitle,
-              style: const TextStyle(overflow: TextOverflow.ellipsis),
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(taskStartTime),
-                Text(date),
-              ],
-            ),
-          ),
-        ),
         MyStatusButton(
           onPressed: onStatusIconPressed,
           icon: statusIcon,
         ),
-        MyStatusButton(
-          onPressed: onCancelIconPressed,
-          icon: cancelIcon,
-        )
       ],
     );
   }
