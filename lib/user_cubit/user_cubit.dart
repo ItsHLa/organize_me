@@ -52,9 +52,15 @@ class UserCubit extends Cubit<UserState> {
           userName: userName,
         );
         if (r.statusCode == 200) {
-          await User.setUserInfo(user: jsonDecode(r.body)['user']);
+          Map bodyMap = jsonDecode(r.body);
+          bodyMap['user']['password'] = password;
+          await User.setUserInfo(user: bodyMap['user']);
           emit(UserInfoLoaded(
-              id: id, email: email, password: password, username: userName));
+            id: id,
+            email: email,
+            password: password,
+            username: userName,
+          ));
         } else {
           emit(Failed());
         }
@@ -80,8 +86,9 @@ class UserCubit extends Cubit<UserState> {
       emit(Loading());
       try {
         http.Response r = await ApiCalls.login(email, password);
-        Map bodyMap = jsonDecode(r.body);
         if (r.statusCode == 200) {
+          Map bodyMap = jsonDecode(r.body);
+          bodyMap['user']['password'] = password;
           await User.signUser(true);
           await User.setUserInfo(user: bodyMap['user']);
           await Bill.fillDatabase(
@@ -108,8 +115,9 @@ class UserCubit extends Cubit<UserState> {
       emit(Loading());
       try {
         http.Response response = await ApiCalls.addUser(user);
-        Map bodyMap = jsonDecode(response.body);
         if (response.statusCode == 200) {
+          Map bodyMap = jsonDecode(response.body);
+          bodyMap['me']['password'] = user.password;
           await User.signUser(true);
           await User.setUserInfo(user: bodyMap['me']);
           emit(RegisterSuccess());

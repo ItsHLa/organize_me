@@ -23,7 +23,7 @@ class MedItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ExpansionTile(
-              shape: StadiumBorder(),
+              shape: const StadiumBorder(),
               leading: IconButton(
                   onPressed: onPressedDelete,
                   icon: const Icon(Icons.cancel_outlined)),
@@ -38,7 +38,7 @@ class MedItem extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 8, right: 8.0),
                   child: Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       IconButton(
@@ -60,7 +60,7 @@ class MedItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                     ],
