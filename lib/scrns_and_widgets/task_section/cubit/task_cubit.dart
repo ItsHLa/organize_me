@@ -7,7 +7,6 @@ import 'package:organize_me/services/app_notification.dart';
 import '../../../services/local_notification.dart';
 
 part 'task_state.dart';
-
 class TaskCubit extends Cubit<TaskState> {
   List<Task> tasks = [];
   bool lastActionDelete = false;

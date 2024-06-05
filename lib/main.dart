@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/dark_mode_cubit/dark_mode_cubit.dart';
 import 'package:organize_me/home_page.dart';
-import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/services/functionality.dart';
 import 'package:organize_me/services/local_notification.dart';
 import 'package:organize_me/services/telephony_service.dart';
@@ -84,13 +83,14 @@ class _OrganizeMeState extends State<OrganizeMe> {
             darkTheme: ThemeData.dark(),
             theme: state.on ? ThemeData.dark() : ThemeData.light(),
             home: BlocListener<UserCubit, UserState>(
-              listener: (context, state) {
-                if (state is CheckIfSigned) {
-                  signed = state.signed;
-                }
-              },
-              child: signed ? const HomePage() : const Register(),
-            ));
+                listener: (context, state) {
+                  if (state is CheckIfSigned) {
+                    signed = state.signed;
+                  }
+                },
+                child: HomePage()
+                //signed ? const HomePage() : const Register(),
+                ));
       },
     );
   }

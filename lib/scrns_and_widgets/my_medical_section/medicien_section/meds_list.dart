@@ -38,8 +38,10 @@ class _MedsGridState extends State<MedsGrid> {
             meds: state.meds,
           );
         } else {
-          return const NoContent(
-            text: 'لا يوجد أدوية بعد',
+          return const Center(
+            child: NoContent(
+              text: 'لا يوجد أدوية بعد',
+            ),
           );
         }
       },

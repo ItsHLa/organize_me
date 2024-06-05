@@ -75,6 +75,7 @@ class _TaskListViewState extends State<TaskListView> {
                   ),
                 );
               },
+              done: widget.tasks[index].status == 'اكتملت' ? true : false,
               taskStartTime: widget.tasks[index].startTime,
               taskTitle: widget.tasks[index].title,
               taskPreAlarm: widget.tasks[index].preAlarm,

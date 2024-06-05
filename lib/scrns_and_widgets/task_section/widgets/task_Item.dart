@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_me/constants.dart';
 
 class TaskItem extends StatelessWidget {
   const TaskItem({
@@ -12,11 +13,13 @@ class TaskItem extends StatelessWidget {
     required this.statusIcon,
     this.onCancelIconPressed,
     required this.cancelIcon,
+    required this.done,
   });
 
   final String taskTitle;
   final String taskStartTime;
   final int taskPreAlarm;
+  final bool done;
   final String date;
   final void Function()? onStatusIconPressed;
   final void Function()? onCancelIconPressed;
@@ -26,28 +29,39 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: ListTile(
-                onTap: onTap,
-                title: Text(taskTitle),
-                subtitle: Text("$taskStartTime  \n $date "),
-              ),
-            ),
-            MyStatusButton(
-              onPressed: onStatusIconPressed,
-              icon: statusIcon,
-            ),
-            MyStatusButton(
-              onPressed: onCancelIconPressed,
-              icon: cancelIcon,
-            )
-          ],
+        Container(
+          height: 80,
+          width: 10,
+          decoration: BoxDecoration(
+              color: done ? green : appColorTheme,
+              borderRadius: BorderRadius.circular(20)),
         ),
-        const Divider()
+        Expanded(
+          child: ListTile(
+            onTap: onTap,
+            title: Text(
+              taskTitle,
+              style: const TextStyle(overflow: TextOverflow.ellipsis),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(taskStartTime),
+                Text(date),
+              ],
+            ),
+          ),
+        ),
+        MyStatusButton(
+          onPressed: onStatusIconPressed,
+          icon: statusIcon,
+        ),
+        MyStatusButton(
+          onPressed: onCancelIconPressed,
+          icon: cancelIcon,
+        )
       ],
     );
   }

@@ -8,23 +8,25 @@ class NoContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 100,
-            child: Image.asset(
-              'images/no_content.png',
-              semanticLabel: 'no content',
+    return Stack(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 100,
+              child: Image.asset(
+                'images/no_content.png',
+                semanticLabel: 'no content',
+              ),
             ),
-          ),
-          Text(
-            text,
-            style: const TextStyle(fontSize: 18),
-          ),
-        ],
-      ),
+            Text(
+              text,
+              style: const TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

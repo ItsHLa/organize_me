@@ -56,6 +56,7 @@ String medsAndDocsKey = 'numMeds';
 ////////////////////////////////////////TaskIcons///////////////////////////////////////////////////
 Icon taskComplete = const Icon(
   Icons.task_alt_outlined,
+  color: green,
   size: 30,
 );
 Icon taskOngoing = const Icon(
