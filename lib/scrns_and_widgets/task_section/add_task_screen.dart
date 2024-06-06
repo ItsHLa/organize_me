@@ -128,7 +128,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               // await addDummyBills(dummyElectric);
               // await addDummyBills(dummyTelecom);
               // await addDummyBills(dummyWater);
-              // await addBills();
+
               if (ValidateInputData.validateField(taskKey)) {
                 taskKey.currentState!.save();
                 if (context.mounted) {

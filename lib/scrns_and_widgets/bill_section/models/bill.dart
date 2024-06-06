@@ -68,10 +68,14 @@ abstract class Bill {
     // this check indicates that the bill is new, so we wanna send it (if possible) via an api call.
     if (match != null) {
       var result = await (Connectivity().checkConnectivity());
-      // if there's a connection send it via api call right away.
+      // if there's a connection send it right away.
       if (result.contains(ConnectivityResult.wifi) ||
           result.contains(ConnectivityResult.mobile)) {
-        await ApiCalls.addBill(me.id, tableNameToTypeCode[tableName]!, billMap);
+        await ApiCalls.addBills(
+          me.id,
+          tableNameToTypeCode[tableName]!,
+          billMap,
+        );
         // otherwise store it in the temp table.
       } else {
         await mydb.insert(

@@ -9,24 +9,6 @@ import '../scrns_and_widgets/bill_section/models/bill.dart';
 class ApiCalls {
   static String baseUrl = "http://haidaraib.pythonanywhere.com";
 
-  // static Future<http.Response> updateUserInfo() async {
-  //   var r = await http.post(
-  //     Uri.parse("$baseUrl/updateUserInfo/"),
-  //     headers: {
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //     },
-  //     body: jsonEncode(
-  //       {
-  //         "id": me.id,
-  //         "email": me.email,
-  //         "password": me.password,
-  //         "username": me.username,
-  //       },
-  //     ),
-  //   );
-  //   return r;
-  // }
-
   static Future<http.Response> addUser(User user) async {
     var r = await http.post(
       Uri.parse("$baseUrl/addUser/"),
@@ -93,32 +75,21 @@ class ApiCalls {
     return r;
   }
 
-  static Future<http.Response> addBill(
-    int userId,
-    String type,
-    Map<String, Object?> bill,
-  ) async {
-    bill['user'] = userId.toString();
-    var r = await http.post(
-      Uri.parse("$baseUrl/addBill/$type/"),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(bill),
-    );
-    return r;
-  }
-
   static Future<http.Response> addBills(
     int userId,
     String type,
-    List<Bill> bills,
+    bills,
   ) async {
-    List<Map<String, String>> bodyList = [];
-    for (Bill bill in bills) {
-      Map<String, String> body = bill.toJson();
-      body['user'] = userId.toString();
-      bodyList.add(body);
+    List<Map> bodyList = [];
+    if (bills is Map) {
+      bills['user'] = userId.toString();
+      bodyList.add(bills);
+    } else {
+      for (Bill bill in bills) {
+        Map body = bill.toJson();
+        body['user'] = userId.toString();
+        bodyList.add(body);
+      }
     }
     var r = await http.post(
       Uri.parse("$baseUrl/addBills/$type/"),

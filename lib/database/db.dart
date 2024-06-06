@@ -67,7 +67,7 @@ class DatabaseHelper {
             date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
-            operation_number TEXT,
+            operation_number TEXT UNIQUE,
 
             gov TEXT,
 
@@ -87,7 +87,7 @@ class DatabaseHelper {
             date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
-            operation_number TEXT,
+            operation_number TEXT UNIQUE,
 
             gov TEXT,
 
@@ -107,7 +107,7 @@ class DatabaseHelper {
             date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
-            operation_number TEXT,
+            operation_number TEXT UNIQUE,
 
             gov TEXT,
 
@@ -128,7 +128,7 @@ class DatabaseHelper {
             date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
-            operation_number TEXT,
+            operation_number TEXT UNIQUE,
 
             gov TEXT,
 
@@ -149,7 +149,7 @@ class DatabaseHelper {
             date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
-            operation_number TEXT,
+            operation_number TEXT UNIQUE,
 
             invoice_number TEXT,
             phone_number_email TEXT
@@ -166,7 +166,7 @@ class DatabaseHelper {
             date TEXT, -- YYYY-MM-DD
             time TEXT, -- HH:MM
             provider TEXT,
-            operation_number TEXT,
+            operation_number TEXT UNIQUE,
 
             invoice_number TEXT,
             phone_number_email TEXT

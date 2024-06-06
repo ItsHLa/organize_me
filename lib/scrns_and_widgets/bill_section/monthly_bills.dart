@@ -50,53 +50,55 @@ class _MonthlyChartState extends State<MonthlyChart> {
                         text: 'لا يوجد فواتير لهذا الشهر',
                       ),
                     )
-                  : SizedBox(
-                      height: 400,
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 25),
-                            height: 100,
-                            width: 170,
-                            child: PieChart(
-                              PieChartData(
-                                centerSpaceRadius: 30,
-                                sections: [
-                                  PieChartSectionData(
-                                    title: "${monthlyPercent[0].toInt()}%",
-                                    showTitle: true,
-                                    color: yellow,
-                                    value: monthlyPercent[0],
-                                    titleStyle: pieChartTitleStyle,
-                                  ),
-                                  PieChartSectionData(
-                                    title: "${monthlyPercent[1].toInt()}%",
-                                    showTitle: true,
-                                    color: green,
-                                    value: monthlyPercent[1],
-                                    titleStyle: pieChartTitleStyle,
-                                  ),
-                                  PieChartSectionData(
-                                    title: "${monthlyPercent[2].toInt()}%",
-                                    showTitle: true,
-                                    color: blue,
-                                    value: monthlyPercent[2],
-                                    titleStyle: pieChartTitleStyle,
-                                  ),
-                                ],
+                  : Expanded(
+                      child: SizedBox(
+                        height: 400,
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 25),
+                              height: 100,
+                              width: 170,
+                              child: PieChart(
+                                PieChartData(
+                                  centerSpaceRadius: 30,
+                                  sections: [
+                                    PieChartSectionData(
+                                      title: "${monthlyPercent[0].toInt()}%",
+                                      showTitle: true,
+                                      color: yellow,
+                                      value: monthlyPercent[0],
+                                      titleStyle: pieChartTitleStyle,
+                                    ),
+                                    PieChartSectionData(
+                                      title: "${monthlyPercent[1].toInt()}%",
+                                      showTitle: true,
+                                      color: green,
+                                      value: monthlyPercent[1],
+                                      titleStyle: pieChartTitleStyle,
+                                    ),
+                                    PieChartSectionData(
+                                      title: "${monthlyPercent[2].toInt()}%",
+                                      showTitle: true,
+                                      color: blue,
+                                      value: monthlyPercent[2],
+                                      titleStyle: pieChartTitleStyle,
+                                    ),
+                                  ],
+                                ),
+                                swapAnimationDuration:
+                                    const Duration(milliseconds: 150),
+                                // Optional
+                                swapAnimationCurve: Curves.linear, // Optional
                               ),
-                              swapAnimationDuration:
-                                  const Duration(milliseconds: 150),
-                              // Optional
-                              swapAnimationCurve: Curves.linear, // Optional
                             ),
-                          ),
-                          CategoriesListView(
-                            monthly: monthly,
-                            categories: categories,
-                            icons: icons,
-                          )
-                        ],
+                            CategoriesListView(
+                              monthly: monthly,
+                              categories: categories,
+                              icons: icons,
+                            )
+                          ],
+                        ),
                       ),
                     );
             }
