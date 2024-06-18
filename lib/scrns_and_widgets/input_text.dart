@@ -11,6 +11,8 @@ class InputText extends StatelessWidget {
     this.readOnly,
     this.onTap,
     this.controller,
+    this.obscureText,
+    this.prefixIcon,
   });
 
   final void Function(String?)? save;
@@ -20,6 +22,8 @@ class InputText extends StatelessWidget {
   final bool? readOnly;
   final Function()? onTap;
   final TextEditingController? controller;
+  final Widget? prefixIcon;
+  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,10 @@ class InputText extends StatelessWidget {
         onSaved: save,
         validator: validator,
         controller: controller,
+        obscureText: obscureText ?? false,
+        obscuringCharacter: '*',
         decoration: InputDecoration(
+          suffixIcon: prefixIcon,
           labelText: labelText,
           labelStyle: TextStyle(color: appColorTheme),
           hintStyle: TextStyle(color: appColorTheme),

@@ -15,7 +15,7 @@ class LocalNotificationService {
   static Future initi() async {
     InitializationSettings initializationSettings =
         const InitializationSettings(
-      android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      android: AndroidInitializationSettings("@mipmap/ic_launcher"),
       iOS: DarwinInitializationSettings(),
     );
     flutterLocalNotificationsPlugin.initialize(
@@ -32,13 +32,11 @@ class LocalNotificationService {
   static void showSimpleBillNotification(
       {required int id, required String body}) async {
     AndroidNotificationDetails androidNotificationDetails =
-        const AndroidNotificationDetails(
-      billChannel,
-      billChannelName,
-      tag: billTag,
-      importance: Importance.max,
-      priority: Priority.high,
-    );
+        const AndroidNotificationDetails(billChannel, billChannelName,
+            tag: billTag,
+            importance: Importance.max,
+            priority: Priority.high,
+            icon: "@mipmap/ic_launcher");
     NotificationDetails details =
         NotificationDetails(android: androidNotificationDetails);
     await LocalNotificationService.flutterLocalNotificationsPlugin.show(

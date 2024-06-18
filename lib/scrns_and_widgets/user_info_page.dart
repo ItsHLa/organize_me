@@ -1,58 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organize_me/constants.dart';
+import 'package:organize_me/scrns_and_widgets/register.dart';
 import 'package:organize_me/services/functionality.dart';
 import 'package:organize_me/user_cubit/user_cubit.dart';
 
+import '../user.dart';
 import 'input_text.dart';
 
 class AccountInfo extends StatefulWidget {
-  const AccountInfo(
-      {super.key,
-      required this.id,
-      required this.userName,
-      required this.password,
-      required this.email});
-
-  final String id;
-  final String userName;
-  final String password;
-  final String email;
+  const AccountInfo({
+    super.key,
+  });
 
   @override
   State<AccountInfo> createState() => _AccountInfoState();
 }
 
 class _AccountInfoState extends State<AccountInfo> {
-  List labels = ['اسم المستخدم', 'البريد الالكتروني', 'كلمة السر'];
+  List labels = [
+    'اسم المستخدم',
+    'البريد الالكتروني',
+    'كلمة السر',
+    'تأكيد كلمة السر'
+  ];
+  List<bool> obscureText = [false, false, true, true];
 
   TextEditingController id = TextEditingController();
   TextEditingController userName = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-
-  List validator = const [
-    ValidateInputData.checkIfNull,
-    ValidateInputData.checkIfNull,
-    ValidateInputData.checkIfNull,
-  ];
+  TextEditingController reEnteredPassword = TextEditingController();
 
   GlobalKey<FormState> key = GlobalKey();
-
-  @override
-  void initState() {
-    id.text = widget.id;
-    userName.text = widget.userName;
-    email.text = widget.email;
-    password.text = widget.password;
-    super.initState();
-  }
 
   bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    List controllers = [userName, email, password];
+    List prefixIcon = [
+      null,
+      null,
+      IconButton(
+        onPressed: () {
+          setState(() {
+            obscureText[2] = !obscureText[2];
+          });
+        },
+        icon: Icon(
+          Icons.remove_red_eye,
+          color: obscureText[2] ? Colors.grey : appColorTheme,
+        ),
+      ),
+      IconButton(
+        onPressed: () {
+          setState(() {
+            obscureText[3] = !obscureText[3];
+          });
+        },
+        icon: Icon(
+          Icons.remove_red_eye,
+          color: obscureText[3] ? Colors.grey : appColorTheme,
+        ),
+      )
+    ];
+    List validator = [
+      ValidateInputData.checkIfNull,
+      ValidateInputData.checkIfNull,
+      ValidateInputData.checkIfNull,
+      (value) {
+        return ValidateInputData.checkPassword(value, password.text);
+      }
+    ];
+    List controllers = [userName, email, password, reEnteredPassword];
     List save = [
       (value) {
         setState(() {
@@ -66,8 +86,12 @@ class _AccountInfoState extends State<AccountInfo> {
       },
       (value) {
         password.text = value!;
+      },
+      (value) {
+        reEnteredPassword.text = value!;
       }
     ];
+    BlocProvider.of<UserCubit>(context).loadUserInfo();
     return BlocListener<UserCubit, UserState>(
       listener: (context, state) {
         if (state is Loading) {
@@ -75,7 +99,11 @@ class _AccountInfoState extends State<AccountInfo> {
             loading = true;
           });
         } else if (state is UserInfoLoaded) {
-          Navigator.of(context).pop();
+          id.text = state.id.toString();
+          userName.text = state.username;
+          email.text = state.email;
+          password.text = state.password;
+          reEnteredPassword.text = state.password;
         } else if (state is Failed) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('حصل خطأ اثناء التعديل يرجى اعادة محاولة')));
@@ -85,29 +113,29 @@ class _AccountInfoState extends State<AccountInfo> {
               content: Text('تحقق من اتصالك بالانترنت'),
             ),
           );
+        } else if (state is UserInfoEdited) {
+          Navigator.of(context).pop();
         }
       },
       child: Scaffold(
           appBar: AppBar(
-            title: const Row(
-              children: [
-                Spacer(),
-                Text(
-                  'صفحتك الشخصية',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Icon(
-                  Icons.account_circle_outlined,
-                  size: 25,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-              ],
+            title: const Text(
+              'صفحتك الشخصية',
+              style: TextStyle(fontSize: 18),
             ),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                  onPressed: () async {
+                    await User.signUser(false);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const Register(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.logout))
+            ],
           ),
           body: Form(
             key: key,
@@ -120,6 +148,8 @@ class _AccountInfoState extends State<AccountInfo> {
                     itemCount: labels.length,
                     itemBuilder: (context, index) {
                       return InputText(
+                        prefixIcon: prefixIcon[index],
+                        obscureText: obscureText[index],
                         labelText: labels[index],
                         controller: controllers[index],
                         validator: validator[index],
@@ -160,157 +190,9 @@ class _AccountInfoState extends State<AccountInfo> {
                               ),
                       )),
                 ),
-                // InputDataPage(
-                //   controllers: [userName, email, password],
-                //   labels: labels,
-                //   validator: const [
-                //     ValidateInputData.checkIfNull,
-                //     ValidateInputData.checkIfNull,
-                //     ValidateInputData.checkIfNull,
-                //   ],
-                //   save: [
-                //         (value) {
-                //       setState(() {
-                //         userName.text = value!;
-                //       });
-                //     },
-                //         (value) {
-                //       setState(() {
-                //         email.text = value!;
-                //       });
-                //     },
-                //         (value) {
-                //       password.text = value!;
-                //     }
-                //   ],
-                //   onPressed: () {
-                //     if (ValidateInputData.validateField(key)) {
-                //       key.currentState?.save();
-                //       print(userName.text);
-                //       print(email.text);
-                //       print(password.text);
-                //       BlocProvider.of<UserCubit>(context).editUserInfo(
-                //           id: int.parse(id.text),
-                //           email: email.text,
-                //           userName: userName.text,
-                //           password: password.text);
-                //     }
-                //   },
-                //   labelButton: 'تعديل',
-                //   icon: Icons.edit_outlined,
-                // ),
               ],
             ),
           )),
     );
   }
 }
-
-/*
-*
-*
-* listener: (context, state) {
-        if (state is UserInfoLoaded) {
-          Navigator.of(context).pop();
-        } else if (state is Failed) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('حصل خطأ اثناءالتعديل يرجى اعادة محاولة')));
-        } else if (state is NoInternet) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('تحقق من اتصالك بالانترنت'),
-            ),
-          );
-        }
-      },
-*
-*
-*
-* SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InputText(
-                          save: (){
-                          },
-                          labelText:'اسم المستخدم' ,
-                          controller: userName
-                        )
-                        ListTile(
-                          trailing: const Icon(Icons.person_outline),
-                          title: const Text(
-                            ,
-                            textAlign: TextAlign.right,
-                          ),
-                          subtitle:
-                        ),
-                        const Divider(),
-                        ListTile(
-                          trailing: const Icon(Icons.alternate_email),
-                          title: const Text(
-                            'عنوان البريد الالكتروني',
-                            textAlign: TextAlign.right,
-                          ),
-                          subtitle: Text(
-                            email.text,
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
-                        const Divider(),
-                        const ListTile(
-                          trailing: Icon(Icons.apps),
-                          title: Text(
-                            'نسخة النطبيق',
-                            textAlign: TextAlign.right,
-                          ),
-                          subtitle: Text(
-                            ' v.0',
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
-                        const Divider(),
-                        const ListTile(
-                          trailing: Icon(Icons.attach_email_outlined),
-                          title: Text(
-                            'تواصل معنا',
-                            textAlign: TextAlign.right,
-                          ),
-                          subtitle: Text(
-                            'organizeme@gmail.com',
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
-                        const Divider(),
-                        ListTile(
-                          trailing: const Icon(Icons.logout),
-                          title: const Text(
-                            'تسجيل خروج',
-                            textAlign: TextAlign.right,
-                          ),
-                          onTap: () async {
-                            await User.signUser(false);
-                            if (context.mounted) {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => const Register(),
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            )
-*
-* */
-

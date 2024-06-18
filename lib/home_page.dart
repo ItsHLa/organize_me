@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:organize_me/drawer.dart';
+import 'package:organize_me/scrns_and_widgets/user_info_page.dart';
 
 import 'constants.dart';
 import 'dark_mode_cubit/dark_mode_cubit.dart';
@@ -37,13 +37,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const MyDarwer(),
       appBar: AppBar(
         title: Text(
           'OrganizeMe',
           style: TextStyle(color: appColorTheme),
         ),
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const AccountInfo(),
+              ));
+            },
+            icon: const Icon(Icons.account_circle_outlined),
+          ),
           BlocBuilder<DarkModeCubit, DarkModeState>(
             builder: (context, state) {
               return IconButton(

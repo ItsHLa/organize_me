@@ -55,7 +55,7 @@ class UserCubit extends Cubit<UserState> {
           Map bodyMap = jsonDecode(r.body);
           bodyMap['user']['password'] = password;
           await User.setUserInfo(user: bodyMap['user']);
-          emit(UserInfoLoaded(
+          emit(UserInfoEdited(
             id: id,
             email: email,
             password: password,

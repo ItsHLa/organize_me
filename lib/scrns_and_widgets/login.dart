@@ -19,8 +19,9 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   GlobalKey<FormState> userKey = GlobalKey();
 
-  String email = '';
-  String password = '';
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  bool hidePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +65,10 @@ class _LoginState extends State<Login> {
                   const SizedBox(
                     height: 60,
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 90,
+                    child: Image.asset('images/app_icon.png'),
+
                     // child: Image.asset('images/app_icon.jpg'),
                   ),
                   Container(
@@ -84,7 +87,7 @@ class _LoginState extends State<Login> {
                     save: (value) {
                       setState(
                         () {
-                          email = value!;
+                          email.text = value!;
                         },
                       );
                     },
@@ -94,11 +97,24 @@ class _LoginState extends State<Login> {
                     height: 5,
                   ),
                   InputText(
+                    controller: password,
+                    obscureText: hidePassword,
+                    prefixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hidePassword = !hidePassword;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.remove_red_eye,
+                        color: hidePassword ? Colors.grey : appColorTheme,
+                      ),
+                    ),
                     labelText: 'كلمة السر',
                     save: (value) {
                       setState(
                         () {
-                          password = value!;
+                          password.text = value!;
                         },
                       );
                     },
@@ -118,7 +134,7 @@ class _LoginState extends State<Login> {
                           if (ValidateInputData.validateField(userKey)) {
                             userKey.currentState?.save();
                             BlocProvider.of<UserCubit>(context)
-                                .login(email, password);
+                                .login(email.text, password.text);
                           }
                         },
                         child: Center(

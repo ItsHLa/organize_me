@@ -26,6 +26,21 @@ final class UserInfoLoaded extends UserState {
   });
 }
 
+final class UserInfoEdited extends UserState {
+  final int id;
+  final String email;
+
+  final String password;
+  final String username;
+
+  UserInfoEdited({
+    required this.id,
+    required this.email,
+    required this.password,
+    required this.username,
+  });
+}
+
 final class Failed extends UserState {}
 
 final class Loading extends UserState {}

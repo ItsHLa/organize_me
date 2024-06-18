@@ -20,9 +20,10 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   GlobalKey<FormState> userKey = GlobalKey();
-  String username = '';
-  String email = '';
-  String password = '';
+  TextEditingController username = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  bool hidePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +62,9 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 60,
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 80,
-                    // child: Image.asset('images/app_icon.jpg'),
+                    child: Image.asset('images/app_icon.png'),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -83,7 +84,7 @@ class _RegisterState extends State<Register> {
                     labelText: 'اسم المستخدم',
                     save: (value) {
                       setState(() {
-                        username = value!;
+                        username.text = value!;
                       });
                     },
                     validator: ValidateInputData.checkIfNull,
@@ -96,7 +97,7 @@ class _RegisterState extends State<Register> {
                     save: (value) {
                       setState(
                         () {
-                          email = value!;
+                          email.text = value!;
                         },
                       );
                     },
@@ -106,11 +107,24 @@ class _RegisterState extends State<Register> {
                     height: 5,
                   ),
                   InputText(
+                    controller: password,
+                    obscureText: hidePassword,
+                    prefixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hidePassword = !hidePassword;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.remove_red_eye,
+                        color: hidePassword ? Colors.grey : appColorTheme,
+                      ),
+                    ),
                     labelText: 'كلمة السر',
                     save: (value) {
                       setState(
                         () {
-                          password = value!;
+                          password.text = value!;
                         },
                       );
                     },
@@ -123,19 +137,17 @@ class _RegisterState extends State<Register> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextButton(
-                        child: Text(
-                          'سجل دخول',
-                          style: TextStyle(color: appColorTheme),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const Login(),
-                            ),
-                          );
-                          // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
-                        },
-                      ),
+                          child: Text(
+                            'سجل دخول',
+                            style: TextStyle(color: appColorTheme),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const Login(),
+                              ),
+                            );
+                          }),
                       const Text('لديك حساب مسبقا؟'),
                     ],
                   ),
@@ -150,9 +162,9 @@ class _RegisterState extends State<Register> {
                           if (ValidateInputData.validateField(userKey)) {
                             userKey.currentState?.save();
                             User user = User(
-                              email: email,
-                              password: password,
-                              username: username,
+                              email: email.text,
+                              password: password.text,
+                              username: username.text,
                             );
                             BlocProvider.of<UserCubit>(context).register(user);
                             // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));

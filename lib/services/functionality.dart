@@ -28,23 +28,6 @@ TimeOfDay convertStringToTimeDay(String value) {
   return timeOfDay;
 }
 
-List getPages(bool taskNotes, bool bills, bool medsAndDocs) {
-  List pages = [];
-  if (taskNotes) {
-    pages.add(taskPage);
-    // pages.add(notesPage);
-  }
-
-  if (bills) {
-    pages.add(billsPage);
-  }
-
-  if (medsAndDocs) {
-    pages.add(medsPage);
-  }
-
-  return pages;
-}
 
 Duration differenceBetweenTimes(TimeOfDay timeOfDay) {
   DateTime now = DateTime.now();
@@ -89,6 +72,16 @@ class ValidateInputData {
   static String? checkIfNull(String? value) {
     if (value?.isEmpty ?? true) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';
+    } else {
+      return null;
+    }
+  }
+
+  static String? checkPassword(String? value, String password) {
+    if (value?.isEmpty ?? true) {
+      return 'هذا الحقل لا يمكن ان يكون فارغ';
+    } else if (!(password.compareTo(value!) == 0)) {
+      return 'كلمة السر غير متطابقة';
     } else {
       return null;
     }
