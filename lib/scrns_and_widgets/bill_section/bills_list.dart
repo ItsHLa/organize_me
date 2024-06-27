@@ -145,11 +145,6 @@ class _BillListState extends State<BillList> {
                           return const SizedBox();
                         },
                       );
-                //  if (state is WaterLoaded ||
-                //      state is ElectricLoaded ||
-                //     state is TelecomLoaded) {
-                //  ;
-                // }
               },
             ),
           )

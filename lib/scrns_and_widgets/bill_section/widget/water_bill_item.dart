@@ -36,6 +36,7 @@ class WaterBills extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: ListTile(
+              trailing: waterBill,
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => BillCategoryDetail(
@@ -47,24 +48,24 @@ class WaterBills extends StatelessWidget {
                       'وقت',
                       'المحافظة',
                       'رقم الباركود',
-                      'رقم العداد',
-                      'رقم العملية',
-                    ],
-                    subtitle: [
-                      receiptNumber,
-                      paymentAmount,
-                      commissionAmount,
-                      date,
-                      time,
-                      gov,
-                      barcodeNumber,
-                      counterNumber,
-                      operationNumber,
-                    ],
-                    icon: const [
-                      Icons.receipt_outlined,
-                      Icons.monetization_on_outlined,
-                      Icons.money,
+                          'رقم العداد',
+                          'رقم العملية',
+                        ],
+                        subtitle: [
+                          receiptNumber,
+                          paymentAmount,
+                          commissionAmount,
+                          date,
+                          time,
+                          gov,
+                          barcodeNumber,
+                          counterNumber,
+                          operationNumber,
+                        ],
+                        icon: const [
+                          Icons.receipt_outlined,
+                          Icons.monetization_on_outlined,
+                          Icons.money,
                       Icons.date_range_outlined,
                       Icons.timer_outlined,
                       Icons.place_outlined,
@@ -75,16 +76,15 @@ class WaterBills extends StatelessWidget {
                   ),
                 ));
               },
-              title: Text('رقم الايصال$receiptNumber'),
-              subtitle: Text(date),
+              title:
+                  Text('رقم الايصال$receiptNumber', textAlign: TextAlign.end),
+              subtitle: Text(
+                date,
+                textAlign: TextAlign.end,
+              ),
             ),
           ),
         ),
-        Positioned(
-          top: -4,
-          right: -4,
-          child: waterBill,
-        )
       ],
     );
   }

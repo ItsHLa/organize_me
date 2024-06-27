@@ -16,6 +16,7 @@ class BillCategorySpending extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: const Icon(Icons.arrow_back_ios_new),
       onTap: onTap,
       title: Text(
         title,

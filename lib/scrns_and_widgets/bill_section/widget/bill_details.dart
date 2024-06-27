@@ -37,21 +37,25 @@ class BillCategoryDetail extends StatelessWidget {
             ],
           ),
           Expanded(
-            child: ListView.separated(
-              separatorBuilder: (context, index) => const Divider(),
-              padding: EdgeInsets.zero,
+            child: ListView.builder(
               itemCount: title.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  trailing: Icon(icon[index]),
-                  title: Text(
-                    title[index],
-                    textAlign: TextAlign.right,
-                    style: const TextStyle(color: Colors.grey),
-                  ),
-                  subtitle: Text(
-                    subtitle[index],
-                    textAlign: TextAlign.right,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Card(
+                    elevation: 4,
+                    shape: const StadiumBorder(),
+                    child: ListTile(
+                      trailing: Icon(icon[index]),
+                      title: Text(
+                        " ${title[index]} ",
+                        textAlign: TextAlign.right,
+                      ),
+                      subtitle: Text(
+                        subtitle[index],
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
                   ),
                 );
               },
@@ -62,20 +66,3 @@ class BillCategoryDetail extends StatelessWidget {
     );
   }
 }
-
-/**
- *
- * Positioned(
-    right: MediaQuery.of(context).devicePixelRatio,
-    child: Container(
-    padding: const EdgeInsets.all(8),
-    decoration: BoxDecoration(
-    border: Border.all(color: Colors.black87),
-    borderRadius: BorderRadius.circular(20)
-    ),
-    child: const Icon(Icons.payments_outlined
-    ,color: green,
-    size: 30,
-    ) , ))
- *
- * */
