@@ -104,7 +104,7 @@ class _AccountInfoState extends State<AccountInfo> {
           userName.text = state.username;
           email.text = state.email;
           userPassword = state.password;
-          print(userPassword);
+        //  print(userPassword);
         } else if (state is Failed) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('حصل خطأ اثناء التعديل يرجى اعادة محاولة')));
