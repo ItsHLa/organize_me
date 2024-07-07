@@ -21,16 +21,17 @@ class _AccountInfoState extends State<AccountInfo> {
   List labels = [
     'اسم المستخدم',
     'البريد الالكتروني',
-    'كلمة السر',
-    'تأكيد كلمة السر'
+    'كلمة السر القديمة',
+    'كلمة السر الجديدة'
   ];
   List<bool> obscureText = [false, false, true, true];
 
   TextEditingController id = TextEditingController();
   TextEditingController userName = TextEditingController();
   TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController reEnteredPassword = TextEditingController();
+  TextEditingController oldPassword = TextEditingController();
+  String? userPassword;
+  TextEditingController newPassword = TextEditingController();
 
   GlobalKey<FormState> key = GlobalKey();
 
@@ -67,12 +68,12 @@ class _AccountInfoState extends State<AccountInfo> {
     List validator = [
       ValidateInputData.checkIfNull,
       ValidateInputData.checkIfNull,
-      ValidateInputData.checkIfNull,
       (value) {
-        return ValidateInputData.checkPassword(value, password.text);
-      }
+        return ValidateInputData.checkPassword(userPassword, oldPassword.text);
+      },
+      ValidateInputData.checkIfNull,
     ];
-    List controllers = [userName, email, password, reEnteredPassword];
+    List controllers = [userName, email, oldPassword, newPassword];
     List save = [
       (value) {
         setState(() {
@@ -85,10 +86,10 @@ class _AccountInfoState extends State<AccountInfo> {
         });
       },
       (value) {
-        password.text = value!;
+        oldPassword.text = value!;
       },
       (value) {
-        reEnteredPassword.text = value!;
+        newPassword.text = value ?? userPassword;
       }
     ];
     BlocProvider.of<UserCubit>(context).loadUserInfo();
@@ -102,8 +103,8 @@ class _AccountInfoState extends State<AccountInfo> {
           id.text = state.id.toString();
           userName.text = state.username;
           email.text = state.email;
-          password.text = state.password;
-          reEnteredPassword.text = state.password;
+          userPassword = state.password;
+          print(userPassword);
         } else if (state is Failed) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('حصل خطأ اثناء التعديل يرجى اعادة محاولة')));
@@ -172,7 +173,7 @@ class _AccountInfoState extends State<AccountInfo> {
                               id: int.parse(id.text),
                               email: email.text,
                               userName: userName.text,
-                              password: password.text);
+                              password: newPassword.text);
                         }
                       },
                       child: Center(
