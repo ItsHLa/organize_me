@@ -71,7 +71,7 @@ class _RegisterState extends State<Register> {
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     alignment: Alignment.centerRight,
                     child: const Text(
-                      'انشئ حساب',
+                      'انشاء حساب',
                       textAlign: TextAlign.right,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

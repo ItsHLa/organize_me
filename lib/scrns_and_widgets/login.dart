@@ -68,15 +68,13 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     height: 90,
                     child: Image.asset('images/app_icon.png'),
-
-                    // child: Image.asset('images/app_icon.jpg'),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     padding: const EdgeInsets.only(top: 15, bottom: 15),
                     alignment: Alignment.centerRight,
                     child: const Text(
-                      ' سجل دخول',
+                      ' تسجيل دخول',
                       textAlign: TextAlign.right,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
