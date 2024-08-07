@@ -20,7 +20,6 @@ class DocsNumbersListView extends StatefulWidget {
 class _DocsNumbersListViewState extends State<DocsNumbersListView> {
   @override
   Widget build(BuildContext context) {
-    print(widget.contacts.length);
     return MyListView(
       dataList: widget.contacts,
       itemCount: widget.contacts.length,
@@ -35,24 +34,24 @@ class _DocsNumbersListViewState extends State<DocsNumbersListView> {
                           showModalBottomSheet(
                               isScrollControlled: true,
                               context: context,
-                          builder: (modalcontext) {
-                            return BlocProvider<DocsNumCubit>.value(
-                              value: BlocProvider.of(context),
-                              child:
-                              EditPhoneNumber(contact: widget.contacts[index]),
-                            );
-                          });
-                    },
-                    idx: index,
-                    contact: widget.contacts[index],
-                  ),
-                )));
+                              builder: (modalcontext) {
+                                return BlocProvider<DocsNumCubit>.value(
+                                  value: BlocProvider.of(context),
+                                  child: EditPhoneNumber(
+                                      contact: widget.contacts[index]),
+                                );
+                              });
+                        },
+                        idx: index,
+                        contact: widget.contacts[index],
+                      ),
+                    )));
           },
           docsName: widget.contacts[index].name,
           spec: widget.contacts[index].specialist,
           onPressedCall: () {
-            BlocProvider.of<DocsNumCubit>(context).call(
-                widget.contacts[index].phone);
+            BlocProvider.of<DocsNumCubit>(context)
+                .call(widget.contacts[index].phone);
           },
         );
       },

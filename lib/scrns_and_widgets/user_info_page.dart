@@ -128,11 +128,13 @@ class _AccountInfoState extends State<AccountInfo> {
               IconButton(
                   onPressed: () async {
                     await User.signUser(false);
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const Register(),
-                      ),
-                    );
+                    if (context.mounted) {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const Register(),
+                        ),
+                      );
+                    }
                   },
                   icon: const Icon(Icons.logout))
             ],
