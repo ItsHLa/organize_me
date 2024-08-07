@@ -26,7 +26,6 @@ class _MySearchBarState extends State<MySearchBar> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 17.0),
       child: SizedBox(
-        // padding: EdgeInsets.all(8),
         height: 100,
         child: TextField(
           decoration: InputDecoration(
@@ -37,15 +36,12 @@ class _MySearchBarState extends State<MySearchBar> {
             labelStyle: TextStyle(color: appColorTheme),
             hintStyle: TextStyle(color: appColorTheme),
             border: UnderlineInputBorder(
-              //borderRadius: BorderRadius.circular(20),
               borderSide: BorderSide(color: appColorTheme),
             ),
             focusedBorder: UnderlineInputBorder(
-              // borderRadius: BorderRadius.circular(20),
               borderSide: BorderSide(color: appColorTheme),
             ),
             enabledBorder: const UnderlineInputBorder(
-              // borderRadius: BorderRadius.circular(20),
               borderSide: BorderSide(color: Colors.grey),
             ),
           ),
@@ -56,7 +52,6 @@ class _MySearchBarState extends State<MySearchBar> {
                 value: BlocProvider.of(context),
                 child: BlocListener<BillCubit, BillState>(
                   listener: (context, state) {
-                    // TODO: implement listener
                     if (state is MonthlySpendingCalculated) {
                       Navigator.pop(context);
                     }

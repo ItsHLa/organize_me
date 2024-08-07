@@ -125,7 +125,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ],
             keyboardType: const [null, null, null, null, TextInputType.number],
             onPressed: () async {
-              // to full the database with dummy data for testing
+              // to fill the database with dummy data for testing
               //await addDummyBills(dummyElectric);
               //await addDummyBills(dummyTelecom);
               //await addDummyBills(dummyWater);

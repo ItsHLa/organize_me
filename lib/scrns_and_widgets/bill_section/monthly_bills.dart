@@ -40,7 +40,6 @@ class _MonthlyChartState extends State<MonthlyChart> {
           buildWhen: (previous, current) =>
               current is MonthlySpendingCalculated,
           builder: (context, state) {
-            //   print(state.toString());
             if (state is MonthlySpendingCalculated) {
               List monthlyPercent = state.percent;
               List monthly = state.sum;

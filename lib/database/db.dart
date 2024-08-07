@@ -16,7 +16,6 @@ class DatabaseHelper {
   static Future intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'data.db');
-    // await databaseFactory.deleteDatabase(path);
     Database mydb = await openDatabase(
       path,
       onCreate: _onCreate,
@@ -27,7 +26,6 @@ class DatabaseHelper {
   }
 
   static _onUpgrade(Database db, int oldversion, int newversion) async {
-    // await DoctorsContacts.getAllContacts();
   }
 
   static _onCreate(Database db, int version) async {

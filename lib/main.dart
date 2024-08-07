@@ -9,12 +9,11 @@ import 'package:organize_me/user_cubit/user_cubit.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'database/db.dart';
+import 'scrns_and_widgets/register.dart';
 import 'services/work_manager_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await requestPermission(Permission.);
-
   await requestPermission(Permission.phone);
   await requestPermission(Permission.sms);
   await requestPermission(Permission.notification);
@@ -83,14 +82,13 @@ class _OrganizeMeState extends State<OrganizeMe> {
             darkTheme: ThemeData.dark(),
             theme: state.on ? ThemeData.dark() : ThemeData.light(),
             home: BlocListener<UserCubit, UserState>(
-                listener: (context, state) {
-                  if (state is CheckIfSigned) {
-                    signed = state.signed;
-                  }
-                },
-                child: HomePage()
-                //signed ? const HomePage() : const Register(),
-                ));
+              listener: (context, state) {
+                if (state is CheckIfSigned) {
+                  signed = state.signed;
+                }
+              },
+              child: signed ? const HomePage() : const Register(),
+            ));
       },
     );
   }

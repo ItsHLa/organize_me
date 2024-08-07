@@ -20,7 +20,6 @@ class _DayCalendarState extends State<DayCalendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: appColorTheme,
         shape: const StadiumBorder(),

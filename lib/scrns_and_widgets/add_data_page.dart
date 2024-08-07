@@ -8,7 +8,6 @@ import 'my_button.dart';
 class InputDataPage extends StatelessWidget {
   const InputDataPage(
       {super.key,
-      //   required this.child,
       required this.onPressed,
       required this.icon,
       required this.labels,
