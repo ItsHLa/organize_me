@@ -58,24 +58,3 @@ class _DayCalendarState extends State<DayCalendar> {
     );
   }
 }
-/*
-*
-* MyFab(
-        //   icon: ,
-        children: [
-          SpeedDialChild(
-              onTap: () {
-
-              },
-
-          //   SpeedDialChild(
-          //      child: const Icon(Icons.note_alt),
-          //     onTap: () {
-          //      Navigator.of(context).push(MaterialPageRoute(
-          //       builder: (context) => const NoteView(),
-          //    ));
-          // })
-        ],
-      ),
-*
-* */

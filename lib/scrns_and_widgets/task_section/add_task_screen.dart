@@ -125,9 +125,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ],
             keyboardType: const [null, null, null, null, TextInputType.number],
             onPressed: () async {
-              await addDummyBills(dummyElectric);
-              await addDummyBills(dummyTelecom);
-              await addDummyBills(dummyWater);
+              // to full the database with dummy data for testing
+              //await addDummyBills(dummyElectric);
+              //await addDummyBills(dummyTelecom);
+              //await addDummyBills(dummyWater);
 
               if (ValidateInputData.validateField(taskKey)) {
                 taskKey.currentState!.save();

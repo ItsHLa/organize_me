@@ -115,6 +115,7 @@ class UserCubit extends Cubit<UserState> {
       emit(Loading());
       try {
         http.Response response = await ApiCalls.addUser(user);
+        //print(response.statusCode.toString());
         if (response.statusCode == 200) {
           Map bodyMap = jsonDecode(response.body);
           bodyMap['me']['password'] = user.password;

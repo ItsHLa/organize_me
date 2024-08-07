@@ -19,7 +19,6 @@ class MyDatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // padding: const EdgeInsets.symmetric(horizontal: 1),
       height: 70,
       child: TextFormField(
         validator: validator,

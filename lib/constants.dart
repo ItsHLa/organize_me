@@ -14,7 +14,7 @@ import 'package:organize_me/scrns_and_widgets/task_section/cubit/task_cubit.dart
 import 'package:organize_me/scrns_and_widgets/task_section/task_view.dart';
 import 'package:organize_me/user.dart';
 
-/////////////////////////////////////// notifications constants//////////////////////////////
+// notifications constants
 const taskTag = 'taskTag';
 const medicineTag = 'medicineTag';
 const billTag = 'billTag';
@@ -27,8 +27,7 @@ const String taskChannelName = 'taskChannelName';
 const String medicineChannelName = 'medicineChannelName';
 const String billChannelName = 'billChannelName';
 
-/////////////////////////////////////pages//////////////////////////////////////////
-
+// pages
 Widget taskPage = BlocProvider(
   create: (context) => TaskCubit(),
   child: const DayCalendar(),
@@ -47,13 +46,8 @@ Widget billsPage = BlocProvider(
   child: const MyBills(),
 );
 
-//////////////////////////////customize constants///////////////////////////////////
 
-String taskNotesKey = 'taskNotes';
-String billsKey = 'bill';
-String medsAndDocsKey = 'numMeds';
-
-////////////////////////////////////////TaskIcons///////////////////////////////////////////////////
+// TaskIcons
 Icon taskComplete = const Icon(
   Icons.task_alt_outlined,
   color: green,
@@ -67,35 +61,38 @@ Icon taskPending = const Icon(
   Icons.not_started_outlined,
   size: 30,
 );
-/////////////////////////////////////////////darkModeIcons///////////////////////////////////////////
+
+// darkModeIcons
 const Icon darkModeOn = Icon(Icons.wb_sunny_outlined);
 const Icon darkModeOff = Icon(Icons.nightlight_outlined);
-/////////////////////////////////BillIcons////////////////////////////////////////////////
+
+//BillIcons
 Widget waterBill = const IconForm(
     child: Icon(
   Icons.water_drop,
   color: Color.fromRGBO(7, 144, 166, 1),
 ));
+
 Widget electricBill = const IconForm(
     child: Icon(
   Icons.electric_bolt,
   color: Color.fromRGBO(219, 200, 109, 1),
 ));
+
 Widget telecomBill = const IconForm(
     child: Icon(
   Icons.call_end,
   color: Color.fromRGBO(109, 124, 65, 1),
 ));
 
-///////////////////////////Colors //////////////////////////////////////////////
-
+//Colors
 Color appColorTheme = Colors.blue.shade800;
 const Color blue = Color.fromRGBO(7, 144, 166, 1);
 const Color red = Color.fromRGBO(194, 100, 101, 1);
 const Color yellow = Color.fromRGBO(219, 200, 109, 1);
 const Color green = Color.fromRGBO(109, 124, 65, 1);
 
-//////////////////////////////////Regex//////////////////////////////////////////
+// Regex
 RegExp electricRegex = RegExp(
     r'\D+(\d+\.?\d*)\D+الكهرباء\D+(\d+\.?\d*)\D+(\d+)\D+(\d{2}/\d{2}/\d{4} \d{2}:\d{2})\D+: ([\u0621-\u064A]+)\D+(\d+)\D+(\d+)\D+(s\d+)');
 

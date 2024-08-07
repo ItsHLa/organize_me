@@ -13,9 +13,6 @@ class AddMedsScreen extends StatefulWidget {
 }
 
 class _AddMedsScreenState extends State<AddMedsScreen> {
-  // String medicienName = '';
-  // int interval = 0;
-  // String shotTime = '';
   TimeOfDay? time;
   TextEditingController shotTime = TextEditingController();
   TextEditingController medicienName = TextEditingController();

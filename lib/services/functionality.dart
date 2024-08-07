@@ -3,6 +3,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../constants.dart';
 
+// a function to request permissions from user
 Future<void> requestPermission(Permission permission) async {
   await permission.isDenied.then((value) {
     if (value) {
@@ -11,6 +12,7 @@ Future<void> requestPermission(Permission permission) async {
   });
 }
 
+// a function that convert String to DateTime
 DateTime convertStringToDateTime(String value) {
   List<String>? parts = value.split('-');
   int year = int.parse(parts[0]);
@@ -20,6 +22,7 @@ DateTime convertStringToDateTime(String value) {
   return date;
 }
 
+// a function that convert  DateTime to String
 TimeOfDay convertStringToTimeDay(String value) {
   List<String>? parts = value.split(':');
   int hour = int.parse(parts[0]);
@@ -28,7 +31,7 @@ TimeOfDay convertStringToTimeDay(String value) {
   return timeOfDay;
 }
 
-
+// a function that calculate the difference between Times
 Duration differenceBetweenTimes(TimeOfDay timeOfDay) {
   DateTime now = DateTime.now();
   DateTime dateTime =
@@ -37,6 +40,7 @@ Duration differenceBetweenTimes(TimeOfDay timeOfDay) {
   return duration;
 }
 
+// a function that convert  timeOfDay to Duration
 Duration timeOfDayToDuration(TimeOfDay timeOfDay) {
   // Create a DateTime object with today's date and the time from TimeOfDay
   DateTime now = DateTime.now();
@@ -60,6 +64,7 @@ Duration timeOfDayToDuration(TimeOfDay timeOfDay) {
   return duration;
 }
 
+// class with functions  that validate the input
 class ValidateInputData {
   static bool validateField(GlobalKey<FormState> formKey) {
     if (formKey.currentState!.validate()) {
@@ -315,6 +320,7 @@ class ValidateInputData {
   }
 }
 
+// a function that showTimePicker
 Future<TimeOfDay?> showTime(BuildContext context) async {
   return await showTimePicker(
       context: context,
@@ -363,6 +369,7 @@ Future<TimeOfDay?> showTime(BuildContext context) async {
       initialTime: TimeOfDay.now());
 }
 
+// a function that showDatePicker
 Future<DateTime?> showDate(BuildContext context) async {
   return await showDatePicker(
     builder: (context, child) {
@@ -419,6 +426,7 @@ Future<DateTime?> showDate(BuildContext context) async {
   );
 }
 
+// to format date in database to be compatible with api
 extension SwappableList<E> on List<E> {
   List swap(int first, int second) {
     final temp = this[first];

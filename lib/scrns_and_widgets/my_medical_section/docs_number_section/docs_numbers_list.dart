@@ -6,12 +6,22 @@ import 'package:organize_me/scrns_and_widgets/no_content.dart';
 
 import 'cubit/docs_num_cubit.dart';
 
-class DocsNumbers extends StatelessWidget {
+class DocsNumbers extends StatefulWidget {
   const DocsNumbers({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<DocsNumbers> createState() => _DocsNumbersState();
+}
+
+class _DocsNumbersState extends State<DocsNumbers> {
+  @override
+  void initState() {
     BlocProvider.of<DocsNumCubit>(context).loadDocsNumbers();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<DocsNumCubit, DocsNumState>(
       builder: (context, state) {
         if (state is DocsNumLoadingData) {
@@ -20,9 +30,9 @@ class DocsNumbers extends StatelessWidget {
             color: appColorTheme,
           ));
         } else if (state.docsNumber.isNotEmpty &&
-            (state is DocsNumLoaded ||
-                state is AddDocsNumSuccess ||
-                state is DeleteDocsNumSuccess)) {
+            (state is DeleteDocsNumSuccess ||
+                state is DocsNumLoaded ||
+                state is AddDocsNumSuccess)) {
           return DocsNumbersListView(
             contacts: state.docsNumber,
           );

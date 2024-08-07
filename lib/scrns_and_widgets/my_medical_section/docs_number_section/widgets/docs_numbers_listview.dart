@@ -8,16 +8,22 @@ import '../models/doctors_contacts.dart';
 import '../phone_details.dart';
 import 'docs_number_item.dart';
 
-class DocsNumbersListView extends StatelessWidget {
+class DocsNumbersListView extends StatefulWidget {
   const DocsNumbersListView({super.key, required this.contacts});
 
   final List<DoctorsContacts> contacts;
 
   @override
+  State<DocsNumbersListView> createState() => _DocsNumbersListViewState();
+}
+
+class _DocsNumbersListViewState extends State<DocsNumbersListView> {
+  @override
   Widget build(BuildContext context) {
+    print(widget.contacts.length);
     return MyListView(
-      dataList: contacts,
-      itemCount: contacts.length,
+      dataList: widget.contacts,
+      itemCount: widget.contacts.length,
       itemBuilder: (context, index) {
         return DocsNumber(
           onTap: () {
@@ -25,32 +31,28 @@ class DocsNumbersListView extends StatelessWidget {
                 builder: (newcontext) => BlocProvider<DocsNumCubit>.value(
                       value: BlocProvider.of(context),
                       child: ContactDetails(
-                        onPressedDelete: () {
-                          BlocProvider.of<DocsNumCubit>(context)
-                              .deletePhoneNumber(contacts[index].id);
-                          Navigator.of(context).pop();
-                        },
                         onPressedEdit: () {
                           showModalBottomSheet(
                               isScrollControlled: true,
                               context: context,
-                              builder: (modalcontext) {
-                                return BlocProvider<DocsNumCubit>.value(
-                                  value: BlocProvider.of(context),
-                                  child:
-                                      EditPhoneNumber(contact: contacts[index]),
-                                );
-                              });
-                        },
-                        idx: index,
-                        contact: contacts[index],
-                      ),
-                    )));
+                          builder: (modalcontext) {
+                            return BlocProvider<DocsNumCubit>.value(
+                              value: BlocProvider.of(context),
+                              child:
+                              EditPhoneNumber(contact: widget.contacts[index]),
+                            );
+                          });
+                    },
+                    idx: index,
+                    contact: widget.contacts[index],
+                  ),
+                )));
           },
-          docsName: contacts[index].name,
-          spec: contacts[index].specialist,
+          docsName: widget.contacts[index].name,
+          spec: widget.contacts[index].specialist,
           onPressedCall: () {
-            BlocProvider.of<DocsNumCubit>(context).call(contacts[index].phone);
+            BlocProvider.of<DocsNumCubit>(context).call(
+                widget.contacts[index].phone);
           },
         );
       },

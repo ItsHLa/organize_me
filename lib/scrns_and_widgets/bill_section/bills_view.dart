@@ -30,10 +30,3 @@ class MyBills extends StatelessWidget {
     );
   }
 }
-/*
-*
-*   BlocProvider<BillCubit>.value(
-            value: BlocProvider.of(context),
-            child: const MySearchBar(),),
-*
-* */

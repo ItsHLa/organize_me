@@ -20,7 +20,6 @@ class InputDataPage extends StatelessWidget {
       this.onTap,
       required this.controllers});
 
-//  final Widget child;
   final void Function()? onPressed;
   final IconData icon;
   final String labelButton;

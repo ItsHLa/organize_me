@@ -29,6 +29,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
+        print(state.toString());
         if (state is RegisterSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('تم انشاء حساب بنجاح'),
@@ -194,14 +195,3 @@ class _RegisterState extends State<Register> {
     );
   }
 }
-
-/*
-* if (context.mounted) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const HomePage(),
-                          ),
-                        );
-                      }
-*
-* */

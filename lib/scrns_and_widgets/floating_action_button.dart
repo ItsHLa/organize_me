@@ -24,15 +24,3 @@ class MyFab extends StatelessWidget {
     );
   }
 }
-/*
-* FloatingActionButton(
-      backgroundColor: softPurple,
-      shape: const StadiumBorder(),
-      onPressed: onPressed,
-      child: Icon(
-        icon,
-        color: black,
-      ),
-    )
-*
-* */
