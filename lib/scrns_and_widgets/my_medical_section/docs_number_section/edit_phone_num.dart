@@ -45,7 +45,10 @@ class _EditPhoneNumberState extends State<EditPhoneNumber> {
           controllers: [editClinicNumber, editPhoneNumber],
           labels: const ['رقم العيادة', 'رقم الطبيب'],
           keyboardType: const [TextInputType.number, TextInputType.number],
-          validator: const [null, ValidateInputData.checkEditedPhoneNumber],
+          validator: const [
+            ValidateInputData.checkEditedClinicNumber,
+            ValidateInputData.checkEditedPhoneNumber
+          ],
           save: [
             (value) {
               editClinicNumber.text = value!;

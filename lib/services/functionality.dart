@@ -92,6 +92,35 @@ class ValidateInputData {
     }
   }
 
+  static String? checkClinicNumber(String? value) {
+    if (value?.isEmpty ?? true) {
+      return 'هذا الحقل لا يمكن ان يكون فارغ';
+    }
+    int phoneNumber = int.parse(value!);
+    if (phoneNumber.isNegative) {
+      return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
+    } else if (value.length < 7) {
+      return 'هذا الحقل لا يمكن ان يكون اقل من 7 ارقام';
+    } else if (value.length > 7) {
+      return 'هذا الحقل لا يمكن ان يكون اكبر من 7 ارقام';
+    } else {
+      return null;
+    }
+  }
+
+  static String? checkEditedClinicNumber(String? value) {
+    int phoneNumber = int.parse(value!);
+    if (phoneNumber.isNegative) {
+      return 'هذا الحقل لا يمكن ان يكون يحوي اعداد سالبة';
+    } else if (value.length < 7) {
+      return 'هذا الحقل لا يمكن ان يكون أقل من 7 ارقام';
+    } else if (value.length > 7) {
+      return 'هذا الحقل لا يمكن ان يكون اكبر من 7 ارقام';
+    } else {
+      return null;
+    }
+  }
+
   static String? checkPhoneNumber(String? value) {
     if (value?.isEmpty ?? true) {
       return 'هذا الحقل لا يمكن ان يكون فارغ';

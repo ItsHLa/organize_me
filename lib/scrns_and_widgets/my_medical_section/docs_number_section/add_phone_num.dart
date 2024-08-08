@@ -56,7 +56,7 @@ class _AddPhoneNumState extends State<AddPhoneNum> {
               ValidateInputData.checkIfNull,
               ValidateInputData.checkIfNull,
               ValidateInputData.checkPhoneNumber,
-              null
+              ValidateInputData.checkClinicNumber
             ],
             keyboardType: const [
               null,
