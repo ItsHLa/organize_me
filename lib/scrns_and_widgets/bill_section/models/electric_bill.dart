@@ -72,20 +72,6 @@ class ElectricBill extends Bill {
     return matchesMap;
   }
 
-  factory ElectricBill.fromJson(Map<String, dynamic> json) => ElectricBill(
-        id: json["id"],
-        paymentAmount: json["payment_amount"],
-        commissionAmount: json["commission_amount"],
-        date: json["date"],
-        time: json["time"],
-        provider: json["provider"],
-        operationNumber: json["operation_number"],
-        gov: json["gov"],
-        billingNumber: json["billing_number"],
-        invoiceNumber: json["invoice_number"],
-        subscriptionNumber: json["subscription_number"],
-      );
-
   @override
   Map<String, String> toJson() => {
         "payment_amount": paymentAmount.toString(),

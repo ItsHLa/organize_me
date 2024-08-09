@@ -2,6 +2,7 @@ import 'package:organize_me/database/db.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DoctorsContacts {
+  static const String tableName = "doctors_contacts";
   final int id;
   final String name;
   final String phone;
@@ -29,11 +30,14 @@ class DoctorsContacts {
   static Future<Map> addContact(
       String name, String phone, String clinic, String specialist) async {
     Database? mydb = await DatabaseHelper.db;
-    int contactId = await mydb!.rawInsert(
-      """
-        INSERT OR IGNORE INTO doctors_contacts(name, phone, clinic_number, specialist) VALUES (?, ? ,?, ?);
-      """,
-      [name, phone, clinic, specialist],
+    int contactId = await mydb!.insert(
+      tableName,
+      {
+        "name": name,
+        "phone": phone,
+        "clinic_number": clinic,
+        "specialist": specialist,
+      },
     );
     return (await geOneContact(contactId));
   }
@@ -44,47 +48,35 @@ class DoctorsContacts {
     String newClinicNumber = '',
   }) async {
     Database? mydb = await DatabaseHelper.db;
-    String editClinicNumber =
-        newClinicNumber.isNotEmpty ? "clinic_number = '$newClinicNumber'" : "";
-    String editPhone = newPhone.isNotEmpty ? "phone = '$newPhone'" : "";
-    editClinicNumber.isNotEmpty && editPhone.isNotEmpty
-        ? editPhone += ','
-        : editPhone += '';
-
-    await mydb!.rawUpdate(
-      """
-        UPDATE doctors_contacts SET $editPhone
-                                    $editClinicNumber 
-                                      WHERE id = ?;
-      """,
-      [
-        contactId,
-      ],
+    Map<String, Object> values = {
+      "last_modified": DateTime.now().toString(),
+    };
+    if (newClinicNumber.isNotEmpty) values['clinic_number'] = newClinicNumber;
+    if (newPhone.isNotEmpty) values['phone'] = newPhone;
+    await mydb!.update(
+      tableName,
+      values,
+      where: "id = ?",
+      whereArgs: [contactId],
     );
     return geOneContact(contactId);
   }
 
   static deleteContact(int contactId) async {
     Database? mydb = await DatabaseHelper.db;
-    await mydb!.rawDelete(
-      """
-        DELETE FROM doctors_contacts WHERE id = ?;
-      """,
-      [
-        contactId,
-      ],
+    await mydb!.delete(
+      tableName,
+      where: "id = ?",
+      whereArgs: [contactId],
     );
   }
 
   static Future<Map> geOneContact(int contactId) async {
     Database? mydb = await DatabaseHelper.db;
-    List<Map> contact = await mydb!.rawQuery(
-      """
-        SELECT * FROM doctors_contacts WHERE id = ?
-      """,
-      [
-        contactId,
-      ],
+    List<Map> contact = await mydb!.query(
+      tableName,
+      where: "id = ?",
+      whereArgs: [contactId],
     );
 
     return contact[0];
@@ -92,11 +84,7 @@ class DoctorsContacts {
 
   static Future<List<DoctorsContacts>> getAllContacts() async {
     Database? mydb = await DatabaseHelper.db;
-    List<Map> contactssMap = await mydb!.rawQuery(
-      """
-        SELECT * FROM doctors_contacts
-      """,
-    );
+    List<Map> contactssMap = await mydb!.query(tableName);
     List<DoctorsContacts> contacts = [];
     for (Map contact in contactssMap) {
       contacts.add(fromMap(contact));

@@ -2,6 +2,7 @@ import 'package:organize_me/database/db.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Task {
+  static const String tableName = "tasks";
   final int id;
   final String title;
   final String content;
@@ -44,27 +45,17 @@ class Task {
   }) async {
     Database? mydb = await DatabaseHelper.db;
     String now = DateTime.now().toString();
-    int taskId = await mydb!.rawInsert(
-      """
-        INSERT OR IGNORE INTO tasks(title,
-                                    content,
-                                    creation_date,
-                                    start_time,
-                                    pre_alarm,
-                                    status,
-                                    start_date)
-
-                                    VALUES (?, ?, ?, ?, ?, ?,?);
-      """,
-      [
-        title,
-        content,
-        now,
-        startTime,
-        preAlarm,
-        status,
-        startDate,
-      ],
+    int taskId = await mydb!.insert(
+      tableName,
+      {
+        "title": title,
+        "content": content,
+        "creation_date": now,
+        "start_time": startTime,
+        "pre_alarm": preAlarm,
+        "status": status,
+        "start_date": startDate,
+      },
     );
     return (await geOneTask(taskId));
   }
@@ -78,28 +69,19 @@ class Task {
     required String newStartDate,
   }) async {
     Database? mydb = await DatabaseHelper.db;
-    String lastModified = DateTime.now().toString();
-    String editContent =
-        newContent.isNotEmpty ? "content = '$newContent'," : "";
-    String editTitle = newTitle.isNotEmpty ? "title = '$newTitle'," : "";
-    String editStartTime =
-        newStartTime.isNotEmpty ? "start_time = '$newStartTime'," : "";
-    String editPreAlarm = newPreAlarm != 0 ? "pre_alarm = $newPreAlarm," : "";
-    String editStartDate =
-        newStartDate.isNotEmpty ? "start_date = '$newStartDate'," : "";
-    await mydb!.rawUpdate(
-      """
-        UPDATE tasks SET $editContent
-                         $editTitle
-                         $editStartTime
-                         $editPreAlarm
-                         $editStartDate
-                         last_modified = ? WHERE id = ?;
-      """,
-      [
-        lastModified,
-        taskId,
-      ],
+    Map<String, Object> values = {
+      "last_modified": DateTime.now().toString(),
+    };
+    if (newContent.isNotEmpty) values['content'] = newContent;
+    if (newTitle.isNotEmpty) values['title'] = newTitle;
+    if (newStartTime.isNotEmpty) values['start_time'] = newStartTime;
+    if (newPreAlarm != 0) values['pre_alarm'] = newPreAlarm;
+    if (newStartDate.isNotEmpty) values['start_date'] = newStartDate;
+    await mydb!.update(
+      tableName,
+      values,
+      where: "id = ?",
+      whereArgs: [taskId],
     );
     return await geOneTask(taskId);
   }
@@ -109,28 +91,27 @@ class Task {
     required String newStatus,
   }) async {
     Database? mydb = await DatabaseHelper.db;
-    String lastModified = DateTime.now().toString();
-    String editStatus = newStatus.isNotEmpty ? "status = '$newStatus'," : "";
-    await mydb!.rawUpdate(
-      """
-        UPDATE tasks SET $editStatus
-                         last_modified = ? WHERE id = ?;
-      """,
-      [
-        lastModified,
-        taskId,
-      ],
+    Map<String, Object> values = {
+      "last_modified": DateTime.now().toString(),
+    };
+    assert(newStatus.isNotEmpty, "newStatus is empty");
+    values['status'] = newStatus;
+
+    await mydb!.update(
+      tableName,
+      values,
+      where: "id = ?",
+      whereArgs: [taskId],
     );
     return await geOneTask(taskId);
   }
 
   static Future deleteTask(int taskId) async {
     Database? mydb = await DatabaseHelper.db;
-    await mydb!.rawDelete(
-      """
-        DELETE FROM tasks WHERE id = ?;
-      """,
-      [
+    await mydb!.delete(
+      "tasts",
+      where: "id = ?",
+      whereArgs: [
         taskId,
       ],
     );
@@ -138,11 +119,10 @@ class Task {
 
   static Future<Map> geOneTask(int taskId) async {
     Database? mydb = await DatabaseHelper.db;
-    List<Map> task = await mydb!.rawQuery(
-      """
-        SELECT * FROM tasks WHERE id = ?
-      """,
-      [
+    List<Map> task = await mydb!.query(
+      tableName,
+      where: "id = ?",
+      whereArgs: [
         taskId,
       ],
     );
@@ -152,11 +132,12 @@ class Task {
 
   static Future<List<Task>> getTasksByDate(String date) async {
     Database? mydb = await DatabaseHelper.db;
-    List<Map> tasksMap = await mydb!.rawQuery("""
-        SELECT * FROM tasks WHERE start_date = ?;
-      """, [
-      date,
-    ]);
+    List<Map> tasksMap = await mydb!.query(
+      tableName,
+      where: "start_date = ?",
+      whereArgs: [date],
+    );
+
     List<Task> tasks = [];
     for (Map task in tasksMap) {
       tasks.add(fromMap(task));

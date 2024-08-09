@@ -61,18 +61,6 @@ class TelecomBill extends Bill {
     return matchesMap;
   }
 
-  factory TelecomBill.fromJson(Map<String, dynamic> json) => TelecomBill(
-        id: json["id"],
-        paymentAmount: json["payment_amount"],
-        commissionAmount: json["commission_amount"],
-        date: json["date"],
-        time: json["time"],
-        provider: json["provider"],
-        operationNumber: json["operation_number"],
-        invoiceNumber: json["invoice_number"],
-        phoneNumberEmail: json['phone_number_email'],
-      );
-
   @override
   Map<String, String> toJson() => {
         "payment_amount": paymentAmount.toString(),

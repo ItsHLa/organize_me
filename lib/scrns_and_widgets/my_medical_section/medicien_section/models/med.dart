@@ -2,6 +2,7 @@ import 'package:organize_me/database/db.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Med {
+  static const tableName = "meds";
   final int id;
   final String name;
   final String shotTime;
@@ -23,19 +24,8 @@ class Med {
 
   static Future<Map> addMed(String name, String shotTime, int interval) async {
     Database? mydb = await DatabaseHelper.db;
-    int medId = await mydb!.rawInsert(
-      """
-        INSERT OR IGNORE INTO meds(name,
-                                   shot_time,
-                                   interval)
-                                   VALUES (?, ?, ?);
-      """,
-      [
-        name,
-        shotTime,
-        interval,
-      ],
-    );
+    int medId = await mydb!.insert(
+        tableName, {"name": name, "shot_time": shotTime, "interval": interval});
     return await getOneMed(medId);
   }
 
@@ -46,59 +36,32 @@ class Med {
     String newShotTime = '',
   }) async {
     Database? mydb = await DatabaseHelper.db;
-    String lastModified = DateTime.now().toString();
-    String editName = newName.isNotEmpty ? "name = '$newName'," : "";
-    String editInterval = newInterval != 0 ? "interval = '$newInterval'," : "";
-    String editShotTime =
-        newShotTime.isNotEmpty ? "shot_time = '$newShotTime'," : "";
-    await mydb!.rawUpdate(
-      """
-        UPDATE meds SET $editName
-                         $editShotTime
-                         $editInterval
-                         last_modified = ? WHERE id = ?;
-      """,
-      [
-        lastModified,
-        medId,
-      ],
-    );
+    Map<String, Object> values = {
+      "last_modified": DateTime.now().toString(),
+    };
+    if (newName.isNotEmpty) values['name'] = newName;
+    if (newInterval != 0) values['interval'] = newInterval;
+    if (newShotTime.isNotEmpty) values['shot_time'] = newShotTime;
+    await mydb!.update(tableName, values, where: "id = ?", whereArgs: [medId]);
     return await getOneMed(medId);
   }
 
   static Future deleteMed(int medId) async {
     Database? mydb = await DatabaseHelper.db;
-    await mydb!.rawDelete(
-      """
-        DELETE FROM meds WHERE id = ?;
-      """,
-      [
-        medId,
-      ],
-    );
+    await mydb!.delete("meds", where: "id = ?", whereArgs: [medId]);
   }
 
   static Future<Map> getOneMed(int medId) async {
     Database? mydb = await DatabaseHelper.db;
-    List<Map> med = await mydb!.rawQuery(
-      """
-        SELECT * FROM meds WHERE id = ?
-      """,
-      [
-        medId,
-      ],
-    );
+    List<Map> med =
+        await mydb!.query(tableName, where: "id = ?", whereArgs: [medId]);
 
     return med[0];
   }
 
   static Future<List<Med>> getAllMeds() async {
     Database? mydb = await DatabaseHelper.db;
-    List<Map> medsMap = await mydb!.rawQuery(
-      """
-        SELECT * FROM meds
-      """,
-    );
+    List<Map> medsMap = await mydb!.rawQuery(tableName);
     List<Med> meds = [];
     for (Map med in medsMap) {
       meds.add(fromMap(med));

@@ -70,20 +70,6 @@ class WaterBill extends Bill {
     return matchesMap;
   }
 
-  factory WaterBill.fromJson(Map<String, dynamic> json) => WaterBill(
-        id: json["id"],
-        paymentAmount: json["payment_amount"],
-        commissionAmount: json["commission_amount"],
-        date: json["date"],
-        time: json["time"],
-        provider: json["provider"],
-        operationNumber: json["operation_number"],
-        gov: json["gov"],
-        receiptNumber: json["receipt_number"],
-        barcodeNumber: json["barcode_number"],
-        counterNumber: json["counter_number"],
-      );
-
   @override
   Map<String, String> toJson() => {
         "payment_amount": paymentAmount.toString(),
