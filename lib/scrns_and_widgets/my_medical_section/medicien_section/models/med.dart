@@ -48,7 +48,7 @@ class Med {
 
   static Future deleteMed(int medId) async {
     Database? mydb = await DatabaseHelper.db;
-    await mydb!.delete("meds", where: "id = ?", whereArgs: [medId]);
+    await mydb!.delete(tableName, where: "id = ?", whereArgs: [medId]);
   }
 
   static Future<Map> getOneMed(int medId) async {

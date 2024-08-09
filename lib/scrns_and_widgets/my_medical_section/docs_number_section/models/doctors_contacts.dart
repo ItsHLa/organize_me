@@ -48,9 +48,7 @@ class DoctorsContacts {
     String newClinicNumber = '',
   }) async {
     Database? mydb = await DatabaseHelper.db;
-    Map<String, Object> values = {
-      "last_modified": DateTime.now().toString(),
-    };
+    Map<String, Object> values = {};
     if (newClinicNumber.isNotEmpty) values['clinic_number'] = newClinicNumber;
     if (newPhone.isNotEmpty) values['phone'] = newPhone;
     await mydb!.update(

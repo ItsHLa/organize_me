@@ -109,7 +109,7 @@ class Task {
   static Future deleteTask(int taskId) async {
     Database? mydb = await DatabaseHelper.db;
     await mydb!.delete(
-      "tasts",
+      tableName,
       where: "id = ?",
       whereArgs: [
         taskId,
