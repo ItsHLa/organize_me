@@ -77,7 +77,11 @@ class _AddMedsScreenState extends State<AddMedsScreen> {
             ValidateInputData.checkInterval,
             ValidateInputData.checkIfNull
           ],
-          keyboardType: const [null, TextInputType.number, null],
+          keyboardType: const [
+            null,
+            TextInputType.number,
+            TextInputType.number
+          ],
           onPressed: () {
             if (ValidateInputData.validateField(medKey)) {
               medKey.currentState?.save();

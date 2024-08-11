@@ -90,7 +90,11 @@ class _EditMedsScreenState extends State<EditMedsScreen> {
             ValidateInputData.checkEditedInterval,
             ValidateInputData.checkIfNull
           ],
-          keyboardType: const [null, TextInputType.number, null],
+          keyboardType: const [
+            null,
+            TextInputType.number,
+            TextInputType.number
+          ],
           icon: Icons.add,
           labelButton: 'تعديل الدواء',
           onPressed: () {
